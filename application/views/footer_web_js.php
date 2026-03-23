@@ -239,7 +239,8 @@ const cards    = Array.from(track.querySelectorAll('.player-card'));
 let current = 0;
 function getShow() {
   const w = window.innerWidth;
-  if (w <= 1000) return 1;
+  if (w <= 520) return 1;
+  else if (w <= 1050) return 2;
   return 4;
 }
 
@@ -250,16 +251,24 @@ function setCardWidths() {
 
   const show = getShow();
   let gap  = 48;
-  if (window.innerWidth <= 1000){
-    gap = 36;
+  if (window.innerWidth <= 1050){
+    if (window.innerWidth <= 520){
+      gap = 32;
+    }
+    else
+    {
+      gap = 60;
+    }
   }
 
   const w    = (viewport.offsetWidth - gap * (show - 1)) / show;
   /* on mobile show 1 full + peek of next */
-  const mobileW = window.innerWidth <= 1000
+  const mobileW = window.innerWidth <= 1050
+    ?  window.innerWidth <= 520
     ? viewport.offsetWidth * 0.64
-    : w;
-  cards.forEach(c => { c.style.width = (window.innerWidth <= 1000 ? mobileW : w) + 'px'; });
+    : viewport.offsetWidth * 0.32
+    : w;4
+  cards.forEach(c => { c.style.width = (window.innerWidth <= 1050 ? mobileW : w) + 'px'; });
 }
 function updateUI() {
   prevBtn.disabled = current === 0;
@@ -269,12 +278,20 @@ function goTo(page) {
   current = Math.max(0, Math.min(page, getPages() - 1));
   const show   = getShow();
   let gap  = 48;
-  if (window.innerWidth <= 1000){
-    gap = 36;
+  if (window.innerWidth <= 1050){
+    if (window.innerWidth <= 520){
+      gap = 32;
+    }
+    else
+    {
+      gap = 60;
+    }
   }
 
-  const cardW  = window.innerWidth <= 1000
+  const cardW  = window.innerWidth <= 1050
+    ?  window.innerWidth <= 520
     ? viewport.offsetWidth * 0.64
+    : viewport.offsetWidth * 0.32
     : (viewport.offsetWidth - gap * (show - 1)) / show;
   let offset = current * show * (cardW + gap);
   // BIAR POSISI GAMBAR WAKTU KECIL ADA DITENGAH
