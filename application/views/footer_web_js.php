@@ -8,10 +8,10 @@ function openDrawer() {
     <ul>
       <li><a href="#">NEWS</a></li>
       <li><a href="#">FIXTURE</a></li>
-      <li><a href="#" onclick="openMenuMobile('CLUB')">CLUB <button class="mobile-right-btn"><img src="<?=base_url()?>/assets/images/right.png"></button></a></li>
-      <li><a href="#" onclick="openMenuMobile('DELTAMANIA')">DELTAMANIA <button class="mobile-right-btn"><img src="<?=base_url()?>/assets/images/right.png"></button></a></li>
-      <li><a href="#" onclick="openMenuMobile('PARTNERS')">PARTNERS <button class="mobile-right-btn"><img src="<?=base_url()?>/assets/images/right.png"></button></a></li>
-      <li><a href="#" onclick="openMenuMobile('SHOP')">SHOP <button class="mobile-right-btn"><img src="<?=base_url()?>/assets/images/right.png"></button></a></li>
+      <li><a href="#" onclick="openMenuMobile('CLUB')">CLUB <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
+      <li><a href="#" onclick="openMenuMobile('DELTAMANIA')">DELTAMANIA <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
+      <li><a href="#" onclick="openMenuMobile('PARTNERS')">PARTNERS <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
+      <li><a href="#" onclick="openMenuMobile('SHOP')">SHOP <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
       <li><a href="#">TICKET</a></li>
     </ul>
   `;
@@ -210,11 +210,11 @@ function stopSlider() {
 playBtn.addEventListener('click', () => {
     isPlaying = !isPlaying;
     if (isPlaying) {
-        playIcon.innerHTML = '<img src="<?=base_url()?>/assets/images/pause.png">'; // play icon
+        playIcon.innerHTML = '<img src="assets/images/pause.png">'; // play icon
         startSlider();
         if (audio) audio.play().catch(() => {});
     } else {
-        playIcon.innerHTML = '<img src="<?=base_url()?>/assets/images/play.png">'; // pause icon
+        playIcon.innerHTML = '<img src="assets/images/play.png">'; // pause icon
         stopSlider();
     }
 });
@@ -222,7 +222,7 @@ playBtn.addEventListener('click', () => {
 // Sound toggle
 soundBtn.addEventListener('click', () => {
     isMuted = !isMuted;
-    soundBtn.innerHTML = isMuted ? '<img src="<?=base_url()?>/assets/images/volume_off.png">' : '<img src="<?=base_url()?>/assets/images/volume_on.png">';
+    soundBtn.innerHTML = isMuted ? '<img src="assets/images/volume_off.png">' : '<img src="assets/images/volume_on.png">';
     if (audio) audio.muted = isMuted;
 });
 
