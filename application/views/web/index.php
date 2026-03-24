@@ -42,12 +42,12 @@
     <div class="slider-controller">
         <!-- Play/Stop Button -->
         <button class="play-btn" id="playBtn">
-            <span id="playIcon"><img src="<?=base_url()?>/assets/images/pause.png"></span> 
+            <span id="playIcon"><img src="assets/images/pause.png"></span> 
             <span id="slideTitle">Deltras FC Club History</span>
         </button>
 
         <!-- Sound Button -->
-        <button class="sound-btn" id="soundBtn"><img src="<?=base_url()?>/assets/images/volume_on.png"></button>
+        <button class="sound-btn" id="soundBtn"><img src="assets/images/volume_on.png"></button>
     </div>
     <div class="slider-bar">
         <!-- Progress Bar -->
@@ -59,7 +59,7 @@
 
 <!-- TEAM PHOTO STRIP -->
 <div class="team-photo-strip">
-  <img src="<?=base_url()?>/assets/images/player/team.png" alt="Team photo">
+  <img src="assets/images/player/team.png" alt="Team photo">
 </div>
 
 <!-- SENIOR SQUAD -->
@@ -77,14 +77,14 @@
 
 
   <div class="slider-outer">
-    <button class="arrow-btn" id="prevBtn" aria-label="Previous"><img src="<?=base_url()?>/assets/images/white-left.png"></button>
+    <button class="arrow-btn" id="prevBtn" aria-label="Previous"><img src="assets/images/white-left.png"></button>
 
     <div class="slider-viewport" id="viewport">
       <div class="slider-track" id="track">
 
         <div class="player-card">
           <div class="card-photo">
-            <img src="<?=base_url()?>/assets/images/player/11.png" alt="Player 11"/>
+            <img src="assets/images/player/11.png" alt="Player 11"/>
             <span class="card-number">11</span>
           </div>
           <div class="card-info">
@@ -99,7 +99,7 @@
 
         <div class="player-card">
           <div class="card-photo">
-            <img src="<?=base_url()?>/assets/images/player/1.png" alt="Player 1"/>
+            <img src="assets/images/player/1.png" alt="Player 1"/>
             <span class="card-number">1</span>
           </div>
           <div class="card-info">
@@ -114,7 +114,7 @@
 
         <div class="player-card">
           <div class="card-photo">
-            <img src="<?=base_url()?>/assets/images/player/7.png" alt="Player 7"/>
+            <img src="assets/images/player/7.png" alt="Player 7"/>
             <span class="card-number">7</span>
           </div>
           <div class="card-info">
@@ -129,7 +129,7 @@
 
         <div class="player-card">
           <div class="card-photo">
-            <img src="<?=base_url()?>/assets/images/player/8.png" alt="Player 8"/>
+            <img src="assets/images/player/8.png" alt="Player 8"/>
             <span class="card-number">8</span>
           </div>
           <div class="card-info">
@@ -144,7 +144,7 @@
 
          <div class="player-card">
           <div class="card-photo">
-            <img src="<?=base_url()?>/assets/images/player/11.png" alt="Player 11"/>
+            <img src="assets/images/player/11.png" alt="Player 11"/>
             <span class="card-number">11</span>
           </div>
           <div class="card-info">
@@ -159,7 +159,7 @@
 
         <div class="player-card">
           <div class="card-photo">
-            <img src="<?=base_url()?>/assets/images/player/1.png" alt="Player 1"/>
+            <img src="assets/images/player/1.png" alt="Player 1"/>
             <span class="card-number">1</span>
           </div>
           <div class="card-info">
@@ -174,7 +174,7 @@
 
         <div class="player-card">
           <div class="card-photo">
-            <img src="<?=base_url()?>/assets/images/player/7.png" alt="Player 7"/>
+            <img src="assets/images/player/7.png" alt="Player 7"/>
             <span class="card-number">7</span>
           </div>
           <div class="card-info">
@@ -189,7 +189,7 @@
 
         <div class="player-card">
           <div class="card-photo">
-            <img src="<?=base_url()?>/assets/images/player/8.png" alt="Player 8"/>
+            <img src="assets/images/player/8.png" alt="Player 8"/>
             <span class="card-number">8</span>
           </div>
           <div class="card-info">
@@ -205,7 +205,7 @@
       </div>
     </div>
 
-    <button class="arrow-btn" id="nextBtn" aria-label="Next"><img src="<?=base_url()?>/assets/images/white-right.png"></button>
+    <button class="arrow-btn" id="nextBtn" aria-label="Next"><img src="assets/images/white-right.png"></button>
   </div>
 </section>
 
@@ -235,8 +235,8 @@
               <div class="highlight-image-bg-cover">
               </div>
               <div class="play-icon"></div>
-              <div class="video-icon"><img src="<?=base_url()?>/assets/images/video.png"></div>
-              <div class="deltras-icon"><img src="<?=base_url()?>/assets/images/big-logo.png"></div>
+              <div class="video-icon"><img src="assets/images/video.png"></div>
+              <div class="deltras-icon"><img src="assets/images/big-logo.png"></div>
           </div>
           <div class="highlight-red-section">
               <div class="red-badge fira-sans-medium">VIDEO</div>
@@ -264,26 +264,26 @@
               <div class="next-item">
                   <div class="next-info">
                       <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
-                      <div class="next-comp"><img src="<?=base_url()?>/assets/images/calendar.png">&nbsp;<span class="next-time">Sabtu, 14 Februari 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?=base_url()?>/assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
+                      <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Sabtu, 14 Februari 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
                   </div>
                   <div class="next-info-detail">
                     <div class="next-info-detail-sub">
                        <div class="next-team-1">
                         <span class="fira-sans-extrabold">Deltras FC</span>
-                        <img src="<?=base_url()?>/assets/images/team/team1.png">
+                        <img src="assets/images/team/team1.png">
                       </div> 
                       <div class="next-team-time fira-sans-regular">
                         <p class="fira-sans-light">19.00</p>
                         <p class="timezone fira-sans-semibold">WIB</p>
                       </div>
                       <div class="next-team-2">
-                        <img src="<?=base_url()?>/assets/images/team/team2.png">
+                        <img src="assets/images/team/team2.png">
                         <span class="fira-sans-extrabold">PSIS Semarang</span>
                       </div>
                     </div>
                     <div class="next-ticket">
                       <div class="next-ticket-detail">
-                        <img src="<?=base_url()?>/assets/images/ticket-ready.png">
+                        <img src="assets/images/ticket-ready.png">
                         <span class="next-ticket-ready fira-sans-regular">Tickets available for sale</span>
                       </div>
                       <br>
@@ -300,26 +300,26 @@
               <div class="next-item">
                   <div class="next-info">
                       <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
-                      <div class="next-comp"><img src="<?=base_url()?>/assets/images/calendar.png">&nbsp;<span class="next-time">Minggu, 22 Februari 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?=base_url()?>/assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
+                      <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Minggu, 22 Februari 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
                   </div>
                   <div class="next-info-detail">
                     <div class="next-info-detail-sub">
                       <div class="next-team-1">
                         <span class="fira-sans-extrabold">Persipura Jayapura</span>
-                        <img src="<?=base_url()?>/assets/images/team/team1.png">
+                        <img src="assets/images/team/team1.png">
                       </div> 
                       <div class="next-team-time fira-sans-regular">
                         <p class="fira-sans-light">20.30</p>
                         <p class="timezone fira-sans-semibold">WIB</p>
                       </div>
                       <div class="next-team-2">
-                        <img src="<?=base_url()?>/assets/images/team/team2.png">
+                        <img src="assets/images/team/team2.png">
                         <span class="fira-sans-extrabold">Deltras FC</span>
                       </div>
                     </div>
                     <div class="next-ticket">
                       <div class="next-ticket-detail">
-                        <img src="<?=base_url()?>/assets/images/ticket-ready.png">
+                        <img src="assets/images/ticket-ready.png">
                         <span class="next-ticket-ready fira-sans-regular">Tickets available for sale</span>
                       </div>
                       <br>
@@ -336,26 +336,26 @@
               <div class="next-item">
                   <div class="next-info">
                       <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
-                      <div class="next-comp"><img src="<?=base_url()?>/assets/images/calendar.png">&nbsp;<span class="next-time">Minggu, 1 Maret 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?=base_url()?>/assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
+                      <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Minggu, 1 Maret 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
                   </div>
                   <div class="next-info-detail">
                     <div class="next-info-detail-sub">
                         <div class="next-team-1">
                           <span class="fira-sans-extrabold">Deltras FC</span>
-                          <img src="<?=base_url()?>/assets/images/team/team1.png">
+                          <img src="assets/images/team/team1.png">
                         </div> 
                         <div class="next-team-time fira-sans-regular">
                           <p class="fira-sans-light">20.30</p>
                           <p class="timezone fira-sans-semibold">WIB</p>
                         </div>
                         <div class="next-team-2">
-                          <img src="<?=base_url()?>/assets/images/team/team2.png">
+                          <img src="assets/images/team/team2.png">
                           <span class="fira-sans-extrabold">PS. Barito Putra</span>
                         </div>
                       </div>
                       <div class="next-ticket">
                         <div class="next-ticket-detail">
-                          <img src="<?=base_url()?>/assets/images/ticket-unready.png">
+                          <img src="assets/images/ticket-unready.png">
                           <span class="next-ticket-unready fira-sans-regular">Coming soon</span>
                         </div>
                       </div>
@@ -368,26 +368,26 @@
               <div class="next-item">
                   <div class="next-info">
                       <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
-                      <div class="next-comp"><img src="<?=base_url()?>/assets/images/calendar.png">&nbsp;<span class="next-time">Sabtu, 28 Maret 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?=base_url()?>/assets/images/location.png">&nbsp;<span class="next-loc">Stadion Lukas Enembe, Jayapura</span></div>
+                      <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Sabtu, 28 Maret 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Lukas Enembe, Jayapura</span></div>
                   </div>
                   <div class="next-info-detail">
                     <div class="next-info-detail-sub">
                       <div class="next-team-1">
                         <span class="fira-sans-extrabold">Deltras FC</span>
-                        <img src="<?=base_url()?>/assets/images/team/team1.png">
+                        <img src="assets/images/team/team1.png">
                       </div> 
                       <div class="next-team-time fira-sans-regular">
                         <p class="fira-sans-light">17.00</p>
                         <p class="timezone fira-sans-semibold">WIB</p>
                       </div>
                       <div class="next-team-2">
-                        <img src="<?=base_url()?>/assets/images/team/team2.png">
+                        <img src="assets/images/team/team2.png">
                         <span class="fira-sans-extrabold">PS. Barito Putra</span>
                       </div>
                     </div>
                     <div class="next-ticket">
                       <div class="next-ticket-detail">
-                        <img src="<?=base_url()?>/assets/images/ticket-unready.png">
+                        <img src="assets/images/ticket-unready.png">
                         <span class="next-ticket-unready fira-sans-regular">Coming soon</span>
                       </div>
                     </div>
@@ -419,13 +419,13 @@
                   <div class="prev-info-detail">
                     <div class="prev-team-1">
                       <span class="fira-sans-bold">Deltras FC</span>
-                      <img src="<?=base_url()?>/assets/images/team/team1.png">
+                      <img src="assets/images/team/team1.png">
                     </div> 
                     <div class="prev-team-score fira-sans-regular">
                       1-1
                     </div>
                     <div class="prev-team-2">
-                      <img src="<?=base_url()?>/assets/images/team/team2.png">
+                      <img src="assets/images/team/team2.png">
                       <span class="fira-sans-bold">PSIS Semarang</span>
                     </div>
                   </div>
@@ -439,13 +439,13 @@
                   <div class="prev-info-detail">
                     <div class="prev-team-1">
                       <span class="fira-sans-bold">Persipura Jayapura</span>
-                      <img src="<?=base_url()?>/assets/images/team/team1.png">
+                      <img src="assets/images/team/team1.png">
                     </div> 
                     <div class="prev-team-score fira-sans-regular">
                       1-2
                     </div>
                     <div class="prev-team-2">
-                      <img src="<?=base_url()?>/assets/images/team/team2.png">
+                      <img src="assets/images/team/team2.png">
                       <span class="fira-sans-bold">Deltras FC</span>
                     </div>
                   </div>
@@ -459,13 +459,13 @@
                   <div class="prev-info-detail">
                     <div class="prev-team-1">
                       <span class="fira-sans-bold">Deltras FC</span>
-                      <img src="<?=base_url()?>/assets/images/team/team1.png">
+                      <img src="assets/images/team/team1.png">
                     </div> 
                     <div class="prev-team-score fira-sans-regular">
                       2-1
                     </div>
                     <div class="prev-team-2">
-                      <img src="<?=base_url()?>/assets/images/team/team2.png">
+                      <img src="assets/images/team/team2.png">
                       <span class="fira-sans-bold">PS. Barito Putra</span>
                     </div>
                   </div>
@@ -481,7 +481,7 @@
                 </div>
                 <div class="highlight-image-bg-cover">
                 </div>
-                <div class="video-icon"><img src="<?=base_url()?>/assets/images/video.png"></div>
+                <div class="video-icon"><img src="assets/images/video.png"></div>
                 <div class="play-icon"></div>
             </div>
             <div class="highlight-red-section">
@@ -495,7 +495,7 @@
                 </div>
                 <div class="highlight-image-bg-cover">
                 </div>
-                <div class="video-icon"><img src="<?=base_url()?>/assets/images/video.png"></div>
+                <div class="video-icon"><img src="assets/images/video.png"></div>
                 <div class="play-icon"></div>
             </div>
             <div class="highlight-red-section">
@@ -685,25 +685,25 @@
       <div style="font-family:'Oswald',sans-serif;font-size:16px;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;text-align:center;margin-bottom:40px;">Official Partners &amp; Sponsors</div>
       <div class="sponsor-footer-inner">
         <div class="sp-logo">
-          <a href=""><img src="<?=base_url()?>/assets/images/sponsor/KAPALAPI.png"></a>
+          <a href=""><img src="assets/images/sponsor/KAPALAPI.png"></a>
         </div>
         <div class="sp-logo">
-          <a href=""><img src="<?=base_url()?>/assets/images/sponsor/ALHIJAZ.png"></a>
+          <a href=""><img src="assets/images/sponsor/ALHIJAZ.png"></a>
         </div>
         <div class="sp-logo">
-          <a href=""><img src="<?=base_url()?>/assets/images/sponsor/RANS.png"></a>
+          <a href=""><img src="assets/images/sponsor/RANS.png"></a>
         </div>
         <div class="sp-logo">
-          <a href=""><img src="<?=base_url()?>/assets/images/sponsor/MITRAORPHYNS.png"></a>
+          <a href=""><img src="assets/images/sponsor/MITRAORPHYNS.png"></a>
         </div>
         <div class="sp-logo">
-          <a href=""><img src="<?=base_url()?>/assets/images/sponsor/LEKAW.png"></a>
+          <a href=""><img src="assets/images/sponsor/LEKAW.png"></a>
         </div>
         <div class="sp-logo">
-          <a href=""><img src="<?=base_url()?>/assets/images/sponsor/CRYSTALIN.png"></a>
+          <a href=""><img src="assets/images/sponsor/CRYSTALIN.png"></a>
         </div>
         <div class="sp-logo">
-          <a href=""><img src="<?=base_url()?>/assets/images/sponsor/BANDELL.png"></a>
+          <a href=""><img src="assets/images/sponsor/BANDELL.png"></a>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 <footer class="site-footer">
   <div class="section-wrap-footer">
     <div class="footer-top">
-      <img src="<?=base_url()?>/assets/images/big-logo.png">
+      <a href="#"><img src="assets/images/big-logo.png"></a>
     </div>
     <div class="footer-bottom">
       <p class="footer-web">Deltras FC © 2026 All rights reserved</p>

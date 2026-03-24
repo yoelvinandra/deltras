@@ -24,9 +24,9 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
 <section class="header-social">
   <div class="header-social-strip">
     <span class="fira-sans-light-italic">For the fans</span>
-    <span><a href="#"><img src="<?=base_url()?>/assets/images/youtube-white.png"></a></span>
-    <span><a href="#"><img src="<?=base_url()?>/assets/images/instagram-white.png"></a></span>
-    <span><a href="#"><img src="<?=base_url()?>/assets/images/tiktok-white.png"></a></span>
+    <span><a href="#"><img src="assets/images/youtube-white.png"></a></span>
+    <span><a href="#"><img src="assets/images/instagram-white.png"></a></span>
+    <span><a href="#"><img src="assets/images/tiktok-white.png"></a></span>
   </div>
 </section>
 <nav class="navbar">
@@ -35,7 +35,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
       <span></span><span></span><span></span>
     </div>
     <div class="nav-logo">
-      <a href="#"><img src="<?=base_url()?>/assets/images/logo.png"></a>
+      <a href="#"><img src="assets/images/logo.png"></a>
     </div>
     <ul class="nav-links">
       <li><a href="#">NEWS</a></li>
@@ -116,7 +116,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
           </div>
       </li>
       <li><a href="#">TICKET</a></li>
-      <li><a href="#"><img src="<?=base_url()?>/assets/images/cart.png"></a></li>
+      <li><a href="#"><img src="assets/images/cart.png"></a></li>
     </ul>
   </div>
 </nav>
