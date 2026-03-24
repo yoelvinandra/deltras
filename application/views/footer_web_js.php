@@ -6,13 +6,13 @@ function openDrawer() {
   document.body.style.overflow = 'hidden';
   var submenu = `
     <ul>
-      <li><a href="#">NEWS</a></li>
-      <li><a href="#">FIXTURE</a></li>
+      <li><a href="news">NEWS</a></li>
+      <li><a href="fixture">FIXTURE</a></li>
       <li><a href="#" onclick="openMenuMobile('CLUB')">CLUB <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
       <li><a href="#" onclick="openMenuMobile('DELTAMANIA')">DELTAMANIA <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
       <li><a href="#" onclick="openMenuMobile('PARTNERS')">PARTNERS <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
       <li><a href="#" onclick="openMenuMobile('SHOP')">SHOP <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
-      <li><a href="#">TICKET</a></li>
+      <li><a href="ticket">TICKET</a></li>
     </ul>
   `;
 
@@ -36,8 +36,8 @@ function openMenuMobile(menu){
   {
     submenu = `
       <ul>
-      <li><a href="#">History</a></li>
-      <li><a href="#">Team</a></li>
+      <li><a href="history">History</a></li>
+      <li><a href="team">Team</a></li>
       </ul>
     `;
   }
@@ -45,7 +45,7 @@ function openMenuMobile(menu){
   {
     submenu = `
       <ul>
-      <li><a href="#">Membership</a></li>
+      <li><a href="membership">Membership</a></li>
       </ul>
     `;
   }
@@ -53,13 +53,13 @@ function openMenuMobile(menu){
   {
     submenu = `
       <ul>
-      <li><a href="#">KAPAL API</a></li>
-      <li><a href="#">AL HIJAZ</a></li>
-      <li><a href="#">RANS</a></li>
-      <li><a href="#">MITRA ORPHYS</a></li>
-      <li><a href="#">LEKAW</a></li>
-      <li><a href="#">CRYSTALIN</a></li>
-      <li><a href="#">BANDELL</a></li>
+      <li><a href="KAPALAPI">KAPAL API</a></li>
+      <li><a href="ALHIJAZ">AL HIJAZ</a></li>
+      <li><a href="RANS">RANS</a></li>
+      <li><a href="MITRAORPHYS">MITRA ORPHYS</a></li>
+      <li><a href="LEKAW">LEKAW</a></li>
+      <li><a href="CRYSTALIN">CRYSTALIN</a></li>
+      <li><a href="BANDELL">BANDELL</a></li>
       </ul>
     `;
   }
@@ -67,10 +67,10 @@ function openMenuMobile(menu){
   {
     submenu = `
       <ul>
-      <li><a href="#">Website</a></li>
-      <li><a href="#">Deltras Store</a></li>
-      <li><a href="#">Shopee</a></li>
-      <li><a href="#">Whatsapp</a></li>
+      <li><a href="website">Website</a></li>
+      <li><a href="deltrasstore">Deltras Store</a></li>
+      <li><a href="shopee">Shopee</a></li>
+      <li><a href="whatsapp">Whatsapp</a></li>
       </ul>
     `;
   }

@@ -213,7 +213,7 @@ img { display: block; max-width: 100%; }
   font-size: 16px;
   font-weight: bold;
   color: rgba(255,255,255,0.9);
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 0.5px;
   padding: 14px 11px;
   display: block;
@@ -1537,6 +1537,21 @@ img { display: block; max-width: 100%; }
 .footer-web{
   display:inline;
 }
+
+/* FIXTURE MENU */
+.fixture-section {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0px 24px 40px;
+}
+.fixture-section .upcoming{
+  color: var(--primary-color);
+}
+.fixture-section .upcoming-match{
+  color:#000;
+}
+
 @media (max-width: 1600px) {
     .highlight-section{
       padding:0px 32px;

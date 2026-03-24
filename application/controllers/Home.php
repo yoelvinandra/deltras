@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends MY_Controller {
 	
-	public function index($jenisLaporan = "transaksi")
+	public function index($jenisLaporan = "index")
 	{
 	    if (isset($_SESSION[NAMAPROGRAM]['user']) && $jenisLaporan == "transaksi") {
 		    //$text['label'] = saveStokCLS(date("Y-m-d"));
@@ -28,7 +28,7 @@ class Home extends MY_Controller {
 		}
 		else {
             $this->load->view('header_web');
-			$this->load->view('web/index');
+			$this->load->view('web/'.$jenisLaporan);
 			$this->load->view('footer_web');
 		}
 	}

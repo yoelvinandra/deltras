@@ -677,39 +677,3 @@
       </div>
     </div>
 </section>
-
-<!-- SPONSORS -->
-<div class="sponsor-footer">
-  <div class="section-wrap">
-    <div class="section-wrap-mini">
-      <div style="font-family:'Oswald',sans-serif;font-size:16px;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;text-align:center;margin-bottom:40px;">Official Partners &amp; Sponsors</div>
-      <div class="sponsor-footer-inner">
-        <div class="sp-logo">
-          <a href=""><img src="assets/images/sponsor/KAPALAPI.png"></a>
-        </div>
-        <div class="sp-logo">
-          <a href=""><img src="assets/images/sponsor/ALHIJAZ.png"></a>
-        </div>
-        <div class="sp-logo">
-          <a href=""><img src="assets/images/sponsor/RANS.png"></a>
-        </div>
-        <div class="sp-logo">
-          <a href=""><img src="assets/images/sponsor/MITRAORPHYNS.png"></a>
-        </div>
-        <div class="sp-logo">
-          <a href=""><img src="assets/images/sponsor/LEKAW.png"></a>
-        </div>
-        <div class="sp-logo">
-          <a href=""><img src="assets/images/sponsor/CRYSTALIN.png"></a>
-        </div>
-        <div class="sp-logo">
-          <a href=""><img src="assets/images/sponsor/BANDELL.png"></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="grey-strip">
-  &nbsp;
-</div>

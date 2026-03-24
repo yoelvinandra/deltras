@@ -35,19 +35,19 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
       <span></span><span></span><span></span>
     </div>
     <div class="nav-logo">
-      <a href="#"><img src="assets/images/logo.png"></a>
+      <a href="index"><img src="assets/images/logo.png"></a>
     </div>
     <ul class="nav-links">
-      <li><a href="#">NEWS</a></li>
-      <li><a href="#">FIXTURE</a></li>
+      <li><a href="news">NEWS</a></li>
+      <li><a href="fixture">FIXTURE</a></li>
       <li class="has-dropdown">
           <a href="#">CLUB</a>
           <div class="dropdown">
               <div class="dropdown-menu">
                 <p class="dropdown-title fira-sans-bold">CLUB</p>
                 <ul>
-                    <li><a href="">History</a></li>
-                    <li><a href="">Team</a></li>
+                    <li><a href="history">History</a></li>
+                    <li><a href="team">Team</a></li>
                 </ul>
               </div>
               <div class="dropdown-address">
@@ -63,7 +63,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
               <div class="dropdown-menu">
                   <p class="dropdown-title fira-sans-bold">DELTAMANIA</p>
                   <ul>
-                      <li><a href="">Membership</a></li>
+                      <li><a href="membership">Membership</a></li>
                   </ul>
               </div>
               <div class="dropdown-address">
@@ -79,13 +79,13 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
               <div class="dropdown-menu">
                   <p class="dropdown-title fira-sans-bold">PARTNERS</p>
                   <ul>
-                      <li><a href="#">KAPAL API</a></li>
-                      <li><a href="#">AL HIJAZ</a></li>
-                      <li><a href="#">RANS</a></li>
-                      <li><a href="#">MITRA ORPHYS</a></li>
-                      <li><a href="#">LEKAW</a></li>
-                      <li><a href="#">CRYSTALIN</a></li>
-                      <li><a href="#">BANDELL</a></li>
+                      <li><a href="partners/KAPALAPI">KAPAL API</a></li>
+                      <li><a href="partners/ALHIJAZ">AL HIJAZ</a></li>
+                      <li><a href="partners/RANZ">RANS</a></li>
+                      <li><a href="partners/MITRAORPHYS">MITRA ORPHYS</a></li>
+                      <li><a href="partners/LEKAW">LEKAW</a></li>
+                      <li><a href="partners/CRYSTALIN">CRYSTALIN</a></li>
+                      <li><a href="partners/BANDELL">BANDELL</a></li>
                   </ul>
               </div>
               <div class="dropdown-address">
@@ -102,10 +102,10 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
               <div class="dropdown-menu">
                   <p class="dropdown-title fira-sans-bold">SHOP</p>
                   <ul>
-                      <li><a href="">Website</a></li>
-                      <li><a href="">Deltras Store</a></li>
-                      <li><a href="">Shopee</a></li>
-                      <li><a href="">Whatsapp</a></li>
+                      <li><a href="website">Website</a></li>
+                      <li><a href="deltrasstore">Deltras Store</a></li>
+                      <li><a href="shopee">Shopee</a></li>
+                      <li><a href="Whatsapp">Whatsapp</a></li>
                   </ul>
               </div>
               <div class="dropdown-address">
@@ -115,8 +115,8 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
               </div>
           </div>
       </li>
-      <li><a href="#">TICKET</a></li>
-      <li><a href="#"><img src="assets/images/cart.png"></a></li>
+      <li><a href="ticket">TICKET</a></li>
+      <li><a href="cart"><img src="assets/images/cart.png"></a></li>
     </ul>
   </div>
 </nav>

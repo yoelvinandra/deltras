@@ -50,5 +50,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'home';
+$route['fixture'] = 'Home/index/fixture';
+
+//CLUB
+$route['history'] = 'Home/index/history';
+$route['team'] = 'Home/index/team';
+
+
+$route['membership'] = 'Home/index/membership';
+
+$route['news'] = 'Home/index/news';
+
+$route['partners'] = 'Home/index/partners';
+
+//SHOP
+$route['website'] = 'Home/index/website';
+$route['deltrasstore'] = 'Home/index/deltrasstore';
+$route['shopee'] = 'Home/index/shopee';
+$route['whatsapp'] = 'Home/index/whatsapp';
+
+$route['ticket'] = 'Home/index/ticket';
+
+$route['cart'] = 'Home/index/cart';
+
 $route['404_override'] = 'home';
 $route['translate_uri_dashes'] = FALSE;
