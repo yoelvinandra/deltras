@@ -253,131 +253,99 @@
   <!-- RIGHT COLUMN (SIDEBAR) -->
   <div class="right-col">
       <div class="next-matches">
-          <div class="next-content">
-              <div class="next-header">
-                  <span class="next-title upcoming fira-sans-extrabold">NEXT MATCH</span>
-                  <a href="#" class="all-fixtures-link fira-sans-bold">ALL FIXTURES&nbsp; ></a>
-              </div>
-              <div class="grey-strip">
-                &nbsp;
-              </div>
-              <div class="next-item">
-                  <div class="next-info">
-                      <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
-                      <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Sabtu, 14 Februari 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
-                  </div>
-                  <div class="next-info-detail">
-                    <div class="next-info-detail-sub">
-                       <div class="next-team-1">
-                        <span class="fira-sans-extrabold">Deltras FC</span>
-                        <img src="assets/images/team/team1.png">
-                      </div> 
-                      <div class="next-team-time fira-sans-regular">
-                        <p class="fira-sans-light">19.00</p>
-                        <p class="timezone fira-sans-semibold">WIB</p>
-                      </div>
-                      <div class="next-team-2">
-                        <img src="assets/images/team/team2.png">
-                        <span class="fira-sans-extrabold">PSIS Semarang</span>
-                      </div>
+        <div class="next-content">
+            <div class="next-header">
+                <span class="next-title upcoming fira-sans-extrabold">NEXT MATCH</span>
+                <a href="#" class="all-fixtures-link fira-sans-bold">ALL FIXTURES&nbsp; ></a>
+            </div>
+            <div class="grey-strip">
+              &nbsp;
+            </div>
+            <div class="next-item">
+                <div class="next-info">
+                    <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
+                    <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Sabtu, 14 Februari 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
+                </div>
+                <div class="next-info-detail">
+                  <div class="next-info-detail-sub">
+                    <div class="next-team-1">
+                      <span class="fira-sans-extrabold">Deltras FC</span>
+                      <img src="assets/images/team/team1.png">
+                    </div> 
+                    <div class="next-team-time fira-sans-regular">
+                      <p class="fira-sans-light">19.00</p>
+                      <p class="timezone fira-sans-semibold">WIB</p>
                     </div>
-                    <div class="next-ticket">
-                      <div class="next-ticket-detail">
-                        <img src="assets/images/ticket-ready.png">
-                        <span class="next-ticket-ready fira-sans-regular">Tickets available for sale</span>
-                      </div>
-                      <br>
-                      <a href="#" class="btn-buynow fira-sans-extrabold">Buy Now</a>
+                    <div class="next-team-2">
+                      <img src="assets/images/team/team2.png">
+                      <span class="fira-sans-extrabold">PSIS Semarang</span>
                     </div>
                   </div>
-              </div> 
-              <div class="next-header">
-                  <span class="next-title fira-sans-extrabold">FEBRUARI 2026</span>
-              </div>
-              <div class="grey-strip">
-                &nbsp;
-              </div>
-              <div class="next-item">
-                  <div class="next-info">
-                      <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
-                      <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Minggu, 22 Februari 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
+                  <div class="next-ticket">
+                    <div class="next-ticket-detail">
+                      <img src="assets/images/ticket-ready.png">
+                      <span class="next-ticket-ready fira-sans-regular">Tickets available for sale</span>
+                    </div>
+                    <br>
+                    <a href="#" class="btn-buynow fira-sans-extrabold">Buy Now</a>
                   </div>
-                  <div class="next-info-detail">
-                    <div class="next-info-detail-sub">
+                </div>
+            </div> 
+            <div class="next-header">
+                <span class="next-title fira-sans-extrabold">FEBRUARI 2026</span>
+            </div>
+            <div class="grey-strip">
+              &nbsp;
+            </div>
+            <div class="next-item">
+                <div class="next-info">
+                    <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
+                    <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Minggu, 22 Februari 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
+                </div>
+                <div class="next-info-detail">
+                  <div class="next-info-detail-sub">
+                    <div class="next-team-1">
+                      <span class="fira-sans-extrabold">Persipura Jayapura</span>
+                      <img src="assets/images/team/team1.png">
+                    </div> 
+                    <div class="next-team-time fira-sans-regular">
+                      <p class="fira-sans-light">20.30</p>
+                      <p class="timezone fira-sans-semibold">WIB</p>
+                    </div>
+                    <div class="next-team-2">
+                      <img src="assets/images/team/team2.png">
+                      <span class="fira-sans-extrabold">Deltras FC</span>
+                    </div>
+                  </div>
+                  <div class="next-ticket">
+                    <div class="next-ticket-detail">
+                      <img src="assets/images/ticket-ready.png">
+                      <span class="next-ticket-ready fira-sans-regular">Tickets available for sale</span>
+                    </div>
+                    <br>
+                    <a href="#" class="btn-buynow fira-sans-extrabold">Buy Now</a>
+                  </div>
+                </div>
+            </div>
+            <div class="next-header">
+                <span class="next-title fira-sans-extrabold">MARET 2026</span>
+            </div>
+            <div class="grey-strip">
+              &nbsp;
+            </div>
+            <div class="next-item">
+                <div class="next-info">
+                    <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
+                    <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Minggu, 1 Maret 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
+                </div>
+                <div class="next-info-detail">
+                  <div class="next-info-detail-sub">
                       <div class="next-team-1">
-                        <span class="fira-sans-extrabold">Persipura Jayapura</span>
+                        <span class="fira-sans-extrabold">Deltras FC</span>
                         <img src="assets/images/team/team1.png">
                       </div> 
                       <div class="next-team-time fira-sans-regular">
                         <p class="fira-sans-light">20.30</p>
-                        <p class="timezone fira-sans-semibold">WIB</p>
-                      </div>
-                      <div class="next-team-2">
-                        <img src="assets/images/team/team2.png">
-                        <span class="fira-sans-extrabold">Deltras FC</span>
-                      </div>
-                    </div>
-                    <div class="next-ticket">
-                      <div class="next-ticket-detail">
-                        <img src="assets/images/ticket-ready.png">
-                        <span class="next-ticket-ready fira-sans-regular">Tickets available for sale</span>
-                      </div>
-                      <br>
-                      <a href="#" class="btn-buynow fira-sans-extrabold">Buy Now</a>
-                    </div>
-                  </div>
-              </div>
-              <div class="next-header">
-                  <span class="next-title fira-sans-extrabold">MARET 2026</span>
-              </div>
-              <div class="grey-strip">
-                &nbsp;
-              </div>
-              <div class="next-item">
-                  <div class="next-info">
-                      <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
-                      <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Minggu, 1 Maret 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Gelora Delta, Sidoarjo</span></div>
-                  </div>
-                  <div class="next-info-detail">
-                    <div class="next-info-detail-sub">
-                        <div class="next-team-1">
-                          <span class="fira-sans-extrabold">Deltras FC</span>
-                          <img src="assets/images/team/team1.png">
-                        </div> 
-                        <div class="next-team-time fira-sans-regular">
-                          <p class="fira-sans-light">20.30</p>
-                          <p class="timezone fira-sans-semibold">WIB</p>
-                        </div>
-                        <div class="next-team-2">
-                          <img src="assets/images/team/team2.png">
-                          <span class="fira-sans-extrabold">PS. Barito Putra</span>
-                        </div>
-                      </div>
-                      <div class="next-ticket">
-                        <div class="next-ticket-detail">
-                          <img src="assets/images/ticket-unready.png">
-                          <span class="next-ticket-unready fira-sans-regular">Coming soon</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-              <div class="grey-strip">
-                &nbsp;
-              </div>
-              <div class="next-item">
-                  <div class="next-info">
-                      <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
-                      <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Sabtu, 28 Maret 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Lukas Enembe, Jayapura</span></div>
-                  </div>
-                  <div class="next-info-detail">
-                    <div class="next-info-detail-sub">
-                      <div class="next-team-1">
-                        <span class="fira-sans-extrabold">Deltras FC</span>
-                        <img src="assets/images/team/team1.png">
-                      </div> 
-                      <div class="next-team-time fira-sans-regular">
-                        <p class="fira-sans-light">17.00</p>
                         <p class="timezone fira-sans-semibold">WIB</p>
                       </div>
                       <div class="next-team-2">
@@ -392,9 +360,40 @@
                       </div>
                     </div>
                   </div>
-              </div>
-          </div>
-      </div>
+                </div>
+            </div>
+            <div class="grey-strip">
+              &nbsp;
+            </div>
+            <div class="next-item">
+                <div class="next-info">
+                    <div class="next-championship fira-sans-extrabold">PEGADAIAN CHAMPIONSHIP</div>
+                    <div class="next-comp"><img src="assets/images/calendar.png">&nbsp;<span class="next-time">Sabtu, 28 Maret 2026</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="assets/images/location.png">&nbsp;<span class="next-loc">Stadion Lukas Enembe, Jayapura</span></div>
+                </div>
+                <div class="next-info-detail">
+                  <div class="next-info-detail-sub">
+                    <div class="next-team-1">
+                      <span class="fira-sans-extrabold">Deltras FC</span>
+                      <img src="assets/images/team/team1.png">
+                    </div> 
+                    <div class="next-team-time fira-sans-regular">
+                      <p class="fira-sans-light">17.00</p>
+                      <p class="timezone fira-sans-semibold">WIB</p>
+                    </div>
+                    <div class="next-team-2">
+                      <img src="assets/images/team/team2.png">
+                      <span class="fira-sans-extrabold">PS. Barito Putra</span>
+                    </div>
+                  </div>
+                  <div class="next-ticket">
+                    <div class="next-ticket-detail">
+                      <img src="assets/images/ticket-unready.png">
+                      <span class="next-ticket-unready fira-sans-regular">Coming soon</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
   </div>
 </section>
 <br><br><br>
@@ -677,3 +676,189 @@
       </div>
     </div>
 </section>
+
+<script> 
+//HERO
+const slides      = document.querySelectorAll('.slide');
+const progressBar = document.getElementById('progressBar');
+const playBtn     = document.getElementById('playBtn');
+const playIcon    = document.getElementById('playIcon');
+const slideTitle  = document.getElementById('slideTitle');
+const soundBtn    = document.getElementById('soundBtn');
+
+const slideTitles = [
+    'Deltras FC Club History',
+    'Deltras FC Season 2026',
+    'Deltras FC Highlights'
+];
+
+let currentSlide  = 0;
+let isPlaying     = true;
+let isMuted       = false;
+let progress      = 0;
+let interval      = null;
+let audio         = null;
+const duration    = 5000; // 5 seconds per slide
+const tick        = 100;  // update every 100ms
+
+function loadAudio(index) {
+    if (audio) {
+        audio.pause();
+        audio = null;
+    }
+    const src = slides[index].dataset.audio;
+    if (src) {
+        audio = new Audio(src);
+        audio.muted = isMuted;
+        audio.play().catch(() => {}); // catch autoplay block
+    }
+}
+
+function goToSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = index % slides.length;
+    slides[currentSlide].classList.add('active');
+    slideTitle.textContent = slideTitles[currentSlide];
+    progress = 0;
+    progressBar.style.width = '0%';
+    loadAudio(currentSlide);
+}
+
+function startSlider() {
+    interval = setInterval(() => {
+        progress += tick;
+        const pct = (progress / duration) * 100;
+        progressBar.style.width = pct + '%';
+
+        if (progress >= duration) {
+            goToSlide(currentSlide + 1);
+        }
+    }, tick);
+}
+
+function stopSlider() {
+    clearInterval(interval);
+    interval = null;
+    if (audio) audio.pause();
+}
+
+// Play / Stop toggle
+playBtn.addEventListener('click', () => {
+    isPlaying = !isPlaying;
+    if (isPlaying) {
+        playIcon.innerHTML = '<img src="assets/images/pause.png">'; // play icon
+        startSlider();
+        if (audio) audio.play().catch(() => {});
+    } else {
+        playIcon.innerHTML = '<img src="assets/images/play.png">'; // pause icon
+        stopSlider();
+    }
+});
+
+// Sound toggle
+soundBtn.addEventListener('click', () => {
+    isMuted = !isMuted;
+    soundBtn.innerHTML = isMuted ? '<img src="assets/images/volume_off.png">' : '<img src="assets/images/volume_on.png">';
+    if (audio) audio.muted = isMuted;
+});
+
+// Start on load
+loadAudio(currentSlide);
+startSlider();
+
+//PLAYER
+const track    = document.getElementById('track');
+const viewport = document.getElementById('viewport');
+const prevBtn  = document.getElementById('prevBtn');
+const nextBtn  = document.getElementById('nextBtn');
+const cards    = Array.from(track.querySelectorAll('.player-card'));
+let current = 0;
+function getShow() {
+  const w = window.innerWidth;
+  if (w <= 520) return 1;
+  else if (w <= 1050) return 2;
+  return 4;
+}
+
+function getPages() {
+  return Math.ceil(cards.length / getShow());
+}
+function setCardWidths() {
+
+  const show = getShow();
+  let gap  = 48;
+  if (window.innerWidth <= 1050){
+    if (window.innerWidth <= 520){
+      gap = 32;
+    }
+    else
+    {
+      gap = 60;
+    }
+  }
+
+  const w    = (viewport.offsetWidth - gap * (show - 1)) / show;
+  /* on mobile show 1 full + peek of next */
+  const mobileW = window.innerWidth <= 1050
+    ?  window.innerWidth <= 520
+    ? viewport.offsetWidth * 0.64
+    : viewport.offsetWidth * 0.32
+    : w;4
+  cards.forEach(c => { c.style.width = (window.innerWidth <= 1050 ? mobileW : w) + 'px'; });
+}
+function updateUI() {
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current >= getPages() - 1;
+}
+function goTo(page) {
+  current = Math.max(0, Math.min(page, getPages() - 1));
+  const show   = getShow();
+  let gap  = 48;
+  if (window.innerWidth <= 1050){
+    if (window.innerWidth <= 520){
+      gap = 32;
+    }
+    else
+    {
+      gap = 60;
+    }
+  }
+
+  const cardW  = window.innerWidth <= 1050
+    ?  window.innerWidth <= 520
+    ? viewport.offsetWidth * 0.64
+    : viewport.offsetWidth * 0.32
+    : (viewport.offsetWidth - gap * (show - 1)) / show;
+  let offset = current * show * (cardW + gap);
+  // BIAR POSISI GAMBAR WAKTU KECIL ADA DITENGAH
+  // if (window.innerWidth <= 1000){
+  //   offset = offset - gap;
+  // }
+  track.style.transform = `translateX(-${offset}px)`; //-30
+  updateUI();
+}
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+/* swipe support */
+let tx = 0;
+viewport.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+viewport.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+});
+function init() {
+  current = 0;
+  setCardWidths();
+  goTo(0);
+}
+window.addEventListener('resize', init);
+init();
+
+//HIGHLIGHT
+document.querySelectorAll('.play-icon, .video-play').forEach(el => {
+    el.addEventListener('click', () => alert('Video player opens'));
+});
+document.querySelectorAll('.btn-ticket').forEach(el => {
+    el.addEventListener('click', () => alert('Opening ticket purchase'));
+});
+</script>
