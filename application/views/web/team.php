@@ -143,6 +143,26 @@
                     <div class="player-position fira-sans-regular">Club Secretary</div>
                   </div>
                 </div> 
+                 <div class="player-card">
+                  <div class="card-photo">
+                    <img src="assets/images/player/11.png" alt="Player 11"/>
+                    <span class="card-number">11</span>
+                  </div>
+                  <div class="card-info">
+                    <div class="player-name fira-sans-black">RAHARDIAN DAHNIAL</div>
+                    <div class="player-position fira-sans-regular">Club Secretary</div>
+                  </div>
+                </div>  
+                <div class="player-card">
+                  <div class="card-photo">
+                    <img src="assets/images/player/11.png" alt="Player 11"/>
+                    <span class="card-number">11</span>
+                  </div>
+                  <div class="card-info">
+                    <div class="player-name fira-sans-black">RAHARDIAN DAHNIAL</div>
+                    <div class="player-position fira-sans-regular">Club Secretary</div>
+                  </div>
+                </div> 
             </div>    
             <div class="player-title fira-sans-light">FORWARDS</div>
               <div class="player-detail">

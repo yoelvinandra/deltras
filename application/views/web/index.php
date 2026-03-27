@@ -67,7 +67,7 @@
   <div class="red-line">&nbsp;</div>
   <div class="squad-header">
     <span class="squad-title fira-sans-extrabold">Senior Squad</span>
-    <a href="#" class="all-player-link fira-sans-bold">ALL PLAYER&nbsp; ></a>
+    <a href="team" class="all-player-link fira-sans-bold">ALL PLAYER&nbsp; ></a>
   </div>
   <div class="squad-header-mobile">
     <span class="squad-title fira-sans-extrabold">OUR TEAM</span>
@@ -236,7 +236,7 @@
               </div>
               <div class="play-icon"></div>
               <div class="video-icon"><img src="assets/images/video.png"></div>
-              <div class="deltras-icon"><img src="assets/images/big-logo.png"></div>
+              <div class="deltras-icon"><img src="assets/images/logo.png"></div>
           </div>
           <div class="highlight-red-section">
               <div class="red-badge fira-sans-medium">VIDEO</div>

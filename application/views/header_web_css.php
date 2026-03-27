@@ -179,6 +179,9 @@ img { display: block; max-width: 100%; }
   align-items: center;
   gap: 8px;
 }
+.nav-logo img{
+  height:50px;
+}
 /* mobile */
 .nav-logo-shield {
   width: 32px;
@@ -710,6 +713,13 @@ img { display: block; max-width: 100%; }
   height: 70px;
   width: 100%;
   background: #f0f0f0;
+}
+
+.black-strip {
+  margin:0 auto;
+  width:100%;
+  border-top: 1px solid #000;
+  height:0px;
 }
   
 /* ======= HIGHLIGHT + NEXT MATCH SECTION ======= */
@@ -1805,18 +1815,16 @@ img { display: block; max-width: 100%; }
 
 .team-section .player-title{
   margin-top:100px;
-  margin-bottom:30px;
+  margin-bottom:10px;
   font-size:45px;
   color:var(--primary-color);
 }
 
 .team-section .player-detail{
-  display:flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-}
-
-.team-section .player-card{
-  width:24%;
+  padding-top:20px;
 }
 
 .team-section .player-name{
@@ -1838,7 +1846,151 @@ img { display: block; max-width: 100%; }
   color: #fff;
 }
 
+/* HISTORY */
+.about-deltras{
+  max-width:1214px;
+  width:100%;
+  margin:auto;
+  display:flex;
+  padding-top:87px;
+  padding-bottom:45px;
+  padding-left:32px;
+  padding-right:32px;
+}
+
+.about-deltras .about-deltras-image{
+  width:600px;
+}
+
+.about-deltras .about-deltras-detail{
+  background:var(--primary-color);
+}
+
+.about-deltras .about-deltras-detail img{
+  height:160px;
+  margin: 50px auto 0px;
+}
+
+.about-deltras .about-deltras-title{
+  margin:45px 62px 0px;
+  font-size:30px;
+}
+
+.about-deltras .about-deltras-text{
+  margin:0px 62px 0px;
+  font-size:16px;
+  color:#fff;
+}
+
+.about-deltras-old{
+  max-width:1214px;
+  width:100%;
+  margin:auto;
+  padding:0px 32px;
+}
+
+.about-deltras-old .about-deltras-old-wrapper{
+  width:600px;
+}
+
+.about-deltras-old .about-deltras-old-title{
+  color:var(--primary-color);
+  font-size:40px;
+  padding-bottom:45px;
+}
+
+.about-deltras-old .about-deltras-old-subtitle{
+  font-size:30px;
+}
+
+.about-deltras-old .about-deltras-old-detail{
+  font-size:16px;
+  padding-bottom:20px;
+}
+
+.vision-mission{
+  background:#000;
+}
+
+.vision-mission .vision-mission-wrapper{
+  max-width:1150px;
+  width:100%;
+  margin:auto;
+  background:var(--primary-color);
+  padding:251px 100px;
+}
+
+.vision-mission img{
+  margin:auto;
+  height:280px;
+  margin-bottom:73px;
+}
+
+.vision-mission .vision-mission-title{
+  font-size:48px;
+  color:#fff;
+}
+
+.vision-mission .vision-mission-subtitle{
+  font-size:18px;
+  color:#000;
+}
+
+.vision-mission .vision-mission-subtitle ol{
+  padding-left:24px;
+}
+
+.about-deltras-new{
+  max-width:1214px;
+  width:100%;
+  margin:auto;
+  padding:0px 32px;
+}
+
+.about-deltras-new .about-deltras-new-wrapper{
+  margin:110px 0px;
+}
+
+.about-deltras-new .about-deltras-new-header{
+  background:var(--primary-color);
+  color:white;
+  font-size:20px;
+  padding: 3px 11px;
+  display: inline-block;   
+}
+
+.about-deltras-new .about-deltras-new-title{
+  font-size:32px;
+  color:var(--primary-color);
+  margin-top:34px;
+  margin-bottom:19px;
+}
+
+.about-deltras-new .about-deltras-new-subtitle{
+  font-size:24px;
+  margin-bottom:34px;
+}
+
+.about-deltras-new .about-deltras-new-date{
+  font-size:24px;
+  margin-bottom:30px;
+}
+
+.about-deltras-new .about-deltras-new-detail{
+  font-size:20px;
+  padding-bottom:54px;
+}
+
 @media (max-width: 1600px) {
+   .slide-content {
+      position: absolute;
+      bottom: 120px;
+      right: 10%;
+      text-align: right;
+      color: white;
+      max-width: 600px;
+      padding-left:10%;
+    }
     .highlight-section{
       padding:0px 32px;
     }
@@ -2041,7 +2193,7 @@ img { display: block; max-width: 100%; }
     right: 10%;
     text-align: right;
     color: white;
-    max-width: 350px;
+    max-width: 520px;
     padding-left:10%;
     }
     
@@ -2119,6 +2271,33 @@ img { display: block; max-width: 100%; }
       padding-left: 32px;
       padding-right: 32px;
     }
+
+    .team-section .player-detail{
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .about-deltras{
+      display:flex;
+      flex-direction:column;
+    }
+    
+    .about-deltras .about-deltras-image{
+      width:100%;
+    }
+
+    .about-deltras .about-deltras-text{
+      margin-bottom:40px;
+    }
+
+    .about-deltras-old .about-deltras-old-wrapper{
+      width:100%;
+    }
+}
+
+@media (max-width: 768px) {
+   .team-section .player-detail{
+      grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 520px) {
@@ -2192,6 +2371,11 @@ img { display: block; max-width: 100%; }
     .fixture-title{
       padding-left: 16px;
       padding-right: 16px;
+      font-size:20px;
+    }
+    
+    .fixture-title div {
+      font-size:50px;
     }
 
     .tab-header ul, .tab-child{
@@ -2218,11 +2402,110 @@ img { display: block; max-width: 100%; }
       height:30px;
     }
 
+    .tab-header ul li:not(:last-child)::after {
+      font-size:16px;
+      padding: 0px 10px;
+      border-bottom: 6px solid transparent;
+    }
+    .tab-header ul li a {
+      font-size:16px;
+      padding: 0px 0px 6px;
+      border-bottom: 6px solid transparent;
+    }
+
+    .tab-header ul li a.active {
+      border-bottom: 6px solid var(--primary-color);
+    }
+
     /* TEAM */
     .team-title{
       padding-left: 16px;
       padding-right: 16px;
     }
+
+    .team-title div {
+      font-size:50px;
+    }
+
+    .team-section .player-detail{
+      grid-template-columns: repeat(1, 1fr);
+    }
+    
+    .about-deltras .about-deltras-detail img{
+      height:100px;
+    }
+    .about-deltras .about-deltras-title{
+      margin-left: 32px;
+      margin-right: 32px;
+    }
+
+    .about-deltras .about-deltras-text{
+      margin-left: 32px;
+      margin-right: 32px;
+    }
+
+    .about-deltras-old .about-deltras-old-title{
+      font-size:24px;
+      padding-bottom:12px;
+    }
+    
+    .about-deltras-old .about-deltras-old-subtitle{
+      font-size:36px;
+      padding-bottom:12px;
+    }
+
+    .vision-mission .vision-mission-wrapper{
+      padding:16px 16px;
+    }
+
+    .vision-mission img{
+      margin:auto;
+      height:150px;
+      margin-bottom:32px;
+    }
+
+    .about-deltras {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+   .about-deltras .about-deltras-title{
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+
+    .about-deltras .about-deltras-text{
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+
+    .about-deltras-old{
+      padding:0px 16px;
+    }
+    .about-deltras-new{
+      padding:0px 16px;
+    }
+    .about-deltras-new .about-deltras-new-wrapper{
+      margin:64px 0px;
+    }
+
+    .about-deltras-new .about-deltras-new-header{
+      font-size:14px;
+    }
+
+    .about-deltras-new .about-deltras-new-subtitle{
+      font-size:20px  ;
+      margin-bottom:16px;
+    }
+
+    .about-deltras-new .about-deltras-new-date{
+      font-size:20px;
+      margin-bottom:16px;
+    }
+
+    .about-deltras-new .about-deltras-new-detail{
+      font-size:14px;
+    }
+        
 }
 
 
