@@ -602,7 +602,7 @@ img { display: block; max-width: 100%; }
 .player-card {
   /* width set by JS */
   flex-shrink: 0;
-  background: #fff;
+  background: var(--primary-color);
   border:1px #D4D4D4 solid;
   overflow: hidden;
   cursor: pointer;
@@ -616,9 +616,9 @@ img { display: block; max-width: 100%; }
 .card-photo {
   position: relative;
   width: 100%;
-  padding-top: 120%;
   background: #e2e2e2;
   overflow: hidden;
+  height:294px;
 }
 .card-photo img {
   position: absolute;
@@ -1610,10 +1610,6 @@ img { display: block; max-width: 100%; }
   color:#000;
 }
 
-.fixture-section .prev-matches{
-  margin-top:60px; 
-}
-
 .fixture-section .prev-header{
   background:none;
   color: var(--primary-color);
@@ -1706,131 +1702,141 @@ img { display: block; max-width: 100%; }
   margin:auto;
 }
 
+.filter{
+  display: flex;
+  justify-content: flex-end;
+}
 
-  .filter-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #fff;
-    padding: 16px 24px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    position: relative;
-  }
+.filter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin:30px 0px 0px; 
+  border-radius: 8px;
+}
+.filter-label {
+  font-size: 14px;
+}
+/* The custom dropdown container */
+.custom-select {
+  position: relative;
+  min-width: 120px;
+}
+/* The visible "button" part */
+.select-selected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  background: #fff;
+  user-select: none;
+  transition: border-color 0.2s;
+}
+.select-selected:hover {
+  border-color: #999;
+}
 
-  .filter-label {
-    font-size: 14px;
-    color: #333;
-    white-space: nowrap;
-  }
+/* Dropdown list */
+.select-items {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: #fff;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 100;
+  display: none;
+}
+.custom-select.open .select-items {
+  display: block;
+}
+/* Each option */
+.select-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #333;
+  margin:2px;
+  transition: background 0.15s;
+}
+.select-item:hover {
+  border-radius: 10px;
+  background:#ffd3d3;
+  color:#000;
+  margin:2px;
+}
+/* Active / selected state — red background */
+.select-item.active {
+  margin:2px;
+  border-radius: 10px;
+  background: var(--primary-color);
+  color: #fff;
+}
 
-  /* The custom dropdown container */
-  .custom-select {
-    position: relative;
-    min-width: 120px;
-  }
+.select-item span{
+  padding-left:12px;
+}
 
-  /* The visible "button" part */
-  .select-selected {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 6px 12px;
-    border: 1.5px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #333;
-    background: #fff;
-    user-select: none;
-    transition: border-color 0.2s;
-  }
+.prev-status-mini{
+  display:none;
+}
 
-  .select-selected:hover {
-    border-color: #999;
-  }
+/* TEAM */
+.team-title{
+  margin:30px auto 25px;
+  width: 100%;
+  max-width: 1280px;
+}
 
-  /* Arrow icon */
-  .select-arrow {
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 6px solid #555;
-    transition: transform 0.2s ease;
-    flex-shrink: 0;
-  }
+.team-title div {
+  font-size: 64px;
+  color:var(--primary-color);
+}
 
-  .custom-select.open .select-arrow {
-    transform: rotate(180deg);
-  }
+.team-section .player-title{
+  margin-top:100px;
+  margin-bottom:30px;
+  font-size:45px;
+  color:var(--primary-color);
+}
 
-  /* Dropdown list */
-  .select-items {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    right: 0;
-    background: #fff;
-    border: 1.5px solid #ccc;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    z-index: 100;
-    display: none;
-  }
+.team-section .player-detail{
+  display:flex;
+  gap: 20px;
+}
 
-  .custom-select.open .select-items {
-    display: block;
-  }
+.team-section .player-card{
+  width:24%;
+}
 
-  /* Each option */
-  .select-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 14px;
-    font-size: 14px;
-    cursor: pointer;
-    color: #333;
-    transition: background 0.15s;
-  }
+.team-section .player-name{
+  font-size:28px;
+}
+.team-section .card-photo{
+  height:285px;
+}
+.team-section .card-info {
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:155px;
+  padding: 20px;
+}
 
-  .select-item:hover {
-    background: #f0f0f0;
-  }
-
-  /* Active / selected state — red background */
-  .select-item.active {
-    background: #c0392b;
-    color: #fff;
-  }
-
-  /* Checkmark for the active item */
-  .checkmark {
-    display: none;
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-  }
-
-  .select-item.active .checkmark {
-    display: block;
-  }
-
-  /* Checkmark SVG */
-  .checkmark::after {
-    content: '';
-    display: block;
-    width: 5px;
-    height: 9px;
-    border: 2px solid #fff;
-    border-top: none;
-    border-left: none;
-    transform: rotate(45deg) translate(1px, -1px);
-    margin: 2px auto;
-  }
+.team-section .player-position {
+  font-size: 20px;
+  color: #fff;
+}
 
 @media (max-width: 1600px) {
     .highlight-section{
@@ -1845,7 +1851,39 @@ img { display: block; max-width: 100%; }
       padding-right:32px;
     }
       /* FIXTURES */
-    .fixture-title, .tab-header, .tab-child{
+    .fixture-title{
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    .tab-header ul, .tab-child{
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+    
+    .fixture-section .prev-info{
+      width:100%;
+    }
+    .fixture-section .prev-item {
+      padding: 14px 0px;
+      display:flex;
+      flex-direction: column;
+      justify-content:space-between;
+    }
+    .fixture-section .prev-info-detail {
+      margin:10px 0px 0px;
+      width:100%;
+      gap:24px;
+    }
+    .prev-status-mini{
+      display:block;
+    }
+
+    .prev-status-web{
+      display:none;
+    }
+      /* TEAM */
+    .team-title{
       padding-left: 32px;
       padding-right: 32px;
     }
@@ -2061,7 +2099,23 @@ img { display: block; max-width: 100%; }
     }
 
       /* FIXTURES */
-    .fixture-title, .tab-header, .tab-child{
+    .fixture-title{
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    .tab-header ul, .tab-child{
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    .fixture-section .prev-matches{
+      margin-left:0px;
+      margin-right:0px;
+    }
+
+    /* TEAM */
+    .team-title{
       padding-left: 32px;
       padding-right: 32px;
     }
@@ -2069,12 +2123,12 @@ img { display: block; max-width: 100%; }
 
 @media (max-width: 520px) {
     .highlight-section-primary {
-    margin:0px;
+      margin:0px;
     }
 
     .slider-track {
-    gap: 32px;
-    padding-left:64px;
+      gap: 32px;
+      padding-left:64px;
     } 
 
 
@@ -2091,23 +2145,23 @@ img { display: block; max-width: 100%; }
     }
 
     .prev-matches{
-    margin-left:0px;
-    margin-right:0px;
+      margin-left:0px;
+      margin-right:0px;
     }
 
     .next-team-1{
-    font-size:12pt;
-    gap:10px;
+      font-size:12pt;
+      gap:10px;
     }
 
     .next-team-2{
-    font-size:12pt;
-    gap:10px;
+      font-size:12pt;
+      gap:10px;
     }
 
     .highlight-section-secondary .highlight-card{
-    margin-left:0px;
-    margin-right:0px;
+      margin-left:0px;
+      margin-right:0px;
     }
 
     .table-header th {
@@ -2135,7 +2189,37 @@ img { display: block; max-width: 100%; }
     }
     
     /* FIXTURES */
-    .fixture-title, .tab-header, .tab-child{
+    .fixture-title{
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .tab-header ul, .tab-child{
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .fixture-section .prev-info-detail {
+      margin:10px 0px 0px;
+      width:100%;
+      gap:10px;
+    }
+    .fixture-section .prev-team-1{
+      font-size:16px;
+      gap:10px;
+    }
+    .fixture-section .prev-team-1 img{
+      height:30px;
+    }
+    .fixture-section .prev-team-2{
+      font-size:16px;
+      gap:10px;
+    }
+    .fixture-section .prev-team-2 img{
+      height:30px;
+    }
+
+    /* TEAM */
+    .team-title{
       padding-left: 16px;
       padding-right: 16px;
     }

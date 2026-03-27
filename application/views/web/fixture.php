@@ -165,26 +165,28 @@
               </div>
         </div>
         <div id="result-tab">
-          <div class="filter-wrapper">
-            <span class="filter-label">Filter by season:</span>
+          <div class="filter">
+            <div class="filter-wrapper">
+              <span class="filter-label fira-sans-regular">Filter by season:</span>
 
-            <div class="custom-select" id="seasonSelect">
-              <div class="select-selected" id="selectSelected">
-                <span id="selectedText">2025/26</span>
-                <span class="select-arrow"></span>
-              </div>
-              <div class="select-items" id="selectItems">
-                <div class="select-item active" data-value="2025/26">
-                  2025/26
-                  <span class="checkmark"></span>
+              <div class="custom-select" id="seasonSelect">
+                <div class="select-selected" id="selectSelected">
+                  <span id="selectedText">2025/26</span>
+                  <span><img src="assets/images/filter-dropdown.png"></span>
                 </div>
-                <div class="select-item" data-value="2024/25">
-                  2024/25
-                  <span class="checkmark"></span>
-                </div>
-                <div class="select-item" data-value="2023/24">
-                  2023/24
-                  <span class="checkmark"></span>
+                <div class="select-items" id="selectItems">
+                  <div class="select-item active" data-value="2025/26">
+                    2025/26
+                    <span><img src="assets/images/filter-check.png"></span>
+                  </div>
+                  <div class="select-item" data-value="2024/25">
+                    2024/25
+                    <span><img src="assets/images/filter-check.png"></span>
+                  </div>
+                  <div class="select-item" data-value="2023/24">
+                    2023/24
+                    <span><img src="assets/images/filter-check.png"></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -203,7 +205,7 @@
                             <div class="prev-championship fira-sans-medium">PSIS SEMARANG - PERSIPURA JAYAPURA</div>
                             <div class="prev-comp"><span class="prev-time">28 Maret 2026</span> | <span class="prev-loc">Stadion Lukas Enembe, Jayapura</span></div>
                         </div>
-                        <div class="prev-status-lose fira-sans-extrabold">
+                        <div class="prev-status-web prev-status-lose fira-sans-extrabold">
                           L
                         </div>
                         <div class="prev-info-detail">
@@ -217,6 +219,9 @@
                           <div class="prev-team-2">
                             <img src="assets/images/team/team2.png">
                             <span class="fira-sans-bold">Deltras FC</span>
+                          </div>
+                          <div class="prev-status-mini prev-status-lose fira-sans-extrabold">
+                            L
                           </div>
                         </div>
                     </div>
@@ -232,7 +237,7 @@
                             <div class="prev-championship fira-sans-medium">PSIS SEMARANG - DELTRAS FC</div>
                             <div class="prev-comp"><span class="prev-time">22 Februari 2026</span> | <span class="prev-loc">Stadion Gelora Delta, Sidoarjo</span></div>
                         </div>
-                        <div class="prev-status-draw fira-sans-extrabold">
+                        <div class="prev-status-web prev-status-draw fira-sans-extrabold">
                           D
                         </div>
                         <div class="prev-info-detail">
@@ -247,6 +252,9 @@
                             <img src="assets/images/team/team2.png">
                             <span class="fira-sans-bold">PSIS Semarang</span>
                           </div>
+                          <div class="prev-status-mini prev-status-draw fira-sans-extrabold">
+                            D
+                          </div>
                         </div>
                     </div>
                     <div class="grey-strip">&nbsp;</div>
@@ -255,7 +263,7 @@
                             <div class="prev-championship fira-sans-medium">PSIS SEMARANG - PERSIPURA JAYAPURA</div>
                             <div class="prev-comp"><span class="prev-time">28 Maret 2026</span> | <span class="prev-loc">Stadion Lukas Enembe, Jayapura</span></div>
                         </div>
-                        <div class="prev-status-lose fira-sans-extrabold">
+                        <div class="prev-status-web prev-status-lose fira-sans-extrabold">
                           L
                         </div>
                         <div class="prev-info-detail">
@@ -270,6 +278,9 @@
                             <img src="assets/images/team/team2.png">
                             <span class="fira-sans-bold">Deltras FC</span>
                           </div>
+                          <div class="prev-status-mini prev-status-lose fira-sans-extrabold">
+                            L
+                          </div>
                         </div>
                     </div>
                     <div class="grey-strip">&nbsp;</div>
@@ -278,7 +289,7 @@
                             <div class="prev-championship fira-sans-medium">DELTRAS FC - PS. BARITO PUTRA</div>
                             <div class="prev-comp"><span class="prev-time">28 Maret 2026</span> | <span class="prev-loc">Stadion Lukas Enembe, Jayapura</span></div>
                         </div>
-                        <div class="prev-status-win fira-sans-extrabold">
+                        <div class="prev-status-web prev-status-win fira-sans-extrabold">
                           W
                         </div>
                         <div class="prev-info-detail">
@@ -292,6 +303,9 @@
                           <div class="prev-team-2">
                             <img src="assets/images/team/team2.png">
                             <span class="fira-sans-bold">PS. Barito Putra</span>
+                          </div>
+                          <div class="prev-status-mini prev-status-win fira-sans-extrabold">
+                            W
                           </div>
                         </div>
                     </div>
