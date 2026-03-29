@@ -2031,7 +2031,7 @@ img { display: block; max-width: 100%; }
   background: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 3px 10px rgba(0,0,0,.12);
-  min-width: 160px;
+  min-width: 180px;
   z-index: 100;
   display: none;
 }
@@ -2211,6 +2211,144 @@ img { display: block; max-width: 100%; }
 
 /* Desktop: mobile header hidden */
 .news-section .mobile-hdr { display: none; }
+
+/* NEWS DETAIL */
+.news-detail {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #ffffff;
+}
+/* ─── NEWS label ─── */
+.news-detail .news-tag {
+  font-size: 20px;
+  color:#000;
+  padding:59px 32px 0px;
+}
+/* ─── Headline ─── */
+.news-detail .headline {
+  font-size: 44px;
+  color: #000;
+  padding: 10px 32px 42px;
+}
+/* ─── Hero image ─── */
+.news-detail .hero-placeholder {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.news-detail .hero-placeholder img {
+  width: 100%;
+}
+
+.news-detail .hero-placeholder::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.3));
+}
+/* ─── Author / meta bar ─── */
+.news-detail .meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 51px 32px 30px;
+}
+.news-detail .author-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.news-detail .grey-strip{
+  width:100%;
+  max-width:796px;
+}
+.news-detail .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #cc2222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.news-detail .author-name {
+  font-size: 20px;
+  color: #0B0B0B;
+  padding-bottom:3px;
+}
+.news-detail .author-date {
+  font-size: 18px;
+  color: #6B6B6B;
+}
+/* ─── Share ─── */
+.news-detail .share-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.news-detail .share-text {
+  font-size: 20px;
+  color: #0B0B0B;
+}
+.news-detail .share-icons {
+  display: flex;
+  gap: 10px;
+}
+.news-detail .share-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #fff;
+  transition: border-color 0.15s;
+  text-decoration: none;
+}
+.news-detail .share-btn:hover { border-color: #888; }
+.news-detail .share-btn img {
+  width: 18px;
+  height: 18px;
+}
+/* ─── Article text ─── */
+.news-detail .article {
+  padding: 34px 32px 32px;
+}
+.news-detail .article p {
+  font-size: 20px;
+  color: #000;
+  padding-bottom: 32px;
+}
+.news-detail .article p:last-child { margin-bottom: 0; }
+/* ─── Bottom divider + next ─── */
+
+.news-detail .next-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 44px 32px 4px;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.news-detail .next-label {
+  font-size: 20px;
+  color: #8B8B8B;
+}
+
+.news-detail .next-title {
+  margin-left: auto; /* ← tambahkan ini */
+  text-align: right;
+  font-size: 16px;
+  color: #000;
+  padding: 11px 32px 40px;
+  max-width:366px;
+}
 
 @media (max-width: 1600px) {
    .slide-content {
@@ -2600,11 +2738,15 @@ img { display: block; max-width: 100%; }
     .news-section .pager {
       align-items: right;
       justify-content: center;
+      gap:2px;
+      width:100%;
+      height:90px;
+      padding: 30px 16px 30px 16px;
     }
 
     .news-section .pg {    
       justify-content: center;
-      padding: 0 10px;
+      padding: 0 3%;
       font-size: 14px;
     }
     
@@ -2638,6 +2780,15 @@ img { display: block; max-width: 100%; }
    .team-section .player-detail{
       grid-template-columns: repeat(2, 1fr);
   }
+
+  .news-section .pager {
+      height:calc(90px-20%);
+  }
+
+  .news-section .pg-left.pg.arr { background-size:80%; }
+  .news-section .pg-left.pg.arr.on { background-size:80%; }
+  .news-section .pg-right.pg.arr { background-size:80%; }
+  .news-section .pg-right.pg.arr.on { background-size:80%;}
 }
 
 @media (max-width: 520px) {
@@ -2855,7 +3006,26 @@ img { display: block; max-width: 100%; }
     .news-section .card-thumb {
       height:300px;
     }
-        
+
+    .news-section .pager {
+      height:calc(80px);
+      padding-left:32px;
+      padding-right:32px;
+    }
+
+    .news-section .pg {    
+      justify-content: center;
+      padding: 0 3%;
+      font-size: 12px;
+    }
+    
+    .news-section .pg.active { font-size:14px; }
+    
+
+    .news-section .pg-left.pg.arr { background-size:100%; }
+    .news-section .pg-left.pg.arr.on { background-size:100%; }
+    .news-section .pg-right.pg.arr { background-size:100%; }
+    .news-section .pg-right.pg.arr.on { background-size:100%;}
 }
 
 

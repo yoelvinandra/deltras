@@ -60,6 +60,7 @@ $route['team'] = 'Home/index/team';
 $route['membership'] = 'Home/index/membership';
 
 $route['news'] = 'Home/index/news';
+$route['news-detail'] = 'Home/index/news-detail';
 
 $route['partners'] = 'Home/index/partners';
 

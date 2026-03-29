@@ -28,7 +28,7 @@ class Home extends MY_Controller {
 		}
 		else {
             $this->load->view('header_web');
-			$this->load->view('web/'.$jenisLaporan);
+			$this->load->view('web/'.$jenisLaporan,$this->input->get());
 			$this->load->view('footer_web');
 		}
 	}

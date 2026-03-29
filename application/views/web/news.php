@@ -38,15 +38,15 @@
 
     <!-- ── SECTION HEADER (mobile only) ── -->
     <div class="mobile-hdr">
-        <span class="mh-t fira-sans-extrabold">NEWS</span>
-        <a href="#" class="mh-a fira-sans-bold">ALL NEWS &gt;</a>
+        <span class="mh-t fira-sans-extrabold">ALL NEWS</span>
+        <!-- <a href="#" class="mh-a fira-sans-bold">ALL NEWS &gt;</a> -->
     </div>
 
     <!-- ── NEWS GRID ── -->
     <div class="news-grid" id="newsGrid">
 
         <!-- ROW 1 -->
-        <a href="#" class="news-card" data-cat="news"
+        <a href="news-detail?i=1" class="news-card" data-cat="news"
             data-title="Deltras FC Suport Fakhri Husaini Berkarir Di Akademi Ternama">
             <div class="card-thumb">
             <img
@@ -64,7 +64,7 @@
             </div>
         </a>
 
-        <a href="#" class="news-card" data-cat="match"
+        <a href="news-detail?i=2" class="news-card" data-cat="match"
             data-title="Deltras FC Tutup Putaran Kedua dengan Kemenangan di Balikpapan">
             <div class="card-thumb">
             <img
@@ -82,7 +82,7 @@
             </div>
         </a>
 
-        <a href="#" class="news-card" data-cat="news"
+        <a href="news-detail?i=3" class="news-card" data-cat="news"
             data-title="Giofani Pemain Baru Deltras FC Optimis Bawa The Lobster Lebih Baik">
             <div class="card-thumb">
             <img
@@ -101,7 +101,7 @@
         </a>
 
         <!-- ROW 2 -->
-        <a href="#" class="news-card" data-cat="match"
+        <a href="news-detail?i=4" class="news-card" data-cat="match"
             data-title="Gol Debut Kaka dan Tengeg Bawa Deltras Menang Lawan PSIS Semarang">
             <div class="card-thumb">
                 <img
@@ -119,7 +119,7 @@
             </div>
         </a>
 
-        <a href="#" class="news-card" data-cat="match"
+        <a href="news-detail?i=5" class="news-card" data-cat="match"
             data-title="Deltras FC Optimis Curi Poin Di Kandang PSIS Semarang">
             <div class="card-thumb">
             <img
@@ -137,7 +137,7 @@
             </div>
         </a>
 
-        <a href="#" class="news-card" data-cat="news"
+        <a href="news-detail?i=6" class="news-card" data-cat="news"
             data-title="Pesan Bijak Widodo Kepada Suporter: Dukung Kami 90 Menit">
             <div class="card-thumb">
             <img
