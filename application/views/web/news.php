@@ -1,5 +1,5 @@
 <!-- ── TOPBAR ── -->
-<section class="news-section">
+<section class="news-list-section">
     <div class="topbar">
 
         <div class="filter-wrap">
