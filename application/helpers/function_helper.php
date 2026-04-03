@@ -2,7 +2,7 @@
 
 function login($user){	
 	$CI =& get_instance();	
-	$CI->load->model(array("model_master_lokasi","model_master_user","model_master_menu","model_master_currency","model_master_perusahaan"));
+	$CI->load->model(array("model_master_user","model_master_menu"));
 	//untuk debuging
 	if($user =='vision'){
 		$_SESSION[NAMAPROGRAM]['user']             = $user;
@@ -34,29 +34,8 @@ function login($user){
 		
 		$menu = $CI->model_master_menu->getMenuAkses($_SESSION[NAMAPROGRAM]['IDUSER']);
 	}
-	$r = $CI->model_master_perusahaan->getPerusahaanLogin(	$_SESSION[NAMAPROGRAM]['USERID']);
-
-	// SET IDPERUSAHAAN
-	$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN']   = $r->IDPERUSAHAAN;
-	$_SESSION[NAMAPROGRAM]['KODEPERUSAHAAN'] = $r->KODEPERUSAHAAN;
-	$_SESSION[NAMAPROGRAM]['NAMAPERUSAHAAN'] = $r->NAMAPERUSAHAAN;
-	$_SESSION[NAMAPROGRAM]['KOTAPERUSAHAAN'] = $r->KOTA;
-	$_SESSION[NAMAPROGRAM]['TEMAWARNA'] = $r->TEMAWARNA;
-	$_SESSION[NAMAPROGRAM]['WARNAFONT'] = $r->WARNAFONT;
-
-	$r = $CI->model_master_currency->getByKode($CI->model_master_config->getConfig('MCURRENCY','MAINCURRENCY'));
-	$_SESSION[NAMAPROGRAM]['IDCURRENCY']   = $r->IDCURRENCY;
-	$_SESSION[NAMAPROGRAM]['SIMBOLCURRENCY'] = $r->SIMBOL;
-	
 	
 	//pengaturan decimal
-	$_SESSION[NAMAPROGRAM]['DECIMALDIGITQTY'] = $CI->model_master_config->getConfig('GLOBAL','DECIMALDIGITQTY');
-	$_SESSION[NAMAPROGRAM]['DECIMALDIGITAMOUNT'] = $CI->model_master_config->getConfig('GLOBAL','DECIMALDIGITAMOUNT');
-	$_SESSION[NAMAPROGRAM]['MULTICURRENCY'] = $CI->model_master_config->getConfig('GLOBAL','MULTICURRENCY');
-	
-	$_SESSION[NAMAPROGRAM]['SHOPEE_ACTIVE'] = $CI->model_master_config->getConfig('SHOPEE','ACTIVE');
-	$_SESSION[NAMAPROGRAM]['TIKTOK_ACTIVE'] = $CI->model_master_config->getConfig('TIKTOK','ACTIVE');
-	$_SESSION[NAMAPROGRAM]['LAZADA_ACTIVE'] = $CI->model_master_config->getConfig('LAZADA','ACTIVE');
 	
 	/*$items = array();
 	foreach($menu as $item){
@@ -71,7 +50,6 @@ function login($user){
 		);
 	}*/
 	
-	$_SESSION[NAMAPROGRAM]['IDLOKASI'] = $CI->model_master_lokasi->setLokasi();
 	
 	if($user!= 1) //SELAIN ADMIN
 	{
@@ -1968,7 +1946,6 @@ function log_history($kode, $menu, $act, $data_table, $kasir) {
 	fclose($fp);
 
 	$dataValues = [
-		'idperusahaan' => $_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'],
 		'kodetrans' => $kode,
 		'aksi' => $act,
 		'tglentry' => date('Y-m-d H:i:s'),

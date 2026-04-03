@@ -4,14 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $CI = &get_instance();
 $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
 
-$_SESSION[NAMAPROGRAM]['WARNA_STATUS_S'] = "#90EE90";
-$_SESSION[NAMAPROGRAM]['WARNA_STATUS_C'] = "#FF991C";
-$_SESSION[NAMAPROGRAM]['WARNA_STATUS_P'] = "#FFFDD1";
-$_SESSION[NAMAPROGRAM]['WARNA_STATUS_D'] = "#FF5959";
-
-
-$_SESSION[NAMAPROGRAM]['WARNA_STATUS_BELUM_BAYAR'] = "#CFECF7";
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,16 +12,10 @@ $_SESSION[NAMAPROGRAM]['WARNA_STATUS_BELUM_BAYAR'] = "#CFECF7";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php
-    $modeDev = "";
-    if(base_url() == "https://varshadigital.id/pos/")
-    {
-        $modeDev = "Dev";
-    }
-    
     if ($menu == '') {
-        echo "<title>..:: ".$modeDev." POSinaja ::..</title>";
+        echo "<title>..:: Deltras ::..</title>";
     } else {
-        echo "<title>..:: ".$modeDev." " . $menu . " ::..</title>";
+        echo "<title>..:: " . $menu . " ::..</title>";
     }
     ?>
 
@@ -95,11 +81,11 @@ $_SESSION[NAMAPROGRAM]['WARNA_STATUS_BELUM_BAYAR'] = "#CFECF7";
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="<?php echo base_url(); ?>assets/index2.html" class="logo" style="background-color: <?=$_SESSION[NAMAPROGRAM]['TEMAWARNA']?>">
+            <a href="<?php echo base_url(); ?>assets/index2.html" class="logo" style="background-color: <?=$_SESSION[NAMAPROGRAM]['TEMAWARNA']?>;">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"> <img src="<?php echo base_url(); ?>assets/<?=$_SESSION[NAMAPROGRAM]['KODEPERUSAHAAN']?>/logo.png" class="user-image" alt="User Image" height="28"></span>
+                <span class="logo-mini"> <img src="<?php echo base_url(); ?>assets/images/logo.png" class="user-image" alt="User Image" height="28"></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"> <img src="<?php echo base_url(); ?>assets/<?=$_SESSION[NAMAPROGRAM]['KODEPERUSAHAAN']?>/logo.png" class="user-image" alt="User Image" height="28"></span>
+                <span class="logo-lg" style="margin-right:100px;"> <img src="<?php echo base_url(); ?>assets/images/logo-text.png" class="user-image" alt="User Image" height="34" ></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" >
@@ -136,7 +122,7 @@ $_SESSION[NAMAPROGRAM]['WARNA_STATUS_BELUM_BAYAR'] = "#CFECF7";
                                         <span style="color:black; ">&nbsp;<i class="fa fa-circle text-success"></i>&nbsp;&nbsp;&nbsp; Online</span>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="<?php echo base_url(); ?>auth/Login/logout" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="<?php echo base_url(); ?>Auth/Login/logout" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -147,9 +133,6 @@ $_SESSION[NAMAPROGRAM]['WARNA_STATUS_BELUM_BAYAR'] = "#CFECF7";
         </header>
 
         <!-- =============================================== -->
-        <div style="height:3px;">
-         <hr style="margin-top:0px;margin-bottom:0px; height:3px; background-color: <?=$_SESSION[NAMAPROGRAM]['TEMAWARNA']?> !important; filter: brightness(95%)"></hr>
-        </div>
         <!-- Left side column. contains the sidebar -->
         <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
@@ -179,7 +162,7 @@ $_SESSION[NAMAPROGRAM]['WARNA_STATUS_BELUM_BAYAR'] = "#CFECF7";
         <!-- =============================================== -->
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" style="overflow-y:auto;  height: calc(100vh - 135px); ">
+        <div class="content-wrapper" style="overflow-y:auto;  height: calc(100vh - 110px); ">
         
         <div style="background:#90EE90; font-weight:bold; text-align:center;"> <?php echo $label ?></div>
         <div id="alert-container" style="position:absolute; top:55px; right:0px; z-index:9999999; "></div>    

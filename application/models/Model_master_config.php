@@ -5,61 +5,11 @@ class Model_master_config extends CI_Model{
 	{
 		$this->maindb = $this->load->database('default',true);	
 	}
-	
-	public function getConfigMarketplace($modul,$conf){
-	    
-        // 🔥 STEP 2: LOAD CACHE
-        $this->load->driver('cache', ['adapter' => 'file']);
-        
-        $cacheKey = 'MCONFIG_'.$modul.'_'.$conf;
-        
-        // 1️⃣ Ambil dari cache dulu
-        $data = $this->cache->get($cacheKey);
-        if ($data !== FALSE) {
-            if ($this->cache->get($cacheKey) !== FALSE) {
-                return $data;
-            }
-        }
-        
-        // 2️⃣ Pastikan DB hidup
-        if ($this->maindb->conn_id === FALSE) {
-            $this->maindb->reconnect();
-        }
-        
-        // 3️⃣ Query DB (AMAN)
-        $row = $this->maindb
-                    ->select('VALUE')
-                    ->where('MODUL', $modul)
-                    ->where('CONFIG', $conf)
-                    ->get('MCONFIG')
-                    ->row();
-        
-        // 4️⃣ Ambil VALUE
-        $data = ($row && property_exists($row, 'VALUE')) ? $row->VALUE : null;
-        
-        // 5️⃣ Simpan ke cache (termasuk 0 / empty)
-        $this->cache->save($cacheKey, $data, 3600);
-        
-        return $data;
-	}
-	
-	public function setConfigMarketplace($modul,$param,$val){
-		$this->maindb->set('VALUE', $val)
-		->where('MODUL',$modul)
-		->where('CONFIG',$param)
-		->updateRaw('MCONFIG');
-		
-		if ($this->db->trans_status() === FALSE) { 
-			$this->db->trans_rollback();
-			return 'Data Barang Tidak Dapat Dihapus'; 
-		}
-	}
     
 	public function getConfig($modul,$conf){
 		return $this->maindb
 					->where('MODUL',$modul)
 					->where('CONFIG',$conf)
-					->where('IDPERUSAHAAN',$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'])
 					->get('MCONFIG')->row()->VALUE;
 	}
 	
@@ -67,30 +17,25 @@ class Model_master_config extends CI_Model{
 		return $this->maindb
 					->where('MODUL',$modul)
 					->where('CONFIG',$conf)
-					->where('IDPERUSAHAAN',$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'])
 					->get('MCONFIG')->row();
 	}
-	
-	public function getPPN(){
-	    $q = $this->maindb->where('CONFIG',"PPNPERSEN")
-						->where('IDPERUSAHAAN',$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'])
-						->get('MCONFIG')->row_array();
-		return $q["VALUE"];
+
+	public function getConfigModul($modul){
+		return $this->maindb
+					->where('MODUL',$modul)
+					->get('MCONFIG')->result();
 	}
 	
 	public function setConfig($conf,$val){
 	    $q = $this->maindb->where('CONFIG',$conf)
-						->where('IDPERUSAHAAN',$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'])
 						->get('MCONFIG');
 
 	    if ( $q->num_rows() > 0 ){
 		    $this->maindb->set('VALUE', $val)
 						->where('CONFIG', $conf)
-						->where('IDPERUSAHAAN',$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'])
 						->update('MCONFIG');
 	    } else {
 			$data = array(
-					'IDPERUSAHAAN' => $_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'],
 					'CONFIG'       => $conf,
 					'VALUE'        => $val
 			);
@@ -110,12 +55,5 @@ class Model_master_config extends CI_Model{
 					->where('a.IDUSER', $_SESSION[NAMAPROGRAM]['IDUSER'])
 					->get()->row_array();
 		return $query;
-	}
-	
-	public function getPersentasePendaftaranFlamboyan(){
-	    $q = $this->maindb->where('CONFIG',"PERSENTASEDAFTARFLAMBOYAN")
-						->where('IDPERUSAHAAN',$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'])
-						->get('MCONFIG')->row_array();
-		return $q["VALUE"];
 	}
 }

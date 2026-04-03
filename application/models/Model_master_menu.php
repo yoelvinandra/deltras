@@ -75,7 +75,7 @@ class Model_master_menu extends MY_Model{
 						order by a.urutan";
 			} else { // level 3
 				$sql = "select distinct a.KODEMENU, a.KODEINDUK, a.NAMAMENU, a.URUTAN, a.TIPE, a.NAMACLASS, A.ICON,
-							   b.HAKAKSES, B.TAMBAH, B.UBAH, B.HAPUS, B.CETAK, B.BATALCETAK, B.INPUTHARGA, B.LIHATHARGA
+							   b.HAKAKSES, B.TAMBAH, B.UBAH, B.HAPUS
 						from MMENU a 
 						left join muserakses b on a.KODEMENU = b.KODEMENU {$temp_sql}
 						where a.KODEINDUK = '{$parent}' and
@@ -92,7 +92,7 @@ class Model_master_menu extends MY_Model{
     		}
     			
     		$sql = "select distinct a.KODEMENU, a.KODEINDUK, a.NAMAMENU, a.URUTAN, a.TIPE, a.NAMACLASS, A.ICON,
-    					   b.HAKAKSES, B.TAMBAH, B.UBAH, B.HAPUS, B.CETAK, B.BATALCETAK, B.INPUTHARGA, B.LIHATHARGA
+    					   b.HAKAKSES, B.TAMBAH, B.UBAH, B.HAPUS
     				from MMENU a 
     				left join muserakses b on a.KODEMENU = b.KODEMENU {$temp_sql}
     				where a.KODEMENU = 'D0001' and

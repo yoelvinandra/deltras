@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends MY_Controller {
 	public function __construct(){
 		parent::__construct();
-	  $this->load->model(array("model_master_menu","model_master_perusahaan","model_master_user"));
+	  $this->load->model(array("model_master_menu","model_master_user"));
 	}
 	
 	public function index(){
@@ -122,10 +122,6 @@ class User extends MY_Controller {
 		$userid       = $r->USERID;
 		$iduser       = $r->IDUSER;
 
-		$r = $this->model_master_user->cekPerusahaan($iduser,$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN']);
-		if ($r == '') {
-			return die(json_encode(array('errorMsg' => 'User Tidak ada Dalam Perusahaan ini !')));
-		}
 		
 		if ($passwordAsli === strtoupper(encrypt_data($pass))) {
 			// get menuakses
@@ -145,106 +141,7 @@ class User extends MY_Controller {
 		}
 	}
 
-	function simpan_profile() {
-		$id	 			 = $this->input->post('IDUSER_PROFILE');
-		$idperusahaan	 = $_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'];
-		$gambar = $_POST['GAMBAR'];
-		$gambar_lama = $this->input->post('GAMBARUSER_PROFILE');
 	
-		$data_values = array (
-			'USERNAME'	=> $this->input->post('USERNAME_PROFILE'),
-			'EMAIL'	=> $this->input->post('EMAIL_PROFILE'),
-			'HP'	=> $this->input->post('NOHP_PROFILE'),
-			'TGLENTRY'	=> date("Y-m-d"),
-		);
-		
-		$_SESSION[NAMAPROGRAM]['USERNAME'] = $this->input->post('USERNAME_PROFILE');
-		$_SESSION[NAMAPROGRAM]['EMAIL_USER'] = $this->input->post('EMAIL_PROFILE');
-		$_SESSION[NAMAPROGRAM]['HP_USER']= $this->input->post('NOHP_PROFILE');
-							
-							
-		$row = $this->model_master_user->getUserByID($id);
-
-		if (($row->PASS == strtoupper(encrypt_data($this->input->post('OLD_PASS_PROFILE'))))) {
-			
-				// upload file
-				//define('UPLOAD_DIR', base_url().'assets/foto-jaminan/');
-				if ($_FILES["FILEGAMBAR_PROFILE"]['name'] != '') {
-					// upload gambar
-					$target_dir = "./assets/foto_user/";
-					$uploadOk = 1;
-					$imageFileType = pathinfo($_FILES['FILEGAMBAR_PROFILE']['name'], PATHINFO_EXTENSION);
-					$target_file = $target_dir . str_replace('/', '.', $row->USERID) . '.' . $imageFileType;
-					$gambar = str_replace('/', '.',  $row->USERID) . '.' . $imageFileType;
-					// Check if image file is a actual image or fake image
-
-					$check = getimagesize($_FILES["FILEGAMBAR_PROFILE"]["tmp_name"]);
-					if ($check !== false) {
-						$uploadOk = 1;
-					} else {
-						//cek max
-						die(json_encode(array('errorMsg' => 'File Yang Diupload Tidak Valid')));
-						$uploadOk = 0;
-					}
-
-					if ($_POST['GAMBAR_PROFILE'] != '' && $_POST['GAMBAR_PROFILE'] != 'no_image.png' ) {
-						unlink($target_dir.$_POST['GAMBAR_PROFILE']);
-					}
-					else if(substr($gambar,0, -4) == substr($gambar_lama,0, -4)  )
-					{
-						unlink($target_dir.$gambar_lama);
-					}
-
-					// Check if file already exists
-					if (file_exists($target_file)) {
-						//$uploadOk = 0;
-					}
-					// Check file size
-					if ($_FILES["FILEGAMBAR_PROFILE"]["size"] > 5000000) {
-						die(json_encode(array('errorMsg' => 'Sorry, your file is too large.')));
-						$uploadOk = 0;
-					}
-					// Allow certain file formats
-					if ( ! in_array(strtolower($imageFileType), array('jpg', 'png', 'jpeg', 'gif')) ) {
-						die(json_encode(array('errorMsg' => 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.')));
-						$uploadOk = 0;
-					}
-					// Check if $uploadOk is set to 0 by an error
-					if ($uploadOk == 0) {
-						die(json_encode(array('errorMsg' => 'Sorry, your file was not uploaded.')));
-					// if everything is ok, try to upload file
-					} else {
-						if (move_uploaded_file($_FILES["FILEGAMBAR_PROFILE"]["tmp_name"], $target_file)) {
-							//echo "The file ". basename($_FILES["GAMBAR"]["name"]). " has been uploaded.";
-							$data_values['GAMBAR'] = $gambar;
-
-							$_SESSION[NAMAPROGRAM]['FOTO_USER']= $gambar;
-							
-							
-						} else {
-							die(json_encode(array('errorMsg' => 'Sorry, there was an error uploading your file.')));
-						}
-					}
-				}
-			
-			if (($this->input->post('NEW_PASS_PROFILE') != $this->input->post('OLD_PASS_PROFILE')) && ($this->input->post('NEW_PASS_PROFILE') != "")) 
-			{
-				$data_values['PASS'] = encrypt_data($this->input->post('NEW_PASS_PROFILE'));
-				$response = $this->model_master_user->simpan_profile($id,$idperusahaan,$data_values);
-			}
-			else
-			{
-				$data_values['PASS'] = encrypt_data($this->input->post('OLD_PASS_PROFILE'));
-				$response = $this->model_master_user->simpan_profile($id,$idperusahaan,$data_values);
-			}
-		}
-		else
-		{
-			die(json_encode(array('errorMsg' => "Password Salah")));
-		}
-
-		echo json_encode(array('success' => true,'errorMsg' => ''));
-	}
 	function getPass(){
 		$row = $this->model_master_user->getUserByID($this->input->post('id'));
 		echo $row->PASS;
@@ -346,7 +243,6 @@ class User extends MY_Controller {
 		}
 
 		$data_values = array (
-			'IDPERUSAHAAN'   => $_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'],
 			'USERID'         => $userid,
 			'USERNAME'       => $this->input->post('USERNAME'),
 			'FINGERPRINT1'   => $this->input->post('FINGERPRINT1'),
@@ -398,17 +294,6 @@ class User extends MY_Controller {
 		echo json_encode(array('success' => true,'iduser' => $response));
 	}
 	
-	function simpanDashboard(){
-	    $id = $this->input->post('iduser');
-		$dataDashboard 	= json_decode($this->input->post('dataDashboard'));
-		$response = $this->model_master_user->insertAkses($id, 0, $dataDashboard);
-		if ($response != ''){
-			// generate an error... or use the log_message() function to log your error
-			die(json_encode(array('errorMsg' => $response)));
-		}
-		echo json_encode(array('success' => true,'errorMsg' => ''));
-	}
-	
 	function simpanMaster(){
 	    $id = $this->input->post('iduser');
 		$dataMaster 	= json_decode($this->input->post('dataMaster'));
@@ -420,32 +305,10 @@ class User extends MY_Controller {
 		echo json_encode(array('success' => true,'errorMsg' => ''));
 	}
 	
-	function simpanTransaksi(){
+	function simpanCompetition(){
 	    $id = $this->input->post('iduser');
-		$dataTransaksi 	= json_decode($this->input->post('dataTransaksi'));
-		$response = $this->model_master_user->insertAkses($id, 0, $dataTransaksi);
-		if ($response != ''){
-			// generate an error... or use the log_message() function to log your error
-			die(json_encode(array('errorMsg' => $response)));
-		}
-		echo json_encode(array('success' => true,'errorMsg' => ''));
-	}
-	
-	function simpanLaporan(){
-	    $id = $this->input->post('iduser');
-		$dataLaporan 	= json_decode($this->input->post('dataLaporan'));
-		$response = $this->model_master_user->insertAkses($id, 0, $dataLaporan);
-		if ($response != ''){
-			// generate an error... or use the log_message() function to log your error
-			die(json_encode(array('errorMsg' => $response)));
-		}
-		echo json_encode(array('success' => true,'errorMsg' => ''));
-	}
-	
-	function simpanLokasi(){
-	    $id = $this->input->post('iduser');
-		$dataLokasi 	= json_decode($this->input->post('dataLokasi'));
-		$response = $this->model_master_user->insertLokasi($id,$dataLokasi);
+		$dataCompetition 	= json_decode($this->input->post('dataCompetition'));
+		$response = $this->model_master_user->insertAkses($id, 0, $dataCompetition);
 		if ($response != ''){
 			// generate an error... or use the log_message() function to log your error
 			die(json_encode(array('errorMsg' => $response)));

@@ -16,20 +16,9 @@ class Model_master_user extends MY_Model{
 	
 	public function comboGrid()
 	{
-		/*if (!isset($pagination['sort'])) {
-			$pagination['sort'] = 'USERID';
-		}
-
-		$sql = "select a.IDUSER as ID,a.USERID as KODE, a.USERNAME as NAMA
-				from MUSER a
-				where a.IDPERUSAHAAN = {$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN']}
-				order by {$pagination['sort']} {$pagination['order']}";
-		$query = $this->db->query($sql);
-		*/
 		
 		$sql = "select CONCAT(a.USERID,' | ',a.USERNAME) as VALUE, CONCAT(a.USERID,' - ',a.USERNAME) as TEXT
-				from MUSER a
-				where a.IDPERUSAHAAN = {$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN']}";
+				from MUSER a ";
 		$query = $this->db->query($sql);
 		
 		$data['rows'] = $query->result();
@@ -84,7 +73,6 @@ class Model_master_user extends MY_Model{
 
 	function cekPerusahaan($user,$perusahaan){
 		$query = $this->db->from('MUSER')
-					->where('IDPERUSAHAAN', $perusahaan)
 					->where('IDUSER', $user)
 					->get()->row();
 		return $query;
@@ -117,7 +105,6 @@ class Model_master_user extends MY_Model{
 				from MUSER a 
 				left join MUSER b on a.USERENTRY = b.USERID
                 where a.IDUSER > 0 
-                        and a.IDPERUSAHAAN={$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN']}
 						and 1=1 {$filter['sql']}";
 		$query = $this->db->query($sql, $filter['param']);
 
@@ -129,22 +116,6 @@ class Model_master_user extends MY_Model{
 		$data['rows'] = $query->result();
 
 		return $data;
-	}
-	
-	public function simpan_profile($id,$idperusahaan, $data){
-		$tr = $this->db->trans_begin();
-
-		$this->db->where("IDUSER",$id);
-		$this->db->where("IDPERUSAHAAN",$idperusahaan);
-		$this->db->update('MUSER',$data);
-		
-
-		if ($this->db->trans_status() === FALSE) {
-			$this->db->trans_rollback();
-			return 'Simpan Data Gagal <br>Kesalahan Pada Header Data Transaksi';
-		}
-		$this->db->trans_commit();
-		return '';
 	}
 	
 	public function simpan($id, $edit, $data, $dataMaster, $dataTransaksi,$dataLaporan, $dataLokasi){
@@ -164,7 +135,6 @@ class Model_master_user extends MY_Model{
 		if ($edit) {
 			//hapus detail terlebih dahulu
 			$this->db->where("IDUSER",$id)->delete('muserakses');
-			$this->db->where("IDUSER",$id)->where('IDPERUSAHAAN',$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'])->delete('muserlokasi');
 		} else {
 			//mengambil auto increment
 			$id = $this->db->insert_id();
@@ -173,33 +143,6 @@ class Model_master_user extends MY_Model{
 
 		$this->db->trans_commit();
 		return $id;
-	}
-	
-	public function insertLokasi($id,$dataLokasi){
-	    
-		$tr = $this->db->trans_begin();	
-
-		// query muserlokasi
-		foreach ($dataLokasi as $item) {
-			if($item->PILIHLOKASI == 1)
-			{
-				$data_values = array (
-					'IDPERUSAHAAN' => $_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'],
-					'IDUSER'       => $id,
-					'IDLOKASI'     => $item->IDLOKASI,
-				);
-				$this->db->insert('MUSERLOKASI',$data_values);
-			}
-
-			if ($this->db->trans_status() === FALSE) {
-				$this->db->trans_rollback();
-				return 'Simpan Data Gagal <br>Kesalahan Pada Detail Data Transaksi';
-			}
-		}
-		
-		$this->db->trans_commit();
-		return '';
-
 	}
 
 	public function insertAkses($id, $i = 0, $data) {
@@ -213,11 +156,7 @@ class Model_master_user extends MY_Model{
 					'HAKAKSES'	 => $item->HAKAKSES,
 					'TAMBAH'	 => $item->TAMBAH,
 					'UBAH'		 => $item->UBAH,
-					'CETAK'		 => $item->CETAK,
-					'HAPUS'		 => $item->HAPUS,
-					'BATALCETAK' => $item->BATALCETAK,
-					'LIHATHARGA' => $item->LIHATHARGA,
-					'INPUTHARGA' => $item->INPUTHARGA,
+					'HAPUS'		 => $item->HAPUS
 				);
 				$this->db->insert('MUSERAKSES',$data_values);
 
@@ -234,9 +173,9 @@ class Model_master_user extends MY_Model{
 	public function hapus($id){
 		$tr = $this->db->trans_begin();
 
-		$this->db->where("IDUSER",$id)->where('IDPERUSAHAAN',$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'])->delete('MUSER');
+		$this->db->where("IDUSER",$id)->delete('MUSER');
 		$this->db->where("IDUSER",$id)->delete('MUSERAKSES');
-		$this->db->where("IDUSER",$id)->where('IDPERUSAHAAN',$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN'])->delete('muserlokasi');
+		$this->db->where("IDUSER",$id)->delete('muserlokasi');
 
 
 		if ($this->db->trans_status() === FALSE) { 
@@ -276,34 +215,6 @@ class Model_master_user extends MY_Model{
 		$sqlMenu .= "select a.* from ( ";
 		$count = 0;
 		
-		if($namainduk == "Dashboard")
-		{
-		    if ($userID <> '') { 
-				$sqlMenu .= "select distinct 'DASHBOARD'as HEADER , a.KODEMENU as KODEMODUL,a.NAMAMENU as NAMAMODUL, a.URUTAN, a.TIPE, A.ICON,
-							   if(isnull(b.HAKAKSES), 0, b.HAKAKSES) as HAKAKSES , 
-							   if(isnull(B.TAMBAH), 0, b.TAMBAH) as TAMBAH, 
-							   if(isnull(B.UBAH), 0, b.UBAH) as UBAH, 
-							   if(isnull(B.HAPUS), 0, b.HAPUS) as HAPUS, 
-							   if(isnull(B.CETAK), 0, b.CETAK) as CETAK, 
-							   if(isnull(B.BATALCETAK), 0, b.BATALCETAK) as BATALCETAK, 
-							   if(isnull(B.INPUTHARGA), 0, b.INPUTHARGA) as INPUTHARGA, 
-							   if(isnull(B.LIHATHARGA), 0, b.LIHATHARGA) as LIHATHARGA
-						from MMENU a 
-						left join MUSERAKSES b on a.KODEMENU = b.KODEMENU and b.iduser = {$userID}
-						where (a.KODEINDUK is null or a.KODEINDUK = '') and a.STATUS=1 and a.KODEMENU = 'D0001'
-							  {$tempSql}
-						";
-			} else {
-				$sqlMenu .= "select distinct 'DASHBOARD'as HEADER, a.KODEMENU as KODEMODUL, a.KODEINDUK,a.NAMAMENU as NAMAMODUL, a.URUTAN, a.TIPE, A.ICON,
-							   0 as HAKAKSES, 0 as TAMBAH, 0 as UBAH, 0 as HAPUS, 0 as CETAK, 0 as BATALCETAK, 0 as INPUTHARGA, 0 as LIHATHARGA
-						from MMENU a 
-						where (a.KODEINDUK is null or a.KODEINDUK = '') and a.STATUS=1 and a.KODEMENU = 'D0001'
-							  {$tempSql}
-						";
-			}
-		}
-		else
-		{
 		    
 		foreach($queryMenu as $row)
 		{
@@ -321,11 +232,7 @@ class Model_master_user extends MY_Model{
 								   if(isnull(b.HAKAKSES), 0, b.HAKAKSES) as HAKAKSES , 
 								   if(isnull(B.TAMBAH), 0, b.TAMBAH) as TAMBAH, 
 								   if(isnull(B.UBAH), 0, b.UBAH) as UBAH, 
-								   if(isnull(B.HAPUS), 0, b.HAPUS) as HAPUS, 
-								   if(isnull(B.CETAK), 0, b.CETAK) as CETAK, 
-								   if(isnull(B.BATALCETAK), 0, b.BATALCETAK) as BATALCETAK, 
-								   if(isnull(B.INPUTHARGA), 0, b.INPUTHARGA) as INPUTHARGA, 
-								   if(isnull(B.LIHATHARGA), 0, b.LIHATHARGA) as LIHATHARGA
+								   if(isnull(B.HAPUS), 0, b.HAPUS) as HAPUS
 							from MMENU a 
 							left join MUSERAKSES b on a.KODEMENU = b.KODEMENU and b.iduser = {$userID}
 							where a.KODEINDUK = '{$parent}' and a.STATUS=1
@@ -333,7 +240,7 @@ class Model_master_user extends MY_Model{
 							";
 				} else {
 					$sqlMenu .= "select distinct '{$header}'as HEADER, a.KODEMENU as KODEMODUL, a.KODEINDUK,a.NAMAMENU as NAMAMODUL, a.URUTAN, a.TIPE, A.ICON,
-								   0 as HAKAKSES, 0 as TAMBAH, 0 as UBAH, 0 as HAPUS, 0 as CETAK, 0 as BATALCETAK, 0 as INPUTHARGA, 0 as LIHATHARGA
+								   0 as HAKAKSES, 0 as TAMBAH, 0 as UBAH, 0 as HAPUS
 							from MMENU a 
 							where a.KODEINDUK = '{$parent}' and a.STATUS=1 
 								  {$tempSql}
@@ -341,7 +248,7 @@ class Model_master_user extends MY_Model{
 				}
 			} else {
 				$sqlMenu .= "select '{$header}'as HEADER, a.KODEMENU as KODEMODUL, a.KODEINDUK,a.NAMAMENU as NAMAMODUL, a.URUTAN, a.TIPE, a.ICON,
-							   0 as HAKAKSES, 0 as TAMBAH, 0 as UBAH, 0 as HAPUS, 0 as CETAK, 0 as BATALCETAK, 0 as INPUTHARGA, 0 as LIHATHARGA
+							   0 as HAKAKSES, 0 as TAMBAH, 0 as UBAH, 0 as HAPUS
 						from MMENU a
 						where (a.KODEINDUK is null or a.KODEINDUK = '') and a.STATUS=1 
 							  {$tempSql}
@@ -351,32 +258,10 @@ class Model_master_user extends MY_Model{
 			$count++;
 			
 		}
-		}
 		$sqlMenu .=" ) as a ORDER BY a.URUTAN";
 		
 		$data['rows'] = $this->db->query($sqlMenu)->result();
 		
-		return $data;
-	}
-	
-	public function comboGridVerify($pagination,$kodemenu)
-	{
-		if (!isset($pagination['sort'])) {
-			$pagination['sort'] = 'USERID';
-		}
-
-		$sql = "select a.IDUSER as ID, a.USERNAME as NAMA
-				from MUSER a
-				left join MUSERAKSES b on a.IDUSER =  b.IDUSER and b.KODEMENU = '{$kodemenu}'
-				where a.IDPERUSAHAAN = {$_SESSION[NAMAPROGRAM]['IDPERUSAHAAN']} 
-						and (a.USERID like ? or a.USERNAME like ?) 
-						and a.AUTHENTICATION in (2,3) and b.TAMBAH =1
-						 {$pagination['status']}
-				order by {$pagination['sort']} {$pagination['order']}
-				limit 0, 30";
-		$query = $this->db->query($sql, array('%'.$pagination['q'].'%','%'.$pagination['q'].'%'));
-
-		$data['rows'] = $query->result();
 		return $data;
 	}
 }

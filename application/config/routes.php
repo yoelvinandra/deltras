@@ -74,5 +74,10 @@ $route['ticket'] = 'Home/index/ticket';
 
 $route['cart'] = 'Home/index/cart';
 
+//ADMIN
+$route['admin'] = 'Home/index/login';
+
+
+
 $route['404_override'] = 'home';
 $route['translate_uri_dashes'] = FALSE;

@@ -7,11 +7,6 @@ class Login extends CI_Controller {
         parent::__construct();
         $this->load->model(array("model_master_menu","model_master_user"));
 	}
-
-	public function index()
-	{
-		$this->load->view('web/index');
-	}
 	
     //untuk proses login
     function cekLogin(){
@@ -62,7 +57,7 @@ class Login extends CI_Controller {
 		$r = $this->model_master_user->updateLogin($_SESSION[NAMAPROGRAM]['IDUSER'],0);
 
 		unset($_SESSION[NAMAPROGRAM]);
-		redirect(base_url());
+		redirect(base_url()."admin");
 		//delete_cookie('c_u');
 		//delete_cookie('c_p');
 		//delete_cookie('c_l');
