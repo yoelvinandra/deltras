@@ -101,7 +101,6 @@ class Club extends MY_Controller {
 	
 	function hapus(){
 		$id = $this->input->post('id');
-		$kode = $this->input->post('kode');
 
 		$exe = $this->model_master_club->hapus($id);
 		if ($exe != '') { die(json_encode(array('errorMsg'=>$exe))); }

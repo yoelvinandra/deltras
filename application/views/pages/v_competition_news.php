@@ -1,8 +1,10 @@
 
+<link rel="stylesheet" href="bootstrap-datetimepicker.min.css">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Master Club
+    News
     <!-- <button type="button" class="btn pull-right btn-success" id="btn_print" style="font-size:10pt;"  onclick="exportTableToExcel()">Excel</button> -->
   </h1>
   <!-- <ol class="breadcrumb">
@@ -36,13 +38,8 @@
                             <tr>
                                 <th width="35px"></th>
                                 <th>ID</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>Telp</th>
-                                <th>Email</th>
-                                <th>Contact Person</th>
-                                <th>CP. Telp</th>
-                                <th>CP. Email</th>
+                                <th>Judul</th>
+                                <th>Tgl Terbit</th>
                                 <th>Catatan</th>
                                 <th width="40px">User Input</th>
                                 <th width="40px">Tgl. Input</th>
@@ -60,13 +57,13 @@
 						<!-- form start -->
 						<form role="form" id="form_input">
                             <input type="hidden" id="mode" name="mode">
-                            <input type="hidden" id="IDCLUB" name="IDCLUB">
+                            <input type="hidden" id="IDNEWS" name="IDNEWS">
                             <div class="box-body">
                                 <div class="form-group col-md-6">
-                                    <h3 style="font-weight:bold;">Informasi Club</h3>
+                                    <h3 style="font-weight:bold;">Informasi Berita</h3>
                                     <label style="display:flex; justify-content:space-between; align-items:center;">
                                         <span>
-                                            Nama Club 
+                                            Judul Berita 
                                             <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i>
                                         </span>
 
@@ -76,45 +73,23 @@
                                             Aktif
                                         </span>
                                     </label>
-                                    <input type="text" class="form-control" id="NAMA" name="NAMA" placeholder="...">
+                                    <input type="text" class="form-control" id="TITLE" name="TITLE" placeholder="...">
                                     <br>
-                                    <label>Logo Club <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i> </label>
+                                    <label>Gambar Berita <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i> </label>
                                     <br>
                                     <div style="display:flex; align-items:center; gap:20px;">
                                         <div>
-                                            <img id="previewGambar" src="<?=base_url()?>assets/images/club/no-logo.png" style="border:1px solid #ccc;" width="150" height="150">
-                                            <input type="file" class="form-control" id="GAMBAR" name="GAMBAR" accept="image/png" style="width:150px;">
+                                            <img id="previewGambar" src="<?=base_url()?>assets/images/news/no-image.png" style="border:1px solid #ccc;" width="390" height="200">
+                                            <input type="file" class="form-control" id="GAMBAR" name="GAMBAR" accept="image/png" style="width:390px;">
                                         </div>
-                                        <span>Syarat :<br>- Format wajib PNG<br>- Ukuran maks 100x100 px<br>- Kapasitas gambar maks 300 kb</span>
+                                        <span>Syarat :<br>- Format wajib PNG<br>- Ukuran maks 390x200 px<br>- Kapasitas gambar maks 1000 kb</span>
                                     </div>
                                     <br>
-                                    <label>Deskripsi</label>
-                                    <textarea class="form-control" rows="3" id="DESKRIPSI" name="DESKRIPSI" placeholder="..."></textarea>
+                                    <label>Tgl Terbit <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                                    <input type="text" class="form-control" id="TGLTERBIT" name="TGLTERBIT" placeholder="...">
                                     <br>
-                                    <label>Tgl Berdiri</label>
-                                    <input type="text" class="form-control" id="TGLBERDIRI" name="TGLBERDIRI" placeholder="...">
-                                    <br>
-                                    <label>Alamat</label>
-                                    <input type="text" class="form-control" id="ALAMAT" name="ALAMAT" placeholder="...">
-                                    <br>
-                                    <label>Telp</label>
-                                    <input type="text" class="form-control" id="TELP" name="TELP" placeholder="Cth : 628xxxxxxxxxx">
-                                    <br>
-                                    <label>Email</label>
-                                    <input type="text" class="form-control" id="EMAIL" name="EMAIL" placeholder="...">
-                                    <br>
-                                    <label>Website</label>
-                                    <input type="text" class="form-control" id="WEBSITE" name="WEBSITE" placeholder="...">
-                                    <br><br>
-                                    <h3 style="font-weight:bold;">Contact Person</h3>
-                                    <label>Nama</label>
-                                    <input type="text" class="form-control" id="CP" name="CP" placeholder="...">
-                                    <br>
-                                    <label>Telp</label>
-                                    <input type="text" class="form-control" id="TELPCP" name="TELPCP" placeholder="Cth : 628xxxxxxxxxx">
-                                    <br>
-                                    <label>Email</label>
-                                    <input type="text" class="form-control" id="EMAILCP" name="EMAILCP" placeholder="...">
+                                    <label>Detail Berita <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                                    <textarea class="form-control" rows="20" id="DETAIL" name="DETAIL" placeholder="..."></textarea>
                                     <br><br>
                                     <h3 style="font-weight:bold;">Informasi Lain</h3>
                                     <label>Catatan</label>
@@ -143,13 +118,44 @@
 </section>
 <!-- /.content -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.2/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/eonasdan-bootstrap-datetimepicker@4.17.49/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 <script>
 var indexRow;
+
+var summernoteConfig = {
+    lang: 'id-ID',
+    height: 400,
+    minHeight: 200,
+    maxHeight: 800,
+    placeholder: 'Tulis isi berita di sini...',
+    toolbar: [
+        ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link']],
+        ['view', [ 'undo', 'redo']]
+    ]
+};
+
 $(document).ready(function() {
-    $('#TGLBERDIRI').datepicker({
-        format: "yyyy-mm-dd", // sesuai format database
-        autoclose: true,
-        todayHighlight: true
+    
+    $('#DETAIL').summernote(summernoteConfig);
+
+    $('#TGLTERBIT').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm',  // format sesuai database
+        showTodayButton: true,           // tombol "Hari Ini"
+        showClear: true,                 // tombol hapus
+        showClose: true,                 // tombol tutup
+        sideBySide: true,                // kalender & jam tampil bersamaan
+        locale: 'id',                    // bahasa Indonesia
+    });
+
+    // Ambil nilai saat berubah
+    $('#TGLTERBIT').on('dp.change', function (e) {
+        var tgl = $('#TGLTERBIT').val();
+        console.log('Tanggal dipilih: ' + tgl);
+        // tgl sudah dalam format YYYY-MM-DD HH:mm:ss, siap disimpan ke database
     });
 
     $("#mode").val('tambah');
@@ -164,7 +170,7 @@ $(document).ready(function() {
         'autoWidth'   : false,
 		"scrollX"	  : true,
 		ajax		  : {
-			url    : base_url+'Master/Data/Club/dataGrid',
+			url    : base_url+'Competition/Operational/News/dataGrid',
 			dataSrc: "rows",
 			// dataFilter: function (data) {
             //     // Refresh the new table whenever DataTable reloads
@@ -210,14 +216,9 @@ $(document).ready(function() {
 		},
         columns:[
             {data: ''},
-            {data: 'IDCLUB', visible:false},
-            {data: 'NAMA'},
-            {data: 'ALAMAT'},
-            {data: 'TELP'},
-            {data: 'EMAIL'},
-            {data: 'CP'},
-            {data: 'TELPCP'},
-            {data: 'EMAILCP'},
+            {data: 'IDNEWS', visible:false},
+            {data: 'TITLE'},
+            {data: 'TGLTERBIT',  className:"text-center"},
             {data: 'CATATAN'},
             {data: 'USERBUAT'},
             {data: 'TGLENTRY', className:"text-center"},
@@ -287,14 +288,14 @@ $('#GAMBAR').on('change', function(event) {
 
     if (!file) return;
 
-    // 🔥 CEK SIZE (300 KB)
-    if (file.size > 300 * 1024) {
+    // 🔥 CEK SIZE (1000 KB)
+    if (file.size > 1000 * 1024) {
         Swal.fire({
-            title: "Ukuran file maksimal 300 KB",
+            title: "Ukuran file maksimal 1000 KB",
             type: "warning"
         });
         $(this).val('');
-        $('#previewGambar').attr('src', '<?=base_url()?>assets/images/club/no-logo.png');
+        $('#previewGambar').attr('src', '<?=base_url()?>assets/images/news/no-image.png');
         return;
     }
 
@@ -305,7 +306,7 @@ $('#GAMBAR').on('change', function(event) {
             type: "warning"
         });
         $(this).val('');
-        $('#previewGambar').attr('src', '<?=base_url()?>assets/images/club/no-logo.png');
+        $('#previewGambar').attr('src', '<?=base_url()?>assets/images/news/no-image.png');
         return;
     }
 
@@ -314,13 +315,13 @@ $('#GAMBAR').on('change', function(event) {
 
     img.onload = function () {
         // 🔥 perbaikan logika (pakai OR, bukan AND)
-        if (this.width > 100 || this.height > 100) {
+        if (this.width > 390 || this.height > 200) {
             Swal.fire({
-                title: "Ukuran maks 100x100 px",
+                title: "Ukuran maks 390x200 px",
                 type: "warning"
             });
             $('#GAMBAR').val('');
-            $('#previewGambar').attr('src', '<?=base_url()?>assets/images/club/no-logo.png');
+            $('#previewGambar').attr('src', '<?=base_url()?>assets/images/news/no-image.png');
         } else {
             $('#previewGambar')
                 .attr('src', objectUrl)
@@ -330,16 +331,6 @@ $('#GAMBAR').on('change', function(event) {
 
     img.src = objectUrl;
 });
-
-function isValidEmail(email) {
-    let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}
-
-function isValidPhone(phone) {
-    let regex = /^62[0-9]{8,13}$/;
-    return regex.test(phone);
-}
 
 function tambah(){
 	get_akses_user('<?=$_GET['kode']?>', function(data){
@@ -373,18 +364,12 @@ function ubah(row){
 			//load row data to form
 			if(row.STATUS == 0) $("#STATUS").prop('checked',false).iCheck('update');
 			else if(row.STATUS == 1) $("#STATUS").prop('checked',true).iCheck('update');
-			$("#IDCLUB").val(row.IDCLUB);
-			$("#NAMA").val(row.NAMA);
-			$("#TGLBERDIRI").val(row.TGLBERDIRI);
-            $('#previewGambar').attr('src', '<?=base_url()?>assets/images/club/'+row.IDCLUB+'.png?t='+ Date.now());
-			$("#DESKRIPSI").val(row.DESKRIPSI);
-			$("#ALAMAT").val(row.ALAMAT);
-			$("#TELP").val(row.TELP);
-			$("#EMAIL").val(row.EMAIL);
-			$("#WEBSITE").val(row.WEBSITE);
-			$("#CP").val(row.CP);
-			$("#TELPCP").val(row.TELPCP);
-			$("#EMAILCP").val(row.EMAILCP);
+			$("#IDNEWS").val(row.IDNEWS);
+            $("#STATUS").prop('checked',true).iCheck('update');
+			$("#TITLE").val(row.TITLE);
+			$("#TGLTERBIT").val(row.TGLTERBIT);
+            $('#previewGambar').attr('src', '<?=base_url()?>assets/images/news/'+row.IDNEWS+'.png?t='+ Date.now());
+			$('#DETAIL').summernote('code', row.DETAIL); // ✅
 			$("#CATATAN").val(row.CATATAN);
 		} else {
 			Swal.fire({
@@ -398,39 +383,32 @@ function ubah(row){
 }
 
 function simpan() {
-    let nama = $('#NAMA').val();
-    let email = $('#EMAIL').val();
-    let emailCP = $('#EMAILCP').val();
-    let telp = $('#TELP').val();
-    let telpCP = $('#TELPCP').val();
+    let title = $('#TITLE').val();
+    let tglterbit = $('#TGLTERBIT').val();
+    let detail = $('#DETAIL').summernote('code');
+    let detailStrip = detail.replace(/<[^>]*>/g, '').trim(); // hapus tag HTML
+    
 
-    if(!nama){
-        Swal.fire({ title: "Nama Club tidak boleh kosong", type: "warning" });
+    if(!title){
+        Swal.fire({ title: "Judul Berita tidak boleh kosong", type: "warning" });
         return;
     }
-    else if (telp && !isValidPhone(telp)) {
-        Swal.fire({ title: "No Telp harus diawali 62, dengan panjang 10-15 karakter", type: "warning" });
+    else if (!detailStrip) {
+        Swal.fire({ title: "Detail Berita tidak boleh kosong", type: "warning" });
         return;
     }
-    else if (email && !isValidEmail(email)) {
-        Swal.fire({ title: "Format Email tidak valid", type: "warning" });
-        return;
-    }
-    else if (telpCP && !isValidPhone(telpCP)) {
-        Swal.fire({ title: "No Telp CP harus diawali 62, dengan panjang 10-15 karakter", type: "warning" });
-        return;
-    }
-    else if (emailCP && !isValidEmail(emailCP)) {
-        Swal.fire({ title: "Format Email CP tidak valid", type: "warning" });
+    else if (!tglterbit) {
+        Swal.fire({ title: "Tanggal Terbit tidak boleh kosong", type: "warning" });
         return;
     }
     else
     {
+        $('#DETAIL').val($('#DETAIL').summernote('code'));
         let formData = new FormData($('#form_input')[0]);
 
         $.ajax({
             type: 'POST',
-            url: base_url+'Master/Data/Club/simpan',
+            url: base_url+'Competition/Operational/News/simpan',
             data: formData,
             processData: false,
             contentType: false,
@@ -467,7 +445,7 @@ function hapus(row){
 		    
             if (row) {
     		    Swal.fire({
-                		title: 'Anda Yakin Akan Menghapus Club '+row.NAMA+' ?',
+                		title: 'Anda Yakin Akan Menghapus Berita '+row.TITLE+' ?',
                 		showCancelButton: true,
                 		confirmButtonText: 'Yakin',
                 		cancelButtonText: 'Tidak',
@@ -478,13 +456,13 @@ function hapus(row){
                     		    $.ajax({
                     		    	type    : 'POST',
                     		    	dataType: 'json',
-                    		    	url     : base_url+"Master/Data/Club/hapus",
-                    		    	data    : "id="+row.IDCLUB ,
+                    		    	url     : base_url+"Competition/Operational/News/hapus",
+                    		    	data    : "id="+row.IDNEWS ,
                     		    	cache   : false,
                     		    	success : function(msg){
                     		    		if (msg.success) {
                     		    			Swal.fire({
-                    		    				title            : 'Club dengan nama '+row.NAMA+' telah dihapus',
+                    		    				title            : 'Berita dengan judul '+row.TITLE+' telah dihapus',
                     		    				type             : 'success',
                     		    				showConfirmButton: false,
                     		    				timer            : 1500
@@ -520,20 +498,13 @@ function hapus(row){
 function clearForm(){
 	//clear form input
 	$("#STATUS").prop('checked',true).iCheck('update');
-	$("#IDCLUB").val("");
-	$("#NAMA").val("");
-	$("#TGLBERDIRI").val("");
-	$("#GAMBAR").val("");
-	$("#DESKRIPSI").val("");
-	$("#ALAMAT").val("");
-	$("#TELP").val("");
-	$("#EMAIL").val("");
-	$("#WEBSITE").val("");
-	$("#CP").val("");
-	$("#TELPCP").val("");
-	$("#EMAILCP").val("");
+	$("#IDNEWS").val("");
+	$("#TITLE").val("");
+	$("#TGLTERBIT").val("");
+	$("#GAMBAR").val(""); 
+    $('#DETAIL').summernote('reset');  
 	$("#CATATAN").val("");
-    $('#previewGambar').attr('src', '<?=base_url()?>assets/images/club/no-logo.png'); // 🔥 tambahan
+    $('#previewGambar').attr('src', '<?=base_url()?>assets/images/news/no-image.png'); // 🔥 tambahan
 }
 
 function get_akses_user(kodemenu, callback) {

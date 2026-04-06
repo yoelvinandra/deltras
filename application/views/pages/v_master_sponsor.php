@@ -374,7 +374,6 @@ function ubah(row){
 			if(row.STATUS == 0) $("#STATUS").prop('checked',false).iCheck('update');
 			else if(row.STATUS == 1) $("#STATUS").prop('checked',true).iCheck('update');
 			$("#IDSPONSOR").val(row.IDSPONSOR);
-            $("#STATUS").prop('checked',true).iCheck('update');
 			$("#NAMA").val(row.NAMA);
 			$("#TGLBERGABUNG").val(row.TGLBERGABUNG);
             $('#previewGambar').attr('src', '<?=base_url()?>assets/images/sponsor/'+row.IDSPONSOR+'.png?t='+ Date.now());

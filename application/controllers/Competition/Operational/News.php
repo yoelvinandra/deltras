@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sponsor extends MY_Controller {
+class News extends MY_Controller {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(['model_master_sponsor']);
+		$this->load->model(['model_competition_news']);
 	}
 	
 	public function index(){
@@ -15,32 +15,32 @@ class Sponsor extends MY_Controller {
 
 	public function comboGrid() {
 		$this->output->set_content_type('application/json');
-		$response = $this->model_master_sponsor->comboGrid($this->input->get('search'));
+		$response = $this->model_competition_news->comboGrid($this->input->get('search'));
 		echo json_encode($response);
 	}
 	
 	public function comboGridTransaksi() {
 		$this->output->set_content_type('application/json');
-		$response = $this->model_master_sponsor->comboGridTransaksi($this->setPaginationGrid());
+		$response = $this->model_competition_news->comboGridTransaksi($this->setPaginationGrid());
 		echo json_encode($response);
 	}
 
 	public function dataGrid() {
 		$this->output->set_content_type('application/json');
-		$response = $this->model_master_sponsor->dataGrid($this->setPaginationGrid(), $this->setFilterGrid());
+		$response = $this->model_competition_news->dataGrid($this->setPaginationGrid(), $this->setFilterGrid());
 		echo json_encode($response);
 	}
 		
 	public function simpan(){
         // die (json_encode(array('success' => false,'errorMsg' => 'cek swal')));
-		$id     = $this->input->post('IDSPONSOR','');
-		$nama   = $this->input->post('NAMA');
+		$id     = $this->input->post('IDNEWS','');
+		$title   = $this->input->post('TITLE');
 		$status = $this->input->post('STATUS') ?? 0;
 
 		$mode = $this->input->post('mode');
 		if ($mode=='tambah') {
             
-			$response = $this->model_master_sponsor->cek_valid_nama($nama);
+			$response = $this->model_competition_news->cek_valid_nama($title);
 			if($response != ''){
 				die(json_encode(array('errorMsg' => $response)));
 			}
@@ -51,7 +51,7 @@ class Sponsor extends MY_Controller {
 		else{
 			//jika edit
 			//cek apakah nama sudah digunakan
-			$response = $this->model_master_sponsor->cek_valid_nama($nama,$id);
+			$response = $this->model_competition_news->cek_valid_nama($title,$id);
 			if($response != ''){
 				die(json_encode(array('errorMsg' => $response)));
             }
@@ -60,22 +60,15 @@ class Sponsor extends MY_Controller {
 		}
 		
 		$data_values = array (
-			'NAMA'    	      => $this->input->post('NAMA')??"",
-			'TGLBERGABUNG'    => $this->input->post('TGLBERGABUNG')??"",
-			'DESKRIPSI'       => $this->input->post('DESKRIPSI')??"",
-			'ALAMAT'          => $this->input->post('ALAMAT')??"",
-			'TELP'            => $this->input->post('TELP')??"",
-			'EMAIL'           => $this->input->post('EMAIL')??"",
-			'WEBSITE'         => $this->input->post('WEBSITE')??"",
-			'CP'         	  => $this->input->post('CP')??"",
-			'TELPCP'          => $this->input->post('TELPCP')??"",
-			'EMAILCP'         => $this->input->post('EMAILCP')??"",
+			'TITLE'    	      => $title,
+			'DETAIL'       	  => $this->input->post('DETAIL')??"",
+			'TGLTERBIT'       => $this->input->post('TGLTERBIT')??"",
 			'CATATAN'         => $this->input->post('CATATAN')??"",
 			'USERENTRY'       => $_SESSION[NAMAPROGRAM]['USERID'],
 			'TGLENTRY'        => date("Y-m-d h:i:s"),
 			'STATUS'          => $status
 		);
-		$response = $this->model_master_sponsor->simpan($id,$data_values,$edit);
+		$response = $this->model_competition_news->simpan($id,$data_values,$edit);
 		if (!is_numeric($response)){
 			// generate an error... or use the log_message() function to log your error
 			die(json_encode(array('errorMsg' => $response)));
@@ -84,13 +77,13 @@ class Sponsor extends MY_Controller {
 		// panggil fungsi untuk log history
 		log_history(
 			$response,
-			'MASTER SPONSOR',
+			'COMPETITION NEWS',
 			$mode,
 			array(
 				array(
 					'nama'  => 'header',
-					'tabel' => 'MSPONSOR',
-					'kode'  => 'IDSPONSOR'
+					'tabel' => 'TNEWS',
+					'kode'  => 'IDNEWS'
 				),
 			),
 			$_SESSION[NAMAPROGRAM]['USERID']
@@ -102,14 +95,14 @@ class Sponsor extends MY_Controller {
 	function hapus(){
 		$id = $this->input->post('id');
 
-		$exe = $this->model_master_sponsor->hapus($id);
+		$exe = $this->model_competition_news->hapus($id);
 		if ($exe != '') { die(json_encode(array('errorMsg'=>$exe))); }
 		
 		echo json_encode(array('success' => true));
 
 		log_history(
 			$id,
-			'MASTER SPONSOR',
+			'COMPETITION NEWS',
 			'HAPUS',
 			[],
 			$_SESSION[NAMAPROGRAM]['USERID']

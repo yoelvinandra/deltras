@@ -156,19 +156,18 @@
 						title            : msg.message,
 						type             : 'error',
 						showConfirmButton: false,
-						timer            : 15000000000
+						timer            : 1500
 					});
 				} else {	
 					Swal.fire({
 						title            : msg.success,
 						type             : 'success',
 						showConfirmButton: false,
-						timer            : 1000
+						timer            : 2000
 					}).then(function() {
 						window.location.replace('<?php echo base_url(); ?>admin');
 					});
 				}			
-				$('#KODEMEMBER').val("");	
 			}
 		});
 		

@@ -64,7 +64,6 @@
 								<div class="tab-content">
 									<div class="tab-pane active" id="tab_umum">
 										<div class="box-body">
-											<div><h2>Data Umum</h2></div>
 											<div class="col-md-12">
 												<!-- form start -->
 												<form role="form" id="form_input">
@@ -72,6 +71,7 @@
 													<input type="hidden" id="IDUSER" name="IDUSER">
 													<div class="box-body">
 														<div class="form-group col-md-6">
+															<h3 style="font-weight:bold;">Data Umum</h3>
 															<label for="USERID">User ID <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i> &nbsp;&nbsp;&nbsp;</label> <label><input type="checkbox" class="flat-blue" id="STATUS" name="STATUS" value="1">&nbsp; Aktif </label> &nbsp;  &nbsp; <input type="hidden"id="LOGIN" name="LOGIN" value="1" >
 															<input type="text" class="form-control" id="USERID" name="USERID" placeholder="User ID" onkeydown="return onlyAlphabets(event)">
 															<br>
@@ -104,7 +104,7 @@
 									
 									<div class="tab-pane" id="tab_hak_akses">
 									  <div class="box-body">
-										  <div><h2>Master <label class="pull-right"><input type="checkbox" id="masterAll"> &nbsp;&nbsp;Semua Akses</label></h2></div>
+										  <div><h3 style="font-weight:bold;">Master <label class="pull-right"><input type="checkbox" id="masterAll"> &nbsp;&nbsp;Semua Akses</label></h3></div>
 										  <table id="dataGridMaster" class="table table-bordered table-striped table-hover display nowrap" width="100%">
 											  <!-- class="table-hover"> -->
 											  <thead>
@@ -120,7 +120,7 @@
 											  </thead>
 										  </table>
 										  <br>
-										  <div><h2>Competition <label class="pull-right"><input type="checkbox" id="competitionAll"> &nbsp;&nbsp;Semua Akses</label></h2></div>
+										  <div><h3 style="font-weight:bold;">Competition <label class="pull-right"><input type="checkbox" id="competitionAll"> &nbsp;&nbsp;Semua Akses</label></h3></div>
 										  <table id="dataGridCompetition" class="table table-bordered table-striped table-hover display nowrap" width="100%">
 											 <!-- class="table-hover"> -->
 											 <thead>
