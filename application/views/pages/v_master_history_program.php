@@ -1,23 +1,29 @@
 
-<div>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    History Program
+    <!-- <button type="button" class="btn pull-right btn-success" id="btn_print" style="font-size:10pt;"  onclick="exportTableToExcel()">Excel</button> -->
+  </h1>
+  <!-- <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Dashboard</li>
+  </ol> -->
+</section>
+<section class="content">
     <!-- Main row -->
-    <div class="row" style="overflow-y:hidden;">
+    <div class="row" >
         <div class="col-md-12">
-            <div class="box">
-                <div class="box-header">
-                    <!-- <h2 class="page-header">AdminLTE Custom Tabs</h2> -->
-                    <h3 class="box-title" style="font-size:20pt;">Laporan History Program </h3> <button class="btn pull-right" id="btn_print" style="font-size:20pt;"><i class="fa fa-print" ></i></button>
-                    <!-- <button class="btn">Tambah</button> -->
-                </div>
                 <!-- Custom Tabs -->
-                <div >
+                <div class="nav-tabs-custom" >
                     <ul class="nav nav-tabs" id="tab-filter" >
                         <li class="active" id="tab_filter"><a href="#tab_form" data-toggle="tab">Filter</a></li>
                     </ul>
                     <div class="tab-content" id="tab-report">
                         <div class="tab-pane active" id="tab_form">
 							
-                            <div class="col-sm-12">
+                            <div class="box-body">
                                 <!-- form start -->
                                 <form method='post' target="LaporanHistory" action='<?=base_url()?>Master/Data/HistoryProgram/laporan<?='?kode='.$kodemenu?>' id="form_input">
                                     <div class="box-body">
@@ -69,7 +75,7 @@
 											</div>
 											
 											<div class="form-group">
-                                                <label for="Nilai">Kode</label>
+                                                <label for="Nilai">Menu</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-window-maximize"></i>
@@ -78,7 +84,7 @@
                                                         <input class="form-control " id="txt_nilai_kode" name="txt_nilai_kode"  prompt="Kode" style="width:97%; border:1px solid #B5B4B4; border-radius:5px;">
                                                     </div>
 												</div>
-</div>
+                                            </div>
                                         </div>
                                         <div class="form-group col-sm-6">
 											<h4 class="box-title">
@@ -119,13 +125,12 @@
                     </div>
 
                 </div>
-            </div>
             <!-- /.col -->
         </div>
     </div>
     <!-- /.row (main row) -->
 
-</div>
+</section>
 
 <script>
 var counter = 0;
@@ -178,7 +183,7 @@ function simpan(modeSimpan,tabLaporan) {
 				$("#tab-report div").removeClass("active");
 				$("#tab-filter").append('<li class="'+tab_title+' active" id="tab_'+counter+'"><a href="#tab_grid_'+counter+'" data-toggle="tab" >'+tabLaporan+' &nbsp;<i class="fa fa-close" style="cursor:pointer;" onclick=hapus_tab('+counter+')></i></a></li>');
 				
-				$("#tab-report").append('<div class="tab-pane active" style="border:0px;" id="tab_grid_'+counter+'"><iframe id="'+tab_title+'" name="'+tab_title+'" width="100%"  height="83%" frameBorder="0" src="#"></iframe></div>');
+				$("#tab-report").append('<div class="tab-pane active" style="border:0px;" id="tab_grid_'+counter+'"><iframe id="'+tab_title+'" name="'+tab_title+'" style="width:100%; height:70vh;" frameBorder="0" src="#"></iframe></div>');
 				counter++;
 			}
 		

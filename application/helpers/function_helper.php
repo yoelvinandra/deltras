@@ -789,27 +789,21 @@ function checkCustomerPadaTransaksi($idcustomer)
     return $CI->db->query($sql)->row()->ID_EXISTS;
 }
 
-function checkSupplierPadaTransaksi($idsupplier)
+function checkSudahAdaPertandingan($id)
 {
     $CI =& get_instance();	
 	$CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
 	
 	$sql = "SELECT EXISTS (
         SELECT 1
-        FROM TPO
-        WHERE idsupplier = $idsupplier
-        
-        UNION ALL
-        
-        SELECT 1
-        FROM TBELI
-        WHERE idsupplier = $idsupplier
-        
-        UNION ALL
-        
-        SELECT 1
-        FROM TRETURBELI
-        WHERE idsupplier = $idsupplier
+        FROM TFIXTURERESULT
+        WHERE IDCLUB1 = $id OR IDCLUB2 = $id
+
+		UNION ALL
+
+		SELECT 1
+        FROM MPLAYER
+        WHERE IDCLUB = $id
     ) AS id_exists";
         
     return $CI->db->query($sql)->row()->ID_EXISTS;
@@ -1946,7 +1940,7 @@ function log_history($kode, $menu, $act, $data_table, $kasir) {
 	fclose($fp);
 
 	$dataValues = [
-		'kodetrans' => $kode,
+		'menu' => $menu,
 		'aksi' => $act,
 		'tglentry' => date('Y-m-d H:i:s'),
 		'userentry' => $kasir,

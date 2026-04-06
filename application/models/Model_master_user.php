@@ -118,7 +118,7 @@ class Model_master_user extends MY_Model{
 		return $data;
 	}
 	
-	public function simpan($id, $edit, $data, $dataMaster, $dataTransaksi,$dataLaporan, $dataLokasi){
+	public function simpan($id, $edit, $data){
 		$tr = $this->db->trans_begin();
 
 		if ($edit) {
@@ -175,7 +175,6 @@ class Model_master_user extends MY_Model{
 
 		$this->db->where("IDUSER",$id)->delete('MUSER');
 		$this->db->where("IDUSER",$id)->delete('MUSERAKSES');
-		$this->db->where("IDUSER",$id)->delete('muserlokasi');
 
 
 		if ($this->db->trans_status() === FALSE) { 

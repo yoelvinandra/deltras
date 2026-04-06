@@ -10,7 +10,7 @@
     <div class="meta-bar">
         <div class="author-wrap">
             <div class="avatar">
-                <img src="assets/images/deltras-news.png">
+                <img src="assets/images/user/deltras.png">
             </div>
             <div>
                 <div class="author-name fira-sans-regular">Deltras Media</div>

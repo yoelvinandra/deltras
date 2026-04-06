@@ -270,7 +270,7 @@ class User extends MY_Controller {
 		} else 
 			$data_values['PASS'] = encrypt_data($this->input->post('PASS'));
 
-		$response = $this->model_master_user->simpan($id,($mode=='tambah'?false:true),$data_values,$dataMaster,$dataTransaksi,$dataLaporan,$dataLokasi);
+		$response = $this->model_master_user->simpan($id,($mode=='tambah'?false:true),$data_values);
 		if (!is_numeric($response)){
 			// generate an error... or use the log_message() function to log your error
 			die(json_encode(array('errorMsg' => $response)));
@@ -278,7 +278,7 @@ class User extends MY_Controller {
 		
 		// panggil fungsi untuk log history
 		log_history(
-			$this->input->post('USERID'),
+			$response,
 			'MASTER USER',
 			$mode,
 			array(
@@ -326,7 +326,7 @@ class User extends MY_Controller {
 		echo json_encode(array('success' => true));
 
 		log_history(
-			$kode,
+			$id,
 			'MASTER USER',
 			'HAPUS',
 			[],

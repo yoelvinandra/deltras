@@ -39,21 +39,13 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
     
     </style>
 </head>
-<body>
+<body style="height:100%;">
 	<div align="left">
 		<div id="header">
 		<?php if($tampil == "REGISTER"){ 
             $query = $CI->db->query($sql)->result();
             echo "LAPORAN HISTORY PROGRAM";
-            }else{
-            echo "LAPORAN HISTORY PROGRAM BARANG";
-            
-            $sqlLokasi = "select NAMALOKASI from mlokasi where idlokasi in ($whereLokasi)";
-            echo "<br>Lokasi : ".$CI->db->query($sqlLokasi)->row()->NAMALOKASI;
-            
-            $sqlBarang = "select NAMABARANG from mbarang where kodebarang = '$kodeBarang'";
-            echo "<br>Barang : ".$CI->db->query($sqlBarang)->row()->NAMABARANG;
-            } 
+            }
         ?>
         </div>
 		<hr>
@@ -65,7 +57,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
     			$tbl->set_tr(array('bgcolor'=>'#9CD0ED'));
     			$tbl->set_th(array(
     				array('id'=>'detail', 'class'=>'tebal', 'align'=>'center', 'width'=>150,  'values'=>'Tanggal Entry'),
-    				array('id'=>'detail', 'class'=>'tebal', 'align'=>'center', 'width'=>120,  'values'=>'Kode Trans'),
+    				array('id'=>'detail', 'class'=>'tebal', 'align'=>'center', 'width'=>120,  'values'=>'Menu'),
     				array('id'=>'detail', 'class'=>'tebal', 'align'=>'center', 'width'=>80,  'values'=>'Aksi'),
     				array('id'=>'detail', 'class'=>'tebal', 'align'=>'center', 'width'=>80,  'values'=>'User Entry'),
     				array('id'=>'detail', 'class'=>'tebal', 'align'=>'center', 'width'=>400,  'values'=>'Nama File'),
@@ -82,7 +74,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
     				$tbl->set_tr(array('bgcolor'=>$warna));
     				$tbl->set_td(array(
     					array('id'=>'detail', 'align'=>'center', 'values'=>$item->TGLHISTORY),
-    					array('id'=>'detail', 'align'=>'center','values'=>$item->KODETRANS),
+    					array('id'=>'detail', 'align'=>'center','values'=>$item->MENU),
     					array('id'=>'detail', 'align'=>'center','values'=>$item->AKSI),
     					array('id'=>'detail', 'align'=>'center','values'=>$item->USERNAME),
     					array('id'=>'detail', 'values'=>$item->NAMAFILE),

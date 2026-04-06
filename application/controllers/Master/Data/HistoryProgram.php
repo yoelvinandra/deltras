@@ -51,7 +51,7 @@ class HistoryProgram extends MY_Controller {
 		$whereUser = "and MUSER.USERNAME LIKE '%$user%' ";
 		
 		//KODE
-		$whereKode = "and HISTORYPROGRAM.KODETRANS LIKE '%$kode%' ";	
+		$whereKode = "and HISTORYPROGRAM.MENU LIKE '%$kode%' ";	
 		
 		//LOKASI
 		$whereLokasi = str_replace("]","", str_replace("[","",json_encode($lokasi)));
@@ -59,7 +59,7 @@ class HistoryProgram extends MY_Controller {
         {
 		    $sql = "SELECT *, HISTORYPROGRAM.TGLENTRY as TGLHISTORY FROM HISTORYPROGRAM 
 				LEFT JOIN MUSER ON MUSER.USERID = HISTORYPROGRAM.USERENTRY
-				where (1=1) $whereTanggalHistory $whereTanggalTrans $whereUser $whereKode ORDER BY SUBSTR(HISTORYPROGRAM.TGLENTRY,1,10), KODETRANS ASC";
+				where (1=1) $whereTanggalHistory $whereTanggalTrans $whereUser $whereKode ORDER BY SUBSTR(HISTORYPROGRAM.TGLENTRY,1,10) ASC";
         }
 		
 		$data['sql']      = $sql;

@@ -165,7 +165,7 @@
 						showConfirmButton: false,
 						timer            : 1000
 					}).then(function() {
-						window.location.replace('<?php echo base_url(); ?>home');
+						window.location.replace('<?php echo base_url(); ?>admin');
 					});
 				}			
 				$('#KODEMEMBER').val("");	

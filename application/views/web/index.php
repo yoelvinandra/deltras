@@ -270,14 +270,14 @@
                   <div class="next-info-detail-sub">
                     <div class="next-team-1">
                       <span class="fira-sans-extrabold">Deltras FC</span>
-                      <img src="assets/images/team/team1.png">
+                      <img src="assets/images/club/team1.png">
                     </div> 
                     <div class="next-team-time fira-sans-regular">
                       <p class="fira-sans-light">19.00</p>
                       <p class="timezone fira-sans-semibold">WIB</p>
                     </div>
                     <div class="next-team-2">
-                      <img src="assets/images/team/team2.png">
+                      <img src="assets/images/club/team2.png">
                       <span class="fira-sans-extrabold">PSIS Semarang</span>
                     </div>
                   </div>
@@ -306,14 +306,14 @@
                   <div class="next-info-detail-sub">
                     <div class="next-team-1">
                       <span class="fira-sans-extrabold">Persipura Jayapura</span>
-                      <img src="assets/images/team/team1.png">
+                      <img src="assets/images/club/team1.png">
                     </div> 
                     <div class="next-team-time fira-sans-regular">
                       <p class="fira-sans-light">20.30</p>
                       <p class="timezone fira-sans-semibold">WIB</p>
                     </div>
                     <div class="next-team-2">
-                      <img src="assets/images/team/team2.png">
+                      <img src="assets/images/club/team2.png">
                       <span class="fira-sans-extrabold">Deltras FC</span>
                     </div>
                   </div>
@@ -342,14 +342,14 @@
                   <div class="next-info-detail-sub">
                       <div class="next-team-1">
                         <span class="fira-sans-extrabold">Deltras FC</span>
-                        <img src="assets/images/team/team1.png">
+                        <img src="assets/images/club/team1.png">
                       </div> 
                       <div class="next-team-time fira-sans-regular">
                         <p class="fira-sans-light">20.30</p>
                         <p class="timezone fira-sans-semibold">WIB</p>
                       </div>
                       <div class="next-team-2">
-                        <img src="assets/images/team/team2.png">
+                        <img src="assets/images/club/team2.png">
                         <span class="fira-sans-extrabold">PS. Barito Putra</span>
                       </div>
                     </div>
@@ -374,14 +374,14 @@
                   <div class="next-info-detail-sub">
                     <div class="next-team-1">
                       <span class="fira-sans-extrabold">Deltras FC</span>
-                      <img src="assets/images/team/team1.png">
+                      <img src="assets/images/club/team1.png">
                     </div> 
                     <div class="next-team-time fira-sans-regular">
                       <p class="fira-sans-light">17.00</p>
                       <p class="timezone fira-sans-semibold">WIB</p>
                     </div>
                     <div class="next-team-2">
-                      <img src="assets/images/team/team2.png">
+                      <img src="assets/images/club/team2.png">
                       <span class="fira-sans-extrabold">PS. Barito Putra</span>
                     </div>
                   </div>
@@ -418,13 +418,13 @@
                   <div class="prev-info-detail">
                     <div class="prev-team-1">
                       <span class="fira-sans-bold">Deltras FC</span>
-                      <img src="assets/images/team/team1.png">
+                      <img src="assets/images/club/team1.png">
                     </div> 
                     <div class="prev-team-score fira-sans-regular">
                       1-1
                     </div>
                     <div class="prev-team-2">
-                      <img src="assets/images/team/team2.png">
+                      <img src="assets/images/club/team2.png">
                       <span class="fira-sans-bold">PSIS Semarang</span>
                     </div>
                   </div>
@@ -438,13 +438,13 @@
                   <div class="prev-info-detail">
                     <div class="prev-team-1">
                       <span class="fira-sans-bold">Persipura Jayapura</span>
-                      <img src="assets/images/team/team1.png">
+                      <img src="assets/images/club/team1.png">
                     </div> 
                     <div class="prev-team-score fira-sans-regular">
                       1-2
                     </div>
                     <div class="prev-team-2">
-                      <img src="assets/images/team/team2.png">
+                      <img src="assets/images/club/team2.png">
                       <span class="fira-sans-bold">Deltras FC</span>
                     </div>
                   </div>
@@ -458,13 +458,13 @@
                   <div class="prev-info-detail">
                     <div class="prev-team-1">
                       <span class="fira-sans-bold">Deltras FC</span>
-                      <img src="assets/images/team/team1.png">
+                      <img src="assets/images/club/team1.png">
                     </div> 
                     <div class="prev-team-score fira-sans-regular">
                       2-1
                     </div>
                     <div class="prev-team-2">
-                      <img src="assets/images/team/team2.png">
+                      <img src="assets/images/club/team2.png">
                       <span class="fira-sans-bold">PS. Barito Putra</span>
                     </div>
                   </div>

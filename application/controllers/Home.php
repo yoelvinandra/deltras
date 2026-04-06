@@ -11,7 +11,7 @@ class Home extends MY_Controller {
 	
 	public function index($jenisLaporan = "index")
 	{
-		if(isset($_SESSION[NAMAPROGRAM]['user'])){
+		if(isset($_SESSION[NAMAPROGRAM]['user']) && $jenisLaporan == "login"){
 			$this->load->view('header',$text);
 			$this->load->view('v_menuawal');
 			$this->load->view('footer');
