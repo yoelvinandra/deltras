@@ -90,7 +90,7 @@ class Club extends MY_Controller {
 				array(
 					'nama'  => 'header',
 					'tabel' => 'MCLUB',
-					'kode'  => 'IDCLUB'
+					'id'  => 'IDCLUB'
 				),
 			),
 			$_SESSION[NAMAPROGRAM]['USERID']

@@ -83,7 +83,7 @@ class News extends MY_Controller {
 				array(
 					'nama'  => 'header',
 					'tabel' => 'TNEWS',
-					'kode'  => 'IDNEWS'
+					'id'  => 'IDNEWS'
 				),
 			),
 			$_SESSION[NAMAPROGRAM]['USERID']
