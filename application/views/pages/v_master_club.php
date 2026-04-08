@@ -405,7 +405,7 @@ function simpan() {
     let telpCP = $('#TELPCP').val();
 
     if(!nama){
-        Swal.fire({ title: "Nama Club tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Nama Club wajib diisi", type: "warning" });
         return;
     }
     else if (telp && !isValidPhone(telp)) {

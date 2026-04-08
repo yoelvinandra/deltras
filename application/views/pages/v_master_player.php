@@ -629,9 +629,9 @@ function ubah(row){
 			if(row.STATUS == 0) $("#STATUS").prop('checked',false).iCheck('update');
 			else if(row.STATUS == 1) $("#STATUS").prop('checked',true).iCheck('update');
 			var newOption = new Option(row.CLUB, row.IDCLUB, true, true);
+            $('#IDCLUB').append(newOption).trigger('change');
 			$("#POSITION").val(row.POSITION);
             setPosition(row.POSITION);
-            $('#IDCLUB').append(newOption).trigger('change');
             $("#IDPLAYER").val(row.IDPLAYER);
             $("#GOAL").val(row.GOAL);
             $("#ASSIST").val(row.ASSIST);
@@ -674,17 +674,17 @@ function simpan() {
 
     if(!namadepan || !namabelakang)
     {
-        Swal.fire({ title: "Nama Depan dan Nama Belakang tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Nama Depan dan Nama Belakang wajib diisi", type: "warning" });
         return;
     }
      if(!idclub)
     {
-        Swal.fire({ title: "Club tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Club wajib diisi", type: "warning" });
         return;
     }
     else if(!position)
     {
-        Swal.fire({ title: "Position tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Position wajib diisi", type: "warning" });
         return;
     }
     else if(position)
@@ -698,7 +698,7 @@ function simpan() {
                     let squadnumber = $('#SQUADNUMBER').val();
                
                     if (!squadnumber) {
-                        Swal.fire({ title: "Squad Number tidak boleh kosong", type: "warning" });
+                        Swal.fire({ title: "Squad Number wajib diisi", type: "warning" });
                         return;
                     }
                 }

@@ -406,11 +406,11 @@ function simpan() {
     let telpCP = $('#TELPCP').val();
 
     if(!nama){
-        Swal.fire({ title: "Nama Sponsor tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Nama Sponsor wajib diisi", type: "warning" });
         return;
     }
     else if(!website){
-        Swal.fire({ title: "Website tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Website wajib diisi", type: "warning" });
         return;
     }
     else if (telp && !isValidPhone(telp)) {

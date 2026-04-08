@@ -14,10 +14,10 @@ class Login extends CI_Controller {
 		$pass 	= encrypt_data($this->input->post('password'));
 		
         if ($user=='') {
-			return die(json_encode(array('message' => 'Username Tidak Boleh Kosong')));	
+			return die(json_encode(array('message' => 'Username wajib diisi')));	
 		}
         if ($this->input->post('password')=='') {
-			return die(json_encode(array('message' => 'Password Tidak Boleh Kosong')));	
+			return die(json_encode(array('message' => 'Password wajib diisi')));	
 		}
 				
 		//untuk debugging

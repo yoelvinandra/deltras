@@ -90,6 +90,8 @@
                                                 <th>Skor Club 2</th>
                                                 <th>Tgl Fixture</th>
                                                 <th>Lokasi</th>
+                                                <th width="80px"></th>
+                                                <th width="80px"></th>
                                                 <th>Tgl Entry</th>
                                                 <th>User Entry</th>
                                                 <th>Catatan</th>
@@ -140,7 +142,8 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Club 1 <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
-                <select class="form-control" id="d_IDCLUB1" name="IDCLUB1">
+                <br>
+                <select class="form-control select2" id="d_IDCLUB1" name="IDCLUB1" style="width:100%">
                   <option value="">-- Pilih Club --</option>
                 </select>
               </div>
@@ -155,6 +158,22 @@
                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
               </div>
+              
+              <!-- 
+              THUMBNAIL
+              https://img.youtube.com/vi/jm7SV-1OXGs/hqdefault.jpg 
+              -->
+              
+              <!-- 
+              LINK YOUTUBE
+              https://youtu.be/jm7SV-1OXGs 
+              -->
+              
+              <!-- 
+              LINK EMBED
+              <iframe width="1492" height="839" src="https://www.youtube.com/embed/jm7SV-1OXGs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> 
+              -->
+
               <div class="form-group">
                 <label>URL Video Highlight</label>
                 <input type="text" class="form-control" id="d_VIDEOHIGHLIGHT" name="VIDEOHIGHLIGHT" placeholder="https://...">
@@ -163,7 +182,8 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Club 2 <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
-                <select class="form-control" id="d_IDCLUB2" name="IDCLUB2">
+                <br>
+                <select class="form-control select2" id="d_IDCLUB2" name="IDCLUB2" style="width:100%">
                   <option value="">-- Pilih Club --</option>
                 </select>
               </div>
@@ -222,8 +242,13 @@ var indexRow;
 
 $(document).ready(function() {
     
+    $('#SEASON').datepicker({
+        format: "yyyy-mm", // sesuai format database
+        autoclose: true,
+        todayHighlight: true
+    });
 
-    $('#SEASON').datetimepicker({
+    $('#d_TGLFIXTURE').datetimepicker({
         format: 'YYYY-MM-DD HH:mm',  // format sesuai database
         showTodayButton: true,           // tombol "Hari Ini"
         showClear: true,                 // tombol hapus
@@ -233,13 +258,37 @@ $(document).ready(function() {
     });
 
     // Ambil nilai saat berubah
-    $('#SEASON').on('dp.change', function (e) {
+    $('#d_TGLFIXTURE').on('dp.change', function (e) {
         var tgl = $('#SEASON').val();
         console.log('Tanggal dipilih: ' + tgl);
         // tgl sudah dalam format YYYY-MM-DD HH:mm:ss, siap disimpan ke database
     });
 
     $("#mode").val('tambah');
+
+    $('#d_IDCLUB1,#d_IDCLUB2').select2({
+        ajax: {
+            url: base_url + 'Master/Data/Club/comboGrid',
+            dataType: 'json',
+            delay: 250,
+            cache: false, // 🔥 disable cache
+            data: function (params) {
+                return {
+                    search: params.term // 🔥 kirim keyword
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data.rows.map(function (row) {
+                        return {
+                            id: row.VALUE,
+                            text: row.TEXT
+                        };
+                    })
+                };
+            }
+        }
+    });
 
     $('#dataGrid').DataTable({
         'paging'      : true,
@@ -367,6 +416,8 @@ function initTableDetail(idFixture) {
             { data: 'SKORCLUB2',       className: 'text-center' },
             { data: 'TGLFIXTURE',      className: 'text-center' },
             { data: 'LOKASI' },
+            { data: 'VIDEO' , visible:false},
+            { data: 'VIDEOHIGHLIGHT' , visible:false},
             { data: 'TGLENTRY',        className: 'text-center' },
             { data: 'USERENTRY',       className: 'text-center' },
             { data: 'CATATAN' },
@@ -422,28 +473,66 @@ function ubahDetail(row) {
     $('#d_VIDEO').val(row.VIDEO);
     $('#d_VIDEOHIGHLIGHT').val(row.VIDEOHIGHLIGHT);
     $('#d_LOKASI').val(row.LOKASI);
-    $('#d_LAT').val(row.LAT);
-    $('#d_LNG').val(row.LNG);
-    $('#d_LONG').val(row.LONG);
+    // $('#d_LAT').val(row.LAT);
+    // $('#d_LNG').val(row.LNG);
     $('#d_CATATAN').val(row.CATATAN);
     $('#d_STATUS').val(row.STATUS);
     $('#modalDetailTitle').text('Ubah Detail Fixture');
     $('#modalDetail').modal('show');
 }
 
+function simpanDetail(){
+    var rowData = {
+        IDCLUB1         : $('#d_IDCLUB1').val(),
+        IDCLUB2         : $('#d_IDCLUB2').val(),
+        CLUB1           : $('#d_IDCLUB1 option:selected').text(),
+        CLUB2           : $('#d_IDCLUB2 option:selected').text(),
+        SKORCLUB1       : $('#d_SKORCLUB1').val(),
+        SKORCLUB2       : $('#d_SKORCLUB2').val(),
+        TGLFIXTURE      : $('#d_TGLFIXTURE').val(),
+        LOKASI          : $('#d_LOKASI').val(),
+        VIDEO           : $('#d_VIDEO').val(''),
+        VIDEOHIGHLIGHT  : $('#d_VIDEOHIGHLIGHT').val(''),
+        TGLENTRY        : '-',
+        USERENTRY       : '<?=$_SESSION[NAMAPROGRAM]["USERID"]?>',
+        CATATAN         : $('#d_CATATAN').val(),
+        STATUS          : $('#d_STATUS').val()
+    };
+
+    // Validasi
+    if (!rowData.IDCLUB1 || !rowData.IDCLUB2) {
+        Swal.fire({ title: "Club 1 dan Club 2 wajib diisi", type: "warning" });
+        return;
+    }
+    if(rowData.IDCLUB1 == rowData.IDCLUB2)
+    {
+        Swal.fire({ title: "Club 1 dan Club 2 tidak boleh sama", type: "warning" });
+        return;
+    }
+    if (!rowData.TGLFIXTURE) {
+        Swal.fire({ title: "Tanggal fixture wajib diisi", type: "warning" });
+        return;
+    }
+    if (!rowData.LOKASI) {
+        Swal.fire({ title: "Lokasi wajib diisi", type: "warning" });
+        return;
+    }
+
+    tableDetail.row.add(rowData).draw(false);
+}
+
 function clearFormDetail() {
     $('#d_IDDETAIL').val('');
-    $('#d_IDCLUB1').val('');
-    $('#d_IDCLUB2').val('');
+    $('#d_IDCLUB1').val(null).trigger('change');
+    $('#d_IDCLUB2').val(null).trigger('change');
     $('#d_SKORCLUB1').val(0);
     $('#d_SKORCLUB2').val(0);
     $('#d_TGLFIXTURE').val('');
     $('#d_VIDEO').val('');
     $('#d_VIDEOHIGHLIGHT').val('');
     $('#d_LOKASI').val('');
-    $('#d_LAT').val('');
-    $('#d_LNG').val('');
-    $('#d_LONG').val('');
+    // $('#d_LAT').val('');
+    // $('#d_LNG').val('');
     $('#d_CATATAN').val('');
     $('#d_STATUS').val(0);
 }
@@ -482,6 +571,7 @@ function tambah(){
 				//pindah tab & ganti judul tab
 				$('.nav-tabs a[href="#tab_form"]').tab('show');
 				$('.nav-tabs a[href="#tab_form"]').html('Tambah');
+                initTableDetail(0);
                 clearForm();
 		} else {
 			Swal.fire({
@@ -508,6 +598,7 @@ function ubah(row){
 			$("#NAMA").val(row.NAMA);
 			$("#SEASON").val(row.SEASON);
 			$("#CATATAN").val(row.CATATAN);
+            initTableDetail(row.IDFIXTURE);
 		} else {
 			Swal.fire({
 				title            : 'Anda Tidak Memiliki Hak Akses',
@@ -525,11 +616,11 @@ function simpan() {
     
 
     if(!nama){
-        Swal.fire({ title: "Nama tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Nama wajib diisi", type: "warning" });
         return;
     }
     else if (!season) {
-        Swal.fire({ title: "Season tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Season wajib diisi", type: "warning" });
         return;
     }
     else

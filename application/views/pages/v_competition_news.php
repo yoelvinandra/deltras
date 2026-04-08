@@ -390,15 +390,15 @@ function simpan() {
     
 
     if(!title){
-        Swal.fire({ title: "Judul Berita tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Judul Berita wajib diisi", type: "warning" });
         return;
     }
     else if (!detailStrip) {
-        Swal.fire({ title: "Detail Berita tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Detail Berita wajib diisi", type: "warning" });
         return;
     }
     else if (!tglterbit) {
-        Swal.fire({ title: "Tanggal Terbit tidak boleh kosong", type: "warning" });
+        Swal.fire({ title: "Tanggal Terbit wajib diisi", type: "warning" });
         return;
     }
     else
