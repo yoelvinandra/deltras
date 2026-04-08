@@ -796,7 +796,7 @@ function checkSudahAdaPertandingan($id)
 	
 	$sql = "SELECT EXISTS (
         SELECT 1
-        FROM TFIXTURERESULT
+        FROM TFIXTUREDTL
         WHERE IDCLUB1 = $id OR IDCLUB2 = $id
 
 		UNION ALL

@@ -160,12 +160,14 @@ class User extends MY_Controller {
 		{
 			die(json_encode(array('errorMsg' => "User ID Harus Diisi")));
 		}
-		
-		if($this->input->post('PASS') == "")
+		else if($this->input->post('USERNAME') == ""){
+			die(json_encode(array('errorMsg' => "Nama User Harus Diisi")));
+		}
+		else if($this->input->post('PASS') == "")
 		{
 			die(json_encode(array('errorMsg' => "Password Harus Diisi")));
 		}
-		if($this->input->post('PASS') != $this->input->post('RE_PASS')){
+		else if($this->input->post('PASS') != $this->input->post('RE_PASS')){
 			die(json_encode(array('errorMsg' => "Pengulangan Password Salah")));
 		}
 			

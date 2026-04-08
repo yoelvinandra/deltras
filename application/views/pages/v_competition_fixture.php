@@ -1,0 +1,652 @@
+
+<link rel="stylesheet" href="bootstrap-datetimepicker.min.css">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Fixture
+    <!-- <button type="button" class="btn pull-right btn-success" id="btn_print" style="font-size:10pt;"  onclick="exportTableToExcel()">Excel</button> -->
+  </h1>
+  <!-- <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Dashboard</li>
+  </ol> -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  
+  <!-- Main row -->
+  <div class="row">
+      <div class="col-md-12">
+        <div class="box">
+        <div class="box-header">
+            <button class="btn btn-success" onclick="javascript:tambah()">Tambah</button>
+        </div>
+        <!-- Custom Tabs -->
+        <div class="nav-tabs-custom" >
+            <ul class="nav nav-tabs" id="tab_transaksi">
+				<li class="active"><a href="#tab_grid" data-toggle="tab">Grid</a></li>
+				<li><a href="#tab_form" data-toggle="tab">Tambah</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_grid">
+                    <div class="box-body">
+                        <table id="dataGrid" class="table table-bordered table-striped table-hover display nowrap" width="100%">
+                            <!-- class="table-hover"> -->
+                            <thead>
+                            <tr>
+                                <th width="35px"></th>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Season</th>
+                                <th>Catatan</th>
+                                <th width="40px">User Input</th>
+                                <th width="40px">Tgl. Input</th>
+                                <th width="25px">Aktif</th>                                
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="tableExcel" style="display:none;" ></div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_form">
+                    <div class="box-body">
+					 <div class="col-md-12">
+						<!-- form start -->
+						<form role="form" id="form_input">
+                            <input type="hidden" id="mode" name="mode">
+                            <input type="hidden" id="IDFIXTURE" name="IDFIXTURE">
+                            <div class="box-body">
+                                <div class="form-group col-md-6">
+                                    <h3 style="font-weight:bold;">Informasi Fixture</h3>
+                                    <label style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span>
+                                            Nama 
+                                            <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i>
+                                        </span>
+                                    </label>
+                                    <input type="text" class="form-control" id="NAMA" name="NAMA" placeholder="...">
+                                    <br>
+                                    <label>Season <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                                    <input type="text" class="form-control" id="SEASON" name="SEASON" placeholder="...">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <br><br>
+                                    <h3 style="font-weight:bold;">Detail Fixture</h3>
+                                    <div style="margin-bottom:10px;">
+                                        <button type="button" class="btn btn-success btn-sm" onclick="tambahDetail()">
+                                            <i class="fa fa-plus"></i> Tambah Detail
+                                        </button>
+                                    </div>
+                                    <table id="dataGridDetail" class="table table-bordered table-striped table-hover display nowrap" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th width="80px"></th>
+                                                <th>Club 1</th>
+                                                <th>Club 2</th>
+                                                <th>Skor Club 1</th>
+                                                <th>Skor Club 2</th>
+                                                <th>Tgl Fixture</th>
+                                                <th>Lokasi</th>
+                                                <th>Tgl Entry</th>
+                                                <th>User Entry</th>
+                                                <th>Catatan</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <br><br>
+                                    <h3 style="font-weight:bold;">Informasi Lain</h3>
+                                    <label>Catatan</label>
+                                    <textarea class="form-control" rows="3" id="CATATAN" name="CATATAN" placeholder="Catatan....."></textarea>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpan()">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+        </div>
+        <!-- nav-tabs-custom -->
+        </div>
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row (main row) -->
+
+  <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modalDetailTitle">Tambah Detail Fixture</h4>
+      </div>
+      <div class="modal-body">
+        <form id="form_detail">
+          <input type="hidden" id="d_mode" name="mode">
+          <input type="hidden" id="d_IDFIXTURE" name="IDFIXTURE">
+          <input type="hidden" id="d_IDDETAIL" name="IDDETAIL">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Club 1 <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <select class="form-control" id="d_IDCLUB1" name="IDCLUB1">
+                  <option value="">-- Pilih Club --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Skor Club 1</label>
+                <input type="number" class="form-control" id="d_SKORCLUB1" name="SKORCLUB1" min="0" value="0">
+              </div>
+              <div class="form-group">
+                <label>Tanggal Fixture <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <div class="input-group date" id="dp_TGLFIXTURE">
+                  <input type="text" class="form-control" id="d_TGLFIXTURE" name="TGLFIXTURE" placeholder="YYYY-MM-DD HH:mm">
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>URL Video Highlight</label>
+                <input type="text" class="form-control" id="d_VIDEOHIGHLIGHT" name="VIDEOHIGHLIGHT" placeholder="https://...">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Club 2 <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <select class="form-control" id="d_IDCLUB2" name="IDCLUB2">
+                  <option value="">-- Pilih Club --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Skor Club 2</label>
+                <input type="number" class="form-control" id="d_SKORCLUB2" name="SKORCLUB2" min="0" value="0">
+              </div>
+              <div class="form-group">
+                <label>Lokasi <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <input type="text" class="form-control" id="d_LOKASI" name="LOKASI" placeholder="Nama Stadion / Lokasi">
+              </div>
+              <!-- <div class="form-group">
+                <label>Latitude</label>
+                <input type="text" class="form-control" id="d_LAT" name="LAT" placeholder="-7.123456">
+              </div>
+              <div class="form-group">
+                <label>Longitude</label>
+                <input type="text" class="form-control" id="d_LNG" name="LNG" placeholder="112.123456">
+              </div> -->
+              <div class="form-group">
+                <label>URL Video</label>
+                <input type="text" class="form-control" id="d_VIDEO" name="VIDEO" placeholder="https://...">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Status</label>
+                <select class="form-control" id="d_STATUS" name="STATUS">
+                  <option value="0">Save Draft</option>
+                  <option value="1">Ongoing</option>
+                  <option value="2">Upcoming</option>
+                  <option value="3">Finished</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Catatan</label>
+                <textarea class="form-control" rows="2" id="d_CATATAN" name="CATATAN"></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="simpanDetail()">Simpan Detail</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</section>
+<!-- /.content -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.2/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/eonasdan-bootstrap-datetimepicker@4.17.49/build/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+var indexRow;
+
+$(document).ready(function() {
+    
+
+    $('#SEASON').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm',  // format sesuai database
+        showTodayButton: true,           // tombol "Hari Ini"
+        showClear: true,                 // tombol hapus
+        showClose: true,                 // tombol tutup
+        sideBySide: true,                // kalender & jam tampil bersamaan
+        locale: 'id',                    // bahasa Indonesia
+    });
+
+    // Ambil nilai saat berubah
+    $('#SEASON').on('dp.change', function (e) {
+        var tgl = $('#SEASON').val();
+        console.log('Tanggal dipilih: ' + tgl);
+        // tgl sudah dalam format YYYY-MM-DD HH:mm:ss, siap disimpan ke database
+    });
+
+    $("#mode").val('tambah');
+
+    $('#dataGrid').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false,
+		"scrollX"	  : true,
+		ajax		  : {
+			url    : base_url+'Competition/Operational/Fixture/dataGrid',
+			dataSrc: "rows",
+			// dataFilter: function (data) {
+            //     // Refresh the new table whenever DataTable reloads
+            //     var allData = JSON.parse(data).rows; // Get all rows' data
+
+            //     // Create the HTML structure for the new table
+            //     var newTable = $('<table id="newTable" class="table table-bordered">');
+            //     var thead = $('<thead>').append('<tr><th>Kode CLUB</th><th>Nama CLUB</th><th>Alamat</th><th>Telp</th><th>Fax</th><th>Email</th><th>Website</th><th>Nama Bank</th><th>No Rekening</th><th>Contact Person</th><th>Telp CP</th><th>Email CP</th><th>NPWP</th><th>Catatan</th><th>User Buat</th><th>Tgl Entry</th><th>Status</th></tr>');
+            //     var tbody = $('<tbody>');
+            //      // Loop through the DataTable data and create rows for the new table
+         
+            //     allData.forEach(function (row, index) {
+            //         var tr = $('<tr>');
+            //         tr.append('<td>' + (row.KODECLUB) + '</td>');
+            //         tr.append('<td>' + (row.NAMA) + '</td>');
+            //         tr.append('<td>' + (row.ALAMAT == null?"":row.ALAMAT) + '</td>');
+            //         tr.append('<td>' + (row.TELP == null?"":row.TELP) + '</td>');
+            //         tr.append('<td>' + (row.FAX == null?"":row.FAX) + '</td>');
+            //         tr.append('<td>' + (row.EMAIL == null?"":row.EMAIL) + '</td>');
+            //         tr.append('<td>' + (row.WEBSITE == null?"":row.WEBSITE) + '</td>');
+            //         tr.append('<td>' + (row.NAMABANK == null?"":row.NAMABANK) + '</td>');
+            //         tr.append('<td>' + (row.NOREKENING == null?"":row.NOREKENING) + '</td>');
+            //         tr.append('<td>' + (row.CP == null?"":row.CP) + '</td>');
+            //         tr.append('<td>' + (row.TELPCP == null?"":row.TELPCP) + '</td>');
+            //         tr.append('<td>' + (row.EMAILCP == null?"":row.EMAILCP) + '</td>');
+            //         tr.append('<td>' + (row.NPWP == null?"":row.NPWP) + '</td>');
+            //         tr.append('<td>' + (row.CATATAN== null?"":row.CATATAN) + '</td>');
+            //         tr.append('<td>' + row.USERBUAT + '</td>');
+            //         tr.append('<td class="text-center">' + row.TGLENTRY + '</td>');
+            //         tr.append('<td class="text-center">' + (row.STATUS == 1 ? 'AKTIF' : 'NON AKTIF') + '</td>');
+            
+            //         // Append the row to the tbody
+            //         tbody.append(tr);
+            //     });
+            
+            //     // Append the thead and tbody to the new table
+            //     newTable.append(thead).append(tbody);
+            //     // Append the new table to the DOM (you can specify where you want the new table to appear)
+            //     $('#tableExcel').html(newTable); 
+                
+            //     return data;
+            // }
+		},
+        columns:[
+            {data: ''},
+            {data: 'IDFIXTURE', visible:false},
+            {data: 'NAMA'},
+            {data: 'SEASON',  className:"text-center"},
+            {data: 'CATATAN'},
+            {data: 'USERBUAT'},
+            {data: 'TGLENTRY', className:"text-center"},
+            {data: 'STATUS', className:"text-center"},            
+        ],
+		columnDefs: [ 
+			{
+                "targets": 0,
+                "data": null,
+                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+			},
+			{
+                "targets": -1,
+                "render" :function (data) 
+                            {
+                                if (data == 1) return '<input type="checkbox" class="flat-blue" checked disabled></input>';
+                                else return '<input type="checkbox" class="flat-blue" disabled></input>';
+                            },	
+			},
+		]
+    });
+
+//DAPATKAN INDEX
+var table = $('#dataGrid').DataTable();
+$('#dataGrid tbody').on( 'click', 'button', function () {
+		var row = table.row( $(this).parents('tr') ).data();
+		var mode = $(this).attr("id");
+		
+		if(mode == "btn_ubah"){ ubah(row); }
+		else if(mode == "btn_hapus"){ hapus(row); }
+
+	} );
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+    });
+});
+
+
+// ===================== DETAIL FIXTURE =====================
+var tableDetail;
+
+function initTableDetail(idFixture) {
+    if (tableDetail) {
+        tableDetail.destroy();
+    }
+    tableDetail = $('#dataGridDetail').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'autoWidth'   : false,
+        'scrollX'     : true,
+        ajax: {
+            url    : base_url + 'Competition/Operational/Fixture/dataGridDetail',
+            dataSrc: "rows",
+            data   : { IDFIXTURE: idFixture }
+        },
+        columns: [ 
+            { data: null },
+            { data: 'IDCLUB1' , visible:false},
+            { data: 'IDCLUB2' , visible:false},
+            { data: 'CLUB1'},
+            { data: 'CLUB2'},
+            { data: 'SKORCLUB1',       className: 'text-center' },
+            { data: 'SKORCLUB2',       className: 'text-center' },
+            { data: 'TGLFIXTURE',      className: 'text-center' },
+            { data: 'LOKASI' },
+            { data: 'TGLENTRY',        className: 'text-center' },
+            { data: 'USERENTRY',       className: 'text-center' },
+            { data: 'CATATAN' },
+            { data: 'STATUS',          className: 'text-center' },
+        ],
+        columnDefs: [
+            {
+                targets: 0,
+                data: null,
+                defaultContent:
+                    "<button id='btn_ubah_detail' class='btn btn-primary btn-xs'><i class='fa fa-edit'></i></button> " +
+                    "<button id='btn_hapus_detail' class='btn btn-danger btn-xs'><i class='fa fa-trash'></i></button>"
+            },
+            {
+                targets: -1,
+                render: function(data) {
+                    var labels = ['Not Publish','Ongoing','Upcoming','Finished'];
+                    var colors = ['default','warning','info','success'];
+                    var idx    = parseInt(data) || 0;
+                    return '<span class="label label-' + colors[idx] + '">' + (labels[idx] || data) + '</span>';
+                }
+            }
+        ]
+    });
+
+    $('#dataGridDetail tbody').off('click', 'button').on('click', 'button', function() {
+        var row  = tableDetail.row($(this).parents('tr')).data();
+        var mode = $(this).attr('id');
+        if (mode === 'btn_ubah_detail')  ubahDetail(row);
+        else if (mode === 'btn_hapus_detail') hapusDetail(row);
+    });
+}
+
+function tambahDetail() {
+    var idFixture = $('#IDFIXTURE').val();
+    clearFormDetail();
+    $('#d_mode').val('tambah');
+    $('#d_IDFIXTURE').val(idFixture);
+    $('#modalDetailTitle').text('Tambah Detail Fixture');
+    $('#modalDetail').modal('show');
+}
+
+function ubahDetail(row) {
+    clearFormDetail();
+    $('#d_mode').val('ubah');
+    $('#d_IDDETAIL').val(row.IDDETAIL);
+    $('#d_IDFIXTURE').val(row.IDFIXTURE);
+    $('#d_IDCLUB1').val(row.IDCLUB1);
+    $('#d_IDCLUB2').val(row.IDCLUB2);
+    $('#d_SKORCLUB1').val(row.SKORCLUB1);
+    $('#d_SKORCLUB2').val(row.SKORCLUB2);
+    $('#d_TGLFIXTURE').val(row.TGLFIXTURE);
+    $('#d_VIDEO').val(row.VIDEO);
+    $('#d_VIDEOHIGHLIGHT').val(row.VIDEOHIGHLIGHT);
+    $('#d_LOKASI').val(row.LOKASI);
+    $('#d_LAT').val(row.LAT);
+    $('#d_LNG').val(row.LNG);
+    $('#d_LONG').val(row.LONG);
+    $('#d_CATATAN').val(row.CATATAN);
+    $('#d_STATUS').val(row.STATUS);
+    $('#modalDetailTitle').text('Ubah Detail Fixture');
+    $('#modalDetail').modal('show');
+}
+
+function clearFormDetail() {
+    $('#d_IDDETAIL').val('');
+    $('#d_IDCLUB1').val('');
+    $('#d_IDCLUB2').val('');
+    $('#d_SKORCLUB1').val(0);
+    $('#d_SKORCLUB2').val(0);
+    $('#d_TGLFIXTURE').val('');
+    $('#d_VIDEO').val('');
+    $('#d_VIDEOHIGHLIGHT').val('');
+    $('#d_LOKASI').val('');
+    $('#d_LAT').val('');
+    $('#d_LNG').val('');
+    $('#d_LONG').val('');
+    $('#d_CATATAN').val('');
+    $('#d_STATUS').val(0);
+}
+
+// function exportTableToExcel() {
+//   var wb = XLSX.utils.table_to_book(document.getElementById('tableExcel'), {sheet:"Sheet 1"});
+//   const ws = wb.Sheets[wb.SheetNames[0]];
+//   ws['!cols'] = [
+//     { wpx: 70 }, // Column A width in pixels
+//     { wpx: 200 }, // Column B width in pixels
+//     { wpx: 300 },  // Column C width in pixels
+//     { wpx: 100 },  // Column C width in pixels
+//     { wpx: 100 },  // Column C width in pixels
+//     { wpx: 120 },  // Column C width in pixels
+//     { wpx: 100 },  // Column C width in pixels
+//     { wpx: 60 },  // Column C width in pixels
+//     { wpx: 150 },  // Column C width in pixels
+//     { wpx: 100 },  // Column C width in pixels
+//     { wpx: 100 },  // Column C width in pixels
+//     { wpx: 120 },  // Column C width in pixels
+//     { wpx: 100 },  // Column C width in pixels
+//     { wpx: 150 },  // Column C width in pixels
+//     { wpx: 100 }, // Column A width in pixels
+//     { wpx: 70 }, // Column B width in pixels
+//     { wpx: 50 },  // Column C width in pixels
+//   ];
+//   // Trigger download
+//   XLSX.writeFile(wb, 'CLUB_'+dateNowFormatExcel()+'.xlsx');
+// }
+
+function tambah(){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.TAMBAH==1) {
+				$("#mode").val('tambah');
+
+				//pindah tab & ganti judul tab
+				$('.nav-tabs a[href="#tab_form"]').tab('show');
+				$('.nav-tabs a[href="#tab_form"]').html('Tambah');
+                clearForm();
+		} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+}
+
+function ubah(row){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.UBAH==1) {
+			$("#mode").val('ubah');
+			
+			//pindah tab & ganti judul tab
+			$('.nav-tabs a[href="#tab_form"]').tab('show');
+			$('.nav-tabs a[href="#tab_form"]').html('Ubah');
+
+			//load row data to form
+			$("#IDFIXTURE").val(row.IDFIXTURE);
+			$("#NAMA").val(row.NAMA);
+			$("#SEASON").val(row.SEASON);
+			$("#CATATAN").val(row.CATATAN);
+		} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+}
+
+function simpan() {
+    let nama = $('#NAMA').val();
+    let season = $('#SEASON').val();
+    
+
+    if(!nama){
+        Swal.fire({ title: "Nama tidak boleh kosong", type: "warning" });
+        return;
+    }
+    else if (!season) {
+        Swal.fire({ title: "Season tidak boleh kosong", type: "warning" });
+        return;
+    }
+    else
+    {
+        let formData = new FormData($('#form_input')[0]);
+
+        $.ajax({
+            type: 'POST',
+            url: base_url+'Competition/Operational/Fixture/simpan',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+
+            success: function(msg){
+                if (msg.success) {
+                    Swal.fire({
+                        title: 'Simpan Data Sukses',
+                        type: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    $("#dataGrid").DataTable().ajax.reload();
+                    tambah();
+                    $('.nav-tabs a[href="#tab_grid"]').tab('show');
+
+                } else {
+                    Swal.fire({
+                        title: msg.errorMsg,
+                        type: 'error',
+                        timer: 1500
+                    });
+                }
+            }
+        }); 
+    }
+}
+
+function hapus(row){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.HAPUS==1) {
+		    
+            if (row) {
+    		    Swal.fire({
+                		title: 'Anda Yakin Akan Menghapus Berita '+row.TITLE+' ?',
+                		showCancelButton: true,
+                		confirmButtonText: 'Yakin',
+                		cancelButtonText: 'Tidak',
+                		}).then((result) => {
+                		/* Read more about isConfirmed, isDenied below */
+                			if (result.value) {
+                              $("#mode").val('hapus');
+                    		    $.ajax({
+                    		    	type    : 'POST',
+                    		    	dataType: 'json',
+                    		    	url     : base_url+"Competition/Operational/Fixture/hapus",
+                    		    	data    : "id="+row.IDFIXTURE ,
+                    		    	cache   : false,
+                    		    	success : function(msg){
+                    		    		if (msg.success) {
+                    		    			Swal.fire({
+                    		    				title            : 'Berita dengan judul '+row.TITLE+' telah dihapus',
+                    		    				type             : 'success',
+                    		    				showConfirmButton: false,
+                    		    				timer            : 1500
+                    		    			});
+                    		    			$("#dataGrid").DataTable().ajax.reload();
+                    		    			$('.nav-tabs a[href="#tab_grid"]').tab('show');
+                                            clearForm();
+                    		    		} else {
+                    		    				Swal.fire({
+                    		    					title            : msg.errorMsg,
+                    		    					type             : 'error',
+                    		    					showConfirmButton: false,
+                    		    					timer            : 1500
+                    		    				});
+                    		    		}
+                    		    	}
+                    		    });
+                			} 
+                    });
+            }
+			
+		} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+}
+
+function clearForm(){
+	//clear form input
+	$("#IDFIXTURE").val("");
+	$("#NAMA").val("");
+	$("#SEASON").val(""); 
+	$("#CATATAN").val("");
+}
+
+function get_akses_user(kodemenu, callback) {
+	$.ajax({
+		dataType: "json",
+		type: 'POST',
+		url: base_url+"Master/Data/User/getUserAkses",
+		data: "kodemenu=" + kodemenu+ " &iduser=<?= $_SESSION[NAMAPROGRAM]['IDUSER']?>",
+		cache: false,
+		success: function (msg) {
+			if (msg.success) {
+				callback(msg.data);
+			} else {
+				$.messager.alert('Error', msg.errorMsg, 'error');
+			}
+		}
+	});
+}
+</script>
