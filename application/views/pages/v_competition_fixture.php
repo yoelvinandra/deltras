@@ -66,6 +66,11 @@
                                             Nama 
                                             <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i>
                                         </span>
+                                         <span>
+                                            <input type="checkbox" class="flat-blue" id="STATUS" name="STATUS" value="1">
+                                            &nbsp;
+                                            Aktif
+                                        </span>
                                     </label>
                                     <input type="text" class="form-control" id="NAMA" name="NAMA" placeholder="...">
                                     <br>
@@ -73,16 +78,17 @@
                                     <input type="text" class="form-control" id="SEASON" name="SEASON" placeholder="...">
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <br><br>
-                                    <h3 style="font-weight:bold;">Detail Fixture</h3>
+                                    <br>
                                     <div style="margin-bottom:10px;">
-                                        <button type="button" class="btn btn-success btn-sm" onclick="tambahDetail()">
+                                        <button type="button" class="btn btn-success" onclick="tambahDetail()">
                                             <i class="fa fa-plus"></i> Tambah Detail
                                         </button>
                                     </div>
                                     <table id="dataGridDetail" class="table table-bordered table-striped table-hover display nowrap" width="100%">
                                         <thead>
                                             <tr>
+                                                <th width="80px"></th>
+                                                <th width="80px"></th>
                                                 <th width="80px"></th>
                                                 <th>Club 1</th>
                                                 <th>Club 2</th>
@@ -212,7 +218,7 @@
               <div class="form-group">
                 <label>Status</label>
                 <select class="form-control" id="d_STATUS" name="STATUS">
-                  <option value="0">Save Draft</option>
+                  <option value="0">Not Publish</option>
                   <option value="1">Ongoing</option>
                   <option value="2">Upcoming</option>
                   <option value="3">Finished</option>
@@ -265,6 +271,8 @@ $(document).ready(function() {
     });
 
     $("#mode").val('tambah');
+
+    $("#STATUS").prop('checked',true).iCheck('update');
 
     $('#d_IDCLUB1,#d_IDCLUB2').select2({
         ajax: {
@@ -357,16 +365,17 @@ $(document).ready(function() {
 			{
                 "targets": 0,
                 "data": null,
-                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+                "defaultContent": "<button  type='button'  id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button  type='button'  id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
 			},
 			{
-                "targets": -1,
-                "render" :function (data) 
-                            {
-                                if (data == 1) return '<input type="checkbox" class="flat-blue" checked disabled></input>';
-                                else return '<input type="checkbox" class="flat-blue" disabled></input>';
-                            },	
-			},
+                targets: -1,
+                render: function(data) {
+                    var labels = ['Not Publish','Ongoing','Upcoming','Finished'];
+                    var colors = ['default','warning','info','success'];
+                    var idx    = parseInt(data) || 0;
+                    return '<span class="label label-' + colors[idx] + '">' + (labels[idx] || data) + '</span>';
+                }
+            }
 		]
     });
 
@@ -425,12 +434,10 @@ function initTableDetail(idFixture) {
         ],
         columnDefs: [
             {
-                targets: 0,
-                data: null,
-                defaultContent:
-                    "<button id='btn_ubah_detail' class='btn btn-primary btn-xs'><i class='fa fa-edit'></i></button> " +
-                    "<button id='btn_hapus_detail' class='btn btn-danger btn-xs'><i class='fa fa-trash'></i></button>"
-            },
+                "targets": 0,
+                "data": null,
+                "defaultContent": "<button  type='button'  id='btn_ubah_detail' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button  type='button'  id='btn_hapus_detail' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+			},
             {
                 targets: -1,
                 render: function(data) {
@@ -443,7 +450,7 @@ function initTableDetail(idFixture) {
         ]
     });
 
-    $('#dataGridDetail tbody').off('click', 'button').on('click', 'button', function() {
+    $('#dataGridDetail tbody').on( 'click', 'button', function () {
         var row  = tableDetail.row($(this).parents('tr')).data();
         var mode = $(this).attr('id');
         if (mode === 'btn_ubah_detail')  ubahDetail(row);
@@ -481,6 +488,28 @@ function ubahDetail(row) {
     $('#modalDetail').modal('show');
 }
 
+function hapusDetail(row) {
+    Swal.fire({
+        title: 'Hapus Data Fixture ' + row.CLUB1 + ' vs ' + row.CLUB2,
+        showCancelButton: true,
+        confirmButtonText: 'Yakin',
+        cancelButtonText: 'Tidak',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Ambil index row di DataTable
+            var rowIndex = tableDetail.row($(this).parents('tr')).index();
+
+            // Hapus dari array berdasarkan index
+            dataDetail.splice(rowIndex, 1);
+
+            // Reload DataTable
+            tableDetail.clear().rows.add(dataDetail).draw();
+
+            Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
+        }
+    });
+}
+
 function simpanDetail(){
     var rowData = {
         IDCLUB1         : $('#d_IDCLUB1').val(),
@@ -494,10 +523,11 @@ function simpanDetail(){
         VIDEO           : $('#d_VIDEO').val(''),
         VIDEOHIGHLIGHT  : $('#d_VIDEOHIGHLIGHT').val(''),
         TGLENTRY        : '-',
-        USERENTRY       : '<?=$_SESSION[NAMAPROGRAM]["USERID"]?>',
+        USERENTRY       : '<?=$_SESSION[NAMAPROGRAM]["USERNAME"]?>',
         CATATAN         : $('#d_CATATAN').val(),
         STATUS          : $('#d_STATUS').val()
     };
+    
 
     // Validasi
     if (!rowData.IDCLUB1 || !rowData.IDCLUB2) {
@@ -519,9 +549,11 @@ function simpanDetail(){
     }
 
     tableDetail.row.add(rowData).draw(false);
+    $('#modalDetail').modal('hide');
 }
 
 function clearFormDetail() {
+	$("#STATUS").prop('checked',true).iCheck('update');
     $('#d_IDDETAIL').val('');
     $('#d_IDCLUB1').val(null).trigger('change');
     $('#d_IDCLUB2').val(null).trigger('change');
@@ -594,6 +626,8 @@ function ubah(row){
 			$('.nav-tabs a[href="#tab_form"]').html('Ubah');
 
 			//load row data to form
+            if(row.STATUS == 0) $("#STATUS").prop('checked',false).iCheck('update');
+			else if(row.STATUS == 1) $("#STATUS").prop('checked',true).iCheck('update');
 			$("#IDFIXTURE").val(row.IDFIXTURE);
 			$("#NAMA").val(row.NAMA);
 			$("#SEASON").val(row.SEASON);

@@ -42,6 +42,21 @@ class Model_competition_fixture extends MY_Model{
 
 		return $data;
 	}
+
+	public function dataGridDetail($id=0){
+		
+		$data = [];
+
+		$sql = "select c.USERNAME as USERBUAT, a.*
+				from TFIXTUREDTL a
+				left join MUSER c on a.USERENTRY = c.USERID
+				where a.IDFIXTURE = $id
+				ORDER BY a.TGLFIXTURE DESC";
+		$query = $this->db->query($sql);
+		$data['rows'] = $query->result();
+
+		return $data;
+	}
 		
 	function simpan($id,$data,$a_detail,$edit){
 		$this->db->trans_begin();

@@ -30,6 +30,12 @@ class Fixture extends MY_Controller {
 		$response = $this->model_competition_fixture->dataGrid($this->setPaginationGrid(), $this->setFilterGrid());
 		echo json_encode($response);
 	}
+
+	public function dataGridDetail(){
+		$this->output->set_content_type('application/json');
+		$response = $this->model_competition_fixture->dataGridDetail($this->input->post("IDFIXTURE")??0);
+		echo json_encode($response);
+	}
 		
 	public function simpan(){
         // die (json_encode(array('success' => false,'errorMsg' => 'cek swal')));
