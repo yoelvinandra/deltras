@@ -80,26 +80,30 @@ class Model_competition_fixture extends MY_Model{
 			$id = $this->db->insert_id();
 		}
 
+		
+		$this->db->where('IDFIXTURE',$id)
+				->delete('TFIXTUREDTL');
+				
 		// query detail
 		foreach ($a_detail as $item) {
             
             $data_values = array (
                 'IDFIXTURE'  		=> $id,
-                'IDCLUB1'   		=> $item->idclub1,
-                'IDCLUB2' 			=> $item->idclub2,
-                'SKORCLUB1' 		=> $item->skorclub1,
-                'SKORCLUB2' 		=> $item->skorclub2,
-                'TGLFIXTURE'		=> $item->tglfixture,
-                'VIDEO'				=> $item->video,
-                'VIDEOHIGHLIGHT'	=> $item->videohighlight,
-                'LINKTICKET'		=> $item->linkticket,
-                'LOKASI'			=> $item->lokasi,
-                'LAT'				=> $item->lat??0,
-                'LNG'				=> $item->lng??0,
+                'IDCLUB1'   		=> $item->IDCLUB1,
+                'IDCLUB2' 			=> $item->IDCLUB2,
+                'SKORCLUB1' 		=> $item->SKORCLUB1,
+                'SKORCLUB2' 		=> $item->SKORCLUB2,
+                'TGLFIXTURE'		=> $item->TGLFIXTURE,
+                'VIDEO'				=> $item->VIDEO,
+                'VIDEOHIGHLIGHT'	=> $item->VIDEOHIGHLIGHT,
+                'LINKTICKET'		=> $item->LINKTICKET,
+                'LOKASI'			=> $item->LOKASI,
+                'LAT'				=> $item->LAT??0,
+                'LNG'				=> $item->LNG??0,
                 'TGLENTRY'			=> $data['TGLENTRY'],
                 'USERENTRY'			=> $data['USERENTRY'],
-                'CATATAN'			=> $item->catatan,
-                'STATUS'			=> $item->status,
+                'CATATAN'			=> $item->CATATAN,
+                'STATUS'			=> $item->STATUS,
             );
 			
             $this->db->insertRaw('TFIXTUREDTL',$data_values);

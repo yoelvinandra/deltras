@@ -58,6 +58,7 @@
 						<form role="form" id="form_input">
                             <input type="hidden" id="mode" name="mode">
                             <input type="hidden" id="IDFIXTURE" name="IDFIXTURE">
+                            <input type="hidden" id="DETAILFIXTURE" name="DETAILFIXTURE">
                             <div class="box-body">
                                 <div class="form-group col-md-6">
                                     <h3 style="font-weight:bold;">Informasi Fixture</h3>
@@ -81,7 +82,7 @@
                                     <br>
                                     <div style="margin-bottom:10px;">
                                         <button type="button" class="btn btn-success" onclick="tambahDetail()">
-                                            <i class="fa fa-plus"></i> Tambah Match
+                                            Buat Match
                                         </button>
                                     </div>
                                     <table id="dataGridDetail" class="table table-bordered table-striped table-hover display nowrap" width="100%">
@@ -251,7 +252,8 @@ $(document).ready(function() {
     $('#SEASON').datepicker({
         format: "yyyy-mm", // sesuai format database
         autoclose: true,
-        todayHighlight: true
+        startView: 'months',
+        minViewMode: 'months',
     });
 
     $('#d_TGLFIXTURE').datetimepicker({
@@ -635,6 +637,11 @@ function simpanDetail(){
         if (matchedRows.count() == 0) {
             tableDetail.row.add(rowData).draw(false);
         }
+        else
+        {
+            Swal.fire({ title: "Match dengan tanggal dan club tersebut sudah dibuat", type: "warning" });
+            return;
+        }
     }
     else if($('#d_mode').val() == "ubah")
     {
@@ -730,7 +737,7 @@ function ubah(row){
 			else if(row.STATUS == 1) $("#STATUS").prop('checked',true).iCheck('update');
 			$("#IDFIXTURE").val(row.IDFIXTURE);
 			$("#NAMA").val(row.NAMA);
-			$("#SEASON").val(row.SEASON);
+			$("#SEASON").datepicker('update', row.SEASON.slice(0, -3));
 			$("#CATATAN").val(row.CATATAN);
             initTableDetail(row.IDFIXTURE);
 		} else {
@@ -757,8 +764,14 @@ function simpan() {
         Swal.fire({ title: "Season wajib diisi", type: "warning" });
         return;
     }
-    else
+    else if(tableDetail.rows().data().toArray().length == 0)
     {
+        Swal.fire({ title: "Match wajib ada", type: "warning" });
+        return;
+    }
+    else
+    {       
+        $("#DETAILFIXTURE").val(JSON.stringify(tableDetail.rows().data().toArray()));
         let formData = new FormData($('#form_input')[0]);
 
         $.ajax({
@@ -800,7 +813,7 @@ function hapus(row){
 		    
             if (row) {
     		    Swal.fire({
-                		title: 'Anda Yakin Akan Menghapus Berita '+row.TITLE+' ?',
+                		title: 'Anda Yakin Akan Menghapus Fixture '+row.NAMA+' ?',
                 		showCancelButton: true,
                 		confirmButtonText: 'Yakin',
                 		cancelButtonText: 'Tidak',
@@ -817,7 +830,7 @@ function hapus(row){
                     		    	success : function(msg){
                     		    		if (msg.success) {
                     		    			Swal.fire({
-                    		    				title            : 'Berita dengan judul '+row.TITLE+' telah dihapus',
+                    		    				title            : 'Fixture dengan nama '+row.nama+' telah dihapus',
                     		    				type             : 'success',
                     		    				showConfirmButton: false,
                     		    				timer            : 1500

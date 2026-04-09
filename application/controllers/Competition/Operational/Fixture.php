@@ -33,7 +33,7 @@ class Fixture extends MY_Controller {
 
 	public function dataGridDetail(){
 		$this->output->set_content_type('application/json');
-		$response = $this->model_competition_fixture->dataGridDetail($this->input->post("IDFIXTURE")??0);
+		$response = $this->model_competition_fixture->dataGridDetail($this->input->get("IDFIXTURE")??0);
 		echo json_encode($response);
 	}
 		
@@ -42,7 +42,7 @@ class Fixture extends MY_Controller {
 		$id        = $this->input->post('IDFIXTURE','');
 		$nama      = $this->input->post('NAMA');
 		$status    = $this->input->post('STATUS') ?? 0;
-		$a_detail  = json_decode($_POST['data_detail']);
+		$a_detail  = json_decode($this->input->post('DETAILFIXTURE'));
 
 		$mode = $this->input->post('mode');
 		if ($mode=='tambah') {
@@ -68,7 +68,7 @@ class Fixture extends MY_Controller {
 		
 		$data_values = array (
 			'NAMA'    	      => $nama,
-			'SEASON'       	  => $this->input->post('SEASON')??"",
+			'SEASON'       	  => ($this->input->post('SEASON')."-01")??"",
 			'CATATAN'         => $this->input->post('CATATAN')??"",
 			'USERENTRY'       => $_SESSION[NAMAPROGRAM]['USERID'],
 			'TGLENTRY'        => date("Y-m-d h:i:s"),
