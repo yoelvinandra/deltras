@@ -622,21 +622,30 @@ function simpanDetail(){
 
     }
 
+    
+    var matchedRows = tableDetail.rows(function(idx, data_row) {
+        return data_row.IDCLUB1 === rowData.IDCLUB1 
+            && data_row.IDCLUB2 === rowData.IDCLUB2 
+            && data_row.TGLFIXTURE === rowData.TGLFIXTURE;
+    });
+
+
     if($('#d_mode').val() == "tambah")
     {
-        tableDetail.row.add(rowData).draw(false);
+        if (matchedRows.count() == 0) {
+            tableDetail.row.add(rowData).draw(false);
+        }
     }
     else if($('#d_mode').val() == "ubah")
     {
-        tableDetail.rows(function(idx, data_row) {
-            return data_row.IDCLUB1 === rowData.IDCLUB1 
-                                && data_row.IDCLUB2 === rowData.IDCLUB2 
-                                && data_row.TGLFIXTURE === rowData.TGLFIXTURE;
-        }).every(function() {
-            this.data(rowData); // update data row
-        });
-        tableDetail.draw(false);
+        if (matchedRows.count() > 0) {
+                matchedRows.every(function() {
+                this.data(rowData);
+            });
+            tableDetail.draw(false);
+        }
     }
+    
     $('#modalDetail').modal('hide');
 }
 

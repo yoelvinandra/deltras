@@ -89,12 +89,14 @@ class Fixture extends MY_Controller {
 				array(
 					'nama'  => 'header',
 					'tabel' => 'TFIXTURE',
-					'kode'  => 'IDFIXTURE'
+					'kode'  => 'IDFIXTURE',
+					'id'	=> $response
 				),
 				array(
 					'nama'  => 'detail',
 					'tabel' => 'TFIXTUREDTL',
-					'kode'  => 'IDFIXTURE'
+					'kode'  => 'IDFIXTURE',
+					'id'	=> $response
 				),
 			),
 			$_SESSION[NAMAPROGRAM]['USERID']

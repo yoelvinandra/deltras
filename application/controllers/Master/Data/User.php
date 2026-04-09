@@ -286,8 +286,9 @@ class User extends MY_Controller {
 			array(
 				array(
 					'nama'  => 'header',
-					'tabel' => 'muser',
-					'kode'  => 'userid'
+					'tabel' => 'MUSER',
+					'kode'  => 'USERID',
+					'id'	=> $response
 				),
 			),
 			$_SESSION[NAMAPROGRAM]['USERID']

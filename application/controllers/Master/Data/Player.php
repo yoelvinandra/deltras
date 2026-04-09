@@ -94,7 +94,8 @@ class Player extends MY_Controller {
 				array(
 					'nama'  => 'header',
 					'tabel' => 'MPLAYER',
-					'kode'  => 'IDPLAYER'
+					'kode'  => 'IDPLAYER',
+					'id'	=> $response
 				),
 			),
 			$_SESSION[NAMAPROGRAM]['USERID']
