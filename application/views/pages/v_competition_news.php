@@ -39,6 +39,7 @@
                                 <th width="35px"></th>
                                 <th>ID</th>
                                 <th>Judul</th>
+                                <th>Kategori</th>
                                 <th>Tgl Terbit</th>
                                 <th>Catatan</th>
                                 <th width="40px">User Input</th>
@@ -74,6 +75,13 @@
                                         </span>
                                     </label>
                                     <input type="text" class="form-control" id="TITLE" name="TITLE" placeholder="...">
+                                    <br>
+                                    <label>Kategori Berita</label>
+                                    <br>
+                                    <select class="form-control" id="KATEGORI" name="KATEGORI">
+                                        <option value="NEWS">NEWS</option>
+                                        <option value="MATCH">MATCH</option>
+                                    </select>
                                     <br>
                                     <label>Gambar Berita <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i> </label>
                                     <br>
@@ -218,6 +226,7 @@ $(document).ready(function() {
             {data: ''},
             {data: 'IDNEWS', visible:false},
             {data: 'TITLE'},
+            {data: 'KATEGORI'},
             {data: 'TGLTERBIT',  className:"text-center"},
             {data: 'CATATAN'},
             {data: 'USERBUAT'},
@@ -367,6 +376,7 @@ function ubah(row){
 			$("#IDNEWS").val(row.IDNEWS);
             $("#STATUS").prop('checked',true).iCheck('update');
 			$("#TITLE").val(row.TITLE);
+			$("#KATEGORI").val(row.KATEGORI);
 			$("#TGLTERBIT").val(row.TGLTERBIT);
             $('#previewGambar').attr('src', '<?=base_url()?>assets/images/news/'+row.IDNEWS+'.png?t='+ Date.now());
 			$('#DETAIL').summernote('code', row.DETAIL); // ✅
@@ -500,6 +510,7 @@ function clearForm(){
 	$("#STATUS").prop('checked',true).iCheck('update');
 	$("#IDNEWS").val("");
 	$("#TITLE").val("");
+	$("#KATEGORI").val("NEWS");
 	$("#TGLTERBIT").val("");
 	$("#GAMBAR").val(""); 
     $('#DETAIL').summernote('reset');  

@@ -47,8 +47,10 @@ class Model_competition_fixture extends MY_Model{
 		
 		$data = [];
 
-		$sql = "select c.USERNAME as USERBUAT, a.*
+		$sql = "select c.USERNAME as USERBUAT, a.*,b.NAMA as CLUB1, b1.NAMA as CLUB2
 				from TFIXTUREDTL a
+				inner join MCLUB b on b.IDCLUB = a.IDCLUB1
+				inner join MCLUB b1 on b1.IDCLUB = a.IDCLUB2
 				left join MUSER c on a.USERENTRY = c.USERID
 				where a.IDFIXTURE = $id
 				ORDER BY a.TGLFIXTURE DESC";
@@ -90,6 +92,7 @@ class Model_competition_fixture extends MY_Model{
                 'TGLFIXTURE'		=> $item->tglfixture,
                 'VIDEO'				=> $item->video,
                 'VIDEOHIGHLIGHT'	=> $item->videohighlight,
+                'LINKTICKET'		=> $item->linkticket,
                 'LOKASI'			=> $item->lokasi,
                 'LAT'				=> $item->lat??0,
                 'LNG'				=> $item->lng??0,

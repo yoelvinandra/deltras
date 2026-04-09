@@ -90,7 +90,7 @@ class Sponsor extends MY_Controller {
 				array(
 					'nama'  => 'header',
 					'tabel' => 'MSPONSOR',
-					'id'  => 'IDSPONSOR'
+					'kode'  => 'IDSPONSOR'
 				),
 			),
 			$_SESSION[NAMAPROGRAM]['USERID']

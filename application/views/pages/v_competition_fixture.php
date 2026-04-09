@@ -81,7 +81,7 @@
                                     <br>
                                     <div style="margin-bottom:10px;">
                                         <button type="button" class="btn btn-success" onclick="tambahDetail()">
-                                            <i class="fa fa-plus"></i> Tambah Detail
+                                            <i class="fa fa-plus"></i> Tambah Match
                                         </button>
                                     </div>
                                     <table id="dataGridDetail" class="table table-bordered table-striped table-hover display nowrap" width="100%">
@@ -94,8 +94,9 @@
                                                 <th>Club 2</th>
                                                 <th>Skor Club 1</th>
                                                 <th>Skor Club 2</th>
-                                                <th>Tgl Fixture</th>
-                                                <th>Lokasi</th>
+                                                <th>Tgl Match</th>
+                                                <th>Lokasi Match</th>
+                                                <th width="80px"></th>
                                                 <th width="80px"></th>
                                                 <th width="80px"></th>
                                                 <th>Tgl Entry</th>
@@ -142,9 +143,19 @@
       <div class="modal-body">
         <form id="form_detail">
           <input type="hidden" id="d_mode" name="mode">
-          <input type="hidden" id="d_IDFIXTURE" name="IDFIXTURE">
-          <input type="hidden" id="d_IDDETAIL" name="IDDETAIL">
           <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Status</label>
+                <select class="form-control" id="d_STATUS" name="STATUS">
+                  <option value="0">NOT PUBLISH</option>
+                  <option value="1">UPCOMING</option>
+                  <option value="2">TICKET SALE</option>
+                  <option value="3">ONGOING</option>
+                  <option value="4">FINISHED</option>
+                </select>
+              </div>
+            </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label>Club 1 <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
@@ -154,17 +165,42 @@
                 </select>
               </div>
               <div class="form-group">
-                <label>Skor Club 1</label>
+                <label>Skor Club 1 <i class="fixture_finished" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
                 <input type="number" class="form-control" id="d_SKORCLUB1" name="SKORCLUB1" min="0" value="0">
               </div>
+            </div>
+            <div class="col-md-6">
               <div class="form-group">
-                <label>Tanggal Fixture <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <label>Club 2 <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <br>
+                <select class="form-control select2" id="d_IDCLUB2" name="IDCLUB2" style="width:100%">
+                  <option value="">-- Pilih Club --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Skor Club 2 <i class="fixture_finished" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <input type="number" class="form-control" id="d_SKORCLUB2" name="SKORCLUB2" min="0" value="0">
+              </div>
+            </div>
+            <div class="col-md-12">
+              
+              <div class="form-group">
+                <label>Tanggal Match <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
                 <div class="input-group date" id="dp_TGLFIXTURE">
                   <input type="text" class="form-control" id="d_TGLFIXTURE" name="TGLFIXTURE" placeholder="YYYY-MM-DD HH:mm">
                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
               </div>
+                
+              <div class="form-group">
+                <label>Lokasi Match <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <input type="text" class="form-control" id="d_LOKASI" name="LOKASI" placeholder="Nama Stadion / Lokasi">
+              </div>
               
+              <div class="form-group">
+                <label>Link Ticket <i class="fixture_ticketsale" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <input type="text" class="form-control" id="d_LINKTICKET" name="LINKTICKET" placeholder="https://...">
+              </div>
               <!-- 
               THUMBNAIL
               https://img.youtube.com/vi/jm7SV-1OXGs/hqdefault.jpg 
@@ -179,50 +215,14 @@
               LINK EMBED
               <iframe width="1492" height="839" src="https://www.youtube.com/embed/jm7SV-1OXGs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> 
               -->
-
+            
               <div class="form-group">
-                <label>URL Video Highlight</label>
-                <input type="text" class="form-control" id="d_VIDEOHIGHLIGHT" name="VIDEOHIGHLIGHT" placeholder="https://...">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Club 2 <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
-                <br>
-                <select class="form-control select2" id="d_IDCLUB2" name="IDCLUB2" style="width:100%">
-                  <option value="">-- Pilih Club --</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Skor Club 2</label>
-                <input type="number" class="form-control" id="d_SKORCLUB2" name="SKORCLUB2" min="0" value="0">
-              </div>
-              <div class="form-group">
-                <label>Lokasi <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
-                <input type="text" class="form-control" id="d_LOKASI" name="LOKASI" placeholder="Nama Stadion / Lokasi">
-              </div>
-              <!-- <div class="form-group">
-                <label>Latitude</label>
-                <input type="text" class="form-control" id="d_LAT" name="LAT" placeholder="-7.123456">
-              </div>
-              <div class="form-group">
-                <label>Longitude</label>
-                <input type="text" class="form-control" id="d_LNG" name="LNG" placeholder="112.123456">
-              </div> -->
-              <div class="form-group">
-                <label>URL Video</label>
+                <label>Link Video Youtube<i class="fixture_ongoing" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
                 <input type="text" class="form-control" id="d_VIDEO" name="VIDEO" placeholder="https://...">
               </div>
-            </div>
-            <div class="col-md-12">
               <div class="form-group">
-                <label>Status</label>
-                <select class="form-control" id="d_STATUS" name="STATUS">
-                  <option value="0">Not Publish</option>
-                  <option value="1">Ongoing</option>
-                  <option value="2">Upcoming</option>
-                  <option value="3">Finished</option>
-                </select>
+                <label>Link Video Highlight Youtube<i class="fixture_finished" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <input type="text" class="form-control" id="d_VIDEOHIGHLIGHT" name="VIDEOHIGHLIGHT" placeholder="https://...">
               </div>
               <div class="form-group">
                 <label>Catatan</label>
@@ -298,6 +298,29 @@ $(document).ready(function() {
         }
     });
 
+    $("#d_STATUS").change(function(){
+        
+        $(".fixture_finished").hide();
+        $(".fixture_ongoing").hide();
+        $(".fixture_ticketsale").hide();
+
+        if($(this).val() == 2) //TICKET SALE
+        {
+            $(".fixture_ticketsale").show();
+        }
+        else if($(this).val() == 3) // ONGOING
+        {
+            $(".fixture_ticketsale").show();
+            $(".fixture_ongoing").show();
+        }
+        else if($(this).val() == 4) // FINISHED
+        {
+            $(".fixture_ticketsale").show();
+            $(".fixture_ongoing").show();
+            $(".fixture_finished").show();
+        }
+    });
+
     $('#dataGrid').DataTable({
         'paging'      : true,
         'lengthChange': true,
@@ -368,14 +391,13 @@ $(document).ready(function() {
                 "defaultContent": "<button  type='button'  id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button  type='button'  id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
 			},
 			{
-                targets: -1,
-                render: function(data) {
-                    var labels = ['Not Publish','Ongoing','Upcoming','Finished'];
-                    var colors = ['default','warning','info','success'];
-                    var idx    = parseInt(data) || 0;
-                    return '<span class="label label-' + colors[idx] + '">' + (labels[idx] || data) + '</span>';
-                }
-            }
+                "targets": -1,
+                "render" :function (data) 
+                            {
+                                if (data == 1) return '<input type="checkbox" class="flat-blue" checked disabled></input>';
+                                else return '<input type="checkbox" class="flat-blue" disabled></input>';
+                            },	
+			},
 		]
     });
 
@@ -427,6 +449,7 @@ function initTableDetail(idFixture) {
             { data: 'LOKASI' },
             { data: 'VIDEO' , visible:false},
             { data: 'VIDEOHIGHLIGHT' , visible:false},
+            { data: 'LINKTICKET' , visible:false},
             { data: 'TGLENTRY',        className: 'text-center' },
             { data: 'USERENTRY',       className: 'text-center' },
             { data: 'CATATAN' },
@@ -441,8 +464,8 @@ function initTableDetail(idFixture) {
             {
                 targets: -1,
                 render: function(data) {
-                    var labels = ['Not Publish','Ongoing','Upcoming','Finished'];
-                    var colors = ['default','warning','info','success'];
+                    var labels = ['NOT PUBLISH','UPCOMING','TICKET SALE','ONGOING','FINISHED'];
+                    var colors = ['default','info','success','danger','warning'];
                     var idx    = parseInt(data) || 0;
                     return '<span class="label label-' + colors[idx] + '">' + (labels[idx] || data) + '</span>';
                 }
@@ -462,7 +485,6 @@ function tambahDetail() {
     var idFixture = $('#IDFIXTURE').val();
     clearFormDetail();
     $('#d_mode').val('tambah');
-    $('#d_IDFIXTURE').val(idFixture);
     $('#modalDetailTitle').text('Tambah Detail Fixture');
     $('#modalDetail').modal('show');
 }
@@ -470,15 +492,20 @@ function tambahDetail() {
 function ubahDetail(row) {
     clearFormDetail();
     $('#d_mode').val('ubah');
-    $('#d_IDDETAIL').val(row.IDDETAIL);
-    $('#d_IDFIXTURE').val(row.IDFIXTURE);
     $('#d_IDCLUB1').val(row.IDCLUB1);
     $('#d_IDCLUB2').val(row.IDCLUB2);
+    var newOption = new Option(row.CLUB1, row.IDCLUB1, true, true);
+    $('#d_IDCLUB1').append(newOption).trigger('change');
+
+    var newOption = new Option(row.CLUB2, row.IDCLUB2, true, true);
+    $('#d_IDCLUB2').append(newOption).trigger('change');
+
     $('#d_SKORCLUB1').val(row.SKORCLUB1);
     $('#d_SKORCLUB2').val(row.SKORCLUB2);
     $('#d_TGLFIXTURE').val(row.TGLFIXTURE);
     $('#d_VIDEO').val(row.VIDEO);
     $('#d_VIDEOHIGHLIGHT').val(row.VIDEOHIGHLIGHT);
+    $('#d_LINKTICKET').val(row.LINKTICKET);
     $('#d_LOKASI').val(row.LOKASI);
     // $('#d_LAT').val(row.LAT);
     // $('#d_LNG').val(row.LNG);
@@ -489,25 +516,38 @@ function ubahDetail(row) {
 }
 
 function hapusDetail(row) {
-    Swal.fire({
-        title: 'Hapus Data Fixture ' + row.CLUB1 + ' vs ' + row.CLUB2,
-        showCancelButton: true,
-        confirmButtonText: 'Yakin',
-        cancelButtonText: 'Tidak',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Ambil index row di DataTable
-            var rowIndex = tableDetail.row($(this).parents('tr')).index();
+    get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.HAPUS==1) {
+		    
+            if (row) {          
+                Swal.fire({
+                    title: 'Hapus Data Fixture<br>' + row.CLUB1 + ' vs ' + row.CLUB2,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yakin',
+                    cancelButtonText: 'Tidak',
+                }).then((result) => {
+                   if (result.value) {
+                        // Ambil index row di DataTable
+                        tableDetail.rows(function(idx, data_row) {
+                            return data_row.IDCLUB1 === row.IDCLUB1 
+                                && data_row.IDCLUB2 === row.IDCLUB2 
+                                && data_row.TGLFIXTURE === row.TGLFIXTURE;
+                        }).remove().draw();
 
-            // Hapus dari array berdasarkan index
-            dataDetail.splice(rowIndex, 1);
-
-            // Reload DataTable
-            tableDetail.clear().rows.add(dataDetail).draw();
-
-            Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
-        }
-    });
+                        Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
+                    }
+                });
+            }
+			
+		} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
 }
 
 function simpanDetail(){
@@ -520,9 +560,10 @@ function simpanDetail(){
         SKORCLUB2       : $('#d_SKORCLUB2').val(),
         TGLFIXTURE      : $('#d_TGLFIXTURE').val(),
         LOKASI          : $('#d_LOKASI').val(),
-        VIDEO           : $('#d_VIDEO').val(''),
-        VIDEOHIGHLIGHT  : $('#d_VIDEOHIGHLIGHT').val(''),
-        TGLENTRY        : '-',
+        VIDEO           : $('#d_VIDEO').val(),
+        VIDEOHIGHLIGHT  : $('#d_VIDEOHIGHLIGHT').val(),
+        LINKTICKET      : $('#d_LINKTICKET').val(),
+        TGLENTRY        : 'AUTO',
         USERENTRY       : '<?=$_SESSION[NAMAPROGRAM]["USERNAME"]?>',
         CATATAN         : $('#d_CATATAN').val(),
         STATUS          : $('#d_STATUS').val()
@@ -540,21 +581,67 @@ function simpanDetail(){
         return;
     }
     if (!rowData.TGLFIXTURE) {
-        Swal.fire({ title: "Tanggal fixture wajib diisi", type: "warning" });
+        Swal.fire({ title: "Tanggal Match wajib diisi", type: "warning" });
         return;
     }
     if (!rowData.LOKASI) {
-        Swal.fire({ title: "Lokasi wajib diisi", type: "warning" });
+        Swal.fire({ title: "Lokasi Match wajib diisi", type: "warning" });
         return;
     }
 
-    tableDetail.row.add(rowData).draw(false);
+    if(rowData.STATUS >= 2){
+        //TICKET SALE
+        if (!rowData.LINKTICKET) {
+            Swal.fire({ title: "Link Ticket wajib diisi", type: "warning" });
+            return;
+        }
+
+    }
+    if(rowData.STATUS >= 3){
+        //ONGOING
+        if (!rowData.VIDEO) {
+            Swal.fire({ title: "Link Video wajib diisi", type: "warning" });
+            return;
+        }
+
+    }
+    if(rowData.STATUS >= 4){
+        //FINISHED
+        if (!rowData.VIDEOHIGHLIGHT) {
+            Swal.fire({ title: "Link Video Highlight wajib diisi", type: "warning" });
+            return;
+        }
+        if (!rowData.SKORCLUB1 || rowData.SKORCLUB1 == 0) {
+            Swal.fire({ title: "Skor Club 1 wajib diisi", type: "warning" });
+            return;
+        }
+        if (!rowData.SKORCLUB2 || rowData.SKORCLUB2 == 0) {
+            Swal.fire({ title: "Skor Club 2 wajib diisi", type: "warning" });
+            return;
+        }
+
+    }
+
+    if($('#d_mode').val() == "tambah")
+    {
+        tableDetail.row.add(rowData).draw(false);
+    }
+    else if($('#d_mode').val() == "ubah")
+    {
+        tableDetail.rows(function(idx, data_row) {
+            return data_row.IDCLUB1 === rowData.IDCLUB1 
+                                && data_row.IDCLUB2 === rowData.IDCLUB2 
+                                && data_row.TGLFIXTURE === rowData.TGLFIXTURE;
+        }).every(function() {
+            this.data(rowData); // update data row
+        });
+        tableDetail.draw(false);
+    }
     $('#modalDetail').modal('hide');
 }
 
 function clearFormDetail() {
 	$("#STATUS").prop('checked',true).iCheck('update');
-    $('#d_IDDETAIL').val('');
     $('#d_IDCLUB1').val(null).trigger('change');
     $('#d_IDCLUB2').val(null).trigger('change');
     $('#d_SKORCLUB1').val(0);
@@ -562,11 +649,15 @@ function clearFormDetail() {
     $('#d_TGLFIXTURE').val('');
     $('#d_VIDEO').val('');
     $('#d_VIDEOHIGHLIGHT').val('');
+    $('#d_LINKTICKET').val('');
     $('#d_LOKASI').val('');
     // $('#d_LAT').val('');
     // $('#d_LNG').val('');
     $('#d_CATATAN').val('');
     $('#d_STATUS').val(0);
+    $(".fixture_finished").hide();
+    $(".fixture_ongoing").hide();
+    $(".fixture_ticketsale").hide();
 }
 
 // function exportTableToExcel() {

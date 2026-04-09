@@ -62,6 +62,7 @@ class News extends MY_Controller {
 		$data_values = array (
 			'TITLE'    	      => $title,
 			'DETAIL'       	  => $this->input->post('DETAIL')??"",
+			'KATEGORI'        => $this->input->post('KATEGORI')??"",
 			'TGLTERBIT'       => $this->input->post('TGLTERBIT')??"",
 			'CATATAN'         => $this->input->post('CATATAN')??"",
 			'USERENTRY'       => $_SESSION[NAMAPROGRAM]['USERID'],
@@ -83,7 +84,7 @@ class News extends MY_Controller {
 				array(
 					'nama'  => 'header',
 					'tabel' => 'TNEWS',
-					'id'  => 'IDNEWS'
+					'kode'  => 'IDNEWS'
 				),
 			),
 			$_SESSION[NAMAPROGRAM]['USERID']
