@@ -362,7 +362,7 @@ function tambah(){
 }
 
 function ubah(row){
-	get_akses_user('<?=$_GET['kode']?>', function(data){
+	get_akses_user('<?=$_GET['kode']?>', async function(data){
 		if (data.UBAH==1) {
 			$("#mode").val('ubah');
 			
@@ -376,7 +376,18 @@ function ubah(row){
 			$("#IDSPONSOR").val(row.IDSPONSOR);
 			$("#NAMA").val(row.NAMA);
 			$("#TGLBERGABUNG").val(row.TGLBERGABUNG);
-            $('#previewGambar').attr('src', '<?=base_url()?>assets/images/sponsor/'+row.IDSPONSOR+'.png?t='+ Date.now());
+            
+            var link = '';
+            var exists = false;
+
+            link = '<?=base_url()?>assets/images/sponsor/'+row.IDSPONSOR+'.png?t='+ Date.now();
+            exists = await imageExists(link);
+            if(exists)
+            {
+                $('#previewGambar').attr('src', link);
+            }
+
+
 			$("#DESKRIPSI").val(row.DESKRIPSI);
 			$("#ALAMAT").val(row.ALAMAT);
 			$("#TELP").val(row.TELP);

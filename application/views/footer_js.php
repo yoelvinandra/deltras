@@ -96,5 +96,14 @@
         let regex = /^62[0-9]{8,13}$/;
         return regex.test(phone);
     }
+
+    function imageExists(url) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = url;
+        });
+    }
 	
 </script>

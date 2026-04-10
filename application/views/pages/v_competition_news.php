@@ -362,7 +362,7 @@ function tambah(){
 }
 
 function ubah(row){
-	get_akses_user('<?=$_GET['kode']?>', function(data){
+	get_akses_user('<?=$_GET['kode']?>', async function(data){
 		if (data.UBAH==1) {
 			$("#mode").val('ubah');
 			
@@ -378,7 +378,16 @@ function ubah(row){
 			$("#TITLE").val(row.TITLE);
 			$("#KATEGORI").val(row.KATEGORI);
 			$("#TGLTERBIT").val(row.TGLTERBIT);
-            $('#previewGambar').attr('src', '<?=base_url()?>assets/images/news/'+row.IDNEWS+'.png?t='+ Date.now());
+            var link = '';
+            var exists = false;
+
+            link = '<?=base_url()?>assets/images/news/'+row.IDNEWS+'.png?t='+ Date.now();
+            exists = await imageExists(link);
+            if(exists)
+            {
+                $('#previewGambar').attr('src', link);
+            }
+
 			$('#DETAIL').summernote('code', row.DETAIL); // ✅
 			$("#CATATAN").val(row.CATATAN);
 		} else {
