@@ -86,7 +86,7 @@
                                     <br>
                                     <div style="display:flex; align-items:center; gap:20px;">
                                         <div>
-                                            <img id="previewGambar" src="<?=base_url()?>assets/images/player/no-player.png" style="border:1px solid #ccc;" width="242" height="294">
+                                            <img id="previewGambar" src="<?=base_url()?>assets/images/player/no-player.png" style="border:1px solid #ccc; object-fit: contain;" width="242" height="294">
                                             <input type="file" class="form-control" id="GAMBAR" name="GAMBAR" accept="image/png" style="width:242px;">
                                         </div>
                                         <span>Syarat :<br>- Format wajib PNG<br>- Ukuran maks 242x294 px<br>- Kapasitas gambar maks 1000 kb</span>
@@ -281,7 +281,7 @@ $(document).ready(function() {
             cache: false, // 🔥 disable cache
             data: function (params) {
                 return {
-                    search: params.term // 🔥 kirim keyword
+                    search: "DELTRAS" // 🔥 kirim keyword params.term
                 };
             },
             processResults: function (data) {
@@ -586,16 +586,6 @@ function setPosition(value){
     }
 }
 
-function isValidEmail(email) {
-    let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}
-
-function isValidPhone(phone) {
-    let regex = /^62[0-9]{8,13}$/;
-    return regex.test(phone);
-}
-
 function tambah(){
 	get_akses_user('<?=$_GET['kode']?>', function(data){
 		if (data.TAMBAH==1) {
@@ -672,12 +662,12 @@ function simpan() {
     var position = $("#POSITION").val();
     var idclub = $("#IDCLUB").val();
 
-    if(!namadepan || !namabelakang)
+    if(!namadepan)
     {
         Swal.fire({ title: "Nama Depan dan Nama Belakang wajib diisi", type: "warning" });
         return;
     }
-     if(!idclub)
+    else if(!idclub)
     {
         Swal.fire({ title: "Club wajib diisi", type: "warning" });
         return;
@@ -757,7 +747,7 @@ function hapus(row){
 		    
             if (row) {
     		    Swal.fire({
-                		title: 'Anda Yakin Akan Menghapus Club '+row.NAMA+' ?',
+                		title: 'Anda Yakin Akan Menghapus Player '+row.NAMA+' ?',
                 		showCancelButton: true,
                 		confirmButtonText: 'Yakin',
                 		cancelButtonText: 'Tidak',

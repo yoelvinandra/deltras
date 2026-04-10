@@ -692,77 +692,92 @@ function simpan() {
 	//COMPETITION
 	var tableCompetition = $('#dataGridCompetition').DataTable();
 	var dataCompetition = JSON.stringify(tableCompetition.rows().data());
+
+	let email = $('#EMAIL').val();
+    let telp = $('#HP').val();
 	
-	$.ajax({
-		type      : 'POST',
-		url       : base_url+'Master/Data/User/simpan',
-		data      : $('#form_input :input').serialize(),
-		dataType  : 'json',
-		success: function(msg){
-			if (msg.success) {
-			    var iduser = msg.iduser;
-			    $.ajax({
-                    type      : 'POST',
-                    url       : base_url+'Master/Data/User/simpanMaster',
-                    data      : {"dataMaster" : dataMaster,"iduser" : iduser},
-                    dataType  : 'json',
-               		success: function(msg){
-               			if (msg.success) {
-	
-               				$.ajax({
-               	        		type      : 'POST',
-               	        		url       : base_url+'Master/Data/User/simpanCompetition',
-               	        		data      : {"dataCompetition" : dataCompetition,"iduser" : iduser},
-               	        		dataType  : 'json',
-               	        		success: function(msg){
-               	        			if (msg.success) {
-	
-               	        					Swal.fire({
-               	                                    					title            : 'Simpan Data Sukses',
-               	                                    					type             : 'success',
-               	                                    					showConfirmButton: false,
-               	                                    					timer            : 1500
-               	                                    				});
-               	                                    				reset();
-               	                                    				$("#dataGrid").DataTable().ajax.reload();
-               	                                    				$("#dataGridMaster").DataTable().ajax.reload();
-               	                                    				$("#dataGridCompetition").DataTable().ajax.reload();
-	
-               	                                    				$('.nav-tabs a[href="#tab_umum"]').tab('show');
-               	                                    				$('.nav-tabs a[href="#tab_grid"]').tab('show'); 
-	
-               	        			} else {
-               	        				Swal.fire({
-               	        					title            : msg.errorMsg,
-               	        					type             : 'error',
-               	        					showConfirmButton: false,
-               	        					timer            : 1500
-               	        				});
-               	        			}
-               	        		}
-               	        	});
-	
-               			} else {
-               				Swal.fire({
-               					title            : msg.errorMsg,
-               					type             : 'error',
-               					showConfirmButton: false,
-               					timer            : 1500
-               				});
-               			}
-               		}
-               	});
-				
-			} else {
-				Swal.fire({
-					title            : msg.errorMsg,
-					type             : 'error',
-					showConfirmButton: false,
-					timer            : 1500
-				});
+	if (telp && !isValidPhone(telp)) {
+        Swal.fire({ title: "No Telp harus diawali 62, dengan panjang 10-15 karakter", type: "warning" });
+        return;
+    }
+    else if (email && !isValidEmail(email)) {
+        Swal.fire({ title: "Format Email tidak valid", type: "warning" });
+        return;
+    }
+	else
+	{
+
+		$.ajax({
+			type      : 'POST',
+			url       : base_url+'Master/Data/User/simpan',
+			data      : $('#form_input :input').serialize(),
+			dataType  : 'json',
+			success: function(msg){
+				if (msg.success) {
+					var iduser = msg.iduser;
+					$.ajax({
+						type      : 'POST',
+						url       : base_url+'Master/Data/User/simpanMaster',
+						data      : {"dataMaster" : dataMaster,"iduser" : iduser},
+						dataType  : 'json',
+						success: function(msg){
+							if (msg.success) {
+		
+								$.ajax({
+									type      : 'POST',
+									url       : base_url+'Master/Data/User/simpanCompetition',
+									data      : {"dataCompetition" : dataCompetition,"iduser" : iduser},
+									dataType  : 'json',
+									success: function(msg){
+										if (msg.success) {
+		
+												Swal.fire({
+																			title            : 'Simpan Data Sukses',
+																			type             : 'success',
+																			showConfirmButton: false,
+																			timer            : 1500
+																		});
+																		reset();
+																		$("#dataGrid").DataTable().ajax.reload();
+																		$("#dataGridMaster").DataTable().ajax.reload();
+																		$("#dataGridCompetition").DataTable().ajax.reload();
+		
+																		$('.nav-tabs a[href="#tab_umum"]').tab('show');
+																		$('.nav-tabs a[href="#tab_grid"]').tab('show'); 
+		
+										} else {
+											Swal.fire({
+												title            : msg.errorMsg,
+												type             : 'error',
+												showConfirmButton: false,
+												timer            : 1500
+											});
+										}
+									}
+								});
+		
+							} else {
+								Swal.fire({
+									title            : msg.errorMsg,
+									type             : 'error',
+									showConfirmButton: false,
+									timer            : 1500
+								});
+							}
+						}
+					});
+					
+				} else {
+					Swal.fire({
+						title            : msg.errorMsg,
+						type             : 'error',
+						showConfirmButton: false,
+						timer            : 1500
+					});
+				}
 			}
-		}
-	});
+		});
+	}
 	
 }
 

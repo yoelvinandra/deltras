@@ -287,7 +287,7 @@ class User extends MY_Controller {
 				array(
 					'nama'  => 'header',
 					'tabel' => 'MUSER',
-					'kode'  => 'USERID',
+					'kode'  => 'IDUSER',
 					'id'	=> $response
 				),
 			),

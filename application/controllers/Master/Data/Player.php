@@ -13,9 +13,9 @@ class Player extends MY_Controller {
 		$this->setPage($kodeMenu, $config);
 	}
 	
-	public function comboGridTransaksi() {
+	public function web() {
 		$this->output->set_content_type('application/json');
-		$response = $this->model_master_player->comboGridTransaksi($this->setPaginationGrid());
+		$response = $this->model_master_player->web($this->input->get("for"));
 		echo json_encode($response);
 	}
 
@@ -29,8 +29,8 @@ class Player extends MY_Controller {
         // die (json_encode(array('success' => false,'errorMsg' => 'cek swal')));
 		$id     	= $this->input->post('IDPLAYER','');
 		$idclub 	= $this->input->post('IDCLUB','');
-		$namadepan  = $this->input->post('NAMADEPAN');
-		$namabelakang   = $this->input->post('NAMABELAKANG');
+		$namadepan  = $this->input->post('NAMADEPAN','');
+		$namabelakang   = $this->input->post('NAMABELAKANG','');
 		$status 	= $this->input->post('STATUS') ?? 0;
 
 		$mode = $this->input->post('mode');

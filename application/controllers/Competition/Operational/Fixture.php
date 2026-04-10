@@ -13,6 +13,12 @@ class Fixture extends MY_Controller {
 		$this->setPage($kodeMenu, $config);
 	}
 
+	public function web() {
+		$this->output->set_content_type('application/json');
+		$response = $this->model_competition_fixture->web($this->input->get("for"));
+		echo json_encode($response);
+	}
+
 	public function comboGrid() {
 		$this->output->set_content_type('application/json');
 		$response = $this->model_competition_fixture->comboGrid($this->input->get('search'));

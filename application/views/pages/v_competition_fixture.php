@@ -167,7 +167,7 @@
               </div>
               <div class="form-group">
                 <label>Skor Club 1 <i class="fixture_finished" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
-                <input type="number" class="form-control" id="d_SKORCLUB1" name="SKORCLUB1" min="0" value="0">
+                <input type="number" class="form-control" id="d_SKORCLUB1" name="SKORCLUB1" min="0" value="0" onchange="this.value = parseInt(this.value) || 0">
               </div>
             </div>
             <div class="col-md-6">
@@ -180,7 +180,7 @@
               </div>
               <div class="form-group">
                 <label>Skor Club 2 <i class="fixture_finished" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
-                <input type="number" class="form-control" id="d_SKORCLUB2" name="SKORCLUB2" min="0" value="0">
+                <input type="number" class="form-control" id="d_SKORCLUB2" name="SKORCLUB2" min="0" value="0" onchange="this.value = parseInt(this.value) || 0">
               </div>
             </div>
             <div class="col-md-12">
@@ -234,7 +234,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="simpanDetail()">Simpan Detail</button>
+        <button type="button" class="btn btn-primary" onclick="simpanDetail()">Simpan Match</button>
       </div>
     </div>
   </div>
@@ -523,7 +523,7 @@ function hapusDetail(row) {
 		    
             if (row) {          
                 Swal.fire({
-                    title: 'Hapus Data Fixture<br>' + row.CLUB1 + ' vs ' + row.CLUB2,
+                    title: 'Hapus Data Match<br>' + row.CLUB1 + ' vs ' + row.CLUB2,
                     showCancelButton: true,
                     confirmButtonText: 'Yakin',
                     cancelButtonText: 'Tidak',
@@ -830,7 +830,7 @@ function hapus(row){
                     		    	success : function(msg){
                     		    		if (msg.success) {
                     		    			Swal.fire({
-                    		    				title            : 'Fixture dengan nama '+row.nama+' telah dihapus',
+                    		    				title            : 'Fixture dengan nama '+row.NAMA+' telah dihapus',
                     		    				type             : 'success',
                     		    				showConfirmButton: false,
                     		    				timer            : 1500

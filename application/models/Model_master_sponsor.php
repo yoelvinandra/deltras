@@ -19,6 +19,41 @@ class Model_master_sponsor extends MY_Model{
 		$data['rows'] = $query->result();
 		return $data;
 	}
+
+	public function web($for){	
+
+		$sql = "select IDSPONSOR, NAMA, CONCAT('".base_url()."assets/images/sponsor/',IDSPONSOR,'.png') as GAMBAR
+				from MSPONSOR  
+				WHERE STATUS = 1";
+		$query = $this->db->queryRaw($sql);	
+		$data['base'] = $query->result();
+
+		$data['rows'] = [];
+
+		if($for == "HOME")
+		{
+			$sqlConfig = "select VALUE
+				from MCONFIG  
+				WHERE MODUL = 'SPONSOR' AND CONFIG = 'IDSPONSOR'";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+			$dataConfig = $queryConfig->result();
+
+			foreach($dataConfig as $itemConfig){
+				$dataSponsor = explode(",",$itemConfig->VALUE);
+				foreach($dataSponsor as $itemSponsor){
+					foreach($data['base'] as $item)
+					{
+						if($itemSponsor == $item->IDSPONSOR)
+						{
+							array_push($data['rows'],$item);
+						}
+					}
+				}
+			}
+		}
+		unset($data['base']);
+		return $data;
+	}
 	
 	public function comboGridTransaksi(){	
 		$sql = "select IDSPONSOR as ID,NAMA as NAMA

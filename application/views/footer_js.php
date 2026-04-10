@@ -86,5 +86,15 @@
           }
         });
     }
+    
+    function isValidEmail(email) {
+        let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    function isValidPhone(phone) {
+        let regex = /^62[0-9]{8,13}$/;
+        return regex.test(phone);
+    }
 	
 </script>

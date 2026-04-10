@@ -82,7 +82,7 @@
                                     <br>
                                     <div style="display:flex; align-items:center; gap:20px;">
                                         <div>
-                                            <img id="previewGambar" src="<?=base_url()?>assets/images/club/no-logo.png" style="border:1px solid #ccc;" width="150" height="150">
+                                            <img id="previewGambar" src="<?=base_url()?>assets/images/club/no-logo.png" style="border:1px solid #ccc; object-fit: contain;" width="150" height="150">
                                             <input type="file" class="form-control" id="GAMBAR" name="GAMBAR" accept="image/png" style="width:150px;">
                                         </div>
                                         <span>Syarat :<br>- Format wajib PNG<br>- Ukuran maks 100x100 px<br>- Kapasitas gambar maks 300 kb</span>

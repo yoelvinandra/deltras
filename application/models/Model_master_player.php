@@ -18,12 +18,95 @@ class Model_master_player extends MY_Model{
 		return $data;
 	}
 	
-	public function comboGridTransaksi(){	
-		$sql = "select IDPLAYER as ID,CONCAT(NAMADEPAN,' ',NAMABELAKANG) as NAMA
+	public function web($for){	
+
+		$sql = "select IDPLAYER as ID,CONCAT(NAMADEPAN,' ',NAMABELAKANG) as NAMA, GOAL, ASSIST, GKSAVE, POSITION, SQUADNUMBER, CONCAT('".base_url()."assets/images/player/',IDPLAYER,'.png') as GAMBAR
 				from MPLAYER  
+				WHERE STATUS = 1
 				ORDER BY NAMADEPAN";
-		$query = $this->db->query($sql);	
-		$data['rows'] = $query->result();
+		$query = $this->db->queryRaw($sql);	
+		$data['base'] = $query->result();
+
+		$data['rows'] = [];
+
+		if($for == "HOME")
+		{
+			$sqlConfig = "select VALUE
+				from MCONFIG  
+				WHERE MODUL = 'TEAM' AND SUBSTRING_INDEX(CONFIG, '-', 1) = 'SENIOR TEAM' ";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+			$dataConfig = $queryConfig->result();
+
+			foreach($dataConfig as $itemConfig){
+				$dataPosition = explode(",",$itemConfig->VALUE);
+				foreach($dataPosition as $itemPosition){
+					foreach($data['base'] as $item)
+					{
+						if($itemPosition == $item->POSITION)
+						{
+							array_push($data['rows'],$item);
+						}
+					}
+				}
+			}
+		}
+		else if($for == "PLAYER")
+		{
+			$getGroupTab = [];
+			$sqlConfig = "select SUBSTRING_INDEX(CONFIG, '-', 1) as TAB, SUBSTRING_INDEX(CONFIG, '-', -1) as HEADER, VALUE
+				from MCONFIG  
+				WHERE MODUL = 'TEAM' 
+                ORDER BY  PREFIX,SUBSTRING_INDEX(CONFIG, '-', 1) , JUMLAHDIGIT";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+			$dataConfig = $queryConfig->result();
+
+			foreach($dataConfig as $itemConfig){
+				$ada = false;
+				foreach($getGroupTab as $itemGetGroupTab)
+				{
+					if($itemConfig->TAB == $itemGetGroupTab)
+					{
+						$ada = true;
+					}
+				}
+				if(!$ada){
+					array_push($getGroupTab,$itemConfig->TAB);
+				}
+			}
+
+			foreach($getGroupTab as $itemGetGroupTab){
+				$detail = [];
+				foreach($dataConfig as $itemConfig){
+					if($itemGetGroupTab == $itemConfig->TAB)
+					{
+						$dataPosition = explode(",",$itemConfig->VALUE);
+						$subHeader = [];
+						foreach($dataPosition as $itemPosition){
+							$subHeader['SUBHEADER'] = $itemPosition;
+							$subHeader["PLAYER"] = [];
+							foreach($data['base'] as $item)
+							{
+								if($itemPosition == $item->POSITION)
+								{
+									array_push($subHeader["PLAYER"],$item);
+								}
+							}
+							unset($itemConfig->VALUE);
+							unset($itemConfig->TAB);
+						}
+						$itemConfig = (array)$itemConfig; // convert object to array
+						$itemConfig = array_merge($itemConfig, $subHeader);
+						array_push($detail, $itemConfig);
+					}
+				}
+				
+				array_push($data['rows'],array(
+					'TAB' => $itemGetGroupTab,
+					'DATA' => $detail
+				));
+			}
+		}
+		unset($data['base']);
 		return $data;
 	}
 
