@@ -322,8 +322,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const links = document.querySelectorAll('.tab-header a');
   const panels = document.querySelectorAll('.tab-child > div');
 
-  console.log("links:", links.length);
-  console.log("panels:", panels.length);
+   // ✅ TAMBAHKAN INI — cek URL hash saat halaman dibuka
+  const hash = window.location.hash; // "#result-tab" atau "#fixture-tab"
+  if (hash) {
+    const tabId = hash.replace('#', '');
+    const targetEl = document.getElementById(tabId);
+    const matchLink = document.querySelector(`.tab-header a[data-tab="${tabId}"]`);
+
+    if (targetEl && matchLink) {
+      // Reset semua
+      links.forEach(l => l.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+
+      // Aktifkan tab yang sesuai
+      matchLink.classList.add('active');
+      targetEl.classList.add('active');
+
+      // Update judul
+      const titles = document.querySelectorAll('.fixture-title div');
+      titles.forEach(t => {
+        t.innerHTML = tabId === 'result-tab' ? 'RESULTS' : 'FIXTURES';
+      });
+    }
+  }
+
 
   links.forEach(link => {
     link.addEventListener('click', e => {

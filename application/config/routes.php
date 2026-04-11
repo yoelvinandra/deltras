@@ -51,7 +51,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'home';
 $route['fixture'] = 'Home/index/fixture';
-
 //CLUB
 $route['history'] = 'Home/index/history';
 $route['team'] = 'Home/index/team';

@@ -256,7 +256,7 @@
         <div class="next-content">
             <div class="next-header">
                 <span class="next-title upcoming fira-sans-extrabold">NEXT MATCH</span>
-                <a href="#" class="all-fixtures-link fira-sans-bold">ALL FIXTURES&nbsp; ></a>
+                <a href="fixture" class="all-fixtures-link fira-sans-bold">ALL FIXTURES&nbsp; ></a>
             </div>
             <div class="grey-strip">
               &nbsp;
@@ -407,7 +407,7 @@
       <div class="prev-matches">
           <div class="prev-header">
               <span class="prev-title fira-sans-extrabold">PREVIOUS MATCH</span>
-              <a href="#" class="all-results-link fira-sans-bold">ALL RESULTS&nbsp; ></a>
+              <a href="fixture#result-tab" class="all-results-link fira-sans-bold">ALL RESULTS&nbsp; ></a>
           </div>
           <div class="prev-content">
               <div class="prev-item">
@@ -618,7 +618,7 @@
       <div class="news-section">
           <div class="news-header">
               <div class="news-title fira-sans-extrabold">NEWS</div>
-              <a href="#" class="all-news-link fira-sans-bold">ALL NEWS&nbsp; ></a>
+              <a href="news" class="all-news-link fira-sans-bold">ALL NEWS&nbsp; ></a>
           </div>
           <div class="news-grid">
               <!-- News Card 1 -->

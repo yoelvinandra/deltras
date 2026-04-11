@@ -20,198 +20,13 @@
       </div>
       <div class="tab-child"> 
         <div id="management-tab"  class="active">
-            <div class="player-title fira-sans-light">BOARD MANAGEMENT</div>
-            <div class="player-detail">
-              <div class="player-card">
-                <div class="card-photo">
-                  <img src="assets/images/player/11.png" alt="Player 11"/>
-                  <span class="card-number"></span>
-                </div>
-                <div class="card-info">
-                  <div class="player-name fira-sans-black">AMIR BURHANUDIN</div>
-                  <div class="player-position fira-sans-regular">CEO</div>
-                </div>
-              </div>   
-              <div class="player-card">
-                <div class="card-photo">
-                  <img src="assets/images/player/11.png" alt="Player 11"/>
-                  <span class="card-number"></span>
-                </div>
-                <div class="card-info">
-                  <div class="player-name fira-sans-black">RONNY SUHATRIL</div>
-                  <div class="player-position fira-sans-regular">COO</div>
-                </div>
-              </div>   
-              <div class="player-card">
-                <div class="card-photo">
-                  <img src="assets/images/player/11.png" alt="Player 11"/>
-                  <span class="card-number"></span>
-                </div>
-                <div class="card-info">
-                  <div class="player-name fira-sans-black">RAHARDIAN DAHNIAL</div>
-                  <div class="player-position fira-sans-regular">Club Secretary</div>
-                </div>
-              </div>  
-            </div>    
+            
         </div>
         <div id="senior-team-tab">
-            <div class="player-title fira-sans-light">GOALKEEPER</div>
-            <div class="player-detail">
-              <div class="player-card">
-                <div class="card-photo">
-                  <img src="assets/images/player/11.png" alt="Player 11"/>
-                  <span class="card-number">11</span>
-                </div>
-                <div class="card-info">
-                  <div class="player-name fira-sans-black">AMIR BURHANUDIN</div>
-                  <div class="player-position fira-sans-regular">CEO</div>
-                </div>
-              </div>  
-            </div>    
-            <div class="player-title fira-sans-light">DEFENDERS</div>
-              <div class="player-detail">
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">AMIR BURHANUDIN</div>
-                    <div class="player-position fira-sans-regular">CEO</div>
-                  </div>
-                </div>   
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">RONNY SUHATRIL</div>
-                    <div class="player-position fira-sans-regular">COO</div>
-                  </div>
-                </div>   
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">RAHARDIAN DAHNIAL</div>
-                    <div class="player-position fira-sans-regular">Club Secretary</div>
-                  </div>
-                </div>  
-            </div>    
-            <div class="player-title fira-sans-light">MIDFIELDERS</div>
-              <div class="player-detail">
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">AMIR BURHANUDIN</div>
-                    <div class="player-position fira-sans-regular">CEO</div>
-                  </div>
-                </div>   
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">RONNY SUHATRIL</div>
-                    <div class="player-position fira-sans-regular">COO</div>
-                  </div>
-                </div>   
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">RAHARDIAN DAHNIAL</div>
-                    <div class="player-position fira-sans-regular">Club Secretary</div>
-                  </div>
-                </div>  
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">RAHARDIAN DAHNIAL</div>
-                    <div class="player-position fira-sans-regular">Club Secretary</div>
-                  </div>
-                </div> 
-                 <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">RAHARDIAN DAHNIAL</div>
-                    <div class="player-position fira-sans-regular">Club Secretary</div>
-                  </div>
-                </div>  
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">RAHARDIAN DAHNIAL</div>
-                    <div class="player-position fira-sans-regular">Club Secretary</div>
-                  </div>
-                </div> 
-            </div>    
-            <div class="player-title fira-sans-light">FORWARDS</div>
-              <div class="player-detail">
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">AMIR BURHANUDIN</div>
-                    <div class="player-position fira-sans-regular">CEO</div>
-                  </div>
-                </div>   
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">RONNY SUHATRIL</div>
-                    <div class="player-position fira-sans-regular">COO</div>
-                  </div>
-                </div>   
-                <div class="player-card">
-                  <div class="card-photo">
-                    <img src="assets/images/player/11.png" alt="Player 11"/>
-                    <span class="card-number">11</span>
-                  </div>
-                  <div class="card-info">
-                    <div class="player-name fira-sans-black">RAHARDIAN DAHNIAL</div>
-                    <div class="player-position fira-sans-regular">Club Secretary</div>
-                  </div>
-                </div>   
-            </div>    
+      
         </div>
-        <div id="academy-tab">
-          <div class="player-title fira-sans-light">MANAGEMENT</div>
-            <div class="player-detail">
-              <div class="player-card">
-                <div class="card-photo">
-                  <img src="assets/images/player/11.png" alt="Player 11"/>
-                  <span class="card-number"></span>
-                </div>
-                <div class="card-info">
-                  <div class="player-name fira-sans-black">AMIR BURHANUDIN</div>
-                  <div class="player-position fira-sans-regular">CEO</div>
-                </div>
-              </div>   
-            </div>    
+        <div id="academy-tab">  
+
         </div>
     </div>
   </div>  
@@ -245,6 +60,125 @@ document.addEventListener('DOMContentLoaded', () => {
       link.classList.add('active');
       targetEl.classList.add('active');
     });
+  });
+
+  $.ajax({
+      url: '<?base_url()?>' + 'Master/Data/Player/web?for=PLAYER',
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+
+        var html; 
+        var dataTab;
+        
+        //MANAGEMENT
+        html = "";
+        dataTab = [];
+        dataTab =  data.rows.filter(row => row.TAB == 'MANAGEMENT')[0]?.DATA;
+        for(var x = 0 ; x < dataTab.length;x++)
+        {
+          html += `
+            <div class="player-title fira-sans-light">`+dataTab[x].HEADER+`</div>
+            <div class="player-detail">`;
+
+            var detailTab = dataTab[x].PLAYER;
+
+            for(var y = 0 ; y < detailTab.length;y++)
+            {
+              html += `
+                <div class="player-card">
+                  <div class="card-photo">
+                    <img src="`+detailTab[y].GAMBAR+`" alt="`+detailTab[y].NAMA+`"/>
+                    <span class="card-number">`+detailTab[y].SQUADNUMBER+`</span>
+                  </div>
+                  <div class="card-info">
+                    <div class="player-name fira-sans-black">`+detailTab[y].NAMA+`</div>
+                    <div class="player-position fira-sans-regular">`+detailTab[y].POSITION+`</div>
+                  </div>
+                </div>   
+            `;
+          }
+
+          html += `
+            </div>    
+          `;
+          
+        }
+        $("#management-tab").html(html);
+        //MANAGEMENT
+
+        //SENIOR TEAM
+        html = "";
+        dataTab = [];
+        dataTab = data.rows.filter(row => row.TAB == 'SENIOR TEAM')[0]?.DATA;
+        for(var x = 0 ; x < dataTab.length;x++)
+        {
+          html += `
+            <div class="player-title fira-sans-light">`+dataTab[x].HEADER+`</div>
+            <div class="player-detail">`;
+
+            var detailTab = dataTab[x].PLAYER;
+
+            for(var y = 0 ; y < detailTab.length;y++)
+            {
+              html += `
+                <div class="player-card">
+                  <div class="card-photo">
+                    <img src="`+detailTab[y].GAMBAR+`" alt="`+detailTab[y].NAMA+`"/>
+                    <span class="card-number">`+detailTab[y].SQUADNUMBER+`</span>
+                  </div>
+                  <div class="card-info">
+                    <div class="player-name fira-sans-black">`+detailTab[y].NAMA+`</div>
+                    <div class="player-position fira-sans-regular">`+detailTab[y].POSITION+`</div>
+                  </div>
+                </div>   
+            `;
+          }
+
+          html += `
+            </div>    
+          `;
+          
+        }
+        $("#senior-team-tab").html(html);
+        //SENIOR TEAM
+
+        //ACADEMY
+        html = "";
+        dataTab = [];
+        dataTab = data.rows.filter(row => row.TAB == 'ACADEMY')[0]?.DATA;
+        for(var x = 0 ; x < dataTab.length;x++)
+        {
+          html += `
+            <div class="player-title fira-sans-light">`+dataTab[x].HEADER+`</div>
+            <div class="player-detail">`;
+
+            var detailTab = dataTab[x].PLAYER;
+
+            for(var y = 0 ; y < detailTab.length;y++)
+            {
+              html += `
+                <div class="player-card">
+                  <div class="card-photo">
+                    <img src="`+detailTab[y].GAMBAR+`" alt="`+detailTab[y].NAMA+`"/>
+                    <span class="card-number">`+detailTab[y].SQUADNUMBER+`</span>
+                  </div>
+                  <div class="card-info">
+                    <div class="player-name fira-sans-black">`+detailTab[y].NAMA+`</div>
+                    <div class="player-position fira-sans-regular">`+detailTab[y].POSITION+`</div>
+                  </div>
+                </div>   
+            `;
+          }
+
+          html += `
+            </div>    
+          `;
+          
+        }
+        $("#academy-tab").html(html);
+        //ACADEMY
+      }
   });
 
 });

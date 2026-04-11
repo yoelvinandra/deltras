@@ -80,22 +80,19 @@ class Model_master_player extends MY_Model{
 					if($itemGetGroupTab == $itemConfig->TAB)
 					{
 						$dataPosition = explode(",",$itemConfig->VALUE);
-						$subHeader = [];
+						$player = [];
 						foreach($dataPosition as $itemPosition){
-							$subHeader['SUBHEADER'] = $itemPosition;
-							$subHeader["PLAYER"] = [];
 							foreach($data['base'] as $item)
 							{
 								if($itemPosition == $item->POSITION)
 								{
-									array_push($subHeader["PLAYER"],$item);
+									array_push($player,$item);
 								}
 							}
 							unset($itemConfig->VALUE);
 							unset($itemConfig->TAB);
 						}
-						$itemConfig = (array)$itemConfig; // convert object to array
-						$itemConfig = array_merge($itemConfig, $subHeader);
+						$itemConfig->PLAYER = $player;
 						array_push($detail, $itemConfig);
 					}
 				}
