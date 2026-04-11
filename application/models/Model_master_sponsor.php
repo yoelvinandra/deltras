@@ -22,7 +22,7 @@ class Model_master_sponsor extends MY_Model{
 
 	public function web($for){	
 
-		$sql = "select IDSPONSOR, NAMA, CONCAT('".base_url()."assets/images/sponsor/',IDSPONSOR,'.png') as GAMBAR
+		$sql = "select IDSPONSOR, NAMA,WEBSITE, CONCAT('".base_url()."assets/images/sponsor/',IDSPONSOR,'.png') as GAMBAR
 				from MSPONSOR  
 				WHERE STATUS = 1";
 		$query = $this->db->queryRaw($sql);	

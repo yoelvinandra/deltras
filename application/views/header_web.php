@@ -42,7 +42,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
       <li><a href="fixture">FIXTURE</a></li>
       <li class="has-dropdown">
           <a href="#">CLUB</a>
-          <div class="dropdown">
+          <div class="dropdown club-dropdown">
               <div class="dropdown-menu">
                 <p class="dropdown-title fira-sans-bold">CLUB</p>
                 <ul>
@@ -59,7 +59,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
       </li>
       <li class="has-dropdown">
           <a href="#">DELTAMANIA</a>
-          <div class="dropdown">
+          <div class="dropdown deltamania-dropdown">
               <div class="dropdown-menu">
                   <p class="dropdown-title fira-sans-bold">DELTAMANIA</p>
                   <ul>
@@ -75,7 +75,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
       </li>
       <li class="has-dropdown">
           <a href="#">PARTNERS</a>
-          <div class="dropdown">
+          <div class="dropdown partners-dropdown">
               <div class="dropdown-menu">
                   <p class="dropdown-title fira-sans-bold">PARTNERS</p>
                   <ul>
@@ -99,7 +99,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
       <li class="has-dropdown">
           <a href="#">SHOP</a>
           <div class="dropdown">
-              <div class="dropdown-menu">
+              <div class="dropdown-menu shop-dropdown">
                   <p class="dropdown-title fira-sans-bold">SHOP</p>
                   <ul>
                       <li><a href="website">Website</a></li>
@@ -128,7 +128,30 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
       <button class="mobile-close-btn" onclick="closeDrawer()">×</button>
     </div>
     <div class="mobile-menu mobile-drawer-border mobile-menu-height fira-sans-bold">
-    <!-- ADA DI footer_web_js.php-->
+        <ul id="default-mobile-menu">
+            <li><a href="news">NEWS</a></li>
+            <li><a href="fixture">FIXTURE</a></li>
+            <li><a href="#" onclick="openMenuMobile('CLUB')">CLUB <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
+            <li><a href="#" onclick="openMenuMobile('DELTAMANIA')">DELTAMANIA <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
+            <li><a href="#" onclick="openMenuMobile('PARTNERS')">PARTNERS <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
+            <li><a href="#" onclick="openMenuMobile('SHOP')">SHOP <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
+            <li><a href="ticket">TICKET</a></li>
+        </ul>
+        <ul id="club-mobile-menu">
+            <li><a href="history">History</a></li>
+            <li><a href="team">Team</a></li>
+        </ul>
+        <ul id="deltamania-mobile-menu">
+            <li><a href="membership">Membership</a></li>
+        </ul>
+        <ul id="partners-mobile-menu">
+        </ul>
+        <ul id="shop-mobile-menu">
+            <li><a href="website">Website</a></li>
+            <li><a href="deltrasstore">Deltras Store</a></li>
+            <li><a href="shopee">Shopee</a></li>
+            <li><a href="whatsapp">Whatsapp</a></li>
+        </ul>
     </div>
     <div class="mobile-drawer-address">
       <p>

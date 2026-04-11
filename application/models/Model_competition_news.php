@@ -20,96 +20,41 @@ class Model_competition_news extends MY_Model{
 		return $data;
 	}
 	
-	public function web($for){	
-
-		$sql = "select IDNEWS, TITLE,KATEGORI,DETAIL,TGLTERBIT,MUSER.USERNAME,, CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
-				from TNEWS  
-				INNER JOIN MUSER on MUSER.IDUSER = TNEWS.USERENTRY
-				WHERE TNEWS.STATUS = 1
-				ORDER BY TGLTERBIT DESC";
-		$query = $this->db->queryRaw($sql);	
-		$data['base'] = $query->result();
+	public function web($for,$page=0,$count=0,$query="",$kategori="",$id=0){	
 
 		$data['rows'] = [];
 
 		if($for == "HOME")
 		{
-			$sqlConfig = "select VALUE
-				from MCONFIG  
-				WHERE MODUL = 'TEAM' AND SUBSTRING_INDEX(CONFIG, '-', 1) = 'SENIOR TEAM' ";
-			$queryConfig = $this->db->queryRaw($sqlConfig);	
-			$dataConfig = $queryConfig->result();
-
-			foreach($dataConfig as $itemConfig){
-				$dataPosition = explode(",",$itemConfig->VALUE);
-				foreach($dataPosition as $itemPosition){
-					foreach($data['base'] as $item)
-					{
-						if($itemPosition == $item->POSITION)
-						{
-							array_push($data['rows'],$item);
-						}
-					}
-				}
-			}
+			$sql = "select IDNEWS, TITLE,KATEGORI,DETAIL,TGLTERBIT,MUSER.USERNAME,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
+				from TNEWS  
+				INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
+				WHERE TNEWS.STATUS = 1
+				AND FIND_IN_SET(IDNEWS, (
+					SELECT VALUE 
+					FROM MCONFIG 
+					WHERE MODUL = 'NEWS'
+				))
+				ORDER BY TGLTERBIT DESC";
+			$query = $this->db->queryRaw($sql);
+			$data['rows'] = $query->result();	
 		}
-		else if($for == "PLAYER")
+		else if($for == "NEWS")
 		{
-			$getGroupTab = [];
-			$sqlConfig = "select SUBSTRING_INDEX(CONFIG, '-', 1) as TAB, SUBSTRING_INDEX(CONFIG, '-', -1) as HEADER, VALUE
-				from MCONFIG  
-				WHERE MODUL = 'TEAM' 
-                ORDER BY  PREFIX,SUBSTRING_INDEX(CONFIG, '-', 1) , JUMLAHDIGIT";
-			$queryConfig = $this->db->queryRaw($sqlConfig);	
-			$dataConfig = $queryConfig->result();
+			if($count!=0)$limit = "LIMIT $count OFFSET $page";
+			if($id != 0)$whereID = " AND TNEWS.IDNEWS = $id";
+			if($query != "")$whereQuery = " AND TNEWS.TITLE like '%$query%' ";
+			if($kategori != "")$whereKategori = " AND TNEWS.KATEGORI = '$kategori'";
 
-			foreach($dataConfig as $itemConfig){
-				$ada = false;
-				foreach($getGroupTab as $itemGetGroupTab)
-				{
-					if($itemConfig->TAB == $itemGetGroupTab)
-					{
-						$ada = true;
-					}
-				}
-				if(!$ada){
-					array_push($getGroupTab,$itemConfig->TAB);
-				}
-			}
-
-			foreach($getGroupTab as $itemGetGroupTab){
-				$detail = [];
-				foreach($dataConfig as $itemConfig){
-					if($itemGetGroupTab == $itemConfig->TAB)
-					{
-						$dataPosition = explode(",",$itemConfig->VALUE);
-						$subHeader = [];
-						foreach($dataPosition as $itemPosition){
-							$subHeader['SUBHEADER'] = $itemPosition;
-							$subHeader["PLAYER"] = [];
-							foreach($data['base'] as $item)
-							{
-								if($itemPosition == $item->POSITION)
-								{
-									array_push($subHeader["PLAYER"],$item);
-								}
-							}
-							unset($itemConfig->VALUE);
-							unset($itemConfig->TAB);
-						}
-						$itemConfig = (array)$itemConfig; // convert object to array
-						$itemConfig = array_merge($itemConfig, $subHeader);
-						array_push($detail, $itemConfig);
-					}
-				}
-				
-				array_push($data['rows'],array(
-					'TAB' => $itemGetGroupTab,
-					'DATA' => $detail
-				));
-			}
+			$sql = "select IDNEWS, TITLE,KATEGORI,DETAIL,TGLTERBIT,MUSER.USERNAME,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
+				from TNEWS  
+				INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
+				WHERE TNEWS.STATUS = 1 $whereID $whereQuery $whereKategori
+				ORDER BY TGLTERBIT DESC
+				$limit";
+			$query = $this->db->queryRaw($sql);
+			$data['rows'] = $query->result();	
 		}
-		unset($data['base']);
 		return $data;
 	}
 

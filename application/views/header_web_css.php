@@ -3210,3 +3210,8 @@ img { display: block; max-width: 100%; }
 .red-bar { width: 100%; height: 4px; background:   var(--primary-color); }
 .clearfix::after { content: ''; display: table; clear: both; }
 </style>
+
+<!-- jQuery 3 -->
+<script src="<?php echo base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="<?php echo base_url(); ?>assets/bower_components/jquery-ui/jquery-ui.min.js"></script>

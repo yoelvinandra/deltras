@@ -4,23 +4,17 @@
 function openDrawer() {
   document.getElementById('drawer').classList.add('open');
   document.body.style.overflow = 'hidden';
-  var submenu = `
-    <ul>
-      <li><a href="news">NEWS</a></li>
-      <li><a href="fixture">FIXTURE</a></li>
-      <li><a href="#" onclick="openMenuMobile('CLUB')">CLUB <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
-      <li><a href="#" onclick="openMenuMobile('DELTAMANIA')">DELTAMANIA <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
-      <li><a href="#" onclick="openMenuMobile('PARTNERS')">PARTNERS <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
-      <li><a href="#" onclick="openMenuMobile('SHOP')">SHOP <button class="mobile-right-btn"><img src="assets/images/right.png"></button></a></li>
-      <li><a href="ticket">TICKET</a></li>
-    </ul>
-  `;
 
-  document.querySelectorAll('.mobile-menu').forEach(function(item) {
-      if (item !== parent) {
-          item.innerHTML = submenu;
-      }
-  });
+  $("#default-mobile-menu").show();
+  $("#club-mobile-menu").hide();
+  $("#deltamania-mobile-menu").hide();
+  $("#partners-mobile-menu").hide();
+  $("#shop-mobile-menu").hide();
+
+  // document.querySelectorAll('.mobile-menu').forEach(function(item) {
+  //     if (item !== parent) {
+  //     }
+  // });
 }
 function closeDrawer() {
   document.getElementById('drawer').classList.remove('open');
@@ -34,52 +28,42 @@ function openMenuMobile(menu){
   var submenu = "";
   if(menu == "CLUB")
   {
-    submenu = `
-      <ul>
-      <li><a href="history">History</a></li>
-      <li><a href="team">Team</a></li>
-      </ul>
-    `;
+    $("#default-mobile-menu").hide();
+    $("#club-mobile-menu").show();
+    $("#deltamania-mobile-menu").hide();
+    $("#partners-mobile-menu").hide();
+    $("#shop-mobile-menu").hide();
   }
   else if(menu == "DELTAMANIA")
   {
-    submenu = `
-      <ul>
-      <li><a href="membership">Membership</a></li>
-      </ul>
-    `;
+    $("#default-mobile-menu").hide();
+    $("#club-mobile-menu").hide();
+    $("#deltamania-mobile-menu").show();
+    $("#partners-mobile-menu").hide();
+    $("#shop-mobile-menu").hide();
   }
   else if(menu == "PARTNERS")
   {
-    submenu = `
-      <ul>
-      <li><a href="KAPALAPI">KAPAL API</a></li>
-      <li><a href="ALHIJAZ">AL HIJAZ</a></li>
-      <li><a href="RANS">RANS</a></li>
-      <li><a href="MITRAORPHYS">MITRA ORPHYS</a></li>
-      <li><a href="LEKAW">LEKAW</a></li>
-      <li><a href="CRYSTALIN">CRYSTALIN</a></li>
-      <li><a href="BANDELL">BANDELL</a></li>
-      </ul>
-    `;
+    $("#default-mobile-menu").hide();
+    $("#club-mobile-menu").hide();
+    $("#deltamania-mobile-menu").hide();
+    $("#partners-mobile-menu").show();
+    $("#shop-mobile-menu").hide();
   }
   else if(menu == "SHOP")
   {
-    submenu = `
-      <ul>
-      <li><a href="website">Website</a></li>
-      <li><a href="deltrasstore">Deltras Store</a></li>
-      <li><a href="shopee">Shopee</a></li>
-      <li><a href="whatsapp">Whatsapp</a></li>
-      </ul>
-    `;
+    $("#default-mobile-menu").hide();
+    $("#club-mobile-menu").hide();
+    $("#deltamania-mobile-menu").hide();
+    $("#partners-mobile-menu").hide();
+    $("#shop-mobile-menu").show();
   }
 
-  document.querySelectorAll('.mobile-menu').forEach(function(item) {
-      if (item !== parent) {
-          item.innerHTML = submenu;
-      }
-  });
+  // document.querySelectorAll('.mobile-menu').forEach(function(item) {
+  //     if (item !== parent) {
+  //         item.innerHTML = submenu;
+  //     }
+  // });
 
 }
 
@@ -140,6 +124,37 @@ window.addEventListener('scroll', function() {
 // Update on load
 window.addEventListener('load', function() {
     updateDropdownTop();
+});
+
+$.ajax({
+    url: '<?base_url()?>' + 'Master/Data/Sponsor/web?for=HOME',
+    type: 'GET',
+    dataType: 'json',
+    success: function (data) {
+      var htmlHome = "";
+      var htmlMenu = "";
+      for(var x = 0 ; x < data.rows.length;x++)
+      {
+        htmlHome += `
+          <div class="sp-logo">
+            <a href="`+data.rows[x].WEBSITE+`" target="_blank"><img src="`+data.rows[x].GAMBAR+`"></a>
+          </div>
+        `;
+
+        htmlMenu += `
+          <li><a href="`+data.rows[x].WEBSITE+`" target="_blank">`+data.rows[x].NAMA+`</a></li>
+        `;
+      }
+
+      //FOOTER VIEW
+      $(".sponsor-footer-inner").html(htmlHome);
+
+      //DROPDOWN MENU WEB
+      $(".partners-dropdown ul").html(htmlMenu);
+
+      //DROPDOWN MENU MOBILE
+      $("#partners-mobile-menu").html(htmlMenu);
+    }
 });
 
 </script>
