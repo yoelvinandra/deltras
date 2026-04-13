@@ -156,6 +156,14 @@ function formatMonthYear(dateStr){
   return result;
 }
 
+function formatTime(timeStr){
+  const [h, m,s] = timeStr.split(":");
+
+  const result = `${h} ${m}`;
+
+  return result;
+}
+
 // Update on scroll
 window.addEventListener('scroll', function() {
     updateDropdownTop();

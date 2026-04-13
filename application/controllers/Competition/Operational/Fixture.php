@@ -15,7 +15,7 @@ class Fixture extends MY_Controller {
 
 	public function web() {
 		$this->output->set_content_type('application/json');
-		$response = $this->model_competition_fixture->web($this->input->get("for"));
+		$response = $this->model_competition_fixture->web($this->input->get("for"),$this->input->get("s"));
 		echo json_encode($response);
 	}
 
