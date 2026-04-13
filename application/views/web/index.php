@@ -82,126 +82,6 @@
     <div class="slider-viewport" id="viewport">
       <div class="slider-track" id="track">
 
-        <div class="player-card">
-          <div class="card-photo">
-            <img src="assets/images/player/11.png" alt="Player 11"/>
-            <span class="card-number">11</span>
-          </div>
-          <div class="card-info">
-            <div class="player-name fira-sans-extrabold">Player Name</div>
-            <div class="player-position fira-sans-semibold">Position</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Goals</span><span class="stat-value">5</span></div>
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Assist</span><span class="stat-value">4</span></div>
-          </div>
-        </div>
-
-        <div class="player-card">
-          <div class="card-photo">
-            <img src="assets/images/player/1.png" alt="Player 1"/>
-            <span class="card-number">1</span>
-          </div>
-          <div class="card-info">
-            <div class="player-name fira-sans-extrabold">Player Name</div>
-            <div class="player-position fira-sans-semibold">Position</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat-row fira-sans-regular"><span class="stat-label">GK Save</span><span class="stat-value">12</span></div>
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Clean Sheet</span><span class="stat-value">3</span></div>
-          </div>
-        </div>
-
-        <div class="player-card">
-          <div class="card-photo">
-            <img src="assets/images/player/7.png" alt="Player 7"/>
-            <span class="card-number">7</span>
-          </div>
-          <div class="card-info">
-            <div class="player-name fira-sans-extrabold">Player Name</div>
-            <div class="player-position fira-sans-semibold">Position</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Goals</span><span class="stat-value">3</span></div>
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Assist</span><span class="stat-value">7</span></div>
-          </div>
-        </div>
-
-        <div class="player-card">
-          <div class="card-photo">
-            <img src="assets/images/player/8.png" alt="Player 8"/>
-            <span class="card-number">8</span>
-          </div>
-          <div class="card-info">
-            <div class="player-name fira-sans-extrabold">Player Name</div>
-            <div class="player-position fira-sans-semibold">Position</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Goals</span><span class="stat-value">9</span></div>
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Assist</span><span class="stat-value">2</span></div>
-          </div>
-        </div>
-
-         <div class="player-card">
-          <div class="card-photo">
-            <img src="assets/images/player/11.png" alt="Player 11"/>
-            <span class="card-number">11</span>
-          </div>
-          <div class="card-info">
-            <div class="player-name fira-sans-extrabold">Player Name</div>
-            <div class="player-position fira-sans-semibold">Position</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Goals</span><span class="stat-value">5</span></div>
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Assist</span><span class="stat-value">4</span></div>
-          </div>
-        </div>
-
-        <div class="player-card">
-          <div class="card-photo">
-            <img src="assets/images/player/1.png" alt="Player 1"/>
-            <span class="card-number">1</span>
-          </div>
-          <div class="card-info">
-            <div class="player-name fira-sans-extrabold">Player Name</div>
-            <div class="player-position fira-sans-semibold">Position</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat-row fira-sans-regular"><span class="stat-label">GK Save</span><span class="stat-value">12</span></div>
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Clean Sheet</span><span class="stat-value">3</span></div>
-          </div>
-        </div>
-
-        <div class="player-card">
-          <div class="card-photo">
-            <img src="assets/images/player/7.png" alt="Player 7"/>
-            <span class="card-number">7</span>
-          </div>
-          <div class="card-info">
-            <div class="player-name fira-sans-extrabold">Player Name</div>
-            <div class="player-position fira-sans-semibold">Position</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Goals</span><span class="stat-value">3</span></div>
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Assist</span><span class="stat-value">7</span></div>
-          </div>
-        </div>
-
-        <div class="player-card">
-          <div class="card-photo">
-            <img src="assets/images/player/8.png" alt="Player 8"/>
-            <span class="card-number">8</span>
-          </div>
-          <div class="card-info">
-            <div class="player-name fira-sans-extrabold" >Player Name</div>
-            <div class="player-position fira-sans-semibold">Position</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Goals</span><span class="stat-value">9</span></div>
-            <div class="stat-row fira-sans-regular"><span class="stat-label">Assist</span><span class="stat-value">2</span></div>
-          </div>
-        </div>
-
       </div>
     </div>
 
@@ -621,57 +501,7 @@
               <a href="news" class="all-news-link fira-sans-bold">ALL NEWS&nbsp; ></a>
           </div>
           <div class="news-grid">
-              <!-- News Card 1 -->
-              <div class="news-card">
-                  <div class="news-image">
-                      <div class="news-image-bg" style="background-image: url('assets/images/news/news1.png')">
-                      </div>
-                  </div>
-                  <div class="news-content">
-                      <div class="news-category fira-sans-extrabold">NEWS</div>
-                      <div class="news-title-text">Deltras FC Support Fakhri Husaini Berkarir Di Akademi Ternama</div>
-                      <div class="news-date">3 Februari 2026</div>
-                  </div>
-              </div>
-
-              <!-- News Card 2 -->
-              <div class="news-card">
-                  <div class="news-image">
-                      <div class="news-image-bg" style="background-image: url('assets/images/news/news2.png')">
-                      </div>
-                  </div>
-                  <div class="news-content">
-                      <div class="news-category fira-sans-extrabold">MATCH</div>
-                      <div class="news-title-text">Deltras FC Tutup Putaran Kedua dengan Kemenangan di Balikpapan</div>
-                      <div class="news-date">1 Februari 2026</div>
-                  </div>
-              </div>
-
-              <!-- News Card 3 -->
-              <div class="news-card">
-                  <div class="news-image">
-                      <div class="news-image-bg" style="background-image: url('assets/images/news/news3.png')">
-                      </div>
-                  </div>
-                  <div class="news-content">
-                      <div class="news-category fira-sans-extrabold">NEWS</div>
-                      <div class="news-title-text">Giufami Pemain Baru Deltras FC Optimis Bawa The Lobster Lebih Baik</div>
-                      <div class="news-date">19 Januari 2026</div>
-                  </div>
-              </div>
-
-              <!-- News Card 4 -->
-              <div class="news-card">
-                  <div class="news-image">
-                      <div class="news-image-bg" style="background-image: url('assets/images/news/news4.png')">
-                      </div>
-                  </div>
-                  <div class="news-content">
-                      <div class="news-category fira-sans-extrabold">MATCH</div>
-                      <div class="news-title-text">Go! Debut Kaka dan Tengok Bawa Deltras Menang Lawan PSIS Semarang</div>
-                      <div class="news-date">17 Januari 2026</div>
-                  </div>
-              </div>
+        
           </div>
       </div>
     </div>
@@ -767,92 +597,145 @@ loadAudio(currentSlide);
 startSlider();
 
 //PLAYER
-const track    = document.getElementById('track');
-const viewport = document.getElementById('viewport');
-const prevBtn  = document.getElementById('prevBtn');
-const nextBtn  = document.getElementById('nextBtn');
-const cards    = Array.from(track.querySelectorAll('.player-card'));
-let current = 0;
-function getShow() {
-  const w = window.innerWidth;
-  if (w <= 520) return 1;
-  else if (w <= 1050) return 2;
-  return 4;
-}
+$.ajax({
+    url: '<?base_url()?>' + 'Master/Data/Player/web?for=HOME',
+    type: 'GET',
+    dataType: 'json',
+    success: function (data) {
+      var htmlHome = "";
+      for(var x = 0 ; x < data.rows.length;x++)
+      {
+        htmlHome += `
+        <div class="player-card">
+          <div class="card-photo">
+            <img src="`+data.rows[x].GAMBAR+`" alt="`+data.rows[x].NAMA+`"/>
+            <span class="card-number">`+data.rows[x].SQUADNUMBER+`</span>
+          </div>
+          <div class="card-info">
+            <div class="player-name fira-sans-extrabold">`+data.rows[x].NAMA+`</div>
+            <div class="player-position fira-sans-semibold">`+data.rows[x].POSITION+`</div>
+          </div>
+          <div class="card-stats">
+          `;
+          
+          if(data.rows[x].GKSAVE > 0)
+          {
+            htmlHome += `
+              <div class="stat-row fira-sans-regular"><span class="stat-label">GK Save</span><span class="stat-value">`+data.rows[x].GKSAVE+`</span></div>
+            `;
+          }
+          if(data.rows[x].GOAL > 0)
+          {
+            htmlHome += `
+              <div class="stat-row fira-sans-regular"><span class="stat-label">Goals</span><span class="stat-value">`+data.rows[x].GOAL+`</span></div>
+            `;          
+          }
+          if(data.rows[x].ASSIST > 0)
+          {
+            htmlHome += `
+              <div class="stat-row fira-sans-regular"><span class="stat-label">Assist</span><span class="stat-value">`+data.rows[x].ASSIST+`</span></div>
+            `;
+          }
+          htmlHome += `
+            </div>
+        </div>
+        `;
+      }
 
-function getPages() {
-  return Math.ceil(cards.length / getShow());
-}
-function setCardWidths() {
+      //PLAYER DATA VIEW
+      $("#track").html(htmlHome);
 
-  const show = getShow();
-  let gap  = 48;
-  if (window.innerWidth <= 1050){
-    if (window.innerWidth <= 520){
-      gap = 32;
-    }
-    else
-    {
-      gap = 60;
-    }
-  }
+      const track    = document.getElementById('track');
+      const viewport = document.getElementById('viewport');
+      const prevBtn  = document.getElementById('prevBtn');
+      const nextBtn  = document.getElementById('nextBtn');
+      const cards    = Array.from(track.querySelectorAll('.player-card'));
+      let current = 0;
+      function getShow() {
+        const w = window.innerWidth;
+        if (w <= 520) return 1;
+        else if (w <= 1050) return 2;
+        return 4;
+      }
 
-  const w    = (viewport.offsetWidth - gap * (show - 1)) / show;
-  /* on mobile show 1 full + peek of next */
-  const mobileW = window.innerWidth <= 1050
-    ?  window.innerWidth <= 520
-    ? viewport.offsetWidth * 0.64
-    : viewport.offsetWidth * 0.32
-    : w;4
-  cards.forEach(c => { c.style.width = (window.innerWidth <= 1050 ? mobileW : w) + 'px'; });
-}
-function updateUI() {
-  prevBtn.disabled = current === 0;
-  nextBtn.disabled = current >= getPages() - 1;
-}
-function goTo(page) {
-  current = Math.max(0, Math.min(page, getPages() - 1));
-  const show   = getShow();
-  let gap  = 48;
-  if (window.innerWidth <= 1050){
-    if (window.innerWidth <= 520){
-      gap = 32;
-    }
-    else
-    {
-      gap = 60;
-    }
-  }
+      function getPages() {
+        return Math.ceil(cards.length / getShow());
+      }
+      function setCardWidths() {
 
-  const cardW  = window.innerWidth <= 1050
-    ?  window.innerWidth <= 520
-    ? viewport.offsetWidth * 0.64
-    : viewport.offsetWidth * 0.32
-    : (viewport.offsetWidth - gap * (show - 1)) / show;
-  let offset = current * show * (cardW + gap);
-  // BIAR POSISI GAMBAR WAKTU KECIL ADA DITENGAH
-  // if (window.innerWidth <= 1000){
-  //   offset = offset - gap;
-  // }
-  track.style.transform = `translateX(-${offset}px)`; //-30
-  updateUI();
-}
-prevBtn.addEventListener('click', () => goTo(current - 1));
-nextBtn.addEventListener('click', () => goTo(current + 1));
-/* swipe support */
-let tx = 0;
-viewport.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-viewport.addEventListener('touchend',   e => {
-  const dx = e.changedTouches[0].clientX - tx;
-  if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+        const show = getShow();
+        let gap  = 48;
+        if (window.innerWidth <= 1050){
+          if (window.innerWidth <= 520){
+            gap = 32;
+          }
+          else
+          {
+            gap = 60;
+          }
+        }
+
+        const w    = (viewport.offsetWidth - gap * (show - 1)) / show;
+        /* on mobile show 1 full + peek of next */
+        const mobileW = window.innerWidth <= 1050
+          ?  window.innerWidth <= 520
+          ? viewport.offsetWidth * 0.64
+          : viewport.offsetWidth * 0.32
+          : w;4
+        cards.forEach(c => { c.style.width = (window.innerWidth <= 1050 ? mobileW : w) + 'px'; });
+      }
+      function updateUI() {
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current >= getPages() - 1;
+      }
+      function goTo(page) {
+        current = Math.max(0, Math.min(page, getPages() - 1));
+        const show   = getShow();
+        let gap  = 48;
+        if (window.innerWidth <= 1050){
+          if (window.innerWidth <= 520){
+            gap = 32;
+          }
+          else
+          {
+            gap = 60;
+          }
+        }
+
+        const cardW  = window.innerWidth <= 1050
+          ?  window.innerWidth <= 520
+          ? viewport.offsetWidth * 0.64
+          : viewport.offsetWidth * 0.32
+          : (viewport.offsetWidth - gap * (show - 1)) / show;
+        let offset = current * show * (cardW + gap);
+        // BIAR POSISI GAMBAR WAKTU KECIL ADA DITENGAH
+        // if (window.innerWidth <= 1000){
+        //   offset = offset - gap;
+        // }
+        track.style.transform = `translateX(-${offset}px)`; //-30
+        updateUI();
+      }
+      prevBtn.addEventListener('click', () => goTo(current - 1));
+      nextBtn.addEventListener('click', () => goTo(current + 1));
+      /* swipe support */
+      let tx = 0;
+      viewport.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+      viewport.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+      });
+
+      function init() {
+        current = 0;
+        setCardWidths();
+        goTo(0);
+      }
+      window.addEventListener('resize', init);
+
+      init();
+
+    }
 });
-function init() {
-  current = 0;
-  setCardWidths();
-  goTo(0);
-}
-window.addEventListener('resize', init);
-init();
 
 //HIGHLIGHT
 document.querySelectorAll('.play-icon, .video-play').forEach(el => {
@@ -860,5 +743,31 @@ document.querySelectorAll('.play-icon, .video-play').forEach(el => {
 });
 document.querySelectorAll('.btn-ticket').forEach(el => {
     el.addEventListener('click', () => alert('Opening ticket purchase'));
+});
+
+//NEWS
+$.ajax({
+  url: '<?base_url()?>' + 'Competition/Operational/News/web?for=HOME',
+  type: 'GET',
+  dataType: 'json',
+  success: function (data) {
+    var html = "";
+    for (var x = 0; x < data.rows.length; x++) {
+      html += `
+        <a href="news-detail?i=${data.rows[x].IDNEWS}" class="news-card">
+            <div class="news-image">
+                <div class="news-image-bg" style="background-image: url('${data.rows[x].GAMBAR}?t=${Date.now()}')">
+                </div>
+            </div>
+            <div class="news-content">
+                <div class="news-category fira-sans-extrabold">${data.rows[x].KATEGORI}</div>
+                <div class="news-title-text">${data.rows[x].TITLE}</div>
+                <div class="news-date">${formatDate(data.rows[x].TGLTERBIT.split(" ")[0])}</div>
+            </div>
+        </a>
+      `;
+    }
+    $(".news-grid").html(html);
+  }
 });
 </script>

@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="player-card">
                   <div class="card-photo">
                     <img src="`+detailTab[y].GAMBAR+`" alt="`+detailTab[y].NAMA+`"/>
-                    <span class="card-number">`+detailTab[y].SQUADNUMBER+`</span>
+                    <span class="card-number">`+(detailTab[y].SQUADNUMBER == 0 ? '' : detailTab[y].SQUADNUMBER)+`</span>
                   </div>
                   <div class="card-info">
                     <div class="player-name fira-sans-black">`+detailTab[y].NAMA+`</div>
@@ -124,8 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
               html += `
                 <div class="player-card">
                   <div class="card-photo">
-                    <img src="`+detailTab[y].GAMBAR+`" alt="`+detailTab[y].NAMA+`"/>
-                    <span class="card-number">`+detailTab[y].SQUADNUMBER+`</span>
+                    <img src="`+detailTab[y].GAMBAR+`?t=`+Date.now()+`" alt="`+detailTab[y].NAMA+`"/>
+                    <span class="card-number">`+(detailTab[y].SQUADNUMBER == 0 ? '' : detailTab[y].SQUADNUMBER)+`</span>
                   </div>
                   <div class="card-info">
                     <div class="player-name fira-sans-black">`+detailTab[y].NAMA+`</div>
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="player-card">
                   <div class="card-photo">
                     <img src="`+detailTab[y].GAMBAR+`" alt="`+detailTab[y].NAMA+`"/>
-                    <span class="card-number">`+detailTab[y].SQUADNUMBER+`</span>
+                    <span class="card-number">`+(detailTab[y].SQUADNUMBER == 0 ? '' : detailTab[y].SQUADNUMBER)+`</span>
                   </div>
                   <div class="card-info">
                     <div class="player-name fira-sans-black">`+detailTab[y].NAMA+`</div>

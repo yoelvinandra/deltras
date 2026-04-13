@@ -20,13 +20,13 @@ class Model_competition_news extends MY_Model{
 		return $data;
 	}
 	
-	public function web($for,$page=0,$count=0,$query="",$kategori="",$id=0){	
+	public function web($for,$page=0,$query="",$kategori="",$id=0){	
 
 		$data['rows'] = [];
 
 		if($for == "HOME")
 		{
-			$sql = "select IDNEWS, TITLE,KATEGORI,DETAIL,TGLTERBIT,MUSER.USERNAME,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
+			$sql = "select IDNEWS, TITLE,KATEGORI,TGLTERBIT,MUSER.USERNAME,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
 				from TNEWS  
 				INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
 				WHERE TNEWS.STATUS = 1
@@ -41,19 +41,80 @@ class Model_competition_news extends MY_Model{
 		}
 		else if($for == "NEWS")
 		{
-			if($count!=0)$limit = "LIMIT $count OFFSET $page";
-			if($id != 0)$whereID = " AND TNEWS.IDNEWS = $id";
+			if($page!=0)$limit = "LIMIT 6 OFFSET ".(($page-1)*6);
 			if($query != "")$whereQuery = " AND TNEWS.TITLE like '%$query%' ";
 			if($kategori != "")$whereKategori = " AND TNEWS.KATEGORI = '$kategori'";
 
-			$sql = "select IDNEWS, TITLE,KATEGORI,DETAIL,TGLTERBIT,MUSER.USERNAME,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
+			$sql = "select IDNEWS, TITLE,KATEGORI,TGLTERBIT,MUSER.USERNAME,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
 				from TNEWS  
 				INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
-				WHERE TNEWS.STATUS = 1 $whereID $whereQuery $whereKategori
+				WHERE TNEWS.STATUS = 1 $whereQuery $whereKategori
 				ORDER BY TGLTERBIT DESC
 				$limit";
 			$query = $this->db->queryRaw($sql);
 			$data['rows'] = $query->result();	
+
+			$sql = "select CEIL(count(*)/6) as JMLDATA
+				from TNEWS  
+				INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
+				WHERE TNEWS.STATUS = 1 $whereQuery $whereKategori
+				ORDER BY TGLTERBIT DESC";
+			$query = $this->db->queryRaw($sql)->row();
+			$data['count'] = (int)$query->JMLDATA;	
+		}
+		else if($for == "DETAIL")
+		{
+			if($id != 0)
+			{
+				$sql = "select IDNEWS, TITLE,KATEGORI,DETAIL,TGLTERBIT,MUSER.USERNAME,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
+					from TNEWS  
+					INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
+					WHERE TNEWS.STATUS = 1  AND TNEWS.IDNEWS = $id
+					$limit";
+				$query = $this->db->queryRaw($sql);
+				$data['rows'] = $query->result();	
+
+				//AFTER DATE -> LEFT
+				// $sql = "select IDNEWS, TITLE
+				// 	from TNEWS  
+				// 	WHERE TNEWS.STATUS = 1  AND TNEWS.IDNEWS != $id AND TGLTERBIT >= '{$data['rows'][0]->TGLTERBIT}'
+				// 	ORDER BY TGLTERBIT ASC
+				// 	LIMIT 1";
+				// $query = $this->db->queryRaw($sql);
+				// $data['rowsAfter'] = $query->result();
+
+				//BEFORE DATE -> RIGHT
+				$sql = "select IDNEWS, TITLE
+					from TNEWS  
+					WHERE TNEWS.STATUS = 1  AND TNEWS.IDNEWS != $id AND TGLTERBIT <= '{$data['rows'][0]->TGLTERBIT}'
+					ORDER BY TGLTERBIT DESC
+					LIMIT 1";
+				$query = $this->db->queryRaw($sql);
+				$data['rowsBefore'] = $query->result();
+
+				if(count($data['rowsBefore']) == 0)
+				{
+					$sql = "select IDNEWS, TITLE
+						from TNEWS  
+						WHERE TNEWS.STATUS = 1 
+						ORDER BY TGLTERBIT DESC
+						LIMIT 1";
+					$query = $this->db->queryRaw($sql);
+					$data['rowsBefore'] = $query->result();
+				}
+			}
+		}
+		else if($for == "META")
+		{
+			if($id != 0)
+			{
+				$sql = "select TITLE,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR,CONCAT('".base_url()."news-detail?i=',IDNEWS) as URL
+					from TNEWS  
+					WHERE TNEWS.STATUS = 1  AND TNEWS.IDNEWS = $id
+					$limit";
+				$query = $this->db->queryRaw($sql);
+				$data['rows'] = $query->result();	
+			}
 		}
 		return $data;
 	}

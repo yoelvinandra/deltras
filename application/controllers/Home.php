@@ -6,7 +6,7 @@ class Home extends MY_Controller {
 	public function __construct()
     {
         parent::__construct();
-        $this->load->model(array("model_master_config"));
+        $this->load->model(array("model_master_config", "model_competition_news"));
 	}
 	
 	public function index($jenisLaporan = "index")
@@ -28,8 +28,13 @@ class Home extends MY_Controller {
 			$this->load->view('auth/login');
 		}
 		else {
+			$data = $this->input->get();
+			if(explode("?",$jenisLaporan)[0] == "news-detail")
+			{	
+				$data['og'] = $this->model_competition_news->web('META',0,"","",$this->input->get("i"))['rows'][0];
+			}
             $this->load->view('header_web');
-			$this->load->view('web/'.$jenisLaporan,$this->input->get());
+			$this->load->view('web/'.$jenisLaporan,$data);
 			$this->load->view('footer_web');
 		}
 	}

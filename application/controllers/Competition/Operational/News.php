@@ -15,7 +15,7 @@ class News extends MY_Controller {
 
 	public function web() {
 		$this->output->set_content_type('application/json');
-		$response = $this->model_competition_news->web($this->input->get("for"),$this->input->get("p")??0,$this->input->get("c")??0,$this->input->get("q")??"",$this->input->get("k")??"",$this->input->get("i")??0);
+		$response = $this->model_competition_news->web($this->input->get("for"),$this->input->get("p")??0,$this->input->get("q")??"",$this->input->get("k")??"",$this->input->get("i")??0);
 		echo json_encode($response);
 	}
 

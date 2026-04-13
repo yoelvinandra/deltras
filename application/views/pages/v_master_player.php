@@ -209,20 +209,20 @@ var indexRow;
 var configTeam = [];
 var labelPosition = [
     {
-        'NAME' : 'GOAL KEEPER',
+        'NAME' : 'GOALKEEPER',
         'VALUE' : 'GOALKEEPER'
     },
     {
-        'NAME' : 'DEFENDERS',
-        'VALUE' : 'DEFENDERS'
+        'NAME' : 'DEFENDER',
+        'VALUE' : 'DEFENDER'
     },
     {
         'NAME' : 'MIDFIELDERS',
         'VALUE' : 'MIDFIELDERS'
     },
     {
-        'NAME' : 'FORWARDS',
-        'VALUE' : 'FORWARDS'
+        'NAME' : 'FORWARD',
+        'VALUE' : 'FORWARD'
     },
     {
         'NAME' : 'CEO',
@@ -233,12 +233,12 @@ var labelPosition = [
         'VALUE' : 'COO'
     },
     {
-        'NAME' : 'CLUB SECRETARY',
-        'VALUE' : 'CLUBSECRETARY'
+        'NAME' : 'Club Secretary',
+        'VALUE' : 'Club Secretary'
     },
     {
-        'NAME' : 'ACADEMY DIRECTOR',
-        'VALUE' : 'ACADEMYDIRECTOR'
+        'NAME' : 'Academy Director',
+        'VALUE' : 'Academy Director'
     }
 ];
 

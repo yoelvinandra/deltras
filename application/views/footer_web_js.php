@@ -116,6 +116,36 @@ function updateDropdownTop() {
   });
 }
 
+function formatDate(dateStr) {
+  const months = [
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+  ];
+  const [year, month, day] = dateStr.split('-');
+  return `${day} ${months[parseInt(month) - 1]} ${year}`;
+}
+
+function formatDateFull(dateStr) {
+  const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+  const months = [
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+  ];
+
+  const date = new Date(dateStr.replace(' ', 'T'));
+  const dayName = days[date.getDay()];
+  const day     = String(date.getDate()).padStart(2, '0');
+  const month   = months[date.getMonth()];
+  const year    = date.getFullYear();
+  const hour    = String(date.getHours()).padStart(2, '0');
+  const minute  = String(date.getMinutes()).padStart(2, '0');
+
+  return `${dayName}, ${day} ${month} ${year}, ${hour}.${minute}`;
+}
+
+// Contoh:
+formatDateFull('2024-12-01 11:00:00'); // → "Minggu, 01 Desember 2024, 11.00"
+
 // Update on scroll
 window.addEventListener('scroll', function() {
     updateDropdownTop();
@@ -137,7 +167,7 @@ $.ajax({
       {
         htmlHome += `
           <div class="sp-logo">
-            <a href="`+data.rows[x].WEBSITE+`" target="_blank"><img src="`+data.rows[x].GAMBAR+`"></a>
+            <a href="`+data.rows[x].WEBSITE+`" target="_blank"><img src="`+data.rows[x].GAMBAR+`?t=`+Date.now()+`"></a>
           </div>
         `;
 

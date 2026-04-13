@@ -37,6 +37,8 @@ class Model_master_player extends MY_Model{
 			$queryConfig = $this->db->queryRaw($sqlConfig);	
 			$dataConfig = $queryConfig->result();
 
+			$data['senior_team'] = [];
+			
 			foreach($dataConfig as $itemConfig){
 				$dataPosition = explode(",",$itemConfig->VALUE);
 				foreach($dataPosition as $itemPosition){
@@ -44,11 +46,34 @@ class Model_master_player extends MY_Model{
 					{
 						if($itemPosition == $item->POSITION)
 						{
-							array_push($data['rows'],$item);
+							array_push($data['senior_team'],$item);
 						}
 					}
 				}
 			}
+
+			//CEK DATA APA AJA YANG BOLEH MUNCUL
+			$sqlConfig = "select VALUE
+				from MCONFIG  
+				WHERE MODUL = 'TEAM' AND CONFIG = 'IDPLAYER' ";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+			$dataConfig = $queryConfig->result();
+
+			foreach($dataConfig as $itemConfig){
+				$dataPlayerConfig = explode(",",$itemConfig->VALUE);
+				for($x = 0 ; $x < count($data['senior_team']) ; $x++)
+				{
+					$player = $data['senior_team'][$x];
+					foreach($dataPlayerConfig as $itemPlayerConfig){
+						if($itemPlayerConfig == $player->ID)
+						{
+							array_push($data['rows'],$player);
+						}
+					}
+				}
+			}
+
+			unset($data['senior_team']);
 		}
 		else if($for == "PLAYER")
 		{

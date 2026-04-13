@@ -653,6 +653,7 @@ img { display: block; max-width: 100%; }
 .player-name {
   font-size: 20px;
   color: #fff;
+  text-transform: uppercase;
 }
 .player-position {
   font-size: 16px;
@@ -672,7 +673,8 @@ img { display: block; max-width: 100%; }
   border-bottom: 1px solid #f0f0f0;
   font-size: 14px;
 }
-.stat-row:last-child { border-bottom: none; }
+.stat-row:last-child:not(:only-child)
+ { border-bottom: none; }
 
 /* Arrows */
 .arrow-btn {
@@ -1019,14 +1021,12 @@ img { display: block; max-width: 100%; }
   padding: 8px;
 }
 .stat-label {
-  font-size: 9px;
-  color: #999;
-  text-transform: uppercase;
+  font-size: 14px;
+  color: #fff;
   margin-bottom: 4px;
 }
 .stat-value {
   font-size: 14px;
-  font-weight: bold;
 }
 /* PREVIOUS MATCHES */
 .prev-matches {
