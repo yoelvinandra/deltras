@@ -74,7 +74,8 @@ class Fixture extends MY_Controller {
 		
 		$data_values = array (
 			'NAMA'    	      => $nama,
-			'SEASON'       	  => ($this->input->post('SEASON')."-01")??"",
+			'SEASONAWAL'      => ($this->input->post('SEASONAWAL')."-01")??"",
+			'SEASONAKHIR'     => ($this->input->post('SEASONAKHIR')."-01")??"",
 			'CATATAN'         => $this->input->post('CATATAN')??"",
 			'USERENTRY'       => $_SESSION[NAMAPROGRAM]['USERID'],
 			'TGLENTRY'        => date("Y-m-d h:i:s"),

@@ -13,7 +13,7 @@ class Model_competition_fixture extends MY_Model{
 		$sql = "select IDFIXTURE as VALUE, NAMA as TEXT
 				from TFIXTURE  
 				WHERE NAMA like ?
-				ORDER BY SEASON DESC";
+				ORDER BY SEASONAKHIR DESC";
 				
 		$query = $this->db->query($sql, ["%".$q."%"]);	
 		$data['rows'] = $query->result();
@@ -22,93 +22,92 @@ class Model_competition_fixture extends MY_Model{
 	
 	public function web($for){	
 
-		$sql = "select IDFIXTURE,NAMA,SEASON
-				from TFIXTURE  
-				WHERE TFIXTURE.STATUS = 1
-				ORDER BY SEASON DESC";
-		$query = $this->db->queryRaw($sql);	
-		$data['base'] = $query->result();
-
 		$data['rows'] = [];
 
 		if($for == "HOME")
 		{
+			
 			$sqlConfig = "select VALUE
 				from MCONFIG  
-				WHERE MODUL = 'TEAM' AND SUBSTRING_INDEX(CONFIG, '-', 1) = 'SENIOR TEAM' ";
+				WHERE MODUL = 'FIXTURE' AND CONFIG = 'COUNTFIXTUREMATCH' ";
 			$queryConfig = $this->db->queryRaw($sqlConfig);	
-			$dataConfig = $queryConfig->result();
+			$countfixturematch = $queryConfig->row()->VALUE;
 
-			foreach($dataConfig as $itemConfig){
-				$dataPosition = explode(",",$itemConfig->VALUE);
-				foreach($dataPosition as $itemPosition){
-					foreach($data['base'] as $item)
-					{
-						if($itemPosition == $item->POSITION)
-						{
-							array_push($data['rows'],$item);
-						}
-					}
-				}
-			}
-		}
-		else if($for == "PLAYER")
-		{
-			$getGroupTab = [];
-			$sqlConfig = "select SUBSTRING_INDEX(CONFIG, '-', 1) as TAB, SUBSTRING_INDEX(CONFIG, '-', -1) as HEADER, VALUE
+			$sqlConfig = "select VALUE
 				from MCONFIG  
-				WHERE MODUL = 'TEAM' 
-                ORDER BY  PREFIX,SUBSTRING_INDEX(CONFIG, '-', 1) , JUMLAHDIGIT";
+				WHERE MODUL = 'FIXTURE' AND CONFIG = 'COUNTRESULTMATCH' ";
 			$queryConfig = $this->db->queryRaw($sqlConfig);	
-			$dataConfig = $queryConfig->result();
+			$countresultmatch = $queryConfig->row()->VALUE;
 
-			foreach($dataConfig as $itemConfig){
-				$ada = false;
-				foreach($getGroupTab as $itemGetGroupTab)
-				{
-					if($itemConfig->TAB == $itemGetGroupTab)
-					{
-						$ada = true;
-					}
-				}
-				if(!$ada){
-					array_push($getGroupTab,$itemConfig->TAB);
-				}
-			}
+			$data['rows']['FIXTURE'] = [];
+			$data['rows']['RESULT'] = [];
 
-			foreach($getGroupTab as $itemGetGroupTab){
-				$detail = [];
-				foreach($dataConfig as $itemConfig){
-					if($itemGetGroupTab == $itemConfig->TAB)
-					{
-						$dataPosition = explode(",",$itemConfig->VALUE);
-						$subHeader = [];
-						foreach($dataPosition as $itemPosition){
-							$subHeader['SUBHEADER'] = $itemPosition;
-							$subHeader["PLAYER"] = [];
-							foreach($data['base'] as $item)
-							{
-								if($itemPosition == $item->POSITION)
-								{
-									array_push($subHeader["PLAYER"],$item);
-								}
-							}
-							unset($itemConfig->VALUE);
-							unset($itemConfig->TAB);
-						}
-						$itemConfig = (array)$itemConfig; // convert object to array
-						$itemConfig = array_merge($itemConfig, $subHeader);
-						array_push($detail, $itemConfig);
-					}
-				}
-				
-				array_push($data['rows'],array(
-					'TAB' => $itemGetGroupTab,
-					'DATA' => $detail
-				));
-			}
+			$sql = "select TFIXTURE.IDFIXTURE,TFIXTURE.NAMA,
+					CONCAT(MONTH(TGLFIXTURE),' ',YEAR(TGLFIXTURE)) as MONTHYEAR,
+					CLUB1.NAMA as NAMACLUB1,CLUB2.NAMA as NAMACLUB2,IDCLUB1,IDCLUB2,SKORCLUB1,SKORCLUB2,
+					CONCAT('".base_url()."assets/images/club/',IDCLUB1,'.png') as GAMBARCLUB1,
+					CONCAT('".base_url()."assets/images/club/',IDCLUB2,'.png') as GAMBARCLUB2,
+					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,VIDEO,VIDEOHIGHLIGHT,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
+					from TFIXTURE 
+					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
+					INNER JOIN MCLUB CLUB2 ON CLUB2.IDCLUB = TFIXTUREDTL.IDCLUB2
+					WHERE TFIXTURE.STATUS = 1 AND TFIXTUREDTL.STATUS > 0 AND TFIXTUREDTL.STATUS < 4 AND DATE(TFIXTUREDTL.TGLFIXTURE) >= '".date("Y-m-d")."'
+					ORDER BY TFIXTUREDTL.TGLFIXTURE ASC
+					LIMIT $countfixturematch";
+			$query = $this->db->queryRaw($sql);	
+			$data['rows']['FIXTURE'] = $query->result();
+
+			$sql = "select TFIXTURE.IDFIXTURE,TFIXTURE.NAMA,
+					CONCAT(MONTH(TGLFIXTURE),' ',YEAR(TGLFIXTURE)) as MONTHYEAR,
+					CLUB1.NAMA as NAMACLUB1,CLUB2.NAMA as NAMACLUB2,IDCLUB1,IDCLUB2,SKORCLUB1,SKORCLUB2,
+					CONCAT('".base_url()."assets/images/club/',IDCLUB1,'.png') as GAMBARCLUB1,
+					CONCAT('".base_url()."assets/images/club/',IDCLUB2,'.png') as GAMBARCLUB2,
+					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,VIDEO,VIDEOHIGHLIGHT,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
+					from TFIXTURE 
+					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
+					INNER JOIN MCLUB CLUB2 ON CLUB2.IDCLUB = TFIXTUREDTL.IDCLUB2
+					WHERE TFIXTURE.STATUS = 1 AND TFIXTUREDTL.STATUS = 4 AND DATE(TFIXTUREDTL.TGLFIXTURE) < '".date("Y-m-d")."'
+					ORDER BY TFIXTUREDTL.TGLFIXTURE ASC
+					LIMIT $countresultmatch";
+			$query = $this->db->queryRaw($sql);	
+			$data['rows']['RESULT'] = $query->result();
 		}
-		unset($data['base']);
+		else if($for == "FIXTURE")
+		{
+			$sql = "select TFIXTURE.IDFIXTURE,TFIXTURE.NAMA,
+					IF(YEAR(SEASONAWAL) = YEAR(SEASONAKHIR),YEAR(SEASONAWAL),CONCAT(YEAR(SEASONAWAL),'/',SUBSTRING(YEAR(SEASONAKHIR),-2,2))) as SEASON,
+					CONCAT(MONTH(TGLFIXTURE),' ',YEAR(TGLFIXTURE)) as MONTHYEAR,
+					CLUB1.NAMA as NAMACLUB1,CLUB2.NAMA as NAMACLUB2,IDCLUB1,IDCLUB2,SKORCLUB1,SKORCLUB2,
+					CONCAT('".base_url()."assets/images/club/',IDCLUB1,'.png') as GAMBARCLUB1,
+					CONCAT('".base_url()."assets/images/club/',IDCLUB2,'.png') as GAMBARCLUB2,
+					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,VIDEO,VIDEOHIGHLIGHT,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
+					from TFIXTURE 
+					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
+					INNER JOIN MCLUB CLUB2 ON CLUB2.IDCLUB = TFIXTUREDTL.IDCLUB2
+					WHERE TFIXTURE.STATUS = 1
+					ORDER BY TFIXTUREDTL.TGLFIXTURE DESC";
+			$query = $this->db->queryRaw($sql);	
+			$data['base'] = $query->result();
+
+			$data['rows']['FIXTURE'] = [];
+			$data['rows']['RESULT'] = [];
+			foreach($data['base'] as $item)
+			{
+				$item->STATUS = (int)$item->STATUS;
+				if($item->STATUS > 0 && $item->STATUS < 4)
+				{
+					array_push($data['rows']['FIXTURE'],$item);
+				}
+				else if($item->STATUS == 4)
+				{
+					array_push($data['rows']['RESULT'],$item);
+				}
+			}
+			unset($data['base']);
+		}
 		return $data;
 	}
 
@@ -119,7 +118,7 @@ class Model_competition_fixture extends MY_Model{
 		$sql = "select c.USERNAME as USERBUAT, a.*
 				from TFIXTURE a
 				left join MUSER c on a.USERENTRY = c.USERID
-				ORDER BY a.SEASON DESC";
+				ORDER BY a.SEASONAKHIR DESC";
 		$query = $this->db->query($sql);
 		$data['rows'] = $query->result();
 

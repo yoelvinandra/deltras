@@ -143,8 +143,18 @@ function formatDateFull(dateStr) {
   return `${dayName}, ${day} ${month} ${year}, ${hour}.${minute}`;
 }
 
-// Contoh:
-formatDateFull('2024-12-01 11:00:00'); // → "Minggu, 01 Desember 2024, 11.00"
+function formatMonthYear(dateStr){
+  const [month, year] = dateStr.split(" ");
+
+  const months = [
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+  ];
+
+  const result = `${months[month - 1]} ${year}`;
+
+  return result;
+}
 
 // Update on scroll
 window.addEventListener('scroll', function() {

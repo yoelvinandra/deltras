@@ -39,7 +39,8 @@
                                 <th width="35px"></th>
                                 <th>ID</th>
                                 <th>Nama</th>
-                                <th>Season</th>
+                                <th>Season Awal</th>
+                                <th>Season Akhir</th>
                                 <th>Catatan</th>
                                 <th width="40px">User Input</th>
                                 <th width="40px">Tgl. Input</th>
@@ -76,7 +77,11 @@
                                     <input type="text" class="form-control" id="NAMA" name="NAMA" placeholder="...">
                                     <br>
                                     <label>Season <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
-                                    <input type="text" class="form-control" id="SEASON" name="SEASON" placeholder="...">
+                                    <div>
+                                        <input style="width:48%; float:left;" type="text" class="form-control" id="SEASONAWAL" name="SEASONAWAL" placeholder="...">
+                                        <div style="float:left; width:4%; text-align:center; padding-top:8px;" >&nbsp;s/d&nbsp;</div>
+                                        <input style="width:48%; " type="text" class="form-control" id="SEASONAKHIR" name="SEASONAKHIR" placeholder="...">
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <br>
@@ -271,7 +276,7 @@ var indexRow;
 
 $(document).ready(function() {
     
-    $('#SEASON').datepicker({
+    $('#SEASONAWAL,#SEASONAKHIR').datepicker({
         format: "yyyy-mm", // sesuai format database
         autoclose: true,
         startView: 'months',
@@ -285,13 +290,6 @@ $(document).ready(function() {
         showClose: true,                 // tombol tutup
         sideBySide: true,                // kalender & jam tampil bersamaan
         locale: 'id',                    // bahasa Indonesia
-    });
-
-    // Ambil nilai saat berubah
-    $('#d_TGLFIXTURE').on('dp.change', function (e) {
-        var tgl = $('#SEASON').val();
-        console.log('Tanggal dipilih: ' + tgl);
-        // tgl sudah dalam format YYYY-MM-DD HH:mm:ss, siap disimpan ke database
     });
 
     $("#mode").val('tambah');
@@ -402,7 +400,8 @@ $(document).ready(function() {
             {data: ''},
             {data: 'IDFIXTURE', visible:false},
             {data: 'NAMA'},
-            {data: 'SEASON',  className:"text-center"},
+            {data: 'SEASONAWAL',  className:"text-center"},
+            {data: 'SEASONAKHIR',  className:"text-center"},
             {data: 'CATATAN'},
             {data: 'USERBUAT'},
             {data: 'TGLENTRY', className:"text-center"},
@@ -759,7 +758,8 @@ function ubah(row){
 			else if(row.STATUS == 1) $("#STATUS").prop('checked',true).iCheck('update');
 			$("#IDFIXTURE").val(row.IDFIXTURE);
 			$("#NAMA").val(row.NAMA);
-			$("#SEASON").datepicker('update', row.SEASON.slice(0, -3));
+			$("#SEASONAWAL").datepicker('update', row.SEASONAWAL.slice(0, -3));
+			$("#SEASONAKHIR").datepicker('update', row.SEASONAKHIR.slice(0, -3));
 			$("#CATATAN").val(row.CATATAN);
             initTableDetail(row.IDFIXTURE);
 		} else {
@@ -775,15 +775,19 @@ function ubah(row){
 
 function simpan() {
     let nama = $('#NAMA').val();
-    let season = $('#SEASON').val();
+    let seasonAwal = $('#SEASONAWAL').val();
+    let seasonAkhir = $('#SEASONAKHIR').val();
     
 
     if(!nama){
         Swal.fire({ title: "Nama wajib diisi", type: "warning" });
         return;
     }
-    else if (!season) {
-        Swal.fire({ title: "Season wajib diisi", type: "warning" });
+    else if (!seasonAwal) {
+        Swal.fire({ title: "Season Awal wajib diisi", type: "warning" });
+        return;
+    }else if (!seasonAkhir) {
+        Swal.fire({ title: "Season Akhir wajib diisi", type: "warning" });
         return;
     }
     else if(tableDetail.rows().data().toArray().length == 0)
@@ -889,7 +893,8 @@ function clearForm(){
 	//clear form input
 	$("#IDFIXTURE").val("");
 	$("#NAMA").val("");
-	$("#SEASON").val(""); 
+	$("#SEASONAWAL").val(""); 
+	$("#SEASONAKHIR").val(""); 
 	$("#CATATAN").val("");
 }
 
