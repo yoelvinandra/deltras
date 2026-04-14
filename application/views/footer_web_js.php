@@ -267,40 +267,17 @@ function getVideoId(url) {
 async function getYouTubeData(videoId) {
     if (!videoId) return null;
 
-      try {
-        var response = await fetch(
-          'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' + videoId + '&key=AIzaSyC5-R1kpDMuam_2RM8qeStsiDbjHImULgw'
-        );
-        var data = await response.json();
-
-        if (data.items && data.items.length > 0) {
-          var snippet = data.items[0].snippet;
-          return {
-            title       : snippet.title,
-            publishedAt : snippet.publishedAt,   // "2025-03-15T10:30:00Z"
-            thumbnail   : snippet.thumbnails.high.url,
-          };
-        }
-      } catch (e) {
-        console.error('YouTube API error:', e);
-        console.error('Waktunya ambil dari tanpa key')
-        return getYouTubeDataNoAPIKey(videoId);
-      }
-}
-
-async function getYouTubeDataNoAPIKey(videoId) {
-  
-    if (!videoId) return null;
-  
-    const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
-
     try {
-        const response = await fetch(oembedUrl);
-        const data = await response.json();
-
-        return { title: data.title, publishedAt: "", thumbnail: data.thumbnail_url};
+        const data = await $.ajax({
+            url: '<?=base_url()?>' + 'Competition/Operational/Fixture/youtubeAPI',
+            method: 'GET',
+            dataType: 'json',
+            data: { videoId: videoId }
+        });
         return data;
-    } catch (error) {
+
+    } catch (err) {
+        console.error('Gagal:', err);
         return null;
     }
 }

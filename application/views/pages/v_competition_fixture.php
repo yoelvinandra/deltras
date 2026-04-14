@@ -207,42 +207,6 @@
                 <label>Link Ticket <i class="fixture_ticketsale" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
                 <input type="text" class="form-control" id="d_LINKTICKET" name="LINKTICKET" placeholder="https://...">
               </div>
-              <!-- 
-              THUMBNAIL
-              https://img.youtube.com/vi/jm7SV-1OXGs/hqdefault.jpg 
-              -->
-              
-              <!-- 
-              LINK YOUTUBE
-              https://youtu.be/jm7SV-1OXGs 
-              -->
-              
-              <!-- 
-              LINK EMBED
-              <iframe width="1492" height="839" src="https://www.youtube.com/embed/jm7SV-1OXGs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> 
-              -->
-
-              <!-- DAPATKAN TITLE 
-               function getVideoId(url) {
-    const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/;
-    const match = url.match(regex);
-    return match ? match[1] : null;
-}
-
-async function getYouTubeTitle(url) {
-    const videoId = getVideoId(url);
-    if (!videoId) return null;
-
-    const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
-
-    try {
-        const response = await fetch(oembedUrl);
-        const data = await response.json();
-        return data.title;
-    } catch (error) {
-        return null;
-    }
-} -->
             
               <div class="form-group">
                 <label>Link Video Youtube<i class="fixture_ongoing" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
