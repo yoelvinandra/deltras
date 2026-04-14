@@ -108,9 +108,9 @@
       <div class="red-title fira-sans-extrabold">FIXTURES</div>
       <div class="section-title fira-sans-extrabold">HIGHLIGHT</div>
 
-      <div class="highlight-card">
+      <div class="highlight-card" id="main-video-id">
           <div class="highlight-image" >
-              <div class="highlight-image-bg" style="background-image: url('assets/images/video/1.png')">
+              <div id="main-video-image" class="highlight-image-bg" style="background-color: #cdcdcd">
               </div>
               <div class="highlight-image-bg-cover">
               </div>
@@ -120,10 +120,10 @@
           </div>
           <div class="highlight-red-section">
               <div class="red-badge fira-sans-medium">VIDEO</div>
-              <div class="highlight-title fira-sans-black">PSIS 0-3 DELTRAS FC: 20-MINUTE HIGHLIGHT</div>
+              <div id="main-video-title"  class="highlight-title fira-sans-black"></div>
               <div class="highlight-meta fira-sans-semibold">
                   <span class="meta-caption">&nbsp;</span>
-                  <span class="meta-time">5 hours ago</span>
+                  <span id="main-video-at" class="meta-time"></span>
               </div>
           </div>
       </div>
@@ -166,9 +166,9 @@
   </div>
   <div class="right-col">
      <div class="highlight-section-secondary">
-      <div class="highlight-card">
+      <div class="highlight-card" id="secondary-video-id">
             <div class="highlight-image" >
-                <div class="highlight-image-bg" style="background-image: url('assets/images/video/2.png')">
+                <div id="secondary-video-image" class="highlight-image-bg" style="background-image: url('assets/images/video/2.png')">
                 </div>
                 <div class="highlight-image-bg-cover">
                 </div>
@@ -176,13 +176,13 @@
                 <div class="play-icon"></div>
             </div>
             <div class="highlight-red-section">
-                <div class="highlight-title-sub fira-sans-black">DELTRAS FC VS PSIS SEMARANG : 2-0 LAST 8 MINUTES</div>
-                <div class="highlight-caption fira-sans-regular">HIGHLIGHT</div>
+                <div id="secondary-video-title" class="highlight-title-sub fira-sans-black">DELTRAS FC VS PSIS SEMARANG : 2-0 LAST 8 MINUTES</div>
+                <div id="secondary-video-text" class="highlight-caption fira-sans-regular">HIGHLIGHT</div>
             </div>
         </div>
         <div class="highlight-card">
-            <div class="highlight-image" >
-                <div class="highlight-image-bg" style="background-image: url('assets/images/video/3.png')">
+            <div class="highlight-image" id="optional-video-id" >
+                <div id="optional-video-image" class="highlight-image-bg" style="background-image: url('assets/images/video/3.png')">
                 </div>
                 <div class="highlight-image-bg-cover">
                 </div>
@@ -190,8 +190,8 @@
                 <div class="play-icon"></div>
             </div>
             <div class="highlight-red-section">
-                <div class="highlight-title-sub fira-sans-black">HIGHLIGHT VIDIO : PERSIPURA JAYAPURA TUMBANG DIKANDANG!</div>
-                <div class="highlight-caption fira-sans-regular">MATCH INTERVIEW</div>
+                <div id="optional-video-title"  class="highlight-title-sub fira-sans-black">HIGHLIGHT VIDIO : PERSIPURA JAYAPURA TUMBANG DIKANDANG!</div>
+                <div id="optional-video-text"  class="highlight-caption fira-sans-regular">MATCH INTERVIEW</div>
             </div>
         </div>
       </div>
@@ -551,10 +551,8 @@ $.ajax({
 
 //HIGHLIGHT
 document.querySelectorAll('.play-icon, .video-play').forEach(el => {
-    el.addEventListener('click', () => alert('Video player opens'));
 });
 document.querySelectorAll('.btn-ticket').forEach(el => {
-    el.addEventListener('click', () => alert('Opening ticket purchase'));
 });
 
 //FIXTURE
@@ -562,7 +560,7 @@ $.ajax({
   url: '<?base_url()?>' + 'Competition/Operational/Fixture/web?for=HOME',
   type: 'GET',
   dataType: 'json',
-  success: function (data) {
+  success: async function (data) {
     var html = "";
     var monthYearTemp = "";
     for (var x = 0; x < data.rows.FIXTURE.length; x++) {
@@ -667,6 +665,15 @@ $.ajax({
       `;
     }
     $(".prev-content").html(html);
+
+    var videoid = getVideoId(data.rows.RESULT[0].VIDEOHIGHLIGHT);
+    var videoData = await getYouTubeData(videoid);
+
+    $("#main-video-image").css("background-image","url('"+videoData.thumbnail+"')");
+    $("#main-video-title").text(videoData.title);
+    $("#main-video-id").attr("onclick","openModal('"+videoid+"', '"+ $("#main-video-title").text()+"')");
+    $("#main-video-title").text(videoData.title);
+    $("#main-video-at").text(timeYoutubePublished(videoData.publishedAt));
   }
 });
 

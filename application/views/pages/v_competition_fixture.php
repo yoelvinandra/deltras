@@ -246,11 +246,11 @@ async function getYouTubeTitle(url) {
             
               <div class="form-group">
                 <label>Link Video Youtube<i class="fixture_ongoing" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
-                <input type="text" class="form-control" id="d_VIDEO" name="VIDEO" placeholder="https://...">
+                <input type="text" class="form-control" id="d_VIDEO" name="VIDEO" placeholder="Format : https://youtu.be/[YOUTUBE ID]">
               </div>
               <div class="form-group">
                 <label>Link Video Highlight Youtube<i class="fixture_finished" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
-                <input type="text" class="form-control" id="d_VIDEOHIGHLIGHT" name="VIDEOHIGHLIGHT" placeholder="https://...">
+                <input type="text" class="form-control" id="d_VIDEOHIGHLIGHT" name="VIDEOHIGHLIGHT" placeholder="Format : https://youtu.be/[YOUTUBE ID]">
               </div>
               <div class="form-group">
                 <label>Catatan</label>

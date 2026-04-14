@@ -205,4 +205,97 @@ $.ajax({
     }
 });
 
+function timeYoutubePublished(isoString) {
+  var published = new Date(isoString);
+  var now       = new Date();
+  var seconds   = Math.floor((now - published) / 1000);
+
+  if (seconds < 60)                        return 'Just now';
+
+  var minutes = Math.floor(seconds / 60);
+  if (minutes < 60)                        return minutes + ' minute' + (minutes > 1 ? 's' : '') + ' ago';
+
+  var hours = Math.floor(minutes / 60);
+  if (hours < 24)                          return hours + ' hour' + (hours > 1 ? 's' : '') + ' ago';
+
+  var days = Math.floor(hours / 24);
+  if (days < 7)                            return days + ' day' + (days > 1 ? 's' : '') + ' ago';
+
+  var weeks = Math.floor(days / 7);
+  if (weeks < 4)                           return weeks + ' week' + (weeks > 1 ? 's' : '') + ' ago';
+
+  var months = Math.floor(days / 30);
+  if (months < 12)                         return months + ' month' + (months > 1 ? 's' : '') + ' ago';
+
+  var years = Math.floor(days / 365);
+  return years + ' year' + (years > 1 ? 's' : '') + ' ago';
+}
+
+function openModal(videoId, title) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('ytFrame').src = 
+    'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+  document.getElementById('videoModal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('ytFrame').src = ''; // stops video playback
+  document.getElementById('videoModal').style.display = 'none';
+}
+
+// Close on backdrop click
+document.getElementById('videoModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Close on Escape key
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function getVideoId(url) {
+    const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+}
+
+async function getYouTubeData(videoId) {
+    if (!videoId) return null;
+
+      try {
+        var response = await fetch(
+          'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' + videoId + '&key=AIzaSyC5-R1kpDMuam_2RM8qeStsiDbjHImULgw'
+        );
+        var data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+          var snippet = data.items[0].snippet;
+          return {
+            title       : snippet.title,
+            publishedAt : snippet.publishedAt,   // "2025-03-15T10:30:00Z"
+            thumbnail   : snippet.thumbnails.high.url,
+          };
+        }
+      } catch (e) {
+        console.error('YouTube API error:', e);
+        console.error('Waktunya ambil dari tanpa key')
+        return getYouTubeDataNoAPIKey(videoId);
+      }
+}
+
+async function getYouTubeDataNoAPIKey(videoId) {
+  
+    if (!videoId) return null;
+  
+    const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+
+    try {
+        const response = await fetch(oembedUrl);
+        const data = await response.json();
+
+        return { title: data.title, publishedAt: "", thumbnail: data.thumbnail_url};
+        return data;
+    } catch (error) {
+        return null;
+    }
+}
+
 </script>

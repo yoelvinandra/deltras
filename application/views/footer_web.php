@@ -31,6 +31,24 @@
     </div>
 </footer>
 
+<div id="videoModal">
+  <div id="videoModal-wrapper">
+    
+    <!-- Header: title + close button -->
+    <div id="btnVideoCover">
+      <p id="modalTitle"></p>
+      <button onclick="closeModal()">×</button>
+    </div>
+
+    <!-- 16:9 responsive iframe wrapper -->
+    <div id="videoScreen">
+      <iframe id="ytFrame"
+        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+
+  </div>
+</div>
+
 <?php include("footer_web_js.php"); ?>
 </body>
 </html>

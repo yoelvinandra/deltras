@@ -726,6 +726,15 @@ img { display: block; max-width: 100%; }
 }
   
 /* ======= HIGHLIGHT + NEXT MATCH SECTION ======= */
+#main-video-title{
+  text-transform:uppercase;
+}
+#secondary-video-title{
+  text-transform:uppercase;
+}
+#optional-video-title{
+  text-transform:uppercase;
+}
   /* MAIN WRAPPER */
 .highlight-section {
   max-width: 1520px;
@@ -3209,6 +3218,63 @@ img { display: block; max-width: 100%; }
 
 .red-bar { width: 100%; height: 4px; background:   var(--primary-color); }
 .clearfix::after { content: ''; display: table; clear: both; }
+
+#videoModal{
+  display:none; 
+  position:fixed; 
+  inset:0; 
+  background:rgba(0,0,0,0.85); 
+  z-index:9999; 
+  align-items:center; 
+  justify-content:center;
+}
+
+#videoModal-wrapper{
+  position:relative; 
+  width:90%; 
+  max-width:800px;
+}
+
+#modalTitle{
+  color:#fff; 
+  font-size:15px; 
+  margin:0;
+}
+
+#btnVideoCover{
+  display:flex; 
+  justify-content:space-between; 
+  align-items:center; 
+  margin-bottom:10px;
+}
+
+#btnVideoCover button{
+  background:var(--primary-color);
+  border:none; 
+  color:#fff; 
+  width:34px; 
+  height:34px; 
+  border-radius:50%; 
+  font-size:20px; 
+  cursor:pointer;
+}
+
+#videoScreen{
+  position:relative; 
+  padding-bottom:56.25%; 
+  height:0; 
+  background:#000; 
+  border-radius:8px; 
+  overflow:hidden;
+}
+
+#ytFrame{
+  position:absolute; 
+  top:0; 
+  left:0; 
+  width:100%; 
+  height:100%;
+}
 </style>
 
 <!-- jQuery 3 -->
