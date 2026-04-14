@@ -59,7 +59,7 @@
 
 
 <section class="about-deltras">
-  <img class="about-deltras-image" src="assets/images/history.png">
+  <img class="about-deltras-image" src="assets/images/history/all-team.png">
   <div class="about-deltras-detail">
     <img src="assets/images/logo.png">
     <div class="about-deltras-title fira-sans-extrabold">
@@ -91,14 +91,17 @@
     
     <div class="about-deltras-old-subtitle fira-sans-black">1986</div>
     <div class="about-deltras-old-detail fira-sans-regular">Sejarah Deltras bermula dari konflik internal Persebaya pada musim Perserikatan 1986 yang dipimpin Letkol Laut Soegardjito (ketua umum) dan Mislan (manajer). Setelah Persebaya gagal menembus enam besar dan terjadi konflik kepengurusan, Soegardjito dan Mislan tersingkir. Soegardjito mundur dari sepak bola, sementara Mislan tetap aktif dan mulai mengelola tim internal Persebaya, Putra Gelora.</div>
-
+    <div class="about-deltras-old-image">
+        <img src="assets/images/history/1.png?t=<?=date('Ymdhis')?>">
+    </div>
     <div class="about-deltras-old-subtitle fira-sans-black">PUTRA GELORA</div>
     <div class="about-deltras-old-detail fira-sans-regular">Mislan berambisi membawa Putra Gelora ke Galatama dan melakukan tur keliling Jawa Timur untuk mematangkan tim serta mencari markas. Pada 1989, atas dukungan Ali Mahakam, Putra Gelora hijrah ke Bali dan berganti nama menjadi Putra Gelora Dewata, lalu Gelora Dewata. Klub ini tampil di Galatama Divisi Satu (1990) dan Divisi Utama (1990–1992), serta menjadi runner-up Galatama musim 1993/1994.</div>
-
+    <div class="about-deltras-old-image">
+        <img src="assets/images/history/2.png?t=<?=date('Ymdhis')?>">
+    </div>
     <div class="about-deltras-old-subtitle fira-sans-black">SIDOARJO</div>
     <div class="about-deltras-old-detail fira-sans-regular">Pada 2001, Pemerintah Kabupaten Sidoarjo memulangkan klub ke Sidoarjo. Nama Putra kembali digunakan menjadi Gelora Putra Delta (GPD), lalu berubah menjadi Delta Putra Sidoarjo (Deltras). Sejak 2003, kepemilikan klub beralih dari HM. Mislan ke Pemkab Sidoarjo, dan pada 2011 nama klub resmi menjadi <b>Delta Raya Sidoarjo</b>.</div>
   </div>
-  <br><br>
   <div class="grey-strip">
   &nbsp;
   </div>
@@ -250,4 +253,18 @@ soundBtn.addEventListener('click', () => {
 // Start on load
 loadAudio(currentSlide);
 startSlider();
+
+
+async function loadVideo(){
+    var videoid = getVideoId("https://youtu.be/0x5zdeahVow");
+    var videoData = await getYouTubeData(videoid);
+    $("#history-video-image").css("background-image","url('"+videoData.thumbnail+"')");
+    $("#history-video-title").text(videoData.title);
+    $("#history-video-id").attr("onclick","openModal('"+videoid+"', '"+ $("#history-video-title").text()+"')");
+}
+
+setTimeout(() => {
+    loadVideo();
+}, 100);
+
 </script>

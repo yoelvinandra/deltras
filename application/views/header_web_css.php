@@ -465,27 +465,60 @@ img { display: block; max-width: 100%; }
 }
 
 /* ======= TEAM PHOTO STRIP ======= */
-.team-photo-strip {
+.team-all-section {
   margin:auto;
-  max-width: 1520px;
-  height:450px;
-  margin-top:100px;
-  margin-bottom:50px;
+  max-width: 1140px;
+  margin-top:30px;
+  margin-bottom:100px;
+}
+.team-all-card {
+  background: var(--primary-color);
   overflow: hidden;
-  background:white;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.4);
+  transition: box-shadow 0.4s ease;
 }
-.team-photo-strip img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center 30%;
-  transition: transform 0.4s ease;
-  transform-origin: center center;
+
+.team-all-card:hover {
+  box-shadow: 0 6px 8px rgba(0,0,0,0.4);
+  cursor:pointer;
 }
-.team-photo-strip img:hover {
+
+.team-all-card:hover .team-all-image-bg {
   transform: scale(1.1);
 }
 
+.team-all-image{
+  position: relative;
+  width: 100%;
+  aspect-ratio:4/3;
+  max-height:668px;
+  overflow: hidden; /* penting untuk zoom */
+}
+.team-all-title {
+  font-size: 32px;
+  color: #000;
+  text-transform: uppercase;
+  position: relative;
+}
+.team-all-image-bg {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.4s ease;
+}
+
+.team-all-image-bg-cover {
+  position: absolute; /* 🔥 ini kunci */
+  inset: 0;
+  background: linear-gradient(
+  to bottom,
+  rgba(255,255,255,0) 0%,
+  rgba(0,0,0,0.0) 80%,
+  rgba(0,0,0,0.95) 100%
+  );
+}
 /* ======= SECTION UTILITY ======= */
 .section-wrap {
   max-width: 1140px;
@@ -755,7 +788,7 @@ img { display: block; max-width: 100%; }
   font-size:20px;
   display: inline-block;
   margin-top:60px;
-  margin-bottom:50px;
+  margin-bottom:40px;
 }
 
 .all-results-link {
@@ -1899,7 +1932,7 @@ img { display: block; max-width: 100%; }
   max-width:1214px;
   width:100%;
   margin:auto;
-  padding-top:87px;
+  padding-top:25px;
   padding-bottom:45px;
   padding-left:32px;
   padding-right:32px;
@@ -1930,7 +1963,8 @@ img { display: block; max-width: 100%; }
 .history-image{
   position: relative;
   width: 100%;
-  height: 668px;
+  aspect-ratio:4/3;
+  max-height:668px;
   overflow: hidden; /* penting untuk zoom */
 }
 
@@ -2014,7 +2048,16 @@ img { display: block; max-width: 100%; }
 
 .about-deltras-old .about-deltras-old-detail{
   font-size:16px;
-  padding-bottom:20px;
+  padding-bottom:40px;
+}
+
+.about-deltras-old .about-deltras-old-image img{
+  width:100%;
+  height:100%;
+  max-height:300px;
+  object-fit: cover;
+  object-position: center;
+  padding-bottom:40px;
 }
 
 .vision-mission{
@@ -2516,6 +2559,13 @@ img { display: block; max-width: 100%; }
     }
 }
 
+@media (max-width: 1200px){
+  .team-all-section {
+    padding-left:32px;
+    padding-right:32px;
+  }
+}
+
 /* ======= MOBILE ======= */
 @media (max-width: 1050px) {
     .nav-logo {
@@ -2528,15 +2578,6 @@ img { display: block; max-width: 100%; }
     }
     .nav-links { display: none; }
     .hamburger { display: flex; }
-
-    .team-photo-strip {
-    height:250px;
-    margin-top:40px;
-    margin-bottom:0px;
-    }
-    .team-photo-strip img {
-    object-fit: cover;
-    }
 
     .squad-section { padding: 0px 0px 32px; }
     .red-line{display:none;}
@@ -2903,6 +2944,7 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 520px) {
+  
     .highlight-section-primary {
       margin:0px;
     }
@@ -2919,6 +2961,11 @@ img { display: block; max-width: 100%; }
 
     .prev-item {
       padding: 10.5px 16px;
+    }
+
+    .team-all-section {
+      padding-left:16px;
+      padding-right:16px;
     }
 
     .highlight-section{
@@ -3059,7 +3106,11 @@ img { display: block; max-width: 100%; }
     .vision-mission .vision-mission-wrapper{
       padding:16px 16px;
     }
-
+    
+    .about-deltras-video{
+      padding-left:16px;
+      padding-right:16px;
+    }
     .vision-mission img{
       margin:auto;
       height:150px;

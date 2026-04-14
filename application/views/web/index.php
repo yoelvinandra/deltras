@@ -58,9 +58,21 @@
 </section>
 
 <!-- TEAM PHOTO STRIP -->
-<div class="team-photo-strip">
-  <img src="assets/images/player/team.png" alt="Team photo">
-</div>
+<section class="team-all-section">
+   <div class="red-title fira-sans-extrabold">VIDEO</div>
+   <div class="team-all-title fira-sans-extrabold">BEHIND THE SCENE</div>
+   <div class="team-all-card" id="team-all-video-id">
+        <div class="team-all-image" >
+            <div id="team-all-video-image" class="team-all-image-bg" style="background-color: #cdcdcd;">
+            </div>
+            <div class="team-all-image-bg-cover">
+            </div>
+            <div class="play-icon"></div>
+            <div class="video-icon"><img src="assets/images/video.png"></div>
+            <div class="deltras-icon"><img src="assets/images/logo.png"></div>
+        </div>
+   </div>
+</section>
 
 <!-- SENIOR SQUAD -->
 <section class="squad-section">
@@ -327,6 +339,18 @@ soundBtn.addEventListener('click', () => {
 // Start on load
 loadAudio(currentSlide);
 startSlider();
+
+async function loadVideo(){
+    var videoid = getVideoId("https://youtu.be/XAI7mmlNBQQ");
+    var videoData = await getYouTubeData(videoid);
+    $("#team-all-video-image").css("background-image","url('"+videoData.thumbnail+"')");
+    $("#team-all-video-title").text(videoData.title);
+    $("#team-all-video-id").attr("onclick","openModal('"+videoid+"', '"+ $("#team-all-video-title").text()+"')");
+}
+
+setTimeout(() => {
+    loadVideo();
+}, 100);
 
 //PLAYER
 $.ajax({
@@ -595,7 +619,6 @@ $.ajax({
       $("#main-video-image").css("background-image","url('"+videoData.thumbnail+"')");
       $("#main-video-title").text(videoData.title);
       $("#main-video-id").attr("onclick","openModal('"+videoid+"', '"+ $("#main-video-title").text()+"')");
-      $("#main-video-title").text(videoData.title);
       $("#main-video-at").text(timeYoutubePublished(videoData.publishedAt));
     }
 
