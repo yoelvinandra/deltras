@@ -105,5 +105,9 @@
             img.src = url;
         });
     }
+
+    function checkYoutubeUrl(url) {
+        return url.includes('https://youtu.be/');
+    }
 	
 </script>

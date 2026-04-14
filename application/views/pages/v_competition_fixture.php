@@ -217,6 +217,10 @@
                 <input type="text" class="form-control" id="d_VIDEOHIGHLIGHT" name="VIDEOHIGHLIGHT" placeholder="Format : https://youtu.be/[YOUTUBE ID]">
               </div>
               <div class="form-group">
+                <label>Link Video Match Interview Youtube<i class="fixture_finished" style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+                <input type="text" class="form-control" id="d_VIDEOMATCHINTERVIEW" name="VIDEOMATCHINTERVIEW" placeholder="Format : https://youtu.be/[YOUTUBE ID]">
+              </div>
+              <div class="form-group">
                 <label>Catatan</label>
                 <textarea class="form-control" rows="2" id="d_CATATAN" name="CATATAN"></textarea>
               </div>
@@ -492,12 +496,13 @@ function ubahDetail(row) {
     $('#d_TGLFIXTURE').val(row.TGLFIXTURE);
     $('#d_VIDEO').val(row.VIDEO);
     $('#d_VIDEOHIGHLIGHT').val(row.VIDEOHIGHLIGHT);
+    $('#d_VIDEOMATCHINTERVIEW').val(row.VIDEOMATCHINTERVIEW);
     $('#d_LINKTICKET').val(row.LINKTICKET);
     $('#d_LOKASI').val(row.LOKASI);
     // $('#d_LAT').val(row.LAT);
     // $('#d_LNG').val(row.LNG);
     $('#d_CATATAN').val(row.CATATAN);
-    $('#d_STATUS').val(row.STATUS);
+    $('#d_STATUS').val(row.STATUS).trigger('change');
     $('#modalDetailTitle').text('Ubah Detail Fixture');
     $('#modalDetail').modal('show');
 }
@@ -539,21 +544,22 @@ function hapusDetail(row) {
 
 function simpanDetail(){
     var rowData = {
-        IDCLUB1         : $('#d_IDCLUB1').val(),
-        IDCLUB2         : $('#d_IDCLUB2').val(),
-        CLUB1           : $('#d_IDCLUB1 option:selected').text(),
-        CLUB2           : $('#d_IDCLUB2 option:selected').text(),
-        SKORCLUB1       : $('#d_SKORCLUB1').val(),
-        SKORCLUB2       : $('#d_SKORCLUB2').val(),
-        TGLFIXTURE      : $('#d_TGLFIXTURE').val(),
-        LOKASI          : $('#d_LOKASI').val(),
-        VIDEO           : $('#d_VIDEO').val(),
-        VIDEOHIGHLIGHT  : $('#d_VIDEOHIGHLIGHT').val(),
-        LINKTICKET      : $('#d_LINKTICKET').val(),
-        TGLENTRY        : 'AUTO',
-        USERENTRY       : '<?=$_SESSION[NAMAPROGRAM]["USERNAME"]?>',
-        CATATAN         : $('#d_CATATAN').val(),
-        STATUS          : $('#d_STATUS').val()
+        IDCLUB1             : $('#d_IDCLUB1').val(),
+        IDCLUB2             : $('#d_IDCLUB2').val(),
+        CLUB1               : $('#d_IDCLUB1 option:selected').text(),
+        CLUB2               : $('#d_IDCLUB2 option:selected').text(),
+        SKORCLUB1           : $('#d_SKORCLUB1').val(),
+        SKORCLUB2           : $('#d_SKORCLUB2').val(),
+        TGLFIXTURE          : $('#d_TGLFIXTURE').val(),
+        LOKASI              : $('#d_LOKASI').val(),
+        VIDEO               : $('#d_VIDEO').val(),
+        VIDEOHIGHLIGHT      : $('#d_VIDEOHIGHLIGHT').val(),
+        VIDEOMATCHINTERVIEW : $('#d_VIDEOMATCHINTERVIEW').val(),
+        LINKTICKET          : $('#d_LINKTICKET').val(),
+        TGLENTRY            : 'AUTO',
+        USERENTRY           : '<?=$_SESSION[NAMAPROGRAM]["USERNAME"]?>',
+        CATATAN             : $('#d_CATATAN').val(),
+        STATUS              : $('#d_STATUS').val()
     };
     
 
@@ -587,7 +593,11 @@ function simpanDetail(){
     if(rowData.STATUS >= 3){
         //ONGOING
         if (!rowData.VIDEO) {
-            Swal.fire({ title: "Link Video wajib diisi", type: "warning" });
+            Swal.fire({ title: "Link Video Youtube wajib diisi", type: "warning" });
+            return;
+        }
+        else if(!checkYoutubeUrl(rowData.VIDEO)){
+            Swal.fire({ title: "Link Video Youtube tidak valid", type: "warning" });
             return;
         }
 
@@ -595,9 +605,23 @@ function simpanDetail(){
     if(rowData.STATUS >= 4){
         //FINISHED
         if (!rowData.VIDEOHIGHLIGHT) {
-            Swal.fire({ title: "Link Video Highlight wajib diisi", type: "warning" });
+            Swal.fire({ title: "Link Video Highlight Youtube wajib diisi", type: "warning" });
             return;
         }
+        else if(!checkYoutubeUrl(rowData.VIDEOHIGHLIGHT)){
+            Swal.fire({ title: "Link Video Highlight Youtube tidak valid", type: "warning" });
+            return;
+        }
+
+        if (!rowData.VIDEOMATCHINTERVIEW) {
+            Swal.fire({ title: "Link Video Match Interview Youtube wajib diisi", type: "warning" });
+            return;
+        }
+        else if(!checkYoutubeUrl(rowData.VIDEOMATCHINTERVIEW)){
+            Swal.fire({ title: "Link Video Match Interview Youtube tidak valid", type: "warning" });
+            return;
+        }
+
         if (!rowData.SKORCLUB1 || rowData.SKORCLUB1 == 0) {
             Swal.fire({ title: "Skor Club 1 wajib diisi", type: "warning" });
             return;
@@ -650,6 +674,7 @@ function clearFormDetail() {
     $('#d_TGLFIXTURE').val('');
     $('#d_VIDEO').val('');
     $('#d_VIDEOHIGHLIGHT').val('');
+    $('#d_VIDEOMATCHINTERVIEW').val('');
     $('#d_LINKTICKET').val('');
     $('#d_LOKASI').val('');
     // $('#d_LAT').val('');

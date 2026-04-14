@@ -47,7 +47,7 @@ class Model_competition_fixture extends MY_Model{
 					CLUB1.NAMA as NAMACLUB1,CLUB2.NAMA as NAMACLUB2,IDCLUB1,IDCLUB2,SKORCLUB1,SKORCLUB2,
 					CONCAT('".base_url()."assets/images/club/',IDCLUB1,'.png') as GAMBARCLUB1,
 					CONCAT('".base_url()."assets/images/club/',IDCLUB2,'.png') as GAMBARCLUB2,
-					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,VIDEO,VIDEOHIGHLIGHT,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
+					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,VIDEO,VIDEOHIGHLIGHT,VIDEOMATCHINTERVIEW,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
 					from TFIXTURE 
 					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
 					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
@@ -63,7 +63,7 @@ class Model_competition_fixture extends MY_Model{
 					CLUB1.NAMA as NAMACLUB1,CLUB2.NAMA as NAMACLUB2,IDCLUB1,IDCLUB2,SKORCLUB1,SKORCLUB2,
 					CONCAT('".base_url()."assets/images/club/',IDCLUB1,'.png') as GAMBARCLUB1,
 					CONCAT('".base_url()."assets/images/club/',IDCLUB2,'.png') as GAMBARCLUB2,
-					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,VIDEO,VIDEOHIGHLIGHT,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
+					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,VIDEO,VIDEOHIGHLIGHT,VIDEOMATCHINTERVIEW,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
 					from TFIXTURE 
 					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
 					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
@@ -73,6 +73,129 @@ class Model_competition_fixture extends MY_Model{
 					LIMIT $countresultmatch";
 			$query = $this->db->queryRaw($sql);	
 			$data['rows']['RESULT'] = $query->result();
+
+
+			//VIDEO
+			$sqlConfig = "select VALUE
+				from MCONFIG  
+				WHERE MODUL = 'FIXTURE' AND CONFIG = 'IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEO' ";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+			$dataVideo = explode(",", $queryConfig->row()->VALUE??"");
+			
+			if(count($dataVideo) > 0)
+			{
+				$sql = "select VIDEO
+						from TFIXTURE 
+						INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+						WHERE TFIXTURE.STATUS = 1
+						AND TFIXTUREDTL.IDFIXTURE = $dataVideo[0] 
+						AND TFIXTUREDTL.IDCLUB1 = $dataVideo[1] 
+						AND TFIXTUREDTL.IDCLUB2 = $dataVideo[2] 
+						AND TFIXTUREDTL.TGLFIXTURE = '$dataVideo[3]'";
+				$query = $this->db->queryRaw($sql);	
+				$data['rows']['VIDEO'] = [$query->row()->VIDEO];
+			}
+			else
+			{
+				$data['rows']['VIDEO'] = [];
+			}
+			
+			//VIDEO HIGHLIGHT
+			$sqlConfig = "select VALUE
+				from MCONFIG  
+				WHERE MODUL = 'FIXTURE' AND CONFIG = 'IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEOHIGHLIGHT' ";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+			$dataVideo = explode(",", $queryConfig->row()->VALUE??"");
+			
+			if(count($dataVideo) > 0)
+			{
+				$sql = "select VIDEOHIGHLIGHT
+						from TFIXTURE 
+						INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+						WHERE TFIXTURE.STATUS = 1
+						AND TFIXTUREDTL.IDFIXTURE = $dataVideo[0] 
+						AND TFIXTUREDTL.IDCLUB1 = $dataVideo[1] 
+						AND TFIXTUREDTL.IDCLUB2 = $dataVideo[2] 
+						AND TFIXTUREDTL.TGLFIXTURE = '$dataVideo[3]'";
+				$query = $this->db->queryRaw($sql);	
+				$data['rows']['VIDEOHIGHLIGHT'] = [$query->row()->VIDEOHIGHLIGHT];
+			}
+			else
+			{
+				$data['rows']['VIDEOHIGHLIGHT'] = [];
+			}
+
+			//VIDEO MATCH INTERVIEW
+			$sqlConfig = "select VALUE
+				from MCONFIG  
+				WHERE MODUL = 'FIXTURE' AND CONFIG = 'IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEOMATCHINTERVIEW' ";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+			$dataVideo = explode(",", $queryConfig->row()->VALUE??"");
+
+			if(count($dataVideo) > 0)
+			{
+				$sql = "select VIDEOMATCHINTERVIEW
+						from TFIXTURE 
+						INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+						WHERE TFIXTURE.STATUS = 1
+						AND TFIXTUREDTL.IDFIXTURE = $dataVideo[0] 
+						AND TFIXTUREDTL.IDCLUB1 = $dataVideo[1] 
+						AND TFIXTUREDTL.IDCLUB2 = $dataVideo[2] 
+						AND TFIXTUREDTL.TGLFIXTURE = '$dataVideo[3]'";
+				$query = $this->db->queryRaw($sql);	
+				$data['rows']['VIDEOMATCHINTERVIEW'] = [$query->row()->VIDEOMATCHINTERVIEW];
+			}
+			else
+			{
+				$data['rows']['VIDEOMATCHINTERVIEW'] = [];
+			}
+			
+
+		}
+		else if($for == "KLASEMEN")
+		{
+			$data['rows']['NAMA'] = "";
+			$data['rows']['DATA'] = [];
+
+			$sqlConfig = "select VALUE
+				from MCONFIG  
+				WHERE MODUL = 'FIXTURE' AND CONFIG like '%TABEL_KLASEMEN%' 
+				ORDER BY PREFIX ASC";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+
+			$index = 0;
+			foreach($queryConfig->result() as $dataConfig){
+				
+				if($index == 0)
+				{
+					if($dataConfig->VALUE != "")
+					{
+						$sql = "select CONCAT('KLASEMEN ',NAMA,' ',IF(SEASONAWAL = SEASONAKHIR, SEASONAKHIR, CONCAT(YEAR(SEASONAWAL), '/', SUBSTR(YEAR(SEASONAKHIR), -2, 2)))) AS NAMA
+								from TFIXTURE 
+								where IDFIXTURE = $dataConfig->VALUE";
+						$data['rows']['NAMA'] = $this->db->queryRaw($sql)->row()->NAMA;	
+					}
+				}
+				else
+				{
+					$detailConfig = explode(",",$dataConfig->VALUE);
+					$sql = "select NAMA
+							from MCLUB 
+							where IDCLUB = $detailConfig[0]";
+
+					$detail = array(
+						'NAMA' 		=> $this->db->queryRaw($sql)->row()->NAMA,
+						'MENANG' 	=> $detailConfig[1],
+						'SERI' 		=> $detailConfig[2],
+						'KALAH' 	=> $detailConfig[3],
+						'POINT'		=> $detailConfig[4],
+					);
+
+					array_push($data['rows']['DATA'],$detail);
+				}
+				$index++;
+			}
+
 		}
 		else if($for == "FIXTURE")
 		{
@@ -84,7 +207,7 @@ class Model_competition_fixture extends MY_Model{
 					CLUB1.NAMA as NAMACLUB1,CLUB2.NAMA as NAMACLUB2,IDCLUB1,IDCLUB2,SKORCLUB1,SKORCLUB2,
 					CONCAT('".base_url()."assets/images/club/',IDCLUB1,'.png') as GAMBARCLUB1,
 					CONCAT('".base_url()."assets/images/club/',IDCLUB2,'.png') as GAMBARCLUB2,
-					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,VIDEO,VIDEOHIGHLIGHT,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
+					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
 					from TFIXTURE 
 					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
 					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
@@ -99,7 +222,7 @@ class Model_competition_fixture extends MY_Model{
 					CLUB1.NAMA as NAMACLUB1,CLUB2.NAMA as NAMACLUB2,IDCLUB1,IDCLUB2,SKORCLUB1,SKORCLUB2,
 					CONCAT('".base_url()."assets/images/club/',IDCLUB1,'.png') as GAMBARCLUB1,
 					CONCAT('".base_url()."assets/images/club/',IDCLUB2,'.png') as GAMBARCLUB2,
-					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,VIDEO,VIDEOHIGHLIGHT,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
+					DATE(TGLFIXTURE) as TANGGAL, TIME(TGLFIXTURE) as JAM,LINKTICKET,LOKASI,TFIXTUREDTL.STATUS
 					from TFIXTURE 
 					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
 					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
@@ -172,22 +295,23 @@ class Model_competition_fixture extends MY_Model{
 		foreach ($a_detail as $item) {
             
             $data_values = array (
-                'IDFIXTURE'  		=> $id,
-                'IDCLUB1'   		=> $item->IDCLUB1,
-                'IDCLUB2' 			=> $item->IDCLUB2,
-                'SKORCLUB1' 		=> $item->SKORCLUB1,
-                'SKORCLUB2' 		=> $item->SKORCLUB2,
-                'TGLFIXTURE'		=> $item->TGLFIXTURE,
-                'VIDEO'				=> $item->VIDEO,
-                'VIDEOHIGHLIGHT'	=> $item->VIDEOHIGHLIGHT,
-                'LINKTICKET'		=> $item->LINKTICKET,
-                'LOKASI'			=> $item->LOKASI,
-                'LAT'				=> $item->LAT??0,
-                'LNG'				=> $item->LNG??0,
-                'TGLENTRY'			=> $data['TGLENTRY'],
-                'USERENTRY'			=> $data['USERENTRY'],
-                'CATATAN'			=> $item->CATATAN,
-                'STATUS'			=> $item->STATUS,
+                'IDFIXTURE'  			=> $id,
+                'IDCLUB1'   			=> $item->IDCLUB1,
+                'IDCLUB2' 				=> $item->IDCLUB2,
+                'SKORCLUB1' 			=> $item->SKORCLUB1,
+                'SKORCLUB2' 			=> $item->SKORCLUB2,
+                'TGLFIXTURE'			=> $item->TGLFIXTURE,
+                'VIDEO'					=> $item->VIDEO,
+                'VIDEOHIGHLIGHT'		=> $item->VIDEOHIGHLIGHT,
+                'VIDEOMATCHINTERVIEW'	=> $item->VIDEOMATCHINTERVIEW,
+                'LINKTICKET'			=> $item->LINKTICKET,
+                'LOKASI'				=> $item->LOKASI,
+                'LAT'					=> $item->LAT??0,
+                'LNG'					=> $item->LNG??0,
+                'TGLENTRY'				=> $data['TGLENTRY'],
+                'USERENTRY'				=> $data['USERENTRY'],
+                'CATATAN'				=> $item->CATATAN,
+                'STATUS'				=> $item->STATUS,
             );
 			
             $this->db->insertRaw('TFIXTUREDTL',$data_values);

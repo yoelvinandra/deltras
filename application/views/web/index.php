@@ -168,7 +168,7 @@
      <div class="highlight-section-secondary">
       <div class="highlight-card" id="secondary-video-id">
             <div class="highlight-image" >
-                <div id="secondary-video-image" class="highlight-image-bg" style="background-image: url('assets/images/video/2.png')">
+                <div id="secondary-video-image" class="highlight-image-bg" style="background-color: #cdcdcd;">
                 </div>
                 <div class="highlight-image-bg-cover">
                 </div>
@@ -176,13 +176,13 @@
                 <div class="play-icon"></div>
             </div>
             <div class="highlight-red-section">
-                <div id="secondary-video-title" class="highlight-title-sub fira-sans-black">DELTRAS FC VS PSIS SEMARANG : 2-0 LAST 8 MINUTES</div>
-                <div id="secondary-video-text" class="highlight-caption fira-sans-regular">HIGHLIGHT</div>
+                <div id="secondary-video-title" class="highlight-title-sub fira-sans-black"></div>
+                <div id="secondary-video-text" class="highlight-caption fira-sans-regular"></div>
             </div>
         </div>
         <div class="highlight-card">
             <div class="highlight-image" id="optional-video-id" >
-                <div id="optional-video-image" class="highlight-image-bg" style="background-image: url('assets/images/video/3.png')">
+                <div id="optional-video-image" class="highlight-image-bg" style="background-color: #cdcdcd;">
                 </div>
                 <div class="highlight-image-bg-cover">
                 </div>
@@ -190,8 +190,8 @@
                 <div class="play-icon"></div>
             </div>
             <div class="highlight-red-section">
-                <div id="optional-video-title"  class="highlight-title-sub fira-sans-black">HIGHLIGHT VIDIO : PERSIPURA JAYAPURA TUMBANG DIKANDANG!</div>
-                <div id="optional-video-text"  class="highlight-caption fira-sans-regular">MATCH INTERVIEW</div>
+                <div id="optional-video-title"  class="highlight-title-sub fira-sans-black"></div>
+                <div id="optional-video-text"  class="highlight-caption fira-sans-regular"></div>
             </div>
         </div>
       </div>
@@ -207,7 +207,7 @@
   <div class="standing-news-wrapper">
       <!-- STANDINGS SECTION -->
       <div class="standings-section">
-          <div class="standings-title fira-sans-extrabold">Klasemen Pegadaian Championship 2025-26</div>
+          <div class="standings-title fira-sans-extrabold"></div>
           <div class="standings-table-data">
             <table class="standings-table">
                 <thead class="table-header">
@@ -221,86 +221,6 @@
                     </tr>
                 </thead>
                 <tbody class="fira-sans-semibold">
-                    <tr class="border-bottom">
-                        <td>1</td>
-                        <td class="text-left">PERSIPURA JAYAPURA</td>
-                        <td>11</td>
-                        <td>4</td>
-                        <td>3</td>
-                        <td>37</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td>2</td>
-                        <td class="text-left">PS BARITO PUTERA</td>
-                        <td>11</td>
-                        <td>4</td>
-                        <td>3</td>
-                        <td>37</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="text-left">PSS SLEMAN</td>
-                        <td>10</td>
-                        <td>6</td>
-                        <td>2</td>
-                        <td>36</td>
-                    </tr>
-                    <tr class="highlight">
-                        <td>4</td>
-                        <td class="text-left">DELTRAS FC</td>
-                        <td>10</td>
-                        <td>3</td>
-                        <td>5</td>
-                        <td>33</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td>5</td>
-                        <td class="text-left">KENDAL TORNADO FC</td>
-                        <td>10</td>
-                        <td>3</td>
-                        <td>5</td>
-                        <td>33</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td>6</td>
-                        <td class="text-left">PERSELA LAMONGAN</td>
-                        <td>8</td>
-                        <td>5</td>
-                        <td>5</td>
-                        <td>29</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td>7</td>
-                        <td class="text-left">PERSIPU</td>
-                        <td>7</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>26</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td>8</td>
-                        <td class="text-left">PERSIBA</td>
-                        <td>6</td>
-                        <td>2</td>
-                        <td>12</td>
-                        <td>16</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td>9</td>
-                        <td class="text-left">PSIS SEMARANG</td>
-                        <td>3</td>
-                        <td>2</td>
-                        <td>13</td>
-                        <td>11</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td class="text-left">PERSIPAI FC</td>
-                        <td>0</td>
-                        <td>6</td>
-                        <td>12</td>
-                        <td>6</td>
-                    </tr>
                 </tbody>
             </table>
           </div>
@@ -666,14 +586,92 @@ $.ajax({
     }
     $(".prev-content").html(html);
 
-    var videoid = getVideoId(data.rows.RESULT[0].VIDEOHIGHLIGHT);
-    var videoData = await getYouTubeData(videoid);
+    //PRIMARY
+    if(data.rows.VIDEO.length > 0)
+    {
+      var videoid = getVideoId(data.rows.VIDEO[0]);
+      var videoData = await getYouTubeData(videoid);
 
-    $("#main-video-image").css("background-image","url('"+videoData.thumbnail+"')");
-    $("#main-video-title").text(videoData.title);
-    $("#main-video-id").attr("onclick","openModal('"+videoid+"', '"+ $("#main-video-title").text()+"')");
-    $("#main-video-title").text(videoData.title);
-    $("#main-video-at").text(timeYoutubePublished(videoData.publishedAt));
+      $("#main-video-image").css("background-image","url('"+videoData.thumbnail+"')");
+      $("#main-video-title").text(videoData.title);
+      $("#main-video-id").attr("onclick","openModal('"+videoid+"', '"+ $("#main-video-title").text()+"')");
+      $("#main-video-title").text(videoData.title);
+      $("#main-video-at").text(timeYoutubePublished(videoData.publishedAt));
+    }
+
+    //SECONDARY
+    if(data.rows.VIDEOHIGHLIGHT.length > 0)
+    {
+      videoid = getVideoId(data.rows.VIDEOHIGHLIGHT[0]);
+      videoData = await getYouTubeData(videoid);
+
+      $("#secondary-video-image").css("background-image","url('"+videoData.thumbnail+"')");
+      $("#secondary-video-title").text(videoData.title);
+      $("#secondary-video-id").attr("onclick","openModal('"+videoid+"', '"+ $("#secondary-video-title").text()+"')");
+      $("#secondary-video-title").text(videoData.title);
+      $("#secondary-video-text").text("HIGHLIGHT");
+    }
+
+    //OPTIONAL
+    if(data.rows.VIDEOMATCHINTERVIEW.length > 0)
+    {
+      videoid = getVideoId(data.rows.VIDEOMATCHINTERVIEW[0]);
+      videoData = await getYouTubeData(videoid);
+
+      $("#optional-video-image").css("background-image","url('"+videoData.thumbnail+"')");
+      $("#optional-video-title").text(videoData.title);
+      $("#optional-video-id").attr("onclick","openModal('"+videoid+"', '"+ $("#optional-video-title").text()+"')");
+      $("#optional-video-title").text(videoData.title);
+      $("#optional-video-text").text("MATCH INTERVIEW");
+    }
+    
+  }
+});
+
+//TABLE KLASEMEN
+$.ajax({
+  url: '<?base_url()?>' + 'Competition/Operational/Fixture/web?for=KLASEMEN',
+  type: 'GET',
+  dataType: 'json',
+  success: async function (data) {
+    
+  $(".standings-title").html(data.rows.NAMA);
+    
+    var html = "";
+    //  <tr class="highlight">
+    for (var x = 0; x < data.rows.DATA.length; x++) {
+
+      var classStanding = "border-top";
+
+      if(x == 0)
+      {
+        classStanding = "";
+      }
+      else
+      {
+        if(data.rows.DATA[x].NAMA.includes("Deltras"))
+        {
+          classStanding = "highlight"
+        }
+        else if(data.rows.DATA[x-1].NAMA.includes("Deltras"))
+        {
+          classStanding = "";
+        }
+      }
+
+      html += ` 
+        <tr class="`+classStanding+`">
+            <td>`+(x+1)+`</td>
+            <td class="text-left">`+data.rows.DATA[x].NAMA+`</td>
+            <td>`+data.rows.DATA[x].MENANG+`</td>
+            <td>`+data.rows.DATA[x].SERI+`</td>
+            <td>`+data.rows.DATA[x].KALAH+`</td>
+            <td>`+data.rows.DATA[x].POINT+`</td>
+        </tr>
+      `;
+    }
+
+    $(".standings-table tbody").html(html);
   }
 });
 

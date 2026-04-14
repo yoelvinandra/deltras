@@ -1388,6 +1388,9 @@ img { display: block; max-width: 100%; }
 .text-left{
   text-align:left;
 }
+.border-top {
+  border-top: 1px solid black;
+}
 .border-bottom {
   border-bottom: 1px solid black;
 }
@@ -1892,6 +1895,108 @@ img { display: block; max-width: 100%; }
   color:#fff;
 }
 
+.about-deltras-video{
+  max-width:1214px;
+  width:100%;
+  margin:auto;
+  padding-top:87px;
+  padding-bottom:45px;
+  padding-left:32px;
+  padding-right:32px;
+}
+
+.about-deltras-video .about-deltras-video-title{
+  color:var(--primary-color);
+  font-size:40px;
+  padding-bottom:45px;
+}
+
+.history-card {
+  background: var(--primary-color);
+  overflow: hidden;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.4);
+  transition: box-shadow 0.4s ease;
+}
+
+.history-card:hover {
+  box-shadow: 0 6px 8px rgba(0,0,0,0.4);
+  cursor:pointer;
+}
+
+.history-card:hover .history-image-bg {
+  transform: scale(1.1);
+}
+
+.history-image{
+  position: relative;
+  width: 100%;
+  height: 668px;
+  overflow: hidden; /* penting untuk zoom */
+}
+
+.history-image-bg {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.4s ease;
+}
+
+.history-image-bg-cover {
+  position: absolute; /* 🔥 ini kunci */
+  inset: 0;
+  background: linear-gradient(
+  to bottom,
+  rgba(255,255,255,0) 0%,
+  rgba(0,0,0,0.0) 80%,
+  rgba(0,0,0,0.95) 100%
+  );
+}
+
+
+.play-icon {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  width: 65px;
+  height: 65px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+.play-icon::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 20px solid #696969;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  margin-left: 3px;
+}
+.play-icon:hover{
+  transform: scale(1.2);
+
+}
+.deltras-icon {
+  position: absolute;
+  top: 30px;
+  right: 23px;
+  width: 80px;
+  height: 80px;
+}
+.history-section .video-icon {
+  position: absolute;
+  top: 110px;
+  right: 30px;
+  width: 65px;
+  height: 65px;
+}
+
 .about-deltras-old{
   max-width:1214px;
   width:100%;
@@ -1901,12 +2006,6 @@ img { display: block; max-width: 100%; }
 
 .about-deltras-old .about-deltras-old-wrapper{
   width:600px;
-}
-
-.about-deltras-old .about-deltras-old-title{
-  color:var(--primary-color);
-  font-size:40px;
-  padding-bottom:45px;
 }
 
 .about-deltras-old .about-deltras-old-subtitle{

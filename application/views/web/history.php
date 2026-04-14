@@ -71,10 +71,24 @@
   </div>
 </section>
 
+<section class="about-deltras-video">
+    <div class="about-deltras-video-title fira-sans-extrabold">SEJARAH</div>
+    <div class="history-card" id="history-video-id">
+        <div class="history-image" >
+            <div id="history-video-image" class="history-image-bg" style="background-color: #cdcdcd;">
+            </div>
+            <div class="history-image-bg-cover">
+            </div>
+            <div class="play-icon"></div>
+            <div class="video-icon"><img src="assets/images/video.png"></div>
+            <div class="deltras-icon"><img src="assets/images/logo.png"></div>
+        </div>
+    </div>
+</section>    
+
 <section class="about-deltras-old ">
   <div class="about-deltras-old-wrapper">
-    <div class="about-deltras-old-title fira-sans-extrabold">SEJARAH</div>
-
+    
     <div class="about-deltras-old-subtitle fira-sans-black">1986</div>
     <div class="about-deltras-old-detail fira-sans-regular">Sejarah Deltras bermula dari konflik internal Persebaya pada musim Perserikatan 1986 yang dipimpin Letkol Laut Soegardjito (ketua umum) dan Mislan (manajer). Setelah Persebaya gagal menembus enam besar dan terjadi konflik kepengurusan, Soegardjito dan Mislan tersingkir. Soegardjito mundur dari sepak bola, sementara Mislan tetap aktif dan mulai mengelola tim internal Persebaya, Putra Gelora.</div>
 
