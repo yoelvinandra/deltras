@@ -116,7 +116,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
           </div>
       </li>
       <li><a href="ticket">TICKET</a></li>
-      <!-- <li><a href="cart"><img src="assets/images/cart.png"></a></li> -->
+      <li id="login-div"><a href="#"><img id="login-logo" src="assets/images/user/login.png"><span id="user-login"></span></a></li>
     </ul>
   </div>
 </nav>

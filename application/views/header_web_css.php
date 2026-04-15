@@ -313,6 +313,15 @@ img { display: block; max-width: 100%; }
   align-items: center;
   gap:60px;
 }
+#login-div a{
+  display:flex;
+  justify-content: right;
+  align-items: center;
+  gap:6px;
+}
+#login-logo{
+  height:25px;
+}
 
 /* ======= HERO ======= */
 .hero-slider {
@@ -2545,7 +2554,7 @@ img { display: block; max-width: 100%; }
   margin-left: 32px;
   margin-right:32px;
   margin-top:80px;
-  margin-bottom:114px;
+  margin-bottom:80px;
 }
 .membership .author-wrap {
   display: flex;
@@ -2567,8 +2576,24 @@ img { display: block; max-width: 100%; }
   font-size: 16px;
 }
 .membership .contact {
-  padding: 0px 32px 0px;
+  padding: 0px 32px 80px;
   font-size: 16px;
+}
+
+.all-deltras-member{
+  padding-left:32px;
+  padding-right:32px;
+  padding-bottom:80px;
+}
+.all-deltras-member img{
+  width:100%;
+  max-width:860px;
+}
+
+.membership .grey-strip{
+  padding-left:32px;
+  padding-right:32px;
+  max-width:calc(100% - 64px);
 }
 
 @media (max-width: 1600px) {
@@ -3007,7 +3032,6 @@ img { display: block; max-width: 100%; }
     .membership .hero-placeholder img {
       padding:0px 32px;
     }
-
 }
 
 @media (max-width: 768px) {
@@ -3414,6 +3438,9 @@ img { display: block; max-width: 100%; }
     .membership .meta-bar {
       padding-left:16px;
       padding-right:16px;
+      margin-left:16px;
+      margin-right:16px;
+      width:calc(100% - 32px);
     }
     
     .membership .author-name {
@@ -3432,6 +3459,18 @@ img { display: block; max-width: 100%; }
     .membership .contact {
       padding-left:16px;
       padding-right:16px;
+      padding-bottom:40px;
+    }
+    .all-deltras-member{
+      padding-left:16px;
+      padding-right:16px;
+      padding-bottom:80px;
+    }
+
+    .membership .grey-strip{
+      padding-left:16px;
+      padding-right:16px;
+      max-width:calc(100% - 32px);
     }
 }
 
