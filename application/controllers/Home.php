@@ -11,12 +11,12 @@ class Home extends MY_Controller {
 	
 	public function index($jenisLaporan = "index")
 	{
-		if(isset($_SESSION[NAMAPROGRAM]['user']) && $jenisLaporan == "login"){
+		if(isset($_SESSION[NAMAPROGRAM]['user']) && $jenisLaporan == "admin"){
 			$this->load->view('header',$text);
 			$this->load->view('v_menuawal');
 			$this->load->view('footer');
 		}
-		else if($jenisLaporan == "login"){
+		else if($jenisLaporan == "admin"){
 			
 			$result = $this->model_master_config->getConfigModul('GLOBAL');
 

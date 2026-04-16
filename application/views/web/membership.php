@@ -27,7 +27,7 @@
         </div>
 
         <div>
-            <a href="#" class="btn-daftar fira-sans-extrabold">Daftar</a>
+            <a href="login" class="btn-daftar fira-sans-extrabold">Daftar</a>
         </div>
     </div>
 

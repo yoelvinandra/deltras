@@ -73,8 +73,14 @@ $route['ticket'] = 'Home/index/ticket';
 
 $route['cart'] = 'Home/index/cart';
 
+//LOGIN
+$route['login'] = 'Home/index/login';
+$route['register'] = 'Home/index/register';
+$route['changepassword'] = 'Home/index/changepassword';
+$route['membercard'] = 'Home/index/membercard';
+
 //ADMIN
-$route['admin'] = 'Home/index/login';
+$route['admin'] = 'Home/index/admin';
 
 
 

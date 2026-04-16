@@ -116,7 +116,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
           </div>
       </li>
       <li><a href="ticket">TICKET</a></li>
-      <li id="login-div"><a href="#"><img id="login-logo" src="assets/images/user/login.png"><span id="user-login"></span></a></li>
+      <li class="login-div"><a href="login"><img class="login-logo" src="assets/images/user/login.png"><span class="user-login"></span></a></li>
     </ul>
   </div>
 </nav>
@@ -154,6 +154,10 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
         </ul>
     </div>
     <div class="mobile-drawer-address">
+      <ul>
+        <li ><a href="login" class="fira-sans-regular user-login" >LOGIN</a></li>
+      </ul>
+      <br>
       <p>
           Gelora Delta Stadium, Sidoarjo<br>
           contact@deltrasfc.com<br>

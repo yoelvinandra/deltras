@@ -313,15 +313,85 @@ img { display: block; max-width: 100%; }
   align-items: center;
   gap:60px;
 }
-#login-div a{
+.login-div a{
   display:flex;
   justify-content: right;
   align-items: center;
   gap:6px;
 }
-#login-logo{
-  height:25px;
+.login-logo{
+  height:20px;
 }
+.user-login{
+  display:none;
+}
+
+/* LOGIN */
+.page-bg {
+  min-height: 88vh;
+  background: #c0001e; /* merah */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-card {
+  background: #fff;
+  padding: 54px 48px 61px;
+  width: 100%;
+  height:100%;
+  max-width: 600px;
+}
+.login-title{
+  font-size:40px; 
+  padding-bottom:7px;
+  text-align:center;
+}
+.login-subtitle{
+  font-size:20px; 
+  text-align:center;
+}
+
+.login-subtitle a{
+  color: var(--primary-color);
+  text-align:center;
+}
+/* Tambahkan ini */
+.field {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;  /* ← label di atas, input di bawah */
+}
+
+.field-label {
+  font-size: 15px;
+  color: #888;
+  margin-bottom: 4px;
+  display: block;  /* ← pastikan block, bukan inline */
+}
+
+input[type="email"], input[type="password"] {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px 12px;
+  font-size: 14px;
+  display: block;  /* ← tambahkan ini */
+}
+.btn-login {
+  width: 100%;
+  background: #c0001e;
+  color: #fff;
+  border: none;
+  padding: 13px;
+  font-size: 24px;
+  cursor:pointer;
+}
+.forgot{
+  color:#7B7B7B;
+  font-size:16px;
+  text-align:center;
+  cursor:pointer;
+}
+
 
 /* ======= HERO ======= */
 .hero-slider {
@@ -3065,6 +3135,10 @@ img { display: block; max-width: 100%; }
   .membership .author-name {
     padding-bottom:3px;
   }
+
+  .login-page .page-bg{
+    background:#fff;
+  }
 }
 
 @media (max-width: 520px) {
@@ -3472,6 +3546,31 @@ img { display: block; max-width: 100%; }
       padding-right:16px;
       max-width:calc(100% - 32px);
     }
+    .login-card {
+      padding-left:16px;
+      padding-right:16px;
+    }
+
+    .login-title{
+      font-size:30px; 
+    }
+    .login-subtitle{
+      font-size:16px; 
+    }
+
+    .field-label {
+      font-size: 12px;
+    }
+
+    input[type="email"], input[type="password"] {
+      font-size: 11px;
+    }
+    .btn-login {
+      font-size: 20px;
+    }
+    .forgot{
+      font-size:14px;
+    }
 }
 
 
@@ -3516,7 +3615,6 @@ img { display: block; max-width: 100%; }
   padding-top : 24px;
   padding-left : 24px;
   padding-right : 24px;
-  font-weight:700;
 }
 .mobile-right-btn {
   position: absolute;
@@ -3529,7 +3627,6 @@ img { display: block; max-width: 100%; }
   height:26px;
 }
 .mobile-drawer-border{
-  border-bottom:1px solid #cecece;
   padding-top:10px;
 }
 
@@ -3543,6 +3640,7 @@ img { display: block; max-width: 100%; }
   font-size: 14px;
   color:#777;
   font-weight:400;
+  border-top:1px solid #cecece;
 }
 
 .mobile-drawer a:hover { color: var(--primary-color); }
