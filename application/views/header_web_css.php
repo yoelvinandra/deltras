@@ -347,6 +347,8 @@ img { display: block; max-width: 100%; }
 .form-card {
   background: #fff;
   padding: 54px 48px 61px;
+  margin-top:60px;
+  margin-bottom:60px;
   width: 100%;
   height:100%;
   max-width: 600px;
@@ -380,13 +382,18 @@ img { display: block; max-width: 100%; }
   display: block;  /* ← pastikan block, bukan inline */
 }
 
-input[type="email"], input[type="password"] {
+.form-card input{
   width: 100%;
   border: 1px solid #ccc;
   padding: 10px 12px;
   font-size: 14px;
   display: block;  /* ← tambahkan ini */
 }
+
+.form-card .wajib{
+  color:#000;
+}
+
 .btn-form {
   width: 100%;
   background: var(--primary-color);
@@ -412,7 +419,7 @@ input[type="email"], input[type="password"] {
   background:#d4d4d4;
 }
 
-.form-card-bottom .bottom-changepassword-bar {
+.form-card-bottom .bottom-forgotpassword-bar {
   width:22%;
   height:1px;
   background:#d4d4d4;
@@ -2692,6 +2699,26 @@ input[type="email"], input[type="password"] {
   padding-right:32px;
   max-width:calc(100% - 64px);
 }
+/* REGISTER */
+.check-register{
+  display:flex;
+  gap:10px;
+  align-items: flex-start;
+  padding-top:20px;
+  font-size:14px;
+}
+
+.check-register input{
+  margin-top:2.5px;
+  width: 14px; 
+  height: 14px; 
+  flex-shrink: 0;
+}
+
+.check-register span{
+  color:#000;
+  text-align:justify;
+}
 
 @media (max-width: 1600px) {
    .slide-content {
@@ -3097,7 +3124,7 @@ input[type="email"], input[type="password"] {
       margin-top:12px;
     }
 
-    news-list-section{
+    .news-list-section{
       padding-left: 32px;
       padding-right: 32px;
     }
@@ -3604,7 +3631,7 @@ input[type="email"], input[type="password"] {
       width:28%;
     }
 
-    .form-card-bottom .bottom-changepassword-bar {
+    .form-card-bottom .bottom-forgotpassword-bar {
       width:22%;
     }
 }
@@ -3614,7 +3641,7 @@ input[type="email"], input[type="password"] {
       width:25%;
     }
 
-    .form-card-bottom .bottom-changepassword-bar {
+    .form-card-bottom .bottom-forgotpassword-bar {
       width:18%;
     }
 }

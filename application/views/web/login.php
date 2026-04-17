@@ -24,7 +24,7 @@
                 <br>
                 <div class="form-card-bottom">
                     <div class="bottom-login-bar">&nbsp;</div>
-                    <p class=" fira-sans-bold"><a href="changepassword">Lupa password?</a></p>
+                    <p class=" fira-sans-bold"><a href="forgotpassword">Lupa password?</a></p>
                     <div class="bottom-login-bar">&nbsp;</div>
                 </div>
             </div>

@@ -4,24 +4,19 @@
         <div class="page-bg-cover">
             <div class="form-card">
                 <div class="form-title fira-sans-bold">Atur Ulang Kata Sandi</div>
-                <p class="form-subtitle fira-sans-regular">Masukkan email Anda, kami akan membantu Anda mengatur ulang password.</p>
+                <p class="form-subtitle fira-sans-regular">Masukkan password baru Anda sekarang.</p>
                 <br>
                 <div class="field">
-                <label class="field-label fira-sans-light">Alamat email</label>
-                <input type="email" />
+                <label class="field-label fira-sans-light">Password Baru</label>
+                <input type="password" />
+                </div>
+                <div class="field">
+                <label class="field-label fira-sans-light">Konfirmasi Password</label>
+                <input type="password" />
                 </div>
                 <br>
                 <br>
-                <button type="button" class="btn-form fira-sans-bold">Kirim Email Reset Password</button>
-                <br>
-                <br>
-                <br>
-                <br>
-                <div class="form-card-bottom">
-                    <div class="bottom-changepassword-bar">&nbsp;</div>
-                    <p class=" fira-sans-bold"><a href="login">Kembali ke halaman Login</a></p>
-                    <div class="bottom-changepassword-bar">&nbsp;</div>
-                </div>
+                <button type="button" class="btn-form fira-sans-bold">Ganti Password</button>
             </div>
         </div>
     </div>
