@@ -329,29 +329,40 @@ img { display: block; max-width: 100%; }
 /* LOGIN */
 .page-bg {
   min-height: 88vh;
-  background: #c0001e; /* merah */
+  background: var(--primary-color); /* merah */
+}
+.page-bg-cover{
+  width: 100%;  min-height: 88vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.2) 0%,    /* atas - gelap */
+    rgba(0,0,0,0) 30%,     /* tengah - transparan */
+    rgba(0,0,0,0) 70%,     /* tengah - transparan */
+    rgba(0,0,0,0.2) 100%   /* bawah - gelap */
+  );
 }
-.login-card {
+.form-card {
   background: #fff;
   padding: 54px 48px 61px;
   width: 100%;
   height:100%;
   max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0,2,2,0.4);
 }
-.login-title{
+.form-title{
   font-size:40px; 
   padding-bottom:7px;
   text-align:center;
 }
-.login-subtitle{
+.form-subtitle{
   font-size:20px; 
   text-align:center;
 }
 
-.login-subtitle a{
+.form-subtitle a{
   color: var(--primary-color);
   text-align:center;
 }
@@ -376,20 +387,35 @@ input[type="email"], input[type="password"] {
   font-size: 14px;
   display: block;  /* ← tambahkan ini */
 }
-.btn-login {
+.btn-form {
   width: 100%;
-  background: #c0001e;
+  background: var(--primary-color);
   color: #fff;
   border: none;
   padding: 13px;
   font-size: 24px;
   cursor:pointer;
 }
-.forgot{
+.form-card-bottom{
   color:#7B7B7B;
   font-size:16px;
   text-align:center;
   cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.form-card-bottom .bottom-login-bar {
+  width:28%;
+  height:1px;
+  background:#d4d4d4;
+}
+
+.form-card-bottom .bottom-changepassword-bar {
+  width:22%;
+  height:1px;
+  background:#d4d4d4;
 }
 
 
@@ -473,7 +499,8 @@ input[type="email"], input[type="password"] {
   width:100%;
   max-width: 1280px;
   display: flex;
-  align-items: center; left: 50%;    
+  align-items: center; 
+  left: 50%;    
   transform: translateX(-50%);
   justify-content: space-between;
   box-sizing: border-box;
@@ -2619,12 +2646,12 @@ input[type="email"], input[type="password"] {
   align-items: center;
   justify-content: space-between;
   padding: 22px 40px;
-  border:1px solid #d4d4d4;
-  border-radius:4px;
+  border:1px solid #CECECE;
   margin-left: 32px;
   margin-right:32px;
   margin-top:80px;
   margin-bottom:80px;
+  box-shadow:0 2px 2px rgba(0,0,0,0.1);
 }
 .membership .author-wrap {
   display: flex;
@@ -3135,8 +3162,10 @@ input[type="email"], input[type="password"] {
   .membership .author-name {
     padding-bottom:3px;
   }
-
-  .login-page .page-bg{
+  .form-card {
+    box-shadow: none;
+  }
+  .form-page .page-bg-cover{
     background:#fff;
   }
 }
@@ -3546,15 +3575,15 @@ input[type="email"], input[type="password"] {
       padding-right:16px;
       max-width:calc(100% - 32px);
     }
-    .login-card {
+    .form-card {
       padding-left:16px;
       padding-right:16px;
     }
 
-    .login-title{
+    .form-title{
       font-size:30px; 
     }
-    .login-subtitle{
+    .form-subtitle{
       font-size:16px; 
     }
 
@@ -3565,11 +3594,28 @@ input[type="email"], input[type="password"] {
     input[type="email"], input[type="password"] {
       font-size: 11px;
     }
-    .btn-login {
+    .btn-form {
       font-size: 20px;
     }
-    .forgot{
+    .form-card-bottom{
       font-size:14px;
+    }
+    .form-card-bottom .bottom-login-bar {
+      width:28%;
+    }
+
+    .form-card-bottom .bottom-changepassword-bar {
+      width:22%;
+    }
+}
+
+@media (max-width:400px){
+    .form-card-bottom .bottom-login-bar {
+      width:25%;
+    }
+
+    .form-card-bottom .bottom-changepassword-bar {
+      width:18%;
     }
 }
 
