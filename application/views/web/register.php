@@ -56,7 +56,7 @@
                     <label class="field-label fira-sans-light">Unggah Foto Profil*</label>
                     <div style="display:flex; align-items:center; gap:20px;">
                         <div>
-                            <img id="previewGambar" src="<?=base_url()?>assets/images/member/no-member.png" style="border:1px solid #ccc; object-fit: fill;" width="242" height="242">
+                            <img id="previewGambar" src="<?=base_url()?>assets/images/member/no-member.png" style="border:1px solid #ccc; object-fit: cover;" width="242" height="242">
                             <input type="file" id="GAMBAR" style="display:none;">
                             <input type="file" id="GAMBARGALLERY" name="GAMBAR" accept="image/*" style="display:none;">
                             <input type="file" id="GAMBARKAMERA" accept="image/*" capture style="display:none;">
