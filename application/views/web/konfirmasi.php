@@ -9,10 +9,12 @@
                 <br><br>
                 <div class="grey-strip">&nbsp;</div>
                 <br><br>
-                <p class="form-subtitle" style="text-align:left;">Untuk <b>Login</b>, ikuti langkah-langkah ini :<br>
-                    1. Cek Emailmu.<br>
-                    2. Salin password yang dikirimkan lewat email.<br>
-                    3. Login menggunakan email & password tersebut.<br>
+                <p class="form-subtitle" style="font-size:16px;text-align:left;">Untuk <b>Login</b>, ikuti langkah-langkah ini :<br>
+                    <ol class="form-subtitle" style="font-size:16px; text-align:left; padding-top:10px;padding-left:20px; padding-right:20px; display: flex; flex-direction: column; gap: 6px;">
+                        <li>Cek Emailmu.</li>
+                        <li>Salin password yang dikirimkan lewat email.</li>
+                        <li>Login menggunakan email & password tersebut.</li>
+                    </ol>
                 </p>
             </div>
         </div>
