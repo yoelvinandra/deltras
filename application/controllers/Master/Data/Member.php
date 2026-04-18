@@ -47,7 +47,7 @@ class Member extends MY_Controller {
 			}
 			else
 			{
-				$response->success = true;
+				$response['success'] = true;
 			}
 		}
 		else
@@ -179,4 +179,14 @@ class Member extends MY_Controller {
 		
 		echo json_encode($data);
 	}
+
+	function logout(){
+        session_start();
+		// $r = $this->model_master_user->updateLogin($_SESSION[NAMAPROGRAM]['IDUSER'],0);
+
+		unset($_SESSION[NAMAPROGRAM]);
+		echo json_encode(array(
+			'success' => true
+		));
+    }
 }

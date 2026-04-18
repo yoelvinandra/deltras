@@ -158,6 +158,8 @@ class Model_master_member extends MY_Model{
 			else
 			{
 				//SESSION
+				$_SESSION[NAMAPROGRAM]['MEMBERNAME']   = $data->NAMADEPAN;
+				$_SESSION[NAMAPROGRAM]['EMAIL_MEMBER'] = $data->EMAIL;
 			}
 		}
 		

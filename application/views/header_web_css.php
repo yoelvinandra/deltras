@@ -328,16 +328,13 @@ img { display: block; max-width: 100%; }
   gap:60px;
 }
 .login-div a{
-  display:flex;
+  display:flex !important;
   justify-content: right;
   align-items: center;
   gap:6px;
 }
 .login-logo{
   height:20px;
-}
-.user-login{
-  display:none;
 }
 
 /* LOGIN */
@@ -425,6 +422,23 @@ img { display: block; max-width: 100%; }
 .btn-form:hover {
   background: var(--dp-primary-hover);
 }
+
+.btn-logout {
+  width: 100%;
+  background: #fff;
+  border:none;
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px; /* negatif = ke dalam */
+  color:  var(--primary-color);
+  padding: 13px;
+  font-size: 24px;
+  cursor:pointer;
+  transition: background 0.4s ease;
+}
+.btn-logout:hover {
+  background: #cecece;
+}
+
 .form-card-bottom{
   color:#7B7B7B;
   font-size:16px;
@@ -3963,6 +3977,9 @@ input[data-provide="datepicker"]:focus {
       font-size: 11px;
     }
     .btn-form {
+      font-size: 20px;
+    } 
+    .btn-logout {
       font-size: 20px;
     }
     .form-card-bottom{

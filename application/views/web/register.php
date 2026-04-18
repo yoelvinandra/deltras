@@ -85,6 +85,7 @@
                     <br>
                     <br>
                     <button type="button" class="btn-form fira-sans-bold">Daftar Sekarang</button>
+                    <button type="button" class="btn-logout fira-sans-bold">Logout</button>
                 </form>
             </div>
         </div>
@@ -194,6 +195,24 @@ $(document).ready(function() {
             }
         }
     })
+
+    $(".btn-logout").click(function(){
+        $.ajax({
+            type: 'POST',
+            url: base_url+'Master/Data/Member/logout',
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+
+            success: function(msg){
+                if (msg.success) {
+                    window.location.replace('<?php echo base_url(); ?>');
+                } else {
+                    alert(msg.errorMsg);
+                }
+            }
+        }); 
+    });
 });
 
 $('#GAMBARGALLERY').on('change', function(e) {

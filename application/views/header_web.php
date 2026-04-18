@@ -116,7 +116,15 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
           </div>
       </li>
       <li><a href="ticket">TICKET</a></li>
-      <li class="login-div"><a href="login"><img class="login-logo" src="assets/images/user/login.png"><span class="user-login"></span></a></li>
+      <li class="login-div">
+        <?php if(isset($_SESSION[NAMAPROGRAM]['MEMBERNAME'])) {?>
+            <a href="profile"><img class="login-logo" src="assets/images/user/login.png">
+                <span><?=substr($_SESSION[NAMAPROGRAM]['MEMBERNAME'],0,8)?></span>
+            </a>
+        <?php }else{ ?>
+        <a href="login"><img class="login-logo" src="assets/images/user/login.png"></a>
+        <?php } ?>
+     </li>
     </ul>
   </div>
 </nav>
@@ -124,7 +132,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
 <!-- MOBILE DRAWER -->
 <div class="mobile-overlay" id="drawer" onclick="closeDrawerOut(event)">
   <div class="mobile-drawer">
-    <div class="mobile-drawer-border">
+    <div class="">
       <button class="mobile-close-btn" onclick="closeDrawer()">×</button>
     </div>
     <div class="mobile-menu mobile-drawer-border mobile-menu-height fira-sans-bold">
@@ -155,7 +163,11 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
     </div>
     <div class="mobile-drawer-address">
       <ul>
-        <li ><a href="login" class="fira-sans-regular user-login" >LOGIN</a></li>
+        <?php if(isset($_SESSION[NAMAPROGRAM]['MEMBERNAME'])) {?>
+        <li ><a href="profile" class="fira-sans-regular" ><?=substr($_SESSION[NAMAPROGRAM]['MEMBERNAME'],0,8)?></a></li>
+        <?php }else{?>
+        <li ><a href="login" class="fira-sans-regular" >LOGIN</a></li>
+        <?php }?>
       </ul>
       <br>
       <p>

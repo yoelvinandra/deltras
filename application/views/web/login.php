@@ -73,6 +73,7 @@
                     success : function(msg){
                         if (msg.success) {
                            alert("Berhasil Login");
+						   window.location.replace('<?php echo base_url(); ?>');
                         } else {
                             alertMsg(msg.errorMsg);
                         }
