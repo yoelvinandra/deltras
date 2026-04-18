@@ -2,7 +2,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Master Player
+    Master Member
     <!-- <button type="button" class="btn pull-right btn-success" id="btn_print" style="font-size:10pt;"  onclick="exportTableToExcel()">Excel</button> -->
   </h1>
   <!-- <ol class="breadcrumb">
@@ -60,13 +60,14 @@
 						<!-- form start -->
 						<form role="form" id="form_input">
                             <input type="hidden" id="mode" name="mode">
-                            <input type="hidden" id="IDPLAYER" name="IDPLAYER">
+                            <input type="hidden" id="from" name="from" value="ADMIN">
+                            <input type="hidden" id="IDMEMBER" name="IDMEMBER">
                             <div class="box-body">
                                 <div class="form-group col-md-6">
-                                    <h3 style="font-weight:bold;">Informasi Player</h3>
+                                    <h3 style="font-weight:bold;">Informasi Member</h3>
                                     <label style="display:flex; justify-content:space-between; align-items:center;">
                                         <span>
-                                            Nama Player 
+                                            Nama Member 
                                             <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i>
                                         </span>
 
@@ -82,11 +83,11 @@
                                         <input type="text" class="form-control" id="NAMABELAKANG" name="NAMABELAKANG" placeholder="Nama Belakang">
                                     </div>
                                     <br>
-                                    <label>Foto Player <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i> </label>
+                                    <label>Foto Member <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i> </label>
                                     <br>
                                     <div style="display:flex; align-items:center; gap:20px;">
                                         <div>
-                                            <img id="previewGambar" src="<?=base_url()?>assets/images/player/no-player.png" style="border:1px solid #ccc; object-fit: contain;" width="242" height="294">
+                                            <img id="previewGambar" src="<?=base_url()?>assets/images/member/no-player.png" style="border:1px solid #ccc; object-fit: contain;" width="242" height="294">
                                             <input type="file" class="form-control" id="GAMBAR" name="GAMBAR" accept="image/png" style="width:242px;">
                                         </div>
                                         <span>Syarat :<br>- Format wajib PNG<br>- Ukuran maks 242x294 px<br>- Kapasitas gambar maks 1000 kb</span>
@@ -139,7 +140,7 @@
                                     <label>Tgl Bergabung </label>
                                     <input type="text" class="form-control" id="TGLBERGABUNG" name="TGLBERGABUNG" placeholder="...">
                                     <br><br>
-                                    <h3 style="font-weight:bold;">Data Pribadi Player</h3>
+                                    <h3 style="font-weight:bold;">Data Pribadi Member</h3>
                                     <label>Deskripsi</label>
                                     <textarea class="form-control" rows="3" id="DESKRIPSI" name="DESKRIPSI" placeholder="..."></textarea>
                                     <br>
@@ -171,7 +172,7 @@
                                     <br>
                                     <div style="display:flex; align-items:center; gap:20px;">
                                         <div>
-                                            <img id="previewSign" src="<?=base_url()?>assets/images/player/no-player-sign.png" style="border:1px solid #ccc;" width="242" height="294">
+                                            <img id="previewSign" src="<?=base_url()?>assets/images/member/no-player-sign.png" style="border:1px solid #ccc;" width="242" height="294">
                                             <input type="file" class="form-control" id="SIGN" name="SIGN" accept="image/png" style="width:242px;">
                                         </div>
                                         <span>Syarat :<br>- Format wajib PNG<br>- Ukuran maks 242x294 px<br>- Kapasitas gambar maks 1000 kb</span>
@@ -265,7 +266,7 @@ $(document).ready(function() {
     $("#POSITION").html(opsi);
 
     $.ajax({
-        url: base_url + 'Master/Data/Player/configTeam',
+        url: base_url + 'Master/Data/Member/configTeam',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -313,7 +314,7 @@ $(document).ready(function() {
         'autoWidth'   : false,
 		"scrollX"	  : true,
 		ajax		  : {
-			url    : base_url+'Master/Data/Player/dataGrid',
+			url    : base_url+'Master/Data/Member/dataGrid',
 			dataSrc: "rows",
 			// dataFilter: function (data) {
             //     // Refresh the new table whenever DataTable reloads
@@ -359,7 +360,7 @@ $(document).ready(function() {
 		},      
         columns:[
             {data: ''},
-            {data: 'IDPLAYER', visible:false},
+            {data: 'IDMEMBER', visible:false},
             {data: 'NAMA'},
             {data: 'POSITION'},
             {data: 'SQUADNUMBER'},
@@ -470,7 +471,7 @@ $('#GAMBAR').on('change', function(event) {
             type: "warning"
         });
         $(this).val('');
-        $('#previewGambar').attr('src', '<?=base_url()?>assets/images/player/no-player.png');
+        $('#previewGambar').attr('src', '<?=base_url()?>assets/images/member/no-player.png');
         return;
     }
 
@@ -481,7 +482,7 @@ $('#GAMBAR').on('change', function(event) {
             type: "warning"
         });
         $(this).val('');
-        $('#previewGambar').attr('src', '<?=base_url()?>assets/images/player/no-player.png');
+        $('#previewGambar').attr('src', '<?=base_url()?>assets/images/member/no-player.png');
         return;
     }
 
@@ -496,7 +497,7 @@ $('#GAMBAR').on('change', function(event) {
                 type: "warning"
             });
             $('#GAMBAR').val('');
-            $('#previewGambar').attr('src', '<?=base_url()?>assets/images/player/no-player.png');
+            $('#previewGambar').attr('src', '<?=base_url()?>assets/images/member/no-player.png');
         } else {
             $('#previewGambar')
                 .attr('src', objectUrl)
@@ -519,7 +520,7 @@ $('#SIGN').on('change', function(event) {
             type: "warning"
         });
         $(this).val('');
-        $('#previewSign').attr('src', '<?=base_url()?>assets/images/player/no-player-sign.png');
+        $('#previewSign').attr('src', '<?=base_url()?>assets/images/member/no-player-sign.png');
         return;
     }
 
@@ -530,7 +531,7 @@ $('#SIGN').on('change', function(event) {
             type: "warning"
         });
         $(this).val('');
-        $('#previewSign').attr('src', '<?=base_url()?>assets/images/player/no-player-sign.png');
+        $('#previewSign').attr('src', '<?=base_url()?>assets/images/member/no-player-sign.png');
         return;
     }
 
@@ -545,7 +546,7 @@ $('#SIGN').on('change', function(event) {
                 type: "warning"
             });
             $('#SIGN').val('');
-            $('#previewSign').attr('src', '<?=base_url()?>assets/images/player/no-player-sign.png');
+            $('#previewSign').attr('src', '<?=base_url()?>assets/images/member/no-player-sign.png');
         } else {
             $('#previewSign')
                 .attr('src', objectUrl)
@@ -623,7 +624,7 @@ function ubah(row){
             $('#IDCLUB').append(newOption).trigger('change');
 			$("#POSITION").val(row.POSITION);
             setPosition(row.POSITION);
-            $("#IDPLAYER").val(row.IDPLAYER);
+            $("#IDMEMBER").val(row.IDMEMBER);
             $("#GOAL").val(row.GOAL);
             $("#ASSIST").val(row.ASSIST);
             $("#GKSAVE").val(row.GKSAVE);
@@ -645,14 +646,14 @@ function ubah(row){
             var link = '';
             var exists = false;
 
-            link = '<?=base_url()?>assets/images/player/'+row.IDPLAYER+'.png?t='+ Date.now();
+            link = '<?=base_url()?>assets/images/member/'+row.IDMEMBER+'.png?t='+ Date.now();
             exists = await imageExists(link);
             if(exists)
             {
                 $('#previewGambar').attr('src', link);
             }
 
-            link = '<?=base_url()?>assets/images/player/'+row.IDPLAYER+'-sign.png?t='+ Date.now();
+            link = '<?=base_url()?>assets/images/member/'+row.IDMEMBER+'-sign.png?t='+ Date.now();
             exists = await imageExists(link);
             if(exists)
             {
@@ -679,7 +680,7 @@ function simpan() {
     var position = $("#POSITION").val();
     var idclub = $("#IDCLUB").val();
 
-    if(!namadepan || !namabelakang)
+    if(!namadepan)
     {
         Swal.fire({ title: "Nama Depan dan Nama Belakang wajib diisi", type: "warning" });
         return;
@@ -726,7 +727,7 @@ function simpan() {
 
             $.ajax({
                 type: 'POST',
-                url: base_url+'Master/Data/Player/simpan',
+                url: base_url+'Master/Data/Member/simpan',
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -764,7 +765,7 @@ function hapus(row){
 		    
             if (row) {
     		    Swal.fire({
-                		title: 'Anda Yakin Akan Menghapus Player '+row.NAMA+' ?',
+                		title: 'Anda Yakin Akan Menghapus Member '+row.NAMA+' ?',
                 		showCancelButton: true,
                 		confirmButtonText: 'Yakin',
                 		cancelButtonText: 'Tidak',
@@ -775,8 +776,8 @@ function hapus(row){
                     		    $.ajax({
                     		    	type    : 'POST',
                     		    	dataType: 'json',
-                    		    	url     : base_url+"Master/Data/Player/hapus",
-                    		    	data    : "id="+row.IDPLAYER ,
+                    		    	url     : base_url+"Master/Data/Member/hapus",
+                    		    	data    : "id="+row.IDMEMBER ,
                     		    	cache   : false,
                     		    	success : function(msg){
                     		    		if (msg.success) {
@@ -818,7 +819,7 @@ function clearForm(){
 	//clear form input
 	$("#STATUS").prop('checked',true).iCheck('update');
 	$('#IDCLUB').val(null).trigger('change');
-    $("#IDPLAYER").val("");
+    $("#IDMEMBER").val("");
     $("#GOAL").val("");
     $("#ASSIST").val("");
     $("#GKSAVE").val("");
@@ -846,8 +847,8 @@ function clearForm(){
     $("#divassist").hide();
     $("#divgksave").hide();
 
-    $('#previewGambar').attr('src', '<?=base_url()?>assets/images/player/no-player.png'); // 🔥 tambahan
-    $('#previewSign').attr('src', '<?=base_url()?>assets/images/player/no-player-sign.png'); // 🔥 tambahan
+    $('#previewGambar').attr('src', '<?=base_url()?>assets/images/member/no-player.png'); // 🔥 tambahan
+    $('#previewSign').attr('src', '<?=base_url()?>assets/images/member/no-player-sign.png'); // 🔥 tambahan
 }
 
 function get_akses_user(kodemenu, callback) {

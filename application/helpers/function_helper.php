@@ -2436,4 +2436,57 @@ function halaman($halaman,$rows,$max_item)
 		
 		return 'Hal : '.$halaman.' of '.$max_hal;
 }
+
+function generateKodeUnik(){
+	$CI =& get_instance();	
+	$CI->load->model(array("model_master_config"));
+	$format = $CI->model_master_config->getConfig('MEMBER','KODEUNIK');
+	$splitFormat = explode("[RANDOM]",$format);
+	return date($splitFormat[0]).random_int(0, 9);
+}
+
+function encryptMember($id){
+	$CI =& get_instance();	
+	$CI->load->model(array("model_master_config"));
+	$format = $CI->model_master_config->getConfig('MEMBER','IDMEMBERHASH');
+	$splitFormat = explode("[IDMEMBER]",$format);
+	return date($splitFormat[0]).$id;
+}
+
+function decryptMember($hashid) {
+    try {
+        $stored = substr($hashid, 0, 12);
+
+        $hh = substr($stored, 0, 2);
+        $mm = substr($stored, 2, 2);
+        $ss = substr($stored, 4, 2);
+        $dd = substr($stored, 10, 2);
+        $mo = substr($stored, 8, 2);
+        $yy = substr($stored, 6, 2);
+
+        // Tambah "20" di depan tahun → 26 jadi 2026
+        $stored_date = DateTime::createFromFormat(
+            'H:i:s d/m/Y', 
+            "$hh:$mm:$ss $dd/$mo/20$yy"
+        );
+
+        // Validasi jika createFromFormat gagal
+        if (!$stored_date) {
+            return "Link tidak valid";
+        }
+
+        $now = new DateTime();
+
+        $selisih_jam = ($now->getTimestamp() - $stored_date->getTimestamp()) / 3600;
+
+        if ($selisih_jam > 1) {
+            return "Link sudah expired";
+        }
+
+        return (int)substr($hashid, 12);
+
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+}
 ?>

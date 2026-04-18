@@ -282,4 +282,21 @@ async function getYouTubeData(videoId) {
     }
 }
 
+function isValidEmail(email) {
+    let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+function isValidPhone(phone) {
+    let regex = /^62[0-9]{8,13}$/;
+    return regex.test(phone);
+}
+function imageExists(url) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+    });
+}
+
 </script>

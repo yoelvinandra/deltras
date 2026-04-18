@@ -1,3 +1,5 @@
+<!-- DATEPICKER -->
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Roboto', sans-serif; background: #fff; color: #222; font-size: 14px; }
@@ -11,6 +13,18 @@ img { display: block; max-width: 100%; }
 
 :root {
   --primary-color: #BB1111;
+  --dp-primary:       #BB1111;
+  --dp-primary-dark:  #8e0d0d;
+  --dp-primary-hover: #EC3237;
+  --dp-text:          #1a1a1a;
+  --dp-text-muted:    #999;
+  --dp-bg:            #ffffff;
+  --dp-border:        #e0e0e0;
+  --dp-range-bg:      #f9e0e0;
+  --dp-today-bg:      #fff3f3;
+  --dp-radius:        0px; /* Deltras pakai style kotak/tegas */
+  --dp-shadow:        0 8px 32px rgba(0,0,0,0.18);
+  --dp-font:          'Fira Sans', sans-serif;
 }
 
 
@@ -390,6 +404,10 @@ img { display: block; max-width: 100%; }
   display: block;  /* ← tambahkan ini */
 }
 
+.form-card input::placeholder{
+  color:#ccc;
+}
+
 .form-card .wajib{
   color:#000;
 }
@@ -402,6 +420,10 @@ img { display: block; max-width: 100%; }
   padding: 13px;
   font-size: 24px;
   cursor:pointer;
+  transition: background 0.4s ease;
+}
+.btn-form:hover {
+  background: var(--dp-primary-hover);
 }
 .form-card-bottom{
   color:#7B7B7B;
@@ -2720,6 +2742,325 @@ img { display: block; max-width: 100%; }
   text-align:justify;
 }
 
+/* ── Wrapper utama ── */
+.datepicker {
+  font-family:   var(--dp-font);
+  font-size:     14px;
+  color:         var(--dp-text);
+  background:    var(--dp-bg);
+  border:        1px solid var(--dp-border);
+  box-shadow:    var(--dp-shadow);
+  padding:       12px;
+  z-index:       9999 !important;
+}
+ 
+.datepicker-inline {
+  border-top: 3px solid var(--dp-primary);
+  width:      100%;
+}
+ 
+/* ── Table global ── */
+.datepicker table {
+  width:           100%;
+  border-collapse: collapse;
+  margin:          0;
+}
+ 
+/* ── Header navigasi (bulan/tahun + panah) ── */
+.datepicker thead tr:first-child th {
+  background:    var(--dp-primary);
+  color:         #fff;
+  font-size:     13px;
+  font-weight:   700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding:       10px 8px;
+  cursor:        pointer;
+  transition:    background 0.2s;
+  border:        none;
+}
+ 
+.datepicker thead tr:first-child th:hover {
+  background: var(--dp-primary-dark);
+}
+ 
+/* Panah prev/next */
+.datepicker .prev,
+.datepicker .next {
+  font-size:  18px;
+  padding:    10px 14px;
+  font-weight: 700;
+  color:       #fff;
+  border-radius:0px;
+  background:  var(--dp-primary);
+  transition:  background 0.2s, transform 0.2s;
+}
+ 
+.datepicker .prev:hover,
+.datepicker .next:hover {
+  background:  var(--dp-primary-hover);
+  transform:   scaleX(1.15);
+  color:#fff;
+}
+ 
+/* Title bulan/tahun di tengah */
+.datepicker .datepicker-switch {
+  font-weight:    800;
+  letter-spacing: 0.5px;
+  border-radius:0px;
+  background:     var(--dp-primary);
+  color:          #fff;
+  transition:  background 0.2s;
+}
+ 
+.datepicker .datepicker-switch:hover {
+  background: var(--dp-primary-hover);
+  color:#fff;
+}
+ 
+/* ── Hari dalam seminggu (Mon, Tue, dst) ── */
+.datepicker thead tr:last-child th,
+.datepicker .dow {
+  background:     #f5f5f5;
+  color:          #555;
+  font-size:      11px;
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding:        7px 4px;
+  border:         none;
+  border-bottom:  2px solid var(--dp-border);
+}
+ 
+/* ── Sel tanggal ── */
+.datepicker table tr td {
+  border:     none;
+  padding:    0;
+  text-align: center;
+}
+ 
+.datepicker table tr td.day {
+  width:         34px;
+  height:        34px;
+  line-height:   34px;
+  font-size:     13px;
+  font-weight:   500;
+  color:         var(--dp-text);
+  cursor:        pointer;
+  transition:    background 0.15s, color 0.15s, transform 0.15s;
+}
+ 
+.datepicker table tr td.day:hover {
+  background: var(--dp-range-bg);
+  color:      var(--dp-primary);
+  transform:  scale(1.1);
+  font-weight: 700;
+}
+ 
+/* Tanggal bulan lalu / depan */
+.datepicker table tr td.old,
+.datepicker table tr td.new {
+  color:       var(--dp-text-muted);
+  font-weight: 400;
+}
+ 
+.datepicker table tr td.old:hover,
+.datepicker table tr td.new:hover {
+  color:      #aaa;
+  background: #fafafa;
+}
+ 
+/* Hari ini */
+.datepicker table tr td.today {
+  background:  var(--dp-today-bg);
+  color:       var(--dp-primary);
+  font-weight: 800;
+  position:    relative;
+}
+ 
+.datepicker table tr td.today::after {
+  content:       '';
+  position:      absolute;
+  bottom:        4px;
+  left:          50%;
+  transform:     translateX(-50%);
+  width:         4px;
+  height:        4px;
+  background:    var(--dp-primary);
+}
+ 
+/* Tanggal dipilih / aktif */
+.datepicker table tr td.active,
+.datepicker table tr td.active:hover,
+.datepicker table tr td.selected,
+.datepicker table tr td.selected:hover {
+  background:    var(--dp-primary) !important;
+  color:         #fff !important;
+  font-weight:   800;
+  transform:     scale(1.08);
+  box-shadow:    0 2px 8px rgba(187,17,17,0.4);
+}
+ 
+/* Tanggal disabled */
+.datepicker table tr td.disabled,
+.datepicker table tr td.disabled:hover {
+  color:         #ccc;
+  background:    transparent;
+  cursor:        not-allowed;
+  text-decoration: line-through;
+  transform:     none;
+}
+ 
+/* Range selection */
+.datepicker table tr td.range {
+  background:  var(--dp-range-bg);
+}
+ 
+.datepicker table tr td.range-start {
+  background:    var(--dp-primary) !important;
+  color:         #fff !important;
+}
+ 
+.datepicker table tr td.range-end {
+  background:    var(--dp-primary) !important;
+  color:         #fff !important;
+}
+ 
+.datepicker table tr td.highlighted {
+  background: #fde8e8;
+  color:      var(--dp-primary-dark);
+  font-weight: 600;
+}
+ 
+.datepicker table tr td.focused {
+  background: var(--dp-range-bg);
+}
+ 
+/* ── Span bulan / tahun / dekade ── */
+.datepicker table tr td span {
+  display:       inline-block;
+  width:         54px;
+  height:        38px;
+  line-height:   38px;
+  font-size:     12px;
+  font-weight:   600;
+  text-transform: uppercase;
+  color:         var(--dp-text);
+  cursor:        pointer;
+  margin:        2px;
+  transition:    background 0.15s, color 0.15s, transform 0.15s;
+}
+ 
+.datepicker table tr td span:hover {
+  background:  var(--dp-range-bg);
+  color:       var(--dp-primary);
+  transform:   scale(1.06);
+}
+ 
+.datepicker table tr td span.active,
+.datepicker table tr td span.active:hover {
+  background:  var(--dp-primary) !important;
+  color:       #fff !important;
+  font-weight: 800;
+  box-shadow:  0 2px 8px rgba(187,17,17,0.35);
+}
+ 
+.datepicker table tr td span.old,
+.datepicker table tr td span.new {
+  color: var(--dp-text-muted);
+}
+ 
+.datepicker table tr td span.disabled,
+.datepicker table tr td span.disabled:hover {
+  color:      #ccc;
+  background: transparent;
+  cursor:     not-allowed;
+  transform:  none;
+}
+ 
+.datepicker table tr td span.focused {
+  background: var(--dp-range-bg);
+}
+ 
+/* ── Footer (Today / Clear button) ── */
+.datepicker tfoot tr th {
+  padding:        8px;
+  text-align:     center;
+  border-top:     1px solid var(--dp-border);
+  font-size:      12px;
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color:          var(--dp-primary);
+  cursor:         pointer;
+  transition:     background 0.15s, color 0.15s;
+}
+ 
+.datepicker tfoot tr th:hover {
+  background: var(--dp-primary);
+  color:      #fff;
+}
+ 
+.datepicker .today {
+  font-weight: 700;
+  color:       var(--dp-primary);
+}
+ 
+.datepicker .clear {
+  color: #888;
+}
+ 
+.datepicker .clear:hover {
+  color: #fff;
+  background: #555;
+}
+ 
+/* ── Input field yang trigger datepicker ── */
+input.datepicker-input,
+input[data-provide="datepicker"],
+.datepicker-trigger {
+  font-family:     var(--dp-font);
+  font-size:       14px;
+  color:           var(--dp-text);
+  background:      #fff;
+  border:          1px solid #ccc;
+  padding:         10px 36px 10px 12px;
+  width:           100%;
+  outline:         none;
+  transition:      border-color 0.2s, box-shadow 0.2s;
+  background-image:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23BB1111' stroke-width='2'%3E%3Crect x='3' y='4' width='18' height='18' rx='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E");
+  background-repeat:   no-repeat;
+  background-position: right 10px center;
+}
+ 
+input.datepicker-input:focus,
+input[data-provide="datepicker"]:focus {
+  border-color: var(--dp-primary);
+  box-shadow:   0 0 0 2px rgba(187,17,17,0.15);
+}
+ 
+/* ── Animasi masuk ── */
+
+.datepicker.dropdown-menu {
+  position: absolute !important;
+  top: auto !important;
+  left: auto !important;
+  width: auto !important;
+  min-width: 260px !important;
+  transform: none !important;
+}
+
+@keyframes dpFadeIn {
+  from {
+    opacity:   0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity:   1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 1600px) {
    .slide-content {
       position: absolute;
@@ -3634,6 +3975,30 @@ img { display: block; max-width: 100%; }
     .form-card-bottom .bottom-forgotpassword-bar {
       width:22%;
     }
+    .datepicker {
+      padding:   8px;
+      font-size: 13px;
+    }
+  
+    .datepicker table tr td.day {
+      width:       28px;
+      height:      28px;
+      line-height: 28px;
+      font-size:   12px;
+    }
+  
+    .datepicker table tr td span {
+      width:       44px;
+      height:      34px;
+      line-height: 34px;
+      font-size:   11px;
+    }
+  
+    .datepicker thead tr:first-child th {
+      font-size:      11px;
+      padding:        8px 4px;
+      letter-spacing: 0.8px;
+    }
 }
 
 @media (max-width:400px){
@@ -3783,3 +4148,9 @@ img { display: block; max-width: 100%; }
 <script src="<?php echo base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?php echo base_url(); ?>assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
+ <!-- DATEPICKER -->
+<script src="<?php echo base_url(); ?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+    var base_url = '<?=base_url()?>';
+</script>

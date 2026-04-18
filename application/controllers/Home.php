@@ -33,6 +33,11 @@ class Home extends MY_Controller {
 			{	
 				$data['og'] = $this->model_competition_news->web('META',0,"","",$this->input->get("i"))['rows'][0];
 			}
+			else if(explode("?",$jenisLaporan)[0] == "register")
+			{
+				$data['m'] = explode("m=",explode("?",$jenisLaporan)[1])[1];
+				$jenisLaporan = explode("?",$jenisLaporan)[0];
+			}
             $this->load->view('header_web');
 			$this->load->view('web/'.$jenisLaporan,$data);
 			$this->load->view('footer_web');

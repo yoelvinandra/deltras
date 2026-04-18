@@ -8,7 +8,7 @@
                 <br>
                 <div class="field">
                 <label class="field-label fira-sans-light">Alamat email</label>
-                <input type="email" />
+                <input type="email" id="EMAIL" name="EMAIL"  />
                 </div>
                 <br>
                 <br>

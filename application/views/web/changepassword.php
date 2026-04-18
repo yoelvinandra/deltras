@@ -8,11 +8,11 @@
                 <br>
                 <div class="field">
                 <label class="field-label fira-sans-light">Password Baru</label>
-                <input type="password" />
+                <input type="password" id="PASSWORD" name="PASSWORD"/>
                 </div>
                 <div class="field">
                 <label class="field-label fira-sans-light">Konfirmasi Password</label>
-                <input type="password" />
+                <input type="password" id="CPASSWORD" name="CPASSWORD"/>
                 </div>
                 <br>
                 <br>

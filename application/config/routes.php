@@ -75,7 +75,9 @@ $route['cart'] = 'Home/index/cart';
 
 //LOGIN
 $route['login'] = 'Home/index/login';
-$route['register'] = 'Home/index/register';
+$route['register'] = 'Home/index/register?m=t';
+$route['profil'] = 'Home/index/register?m=u';
+$route['konfirmasi'] = 'Home/index/konfirmasi';
 $route['forgotpassword'] = 'Home/index/forgotpassword';
 $route['changepassword'] = 'Home/index/changepassword';
 $route['membercard'] = 'Home/index/membercard';
