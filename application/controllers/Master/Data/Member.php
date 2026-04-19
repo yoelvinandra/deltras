@@ -29,6 +29,11 @@ class Member extends MY_Controller {
 		}
 		else
 		{
+			sendEmail(
+				$email,
+				'Aktivasi Akun Deltamania',
+				'<h2>Selamat Bergabung!</h2><p>Password: <strong>ABC123</strong></p>'
+			);
 			echo json_encode(array('success' => true,'errorMsg' => ''));
 		}
 	}

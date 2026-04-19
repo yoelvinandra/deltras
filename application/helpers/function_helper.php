@@ -2489,4 +2489,38 @@ function decryptMember($hashid) {
         return $e->getMessage();
     }
 }
+
+require APPPATH . 'third_party/PHPMailer/class.phpmailer.php';
+require APPPATH . 'third_party/PHPMailer/class.smtp.php';
+
+function sendEmail($to, $subject, $body) {
+    $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+
+    try {
+        // Setting SMTP
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'yoelvinandra@gmail.com';
+        $mail->Password   = 'Rasengan147!';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port       = 465;
+
+        // Pengirim & penerima
+        $mail->setFrom('yoelvinandra@gmail.com', 'Deltamania');
+        $mail->addAddress($to);
+
+        // Konten
+        $mail->isHTML(true);
+        $mail->CharSet  = 'UTF-8';
+        $mail->Subject  = $subject;
+        $mail->Body     = $body;
+
+        $mail->send();
+        return true;
+
+    } catch (Exception $e) {
+        return $mail->ErrorInfo;
+    }
+}
 ?>
