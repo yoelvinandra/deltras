@@ -2460,16 +2460,16 @@ function decryptMember($hashid) {
         $hh = substr($stored, 0, 2);
         $mm = substr($stored, 2, 2);
         $ss = substr($stored, 4, 2);
-        $dd = substr($stored, 10, 2);
-        $mo = substr($stored, 8, 2);
         $yy = substr($stored, 6, 2);
+        $mo = substr($stored, 8, 2);	
+        $dd = substr($stored, 10, 2);
 
         // Tambah "20" di depan tahun → 26 jadi 2026
         $stored_date = DateTime::createFromFormat(
             'H:i:s d/m/Y', 
             "$hh:$mm:$ss $dd/$mo/20$yy"
         );
-
+		
         // Validasi jika createFromFormat gagal
         if (!$stored_date) {
             return "Link tidak valid";

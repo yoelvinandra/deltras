@@ -99,6 +99,16 @@ class Member extends MY_Controller {
 			$edit = false;
 		}
 		else{
+			
+			if($this->input->post('from') == "USER"){
+				$id = decryptMember($id);
+
+				if(!is_numeric($id))
+				{
+					die(json_encode(array('errorMsg' => $id)));
+				}
+			}
+
 			$response = $this->model_master_member->cek_valid_email($this->input->post('EMAIL'),$id);
 			if($response != ''){
 				die(json_encode(array('errorMsg' => $response)));
@@ -130,10 +140,19 @@ class Member extends MY_Controller {
 		}
 
 		$response = $this->model_master_member->simpan($id,$data_values,$edit);
+		
 	
 		if (!is_numeric($response)){
 			// generate an error... or use the log_message() function to log your error
 			die(json_encode(array('errorMsg' => $response)));
+		}
+
+		if($edit){
+			if($data_values['DARI'] == 'USER'){
+					//SESSION
+				$_SESSION[NAMAPROGRAM]['MEMBERNAME']   = $data_values['NAMADEPAN'];
+				$_SESSION[NAMAPROGRAM]['EMAIL_MEMBER'] = $data_values['EMAIL'];
+			}
 		}
 		
 		// panggil fungsi untuk log history
@@ -149,7 +168,7 @@ class Member extends MY_Controller {
 					'id'	=> $response
 				),
 			),
-			$_SESSION[NAMAPROGRAM]['USERID']
+			$_SESSION[NAMAPROGRAM]['USERID']??"USER"
 		);
 
 		echo json_encode(array('success' => true,'errorMsg' => '','idweb'=>encryptMember($response)));
@@ -168,7 +187,7 @@ class Member extends MY_Controller {
 			'MASTER MEMBER',
 			'HAPUS',
 			[],
-			$_SESSION[NAMAPROGRAM]['USERID']
+			$_SESSION[NAMAPROGRAM]['USERID']??"USER"
 		);
 	}
 

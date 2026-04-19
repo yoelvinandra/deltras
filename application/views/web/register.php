@@ -12,7 +12,7 @@
                     <input type="hidden" id="mode" name="mode" value="<?php if($m=='t'){ echo 'tambah';}else{ echo 'ubah';}?>">
                     <input type="hidden" id="from" name="from" value="USER">
                     <input type="hidden" id="IDMEMBER" name="IDMEMBER">
-                    <input type="hidden" id="STATUS" name="STATUS" value="-1">
+                    <input type="hidden" id="STATUS" name="STATUS" value="1">
                     <br>
                     <div class="field">
                     <label class="field-label fira-sans-light">Nama Depan*</label>
@@ -102,7 +102,8 @@ $(document).ready(function() {
         $(".member-card").show();
         $(".btn-form").html("Ubah Data");
         $(".form-title").html("Akun Profil");
-        $("#EMAIL").attr("disabled", "disabled");
+        $("#EMAIL").css("background", "#cecece");
+        $("#EMAIL").attr("readonly", "readonly");
         $("#EMAIL-LABEL").html("Alamat Email* (Tidak dapat diubah)");
         $(".form-subtitle").html("Yuk, perbaharui data dirimu, supaya kami bisa melihat perkembanganmu sebagai Member Deltamania");
 
@@ -115,6 +116,7 @@ $(document).ready(function() {
             success : async function(msg){
                 if (msg.success) {
                     msg = msg.rows;
+                    $("#IDMEMBER").val(msg.IDMEMBER);
                     $("#NAMADEPAN").val(msg.NAMADEPAN);
                     $("#NAMABELAKANG").val(msg.NAMABELAKANG);
                     $("#NIK").val(msg.NIK);
@@ -125,6 +127,7 @@ $(document).ready(function() {
                     $("#EMAIL").val(msg.EMAIL);
                     $("#INSTAGRAM").val(msg.INSTAGRAM);
                     $("#TIKTOK").val(msg.TIKTOK);
+                    $("#STATUS").val(msg.STATUS);
 
                     var link = '';
                     var exists = false;
@@ -137,6 +140,7 @@ $(document).ready(function() {
                     }
                 } else {
                     alertMsg(msg.errorMsg);
+                    logout();
                 }
             }
         });
@@ -155,7 +159,14 @@ $(document).ready(function() {
     });
 
     $(".btn-form").click(function(){
-      register();
+        if($("#mode").val() == "ubah")
+        {
+            changeProfile();
+        }
+        else
+        {
+            register();
+        }
     })
 
     $(".btn-logout").click(function(){
@@ -195,7 +206,9 @@ function handleImageFile(file) {
     img.src = objectUrl;
 }
 
-
+function alertMsg(msg){
+    alert(msg);
+}
 
 function register(){
     var namadepan = $("#NAMADEPAN").val();
@@ -283,7 +296,6 @@ function register(){
 }
 
 function changeProfile(){
-    var checkValid = $("#CHECKVALID").is(':checked');
     var namadepan = $("#NAMADEPAN").val();
     var namabelakang = $("#NAMABELAKANG").val();
     let nik = $('#NIK').val();
@@ -292,12 +304,8 @@ function changeProfile(){
     let telp = $('#TELP').val();
     let telpdarurat = $('#TELPDARURAT').val();
     let email = $('#EMAIL').val();
-    if(!checkValid)
-    {
-       alert("Anda harus menyetujui pernyataan di atas untuk menjadi bagian dari Member Deltamania "); 
-       $("#CHECKVALID").focus();
-    }
-    else if(!namadepan || !namabelakang)
+    
+    if(!namadepan || !namabelakang)
     {
         alert("Nama Depan dan Nama Belakang wajib diisi");
         if(!namadepan)$("#NAMADEPAN").focus();
@@ -363,7 +371,8 @@ function changeProfile(){
                 dataType: 'json',
                 success: function(msg){
                     if (msg.success) {
-                        window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb);
+                        alert("Akun Profil berhasil diubah");
+                        window.location.replace('<?php echo base_url(); ?>');
                     } else {
                         alert(msg.errorMsg);
                     }

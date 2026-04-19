@@ -2695,6 +2695,17 @@ img { display: block; max-width: 100%; }
   background-color: #EC3237;
 }
 
+.membership .btn-terdaftar {
+  display: inline-block;
+  background-color: #cecece;
+  color: white;
+  padding: 8px 34px;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius : 4px;
+  cursor:default;
+}
+
 /* ─── Author / meta bar ─── */
 .membership .meta-bar {
   display: flex;
@@ -3990,10 +4001,6 @@ input[data-provide="datepicker"]:focus {
 
     .field-label {
       font-size: 12px;
-    }
-
-    input[type="email"], input[type="password"] {
-      font-size: 11px;
     }
     .btn-form {
       font-size: 20px;

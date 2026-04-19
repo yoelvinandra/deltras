@@ -27,7 +27,11 @@
         </div>
 
         <div>
-            <a href="register" class="btn-daftar fira-sans-extrabold">Daftar</a>
+            <?php if(isset($_SESSION[NAMAPROGRAM]['MEMBERNAME'])) {?>
+                <div href="#" class="btn-terdaftar fira-sans-extrabold">Sudah Terdaftar</div>
+            <?php }else{?>
+                <a href="register" class="btn-daftar fira-sans-extrabold">Daftar</a>
+            <?php }?>
         </div>
     </div>
 
