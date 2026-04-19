@@ -343,9 +343,12 @@ img { display: block; max-width: 100%; }
   background: var(--primary-color); /* merah */
 }
 .page-bg-cover{
+  padding-left:32px;
+  padding-right:32px;
+  gap:32px;
   width: 100%;  min-height: 88vh;
   display: flex;
-  align-items: center;
+  align-items: top;
   justify-content: center;
   background: linear-gradient(
     to bottom,
@@ -363,6 +366,14 @@ img { display: block; max-width: 100%; }
   width: 100%;
   height:100%;
   max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0,2,2,0.4);
+}
+.member-card{
+  margin-top:60px;
+  margin-bottom:60px;
+}
+.member-card img{
+  width:100%;
   box-shadow: 0 4px 6px rgba(0,2,2,0.4);
 }
 .form-title{
@@ -424,6 +435,7 @@ img { display: block; max-width: 100%; }
 }
 
 .btn-logout {
+  margin-top:16px;
   width: 100%;
   background: #fff;
   border:none;
@@ -3546,9 +3558,16 @@ input[data-provide="datepicker"]:focus {
   }
   .form-card {
     box-shadow: none;
+    max-width: 100%;
+    margin-top:-30px;
   }
+
   .form-page .page-bg-cover{
     background:#fff;
+    flex-direction:column;
+  }
+  .member-card{
+    margin-bottom:0px;
   }
 }
 

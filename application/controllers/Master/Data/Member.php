@@ -33,6 +33,23 @@ class Member extends MY_Controller {
 		}
 	}
 
+	public function getDataWeb() {
+		$this->output->set_content_type('application/json');
+		$data = $this->model_master_member->getDataWeb($this->input->post("e",""));
+		if(empty($data))
+		{
+			$response['success'] = false;
+			$response['errorMsg'] = "Data tidak ditemukan";
+		}
+		else
+		{
+			$response['success'] = true;
+			$response['rows'] = $data;
+		}
+		echo json_encode($response);
+	}
+
+
 	public function getKonfirmasiWeb() {
 		$this->output->set_content_type('application/json');
 		$id = decryptMember($this->input->post("i"));

@@ -35,11 +35,24 @@
 </section>
 
 <script>
+
+    $('#PASSWORD').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			login();
+		}
+	});
+
+    $(".btn-form").click(function(){
+        login();
+    });
+
+
     function alertMsg(msg){
         alert(msg);
     }
 
-    $(".btn-form").click(function(){
+    function login(){
         let email = $('#EMAIL').val();
         let password = $('#PASSWORD').val();
          if(!email)
@@ -81,5 +94,5 @@
                 });
             }
         }
-    });
+    }
 </script>

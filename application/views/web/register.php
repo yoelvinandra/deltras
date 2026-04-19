@@ -2,6 +2,9 @@
 <section class="form-page">
     <div class="page-bg">
         <div class="page-bg-cover">
+            <div class="member-card" >   
+                <img src="assets/images/member/member-card.png?t=<?=date(Ymdhis)?>">
+            </div>
             <div class="form-card">
                 <div class="form-title fira-sans-bold">Bergabunglah dengan komunitas kami</div>
                 <p class="form-subtitle fira-sans-regular">Gabung sekarang! Jadilah bagian dari Deltamania.</p>
@@ -42,7 +45,7 @@
                     <input type="text" id="TELPDARURAT" name="TELPDARURAT" placeholder="Cth : 628xxxxxxxxxx"/>
                     </div>
                     <div class="field">
-                    <label class="field-label fira-sans-light">Alamat Email*</label>
+                    <label id="EMAIL-LABEL" class="field-label fira-sans-light">Alamat Email*</label>
                     <input type="email" id="EMAIL" name="EMAIL" placeholder="Isi dengan email aktif, untuk login"/>
                     </div>
                     <div class="field">
@@ -94,6 +97,55 @@
 
 <script>
 $(document).ready(function() {
+    if($("#mode").val() == "ubah"){
+        $(".check-register, .wajib").hide();
+        $(".member-card").show();
+        $(".btn-form").html("Ubah Data");
+        $(".form-title").html("Akun Profil");
+        $("#EMAIL").attr("disabled", "disabled");
+        $("#EMAIL-LABEL").html("Alamat Email* (Tidak dapat diubah)");
+        $(".form-subtitle").html("Yuk, perbaharui data dirimu, supaya kami bisa melihat perkembanganmu sebagai Member Deltamania");
+
+        $.ajax({
+            type    : 'POST',
+            dataType: 'json',
+            url     : base_url+"Master/Data/Member/getDataWeb",
+            data    : "e="+'<?=$_SESSION[NAMAPROGRAM]["EMAIL_MEMBER"]?>' ,
+            cache   : false,
+            success : async function(msg){
+                if (msg.success) {
+                    msg = msg.rows;
+                    $("#NAMADEPAN").val(msg.NAMADEPAN);
+                    $("#NAMABELAKANG").val(msg.NAMABELAKANG);
+                    $("#NIK").val(msg.NIK);
+                    $("#TGLLAHIR").val(msg.TGLLAHIR);
+                    $("#ALAMAT").val(msg.ALAMAT);
+                    $("#TELP").val(msg.TELP);
+                    $("#TELPDARURAT").val(msg.TELPDARURAT);
+                    $("#EMAIL").val(msg.EMAIL);
+                    $("#INSTAGRAM").val(msg.INSTAGRAM);
+                    $("#TIKTOK").val(msg.TIKTOK);
+
+                    var link = '';
+                    var exists = false;
+
+                    link = msg.GAMBAR+'?t='+ Date.now();
+                    exists = await imageExists(link);
+                    if(exists)
+                    {
+                        $('#previewGambar').attr('src', link);
+                    }
+                } else {
+                    alertMsg(msg.errorMsg);
+                }
+            }
+        });
+    }
+    else
+    {
+        $(".member-card").hide();
+        $(".btn-logout").hide();
+    }
     $('#TGLLAHIR').datepicker({
         format: "yyyy-mm-dd",
         autoclose: true,
@@ -103,115 +155,11 @@ $(document).ready(function() {
     });
 
     $(".btn-form").click(function(){
-        var checkValid = $("#CHECKVALID").is(':checked');
-        var namadepan = $("#NAMADEPAN").val();
-        var namabelakang = $("#NAMABELAKANG").val();
-        let nik = $('#NIK').val();
-        let tgllahir = $('#TGLLAHIR').val();
-        let alamat = $('#ALAMAT').val();
-        let telp = $('#TELP').val();
-        let telpdarurat = $('#TELPDARURAT').val();
-        let email = $('#EMAIL').val();
-
-        if(!checkValid)
-        {
-           alert("Anda harus menyetujui pernyataan di atas untuk menjadi bagian dari Member Deltamania "); 
-           $("#CHECKVALID").focus();
-        }
-        else if(!namadepan || !namabelakang)
-        {
-            alert("Nama Depan dan Nama Belakang wajib diisi");
-            if(!namadepan)$("#NAMADEPAN").focus();
-            else if(!namabelakang)$("#NAMABELAKANG").focus();
-        }
-        else if(!nik)
-        {
-            alert("NIK KTP wajib diisi");
-            $("#NIK").focus();
-        }
-        else if(!tgllahir)
-        {
-            alert("Tgl Lahir wajib diisi");
-            $("#TGLLAHIR").focus();
-        }
-        else if(!alamat)
-        {
-            alert("Alamat wajib diisi");
-            $("#ALAMAT").focus();
-        }
-        else if(!telp)
-        {
-            alert("Nomor Telepon wajib diisi");
-            $("#TELP").focus();
-        }
-        else if(!telpdarurat)
-        {
-            alert("Kontak Darurat wajib diisi");
-            $("#TELPDARURAT").focus();
-        }
-        else if(!email)
-        {
-            alert("Alamat Email wajib diisi");
-            $("#EMAIL").focus();
-        }
-        else
-        {
-            if (telp && !isValidPhone(telp)) {
-                alert("No Telp harus diawali 62, dengan panjang 10-15 karakter");
-                $("#TELP").focus();
-                return;
-            }
-            else if (telpdarurat && !isValidPhone(telpdarurat)) {
-                alert("Kontak Darurat harus diawali 62, dengan panjang 10-15 karakter");
-                $("#TELPDARURAT").focus();
-                return;
-            }
-            else if (email && !isValidEmail(email)) {
-                alert("Format Email tidak valid");
-                $("#EMAIL").focus();
-                return;
-            }
-            else
-            {
-                
-                let formData = new FormData($('#form_input')[0]);
-
-                $.ajax({
-                    type: 'POST',
-                    url: base_url+'Master/Data/Member/simpan',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    dataType: 'json',
-
-                    success: function(msg){
-                        if (msg.success) {
-                            window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb);
-                        } else {
-                            alert(msg.errorMsg);
-                        }
-                    }
-                }); 
-            }
-        }
+      register();
     })
 
     $(".btn-logout").click(function(){
-        $.ajax({
-            type: 'POST',
-            url: base_url+'Master/Data/Member/logout',
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-
-            success: function(msg){
-                if (msg.success) {
-                    window.location.replace('<?php echo base_url(); ?>');
-                } else {
-                    alert(msg.errorMsg);
-                }
-            }
-        }); 
+      logout();
     });
 });
 
@@ -245,5 +193,201 @@ function handleImageFile(file) {
     };
 
     img.src = objectUrl;
+}
+
+
+
+function register(){
+    var namadepan = $("#NAMADEPAN").val();
+    var namabelakang = $("#NAMABELAKANG").val();
+    let nik = $('#NIK').val();
+    let tgllahir = $('#TGLLAHIR').val();
+    let alamat = $('#ALAMAT').val();
+    let telp = $('#TELP').val();
+    let telpdarurat = $('#TELPDARURAT').val();
+    let email = $('#EMAIL').val();
+    if(!namadepan || !namabelakang)
+    {
+        alert("Nama Depan dan Nama Belakang wajib diisi");
+        if(!namadepan)$("#NAMADEPAN").focus();
+        else if(!namabelakang)$("#NAMABELAKANG").focus();
+    }
+    else if(!nik)
+    {
+        alert("NIK KTP wajib diisi");
+        $("#NIK").focus();
+    }
+    else if(!tgllahir)
+    {
+        alert("Tgl Lahir wajib diisi");
+        $("#TGLLAHIR").focus();
+    }
+    else if(!alamat)
+    {
+        alert("Alamat wajib diisi");
+        $("#ALAMAT").focus();
+    }
+    else if(!telp)
+    {
+        alert("Nomor Telepon wajib diisi");
+        $("#TELP").focus();
+    }
+    else if(!telpdarurat)
+    {
+        alert("Kontak Darurat wajib diisi");
+        $("#TELPDARURAT").focus();
+    }
+    else if(!email)
+    {
+        alert("Alamat Email wajib diisi");
+        $("#EMAIL").focus();
+    }
+    else
+    {
+        if (telp && !isValidPhone(telp)) {
+            alert("No Telp harus diawali 62, dengan panjang 10-15 karakter");
+            $("#TELP").focus();
+            return;
+        }
+        else if (telpdarurat && !isValidPhone(telpdarurat)) {
+            alert("Kontak Darurat harus diawali 62, dengan panjang 10-15 karakter");
+            $("#TELPDARURAT").focus();
+            return;
+        }
+        else if (email && !isValidEmail(email)) {
+            alert("Format Email tidak valid");
+            $("#EMAIL").focus();
+            return;
+        }
+        else
+        {
+            
+            let formData = new FormData($('#form_input')[0]);
+            $.ajax({
+                type: 'POST',
+                url: base_url+'Master/Data/Member/simpan',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(msg){
+                    if (msg.success) {
+                        window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb);
+                    } else {
+                        alert(msg.errorMsg);
+                    }
+                }
+            }); 
+        }
+    }
+}
+
+function changeProfile(){
+    var checkValid = $("#CHECKVALID").is(':checked');
+    var namadepan = $("#NAMADEPAN").val();
+    var namabelakang = $("#NAMABELAKANG").val();
+    let nik = $('#NIK').val();
+    let tgllahir = $('#TGLLAHIR').val();
+    let alamat = $('#ALAMAT').val();
+    let telp = $('#TELP').val();
+    let telpdarurat = $('#TELPDARURAT').val();
+    let email = $('#EMAIL').val();
+    if(!checkValid)
+    {
+       alert("Anda harus menyetujui pernyataan di atas untuk menjadi bagian dari Member Deltamania "); 
+       $("#CHECKVALID").focus();
+    }
+    else if(!namadepan || !namabelakang)
+    {
+        alert("Nama Depan dan Nama Belakang wajib diisi");
+        if(!namadepan)$("#NAMADEPAN").focus();
+        else if(!namabelakang)$("#NAMABELAKANG").focus();
+    }
+    else if(!nik)
+    {
+        alert("NIK KTP wajib diisi");
+        $("#NIK").focus();
+    }
+    else if(!tgllahir)
+    {
+        alert("Tgl Lahir wajib diisi");
+        $("#TGLLAHIR").focus();
+    }
+    else if(!alamat)
+    {
+        alert("Alamat wajib diisi");
+        $("#ALAMAT").focus();
+    }
+    else if(!telp)
+    {
+        alert("Nomor Telepon wajib diisi");
+        $("#TELP").focus();
+    }
+    else if(!telpdarurat)
+    {
+        alert("Kontak Darurat wajib diisi");
+        $("#TELPDARURAT").focus();
+    }
+    else if(!email)
+    {
+        alert("Alamat Email wajib diisi");
+        $("#EMAIL").focus();
+    }
+    else
+    {
+        if (telp && !isValidPhone(telp)) {
+            alert("No Telp harus diawali 62, dengan panjang 10-15 karakter");
+            $("#TELP").focus();
+            return;
+        }
+        else if (telpdarurat && !isValidPhone(telpdarurat)) {
+            alert("Kontak Darurat harus diawali 62, dengan panjang 10-15 karakter");
+            $("#TELPDARURAT").focus();
+            return;
+        }
+        else if (email && !isValidEmail(email)) {
+            alert("Format Email tidak valid");
+            $("#EMAIL").focus();
+            return;
+        }
+        else
+        {
+            
+            let formData = new FormData($('#form_input')[0]);
+            $.ajax({
+                type: 'POST',
+                url: base_url+'Master/Data/Member/simpan',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(msg){
+                    if (msg.success) {
+                        window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb);
+                    } else {
+                        alert(msg.errorMsg);
+                    }
+                }
+            }); 
+        }
+    }
+}
+
+function logout(){
+    $.ajax({
+        type: 'POST',
+        url: base_url+'Master/Data/Member/logout',
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+
+        success: function(msg){
+            if (msg.success) {
+                window.location.replace('<?php echo base_url(); ?>');
+            } else {
+                alert(msg.errorMsg);
+            }
+        }
+    }); 
 }
 </script>

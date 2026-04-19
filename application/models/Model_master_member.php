@@ -175,6 +175,14 @@ class Model_master_member extends MY_Model{
 		return $data;
 	}
 
+	public function getDataWeb($email){
+		$sql = "select a.NAMADEPAN,a.NAMABELAKANG,a.EMAIL,a.TELP,a.TELPDARURAT,a.NIK,a.TGLLAHIR,a.ALAMAT,a.INSTAGRAM,a.TIKTOK,CONCAT('".base_url()."assets/images/member/',IDMEMBER,'.png') as GAMBAR
+				from MMEMBER a
+				WHERE UPPER(a.EMAIL) = UPPER('$email')";
+		$data = $this->db->queryRaw($sql)->row();
+		return $data;
+	}
+
 	public function dataGrid(){
 		
 		$data = [];

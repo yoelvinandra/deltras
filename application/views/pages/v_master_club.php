@@ -381,7 +381,7 @@ function ubah(row){
             var link = '';
             var exists = false;
 
-            link = '<?=base_url()?>assets/images/club/'+row.IDCLUB+'.png?t='+ Date.now();
+            link = row.GAMBAR+'?t='+ Date.now();
             exists = await imageExists(link);
             if(exists)
             {
