@@ -26,3 +26,55 @@
         </div>
     </div>
 </section>
+<script>
+$(document).ready(function() {
+    $(".btn-form").click(function(){
+        resetPassword();
+    })
+})
+
+$('#EMAIL').keyup(function(e){
+	if(e.keyCode == 13)
+	{
+		resetPassword();
+	}
+});
+
+function alertMsg(msg){
+    alert(msg);
+}
+
+function resetPassword(){
+    let email = $('#EMAIL').val();
+    if(!email)
+    {
+        alert("Alamat Email wajib diisi");
+        $("#EMAIL").focus();
+    }
+    else
+    {
+        if (email && !isValidEmail(email)) {
+            alert("Format Email tidak valid");
+            $("#EMAIL").focus();
+            return;
+        }
+        else
+        {
+            $.ajax({
+                type    : 'POST',
+                url     : base_url+'Master/Data/Member/emailResetPassword',
+                data    : "e="+$("#EMAIL").val(),
+                cache   : false,
+                dataType: 'json',
+                success: function(msg){
+                    if (msg.success) {
+                        window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb+'&e=rp');
+                    } else {
+                        alert(msg.errorMsg);
+                    }
+                }
+            }); 
+        }
+    }
+}
+</script>

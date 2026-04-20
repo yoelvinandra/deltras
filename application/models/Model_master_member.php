@@ -237,7 +237,7 @@ class Model_master_member extends MY_Model{
 
 			if (!$this->upload->do_upload('GAMBAR')) {
 				$this->db->trans_rollback();
-				return $this->upload->display_errors();
+				return str_replace("</p>","",str_replace("<p>","",$this->upload->display_errors()));
 			}
 
 			// ── Kompress & konversi ke format asli ──

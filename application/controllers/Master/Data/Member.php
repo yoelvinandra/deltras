@@ -76,6 +76,116 @@ class Member extends MY_Controller {
 		echo json_encode($response);
 	}
 
+	public function emailChangePassword(){
+		$this->output->set_content_type('application/json');
+		$data = $this->model_master_member->getDataWeb($this->input->post("e",""));
+		if(empty($data))
+		{
+			$response['success'] = false;
+			$response['errorMsg'] = "Data tidak ditemukan";
+		}
+		else
+		{
+			$response['success'] = true;
+			$response['idweb'] = $data->IDMEMBER;
+
+			sendEmail(
+				$data->EMAIL,
+				'Permintaan Ubah Password Akun Deltamania',
+				'
+				<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin:0; padding:0;">
+					<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding:20px;">
+						<tr>
+							<td align="center">
+								<table width="500" cellpadding="0" cellspacing="0" style="background:#ffffff; padding:20px; border-radius:8px;">
+									<tr>
+										<td>
+											<h2 style="color:#333;">Ubah Password Akun Deltamania</h2>
+											<p>Hi, '.(strtoupper($data->NAMADEPAN)).'</p>
+											<p>Kami menerima permintaan untuk mengubah password akun Deltamania-mu.</p>
+
+											<p>Klik tombol di bawah ini untuk melanjutkan proses perubahan password akunmu. 
+											<br>Link ini hanya berlaku selama <b>1 jam</b>.</p>
+											<br>
+											<p><a href="'.base_url().'changepassword?i='.$data->IDMEMBER.'&e=cp". style="padding:10px; background:#BB1111; color:#fff; font-weight:bold; text-decoration:none;">Ubah Password</a></p>
+											<br>
+											<p>Jika tombol di atas tidak berfungsi, salin dan tempel link berikut ke browser Anda:</p>
+											<div style="background:#eee; padding:4px;">'.base_url().'changepassword?i='.$data->IDMEMBER.'&e=cp</div>
+											<br>
+											<p>Terima kasih.</p>
+
+											<p style="margin-top:20px;">
+												Salam,<br>
+												<b>Tim Deltamania</b>
+											</p>
+										</td>
+									</tr>
+								</table>
+								<p style="font-size:12px; color:#888; margin-top:10px;">Email ini dikirim secara otomatis, mohon tidak membalas email ini.</p>
+							</td>
+						</tr>
+					</table>
+				</body>'
+			);
+		}
+		echo json_encode($response);
+	}
+
+	public function emailResetPassword(){
+		$this->output->set_content_type('application/json');
+		$data = $this->model_master_member->getDataWeb($this->input->post("e",""));
+		if(empty($data))
+		{
+			$response['success'] = false;
+			$response['errorMsg'] = "Data tidak ditemukan";
+		}
+		else
+		{
+			$response['success'] = true;
+			$response['idweb'] = $data->IDMEMBER;
+
+			sendEmail(
+				$data->EMAIL,
+				'Permintaan Atur Ulang Password Akun Deltamania',
+				'
+				<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin:0; padding:0;">
+					<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding:20px;">
+						<tr>
+							<td align="center">
+								<table width="500" cellpadding="0" cellspacing="0" style="background:#ffffff; padding:20px; border-radius:8px;">
+									<tr>
+										<td>
+											<h2 style="color:#333;">Atur Ulang Password Akun Deltamania</h2>
+											<p>Hi, '.(strtoupper($data->NAMADEPAN)).'</p>
+											<p>Kami menerima permintaan untuk mengatur ulang password akun Deltamania-mu.</p>
+
+											<p>Klik tombol di bawah ini untuk melanjutkan proses pengaturan ulang password akunmu. 
+											<br>Link ini hanya berlaku selama <b>1 jam</b>.</p>
+											<br>
+											<p><a href="'.base_url().'changepassword?i='.$data->IDMEMBER.'&e=rp". style="padding:10px; background:#BB1111; color:#fff; font-weight:bold; text-decoration:none;">Atur Ulang Password</a></p>
+											<br>
+											<p>Jika tombol di atas tidak berfungsi, salin dan tempel link berikut ke browser Anda:</p>
+											<div style="background:#eee; padding:4px;">'.base_url().'changepassword?i='.$data->IDMEMBER.'&e=rp</div>
+											<br>
+											<p>Terima kasih.</p>
+
+											<p style="margin-top:20px;">
+												Salam,<br>
+												<b>Tim Deltamania</b>
+											</p>
+										</td>
+									</tr>
+								</table>
+								<p style="font-size:12px; color:#888; margin-top:10px;">Email ini dikirim secara otomatis, mohon tidak membalas email ini.</p>
+							</td>
+						</tr>
+					</table>
+				</body>'
+			);
+		}
+		echo json_encode($response);
+	}
+
 	public function dataGrid() {
 		$this->output->set_content_type('application/json');
 		$response = $this->model_master_member->dataGrid($this->setPaginationGrid(), $this->setFilterGrid());
@@ -162,8 +272,48 @@ class Member extends MY_Controller {
 
 				sendEmail(
 					$data_values['EMAIL'],
-					'Aktivasi Akun Deltamania',
-					'<h2>Selamat Bergabung!</h2><p>Password: <strong>'.$data_values['KODEUNIK'].'</strong></p>'
+					'Informasi Aktivasi Akun Deltamania',
+					'
+					<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin:0; padding:0;">
+						<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding:20px;">
+							<tr>
+								<td align="center">
+									<table width="500" cellpadding="0" cellspacing="0" style="background:#ffffff; padding:20px; border-radius:8px;">
+										<tr>
+											<td>
+												<h2 style="color:#333;">Informasi Aktivasi Akun Deltamania</h2>
+												<p>Hi, '.(strtoupper($data_values['NAMADEPAN'])).'</p>
+												<p>Kami ingin menginformasikan bahwa akun member <b>Deltamania</b> Anda telah berhasil diaktifkan.</p>
+
+												<table cellpadding="5" cellspacing="0" style="margin:15px 0;">
+													<tr>
+														<td><b>Email</b></td>
+														<td>: '.$data_values['EMAIL'].'</td>
+													</tr>
+													<tr>
+														<td><b>Password</b></td>
+														<td>: <b>'.$data_values['KODEUNIK'].'</b></td>
+													</tr>
+												</table>
+
+												<p>Silakan gunakan email dan password tersebut untuk login ke akun Anda. Demi keamanan, kami sangat menyarankan untuk segera mengganti password setelah berhasil masuk.</p>
+
+												<p>Jika Anda mengalami kendala saat login atau membutuhkan bantuan lebih lanjut, jangan ragu untuk menghubungi kami.</p>
+
+												<p>Terima kasih.</p>
+
+												<p style="margin-top:20px;">
+													Salam,<br>
+													<b>Tim Deltamania</b>
+												</p>
+											</td>
+										</tr>
+									</table>
+									<p style="font-size:12px; color:#888; margin-top:10px;">Email ini dikirim secara otomatis, mohon tidak membalas email ini.</p>
+								</td>
+							</tr>
+						</table>
+					</body>'
 				);
 			}
 		}

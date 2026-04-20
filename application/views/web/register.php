@@ -47,6 +47,12 @@
                     <label id="EMAIL-LABEL" class="field-label fira-sans-light">Alamat Email*</label>
                     <input type="email" id="EMAIL" name="EMAIL" placeholder="Isi dengan email aktif, untuk login"/>
                     </div>
+                    <button type="button" class="btn-changepassword fira-sans-medium">
+                        <span><img src="assets/images/icon-gembok.png" style="width:24px; height:22px;"></span>
+                        <span>
+                            Ubah Password
+                        </span>
+                    </button>
                     <div class="field">
                     <label class="field-label fira-sans-light">Akun Instagram</label>
                     <input type="text" id="INSTAGRAM" name="INSTAGRAM"/>
@@ -98,6 +104,7 @@
 $(document).ready(function() {
     if($("#mode").val() == "ubah"){
         $(".check-register, .wajib").hide();
+        $(".btn-changepassword").show();
         $(".member-card").show();
         $(".btn-form").html("Ubah Data");
         $(".form-title").html("Akun Profil");
@@ -146,6 +153,7 @@ $(document).ready(function() {
     }
     else
     {
+        $(".btn-changepassword").hide();
         $(".member-card").hide();
         $(".btn-logout").hide();
     }
@@ -166,6 +174,11 @@ $(document).ready(function() {
         {
             register();
         }
+    })
+
+
+    $(".btn-changepassword").click(function(){
+        changePassword();
     })
 
     $(".btn-logout").click(function(){
@@ -284,7 +297,7 @@ function register(){
                 dataType: 'json',
                 success: function(msg){
                     if (msg.success) {
-                        window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb);
+                        window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb+'&e=r');
                     } else {
                         alert(msg.errorMsg);
                     }
@@ -379,6 +392,23 @@ function changeProfile(){
             }); 
         }
     }
+}
+
+function changePassword(){
+    $.ajax({
+        type    : 'POST',
+        url     : base_url+'Master/Data/Member/emailChangePassword',
+        data    : "e="+$("#EMAIL").val(),
+        cache   : false,
+        dataType: 'json',
+        success: function(msg){
+            if (msg.success) {
+                window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb+'&e=cp');
+            } else {
+                alert(msg.errorMsg);
+            }
+         }
+     }); 
 }
 
 function logout(){

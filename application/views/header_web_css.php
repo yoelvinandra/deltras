@@ -390,6 +390,15 @@ img { display: block; max-width: 100%; }
   color: var(--primary-color);
   text-align:center;
 }
+.form-subtitle-detail{
+  font-size:20px; 
+  text-align:center;
+}
+
+.form-subtitle-detail a{
+  color: var(--primary-color);
+  text-align:center;
+}
 /* Tambahkan ini */
 .field {
   margin-bottom: 16px;
@@ -448,6 +457,26 @@ img { display: block; max-width: 100%; }
   transition: background 0.4s ease;
 }
 .btn-logout:hover {
+  background: #cecece;
+}
+
+.btn-changepassword {
+  margin-bottom:16px;
+  width: 100%;
+  background: #fff;
+  border:none;
+  outline: 1.9px solid var(--primary-color);
+  outline-offset: -1.9px; /* negatif = ke dalam */
+  color:  var(--primary-color);
+  padding: 13px;
+  font-size: 16px;
+  cursor:pointer;
+  transition: background 0.4s ease;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.btn-changepassword:hover {
   background: #cecece;
 }
 
@@ -3998,6 +4027,10 @@ input[data-provide="datepicker"]:focus {
     .form-subtitle{
       font-size:16px; 
     }
+    .form-subtitle-detail{
+      font-size:16px; 
+    }
+
 
     .field-label {
       font-size: 12px;
@@ -4007,6 +4040,9 @@ input[data-provide="datepicker"]:focus {
     } 
     .btn-logout {
       font-size: 20px;
+    }
+    .btn-changepassword {
+      font-size: 16px;
     }
     .form-card-bottom{
       font-size:14px;

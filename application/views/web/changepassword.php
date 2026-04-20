@@ -3,8 +3,8 @@
     <div class="page-bg">
         <div class="page-bg-cover">
             <div class="form-card">
-                <div class="form-title fira-sans-bold">Atur Ulang Kata Sandi</div>
-                <p class="form-subtitle fira-sans-regular">Masukkan password baru Anda sekarang.</p>
+                <div class="form-title fira-sans-bold"></div>
+                <p class="form-subtitle fira-sans-regular">Masukkan password baru-mu sekarang.</p>
                 <br>
                 <div class="field">
                 <label class="field-label fira-sans-light">Password Baru</label>
@@ -16,8 +16,32 @@
                 </div>
                 <br>
                 <br>
-                <button type="button" class="btn-form fira-sans-bold">Ganti Password</button>
+                <button type="button" class="btn-form fira-sans-bold">Simpan Password</button>
             </div>
         </div>
     </div>
 </section>
+<script>
+$(document).ready(function() {
+    if('<?= $e ?>' == 'cp') 
+    {
+        $(".form-title").html("Ubah Password");
+    }
+    else if('<?= $e ?>' == 'rp') 
+    {
+        $(".form-title").html("Atur Ulang Password");
+    }
+
+    $('#CPASSWORD').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			simpanPassword();
+		}
+	});
+});
+
+
+function simpanPassword(){
+    
+}
+</script>
