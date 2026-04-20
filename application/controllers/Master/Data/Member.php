@@ -29,11 +29,6 @@ class Member extends MY_Controller {
 		}
 		else
 		{
-			sendEmail(
-				$email,
-				'Aktivasi Akun Deltamania',
-				'<h2>Selamat Bergabung!</h2><p>Password: <strong>ABC123</strong></p>'
-			);
 			echo json_encode(array('success' => true,'errorMsg' => ''));
 		}
 	}
@@ -64,18 +59,18 @@ class Member extends MY_Controller {
 			$response = $this->model_master_member->getKonfirmasiWeb($id);
 			if(empty($response))
 			{
-				$response['success'] = false;
-				$response['errorMsg'] = "Link tidak valid";
+				$response->success = false;
+				$response->errorMsg = "Link tidak valid";
 			}
 			else
 			{
-				$response['success'] = true;
+				$response->success = true;
 			}
 		}
 		else
 		{
-			$response['success'] = false;
-			$response['errorMsg'] = $id;
+			$response->success = false;
+			$response->errorMsg = $id;
 
 		}
 		echo json_encode($response);
@@ -157,6 +152,19 @@ class Member extends MY_Controller {
 					//SESSION
 				$_SESSION[NAMAPROGRAM]['MEMBERNAME']   = $data_values['NAMADEPAN'];
 				$_SESSION[NAMAPROGRAM]['EMAIL_MEMBER'] = $data_values['EMAIL'];
+			}
+		}
+		else
+		{
+			if($data_values['DARI'] == 'USER'){
+				
+				generateQR($response,$data_values['KODEUNIK']);
+
+				sendEmail(
+					$data_values['EMAIL'],
+					'Aktivasi Akun Deltamania',
+					'<h2>Selamat Bergabung!</h2><p>Password: <strong>'.$data_values['KODEUNIK'].'</strong></p>'
+				);
 			}
 		}
 		

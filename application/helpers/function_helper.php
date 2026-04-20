@@ -2490,24 +2490,56 @@ function decryptMember($hashid) {
     }
 }
 
-require APPPATH . 'third_party/PHPMailer/class.phpmailer.php';
-require APPPATH . 'third_party/PHPMailer/class.smtp.php';
+require APPPATH . 'third_party/phpqrcode/qrlib.php';
+function generateQR($id,$generateQR){
+	// Simpan ke file
+	$filename = './assets/images/member/qr_' . $id . '.png';
+	QRcode::png($generateQR, $filename, QR_ECLEVEL_H, 10, 2);
+
+	// Tampil di HTML
+	return $filename;
+}
+
+require APPPATH . 'third_party/PHPMailer/src/Exception.php';
+require APPPATH . 'third_party/PHPMailer/src/PHPMailer.php';
+require APPPATH . 'third_party/PHPMailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 function sendEmail($to, $subject, $body) {
-    $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+
+    $mail = new PHPMailer(true);
 
     try {
         // Setting SMTP
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'yoelvinandra@gmail.com';
-        $mail->Password   = 'Rasengan147!';
+		
+
+		$CI =& get_instance();	
+		$CI->load->model(array("model_master_config"));
+		$config = $CI->model_master_config->getConfigModul('MAIL');
+
+		foreach($config as $itemConfig){
+			if($itemConfig->CONFIG == "EMAIL"){
+        		$mail->Username   = $itemConfig->VALUE;
+			}
+			else if($itemConfig->CONFIG == "PASSWORD"){
+        		$mail->Password   = $itemConfig->VALUE;
+			}
+			else if($itemConfig->CONFIG == "FROM"){
+				//Pengirim
+				$mail->setFrom($mail->Username, $itemConfig->VALUE);
+			}
+		}
+
         $mail->SMTPSecure = 'ssl';
         $mail->Port       = 465;
 
-        // Pengirim & penerima
-        $mail->setFrom('yoelvinandra@gmail.com', 'Deltamania');
+        // Penerima
         $mail->addAddress($to);
 
         // Konten

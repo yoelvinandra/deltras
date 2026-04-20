@@ -176,7 +176,10 @@ class Model_master_member extends MY_Model{
 	}
 
 	public function getDataWeb($email){
-		$sql = "select a.IDMEMBER,a.NAMADEPAN,a.NAMABELAKANG,a.EMAIL,a.TELP,a.TELPDARURAT,a.NIK,a.TGLLAHIR,a.ALAMAT,a.INSTAGRAM,a.TIKTOK,CONCAT('".base_url()."assets/images/member/',IDMEMBER,'.png') as GAMBAR,a.STATUS
+		$sql = "select a.IDMEMBER,a.NAMADEPAN,a.NAMABELAKANG,a.EMAIL,a.TELP,a.TELPDARURAT,a.NIK,a.TGLLAHIR,a.ALAMAT,a.INSTAGRAM,a.TIKTOK,
+				CONCAT('".base_url()."assets/images/member/',IDMEMBER,'.png') as GAMBAR,
+				CONCAT('".base_url()."assets/images/member/qr_',IDMEMBER,'.png') as GAMBARQR,
+				a.STATUS
 				from MMEMBER a
 				WHERE UPPER(a.EMAIL) = UPPER('$email') AND a.STATUS = 1";
 		$data = $this->db->queryRaw($sql)->row();

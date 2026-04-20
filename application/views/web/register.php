@@ -1,4 +1,3 @@
-<!-- HTML Structure -->
 <section class="form-page">
     <div class="page-bg">
         <div class="page-bg-cover">

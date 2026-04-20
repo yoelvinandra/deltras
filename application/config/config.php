@@ -24,8 +24,9 @@ date_default_timezone_set("Asia/Jakarta");
 |
 */
 
-// $config['base_url'] = 'http://localhost/deltras';
-$config['base_url'] = 'http://192.168.1.17/deltras';
+$config['base_url'] = 'http://localhost/deltras';
+// $config['base_url'] = 'http://192.168.1.17/deltras';
+// $config['base_url'] = 'http://192.168.6.191/deltras';
 /*
 |--------------------------------------------------------------------------
 | Index File
