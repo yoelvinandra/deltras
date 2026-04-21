@@ -167,7 +167,7 @@ class Model_master_member extends MY_Model{
 	}
 
 	public function getKonfirmasiWeb($id){
-		$sql = "select a.NAMADEPAN,a.EMAIL
+		$sql = "select a.NAMADEPAN,a.EMAIL,a.TGLENTRY
 				from MMEMBER a
 				WHERE a.IDMEMBER = $id";
 		$data = $this->db->query($sql)->row();

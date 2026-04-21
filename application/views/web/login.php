@@ -89,6 +89,7 @@
 						   window.location.replace('<?php echo base_url(); ?>');
                         } else {
                             alertMsg(msg.errorMsg);
+                            document.activeElement.blur();
                         }
                     }
                 });

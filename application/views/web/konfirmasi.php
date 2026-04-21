@@ -24,6 +24,7 @@
 
     if('<?= $i ?>' !== '' && '<?= $e ?>' !== '') 
     {
+        var valid = false;
         $.ajax({
             type    : 'POST',
             dataType: 'json',
@@ -57,6 +58,7 @@
                             </ol>
                             `
                         )
+                        valid = true;
                     }
                     else if('<?= $e ?>' == 'cp') 
                     {
@@ -82,6 +84,7 @@
                             </ol>
                             `
                         )
+                        valid = true;
                     }
                     else if('<?= $e ?>' == 'rp') 
                     {
@@ -107,13 +110,42 @@
                             </ol>
                             `
                         )
+                        valid = true;
+                    }
+                    else if('<?= $e ?>' == 'sp') 
+                    {
+                        $(".form-title").html(
+                            `
+                                Hi, <span id="NAMADEPAN"></span><br>Password-mu telah berhasil diubah !
+                            `
+                        );
+
+                        $(".form-subtitle").html(
+                            `
+                            Untuk melihat password yang telah diubah, mohon cek pada email <a href="#" id="EMAIL" class="fira-sans-semibold">Daftar sekarang</a>
+                            `
+                        );
+
+                        $(".form-subtitle-detail").html(
+                            `
+                            Mohon tetap menjaga kerahasian data, karena kamu adalah member Deltamania yang berharga.
+                            `
+                        )
+                        valid = true;
                     }
 
-                    $("#NAMADEPAN").html(msg.NAMADEPAN.toUpperCase());
-                    $("#EMAIL").html(msg.EMAIL);
-                    $("#EMAIL").attr("href","mailto:"+msg.EMAIL);
+                    if(valid)
+                    {
+                        $("#NAMADEPAN").html(msg.NAMADEPAN.toUpperCase());
+                        $("#EMAIL").html(msg.EMAIL);
+                        $("#EMAIL").attr("href","mailto:"+msg.EMAIL);
+                    }
+                    else 
+                    {
+                        alertMsg(msg.errorMsg);
+                    }
                 } else {
-                    alertMsg(msg.errorMsg);
+                    alertMsg("Link tidak valid");
                 }
             }
         });

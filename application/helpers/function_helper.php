@@ -2490,6 +2490,53 @@ function decryptMember($hashid) {
     }
 }
 
+function checkDateConfirm($hashid,$tglentry) {
+    try {
+
+		//CONFIRM DATE
+        $stored = substr($hashid, 0, 12);
+
+        $hh = substr($stored, 0, 2);
+        $mm = substr($stored, 2, 2);
+        $ss = substr($stored, 4, 2);
+        $yy = substr($stored, 6, 2);
+        $mo = substr($stored, 8, 2);	
+        $dd = substr($stored, 10, 2);
+
+        // Tambah "20" di depan tahun → 26 jadi 2026
+        $stored_date = DateTime::createFromFormat(
+            'H:i:s d/m/Y', 
+            "$hh:$mm:$ss $dd/$mo/20$yy"
+        );
+		
+		//LAST ENTRY DATE
+
+		$hh = explode(":",explode(" ",$tglentry)[1])[0];
+        $mm = explode(":",explode(" ",$tglentry)[1])[1];
+        $ss = explode(":",explode(" ",$tglentry)[1])[2];
+        $yy = explode("-",explode(" ",$tglentry)[0])[0];
+        $mo = explode("-",explode(" ",$tglentry)[0])[1];
+        $dd = explode("-",explode(" ",$tglentry)[0])[2];
+
+        $entry_date = DateTime::createFromFormat(
+            'H:i:s d/m/Y', 
+            "$hh:$mm:$ss $dd/$mo/$yy"
+        );
+
+        $selisih = ($entry_date->getTimestamp() - $stored_date->getTimestamp());
+
+        if ($selisih >= 0) {
+			
+            return "Link sudah expired";
+        }
+	
+        return "";
+
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+}
+
 require APPPATH . 'third_party/phpqrcode/qrlib.php';
 function generateQR($id,$generateQR){
 	// Simpan ke file

@@ -300,6 +300,7 @@ function register(){
                         window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb+'&e=r');
                     } else {
                         alert(msg.errorMsg);
+                        document.activeElement.blur();
                     }
                 }
             }); 
@@ -387,6 +388,7 @@ function changeProfile(){
                         window.location.replace('<?php echo base_url(); ?>');
                     } else {
                         alert(msg.errorMsg);
+                        document.activeElement.blur();
                     }
                 }
             }); 
@@ -408,7 +410,7 @@ function changePassword(){
                 alert(msg.errorMsg);
             }
          }
-     }); 
+    }); 
 }
 
 function logout(){

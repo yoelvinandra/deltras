@@ -65,6 +65,12 @@ class Member extends MY_Controller {
 			else
 			{
 				$response->success = true;
+				$checkDateValid = checkDateConfirm($this->input->post("i"),$response->TGLENTRY);
+				if(!empty($checkDateValid))
+				{
+					$response->success = false;
+					$response->errorMsg = $checkDateValid;
+				}
 			}
 		}
 		else
@@ -73,6 +79,12 @@ class Member extends MY_Controller {
 			$response->errorMsg = $id;
 
 		}
+
+		if(!$response->success){
+			unset($response->NAMADEPAN);
+			unset($response->EMAIL);
+		}
+		unset($response->TGLENTRY);
 		echo json_encode($response);
 	}
 
@@ -100,7 +112,7 @@ class Member extends MY_Controller {
 								<table width="500" cellpadding="0" cellspacing="0" style="background:#ffffff; padding:20px; border-radius:8px;">
 									<tr>
 										<td>
-											<h2 style="color:#333;">Ubah Password Akun Deltamania</h2>
+											<h2 style="color:#333;">Permintaan Ubah Password Akun Deltamania</h2>
 											<p>Hi, '.(strtoupper($data->NAMADEPAN)).'</p>
 											<p>Kami menerima permintaan untuk mengubah password akun Deltamania-mu.</p>
 
@@ -155,7 +167,7 @@ class Member extends MY_Controller {
 								<table width="500" cellpadding="0" cellspacing="0" style="background:#ffffff; padding:20px; border-radius:8px;">
 									<tr>
 										<td>
-											<h2 style="color:#333;">Atur Ulang Password Akun Deltamania</h2>
+											<h2 style="color:#333;">Permintaan Atur Ulang Password Akun Deltamania</h2>
 											<p>Hi, '.(strtoupper($data->NAMADEPAN)).'</p>
 											<p>Kami menerima permintaan untuk mengatur ulang password akun Deltamania-mu.</p>
 
@@ -184,6 +196,103 @@ class Member extends MY_Controller {
 			);
 		}
 		echo json_encode($response);
+	}
+
+	public function changePassword(){
+		$this->output->set_content_type('application/json');
+		$data = $this->model_master_member->getDataWeb($this->input->post("e",""));
+		if(empty($data))
+		{
+			$response['success'] = false;
+			$response['errorMsg'] = "Data tidak ditemukan";
+		}
+		else
+		{
+			$response['success'] = true;
+			$id = decryptMember($data->IDMEMBER);
+			$data_values = array(
+				'NAMADEPAN'		  => $data->NAMADEPAN,
+				'EMAIL'    		  => $this->input->post("e",""),
+				'PASSWORD' 		  => md5($this->input->post("p","")),
+				'USERENTRY'       => "-" ,
+				'TGLENTRY'        => date("Y-m-d h:i:s")
+			);
+			$edit = true;
+			$mode = "ubah";
+			$response = $this->model_master_member->simpan($id,$data_values,$edit);
+
+			
+			if (!is_numeric($response)){
+				// generate an error... or use the log_message() function to log your error
+				die(json_encode(array('errorMsg' => $response)));
+			}
+			else
+			{
+				sendEmail(
+					$data_values['EMAIL'],
+					'Perubahan Password Akun Deltamania',
+					'
+					<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin:0; padding:0;">
+						<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding:20px;">
+							<tr>
+								<td align="center">
+									<table width="500" cellpadding="0" cellspacing="0" style="background:#ffffff; padding:20px; border-radius:8px;">
+										<tr>
+											<td>
+												<h2 style="color:#333;">Perubahan Password Akun Deltamania</h2>
+												<p>Hi, '.(strtoupper($data_values['NAMADEPAN'])).'</p>
+												<p>Kami ingin menginformasikan bahwa password akun member <b>Deltamania</b> Kamu telah berhasil diubah.</p>
+
+												<table cellpadding="5" cellspacing="0" style="margin:15px 0;">
+													<tr>
+														<td><b>Password Baru</b></td>
+														<td>: <b>'.$this->input->post("p","").'</b></td>
+													</tr>
+													<tr>
+														<td><b>Tanggal / Waktu Perubahan</b></td>
+														<td>: '.Date("Y-m-d H:i:s").'</td>
+													</tr>
+												</table>
+
+												<p>Mohon tetap menjaga kerahasian password-mu, karena setiap data member Deltamania sangat berharga.</p>
+
+												<p>Jika Anda mengalami kendala saat login atau membutuhkan bantuan lebih lanjut, jangan ragu untuk menghubungi kami.</p>
+
+												<p>Terima kasih.</p>
+
+												<p style="margin-top:20px;">
+													Salam,<br>
+													<b>Tim Deltamania</b>
+												</p>
+											</td>
+										</tr>
+									</table>
+									<p style="font-size:12px; color:#888; margin-top:10px;">Email ini dikirim secara otomatis, mohon tidak membalas email ini.</p>
+								</td>
+							</tr>
+						</table>
+					</body>'
+				);
+			}
+			
+			// panggil fungsi untuk log history
+			log_history(
+				$response,
+				'MASTER MEMBER',
+				$mode,
+				array(
+					array(
+						'nama'  => 'header',
+						'tabel' => 'MMEMBER',
+						'kode'  => 'IDMEMBER',
+						'id'	=> $response
+					),
+				),
+				"USER"
+			);
+
+			echo json_encode(array('success' => true,'errorMsg' => '','idweb'=>encryptMember($response)));
+		}
 	}
 
 	public function dataGrid() {
@@ -251,7 +360,6 @@ class Member extends MY_Controller {
 
 		$response = $this->model_master_member->simpan($id,$data_values,$edit);
 		
-	
 		if (!is_numeric($response)){
 			// generate an error... or use the log_message() function to log your error
 			die(json_encode(array('errorMsg' => $response)));
@@ -283,7 +391,7 @@ class Member extends MY_Controller {
 											<td>
 												<h2 style="color:#333;">Informasi Aktivasi Akun Deltamania</h2>
 												<p>Hi, '.(strtoupper($data_values['NAMADEPAN'])).'</p>
-												<p>Kami ingin menginformasikan bahwa akun member <b>Deltamania</b> Anda telah berhasil diaktifkan.</p>
+												<p>Kami ingin menginformasikan bahwa akun member <b>Deltamania</b> Kamu telah berhasil diaktifkan.</p>
 
 												<table cellpadding="5" cellspacing="0" style="margin:15px 0;">
 													<tr>
