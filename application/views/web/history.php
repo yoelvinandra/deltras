@@ -1,60 +1,33 @@
 <!-- HERO -->
-<section class="hero-slider">
-    <!-- Slides -->
-    <div class="slide active" 
-          data-audio="assets/audio/sound1.mp3"
-          style="background-image: url('assets/images/slider/1.png')">
-      <div class="slide-cover">
-          <div class="slide-content">
-              <h1 class="fira-sans-extrabold">HEADLINE</h1>
-              <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut.</p>
-              <a href="#" class="btn-readmore fira-sans-extrabold">READ MORE ></a>
-          </div>
-      </div>
-    </div>
+<section class="slider-section">
 
+   <!-- SLIDE 1 -->
+    <a class="slide active" href="" style="background:url('assets/images/slider/1.png');  height: 100%; background-size:cover; background-position: center; background-repeat: no-repeat;">
+    </a>
 
-    <div class="slide" 
-          data-audio="assets/audio/sound2.mp3"
-          style="background-image: url('assets/images/slider/2.png')">
-      <div class="slide-cover">
-          <div class="slide-content">
-              <h1 class="fira-sans-extrabold">HEADLINE 2</h1>
-              <p>Lorem ipsum dolor sit amet consectetur.</p>
-              <a href="#" class="btn-readmore fira-sans-extrabold">READ MORE ></a>
-          </div>
-      </div>
-    </div>
+  <!-- SLIDE 2 -->
+    <a class="slide" href="" style="background:url('assets/images/slider/2.png');  height: 100%; background-size:cover; background-position: center; background-repeat: no-repeat;">
+    </a>
 
-    <div class="slide" 
-          data-audio="assets/audio/sound3.mp3"
-          style="background-image: url('assets/images/slider/3.png')">
-      <div class="slide-cover">
-          <div class="slide-content">
-              <h1 class="fira-sans-extrabold">HEADLINE 3</h1>
-              <p>Lorem ipsum dolor sit amet consectetur.</p>
-              <a href="#" class="btn-readmore fira-sans-extrabold">READ MORE ></a>
-          </div>
-      </div>
-    </div>
+  <!-- SLIDE 3 -->
+    <a class="slide" href="" style="background:url('assets/images/slider/3.png');  height: 100%; background-size:cover; background-position: center; background-repeat: no-repeat;">
+    </a>
 
-    <!-- Bottom Bar -->
-    <div class="slider-controller">
-        <!-- Play/Stop Button -->
-        <button class="play-btn" id="playBtn">
-            <span id="playIcon"><img src="assets/images/pause.png"></span> 
-            <span id="slideTitle">Deltras FC Club History</span>
-        </button>
+  <!-- SLIDE 4 -->
+    <a class="slide" href="" style="background:url('assets/images/slider/4.png');  height: 100%; background-size:cover; background-position: center; background-repeat: no-repeat;">
+    </a>
 
-        <!-- Sound Button -->
-        <button class="sound-btn" id="soundBtn"><img src="assets/images/volume_on.png"></button>
-    </div>
-    <div class="slider-bar">
-        <!-- Progress Bar -->
-        <div class="progress-bar-wrap">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-    </div>
+  <!-- SLIDE 5 -->
+    <a class="slide" href="" style="background:url('assets/images/slider/5.png');  height: 100%; background-size:cover; background-position: center; background-repeat: no-repeat;">
+    </a>
+
+  <!-- Arrows -->
+  <button class="slider-nav prev" onclick="moveSlide(-1)">&#8249;</button>
+  <button class="slider-nav next" onclick="moveSlide(1)">&#8250;</button>
+
+  <!-- Dots -->
+  <div class="slider-dots" id="dots"></div>
+
 </section>
 
 
@@ -166,93 +139,38 @@
 </section>
 
 <script> 
-//HERO
-const slides      = document.querySelectorAll('.slide');
-const progressBar = document.getElementById('progressBar');
-const playBtn     = document.getElementById('playBtn');
-const playIcon    = document.getElementById('playIcon');
-const slideTitle  = document.getElementById('slideTitle');
-const soundBtn    = document.getElementById('soundBtn');
-
-const slideTitles = [
-    'Deltras FC Club History',
-    'Deltras FC Season 2026',
-    'Deltras FC Highlights'
-];
-
-let currentSlide  = 0;
-let isPlaying     = true;
-let isMuted       = false;
-let progress      = 0;
-let interval      = null;
-let audio         = null;
-const duration    = 5000; // 5 seconds per slide
-const tick        = 100;  // update every 100ms
-
-function loadAudio(index) {
-    if (audio) {
-        audio.pause();
-        audio = null;
-    }
-    const src = slides[index].dataset.audio;
-    if (src) {
-        audio = new Audio(src);
-        audio.muted = isMuted;
-        audio.play().catch(() => {}); // catch autoplay block
-    }
-}
-
-function goToSlide(index) {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = index % slides.length;
-    slides[currentSlide].classList.add('active');
-    slideTitle.textContent = slideTitles[currentSlide];
-    progress = 0;
-    progressBar.style.width = '0%';
-    loadAudio(currentSlide);
-}
-
-function startSlider() {
-    interval = setInterval(() => {
-        progress += tick;
-        const pct = (progress / duration) * 100;
-        progressBar.style.width = pct + '%';
-
-        if (progress >= duration) {
-            goToSlide(currentSlide + 1);
-        }
-    }, tick);
-}
-
-function stopSlider() {
-    clearInterval(interval);
-    interval = null;
-    if (audio) audio.pause();
-}
-
-// Play / Stop toggle
-playBtn.addEventListener('click', () => {
-    isPlaying = !isPlaying;
-    if (isPlaying) {
-        playIcon.innerHTML = '<img src="assets/images/pause.png">'; // play icon
-        startSlider();
-        if (audio) audio.play().catch(() => {});
-    } else {
-        playIcon.innerHTML = '<img src="assets/images/play.png">'; // pause icon
-        stopSlider();
-    }
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.getElementById('dots');
+let current = 0;
+let timer;
+// Build dots
+slides.forEach((_, i) => {
+  const d = document.createElement('a');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.addEventListener('click', () => goTo(i));
+  dotsContainer.appendChild(d);
 });
-
-// Sound toggle
-soundBtn.addEventListener('click', () => {
-    isMuted = !isMuted;
-    soundBtn.innerHTML = isMuted ? '<img src="assets/images/volume_off.png">' : '<img src="assets/images/volume_on.png">';
-    if (audio) audio.muted = isMuted;
-});
-
-// Start on load
-loadAudio(currentSlide);
-startSlider();
+function goTo(n) {
+  const prevSlide = slides[current];
+  const prevDot = document.querySelectorAll('.dot')[current];
+  current = (n + slides.length) % slides.length;
+  const nextSlide = slides[current];
+  const nextDot = document.querySelectorAll('.dot')[current];
+  // Fade out slide lama
+  prevSlide.classList.remove('active');
+  prevDot.classList.remove('active');
+  // Fade in slide baru
+  nextSlide.classList.add('active');
+  nextDot.classList.add('active');
+  updateNavColor();
+  resetTimer();
+}
+function moveSlide(dir) { goTo(current + dir); }
+function resetTimer() {
+  clearInterval(timer);
+  timer = setInterval(() => moveSlide(1), 5000);
+}
+resetTimer();
 
 
 async function loadVideo(){

@@ -141,6 +141,7 @@ img { display: block; max-width: 100%; }
 
 /* ======= HEADER SOCIAL ======= */
 .header-social {
+  z-index:1;
   position: relative;
   width: 100%;
   height:50px;
@@ -503,156 +504,85 @@ img { display: block; max-width: 100%; }
   background:#d4d4d4;
 }
 
-
-/* ======= HERO ======= */
-.hero-slider {
+/* ======= SLIDER ======== */
+.slider-section {
+  background: #111;
   position: relative;
+  margin-top:-12vh;
   width: 100%;
-  height: calc(100vh - 110px);
+  height: 100vh;
   overflow: hidden;
+  border-radius: 0;
+  text-align:center;
 }
-
-/* Slides */
+/* ── Background: deep red with radial vignette ── */
 .slide {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-size: cover;
-  background-position: center;
+  display: block;        /* ganti dari none ke block */
+  position: absolute;    /* tumpuk semua slide */
+  inset: 0;
   opacity: 0;
-  transition: opacity 1s ease;
   pointer-events: none;
-}
-
-.slide-cover{
-  width: 100%; height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0) 0%,  /* transparent */
-    rgba(0,0,0,0.0) 80%,
-    rgba(0,0,0,0.95) 100%   /* solid dark */
-  );
+  transition: opacity 0.6s ease;
+  /* ... sisa style lainnya tetap sama */
 }
 .slide.active {
   opacity: 1;
   pointer-events: auto;
 }
-
-/* Content on right side */
-.slide-content {
+/* grain overlay */
+.slide::before {
+  content: '';
   position: absolute;
-  bottom: 120px;
-  right: calc((100vw - 1280px) / 2);
-  text-align: right;
-  color: white;
-  max-width: 350px;
+  inset: 0;
+  opacity: 0.18;
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
-
-.slide-content h1 {
-  font-size: 48px;
-  font-weight: 900;
-  margin: 0 0 10px;
-  letter-spacing: 2px;
-}
-
-.slide-content p {
-  color:black;
-  font-size: 18px;
-  margin: 0 0 20px;
-}
-
-.btn-readmore {
-  display: inline-block;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 8px 18px;
-  font-size: 16px;
-  text-decoration: none;
-  border-radius : 4px;
-  transition: background-color 0.4s ease;
-}
-
-.btn-readmore:hover {
-  /* background: #aa0000; */
-  background-color: #EC3237;
-}
-
-/* Bottom Bar */
-.slider-controller {
+/* ── Nav Arrows ── */
+.slider-nav {
   position: absolute;
-  bottom: 20;
-  width:100%;
-  max-width: 1280px;
-  display: flex;
-  align-items: center; 
-  left: 50%;    
-  transform: translateX(-50%);
-  justify-content: space-between;
-  box-sizing: border-box;
+  top: 50%;
+  transform: translateY(-50%);
+  background:none;
+  width:100px;
   z-index: 10;
-  padding-left:10px;
-  padding-right:10px;
-}
-
-.slider-bar {
-  position: absolute;
-  bottom: 0;
-  width:100%;
-  max-width: 1280px;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center; left: 50%;    
-  transform: translateX(-50%);
-  gap: 15px;
-  box-sizing: border-box;
-  z-index: 10;
-}
-
-.play-btn {
-  background: none;
   border: none;
-  color: white;
-  font-size: 14px;
+  color: #fff;
+  font-size: 6rem;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-  transition: color 0.4s ease;
-
+  justify-content: center;
+  transition: color 0.2s;
+  user-select: none;
 }
-
-.play-btn:hover {
-  color: #ccc;
+.slider-nav:hover { color: rgba(255,255,255,0.3); }
+.slider-nav.prev { left: 7%; }
+.slider-nav.next { right: 7%; }
+/* ── Segmented Progress Bar ── */
+.slider-dots {
+  position: absolute;
+  bottom: 0;
+  margin-bottom:10px;
+  display: flex;
+  z-index: 10;
+  width: 50%;
+  left: 50% ;
+  transform: translateX(-50%);
 }
-
-/* Progress Bar */
-.progress-bar-wrap {
+.dot {
   flex: 1;
-  height: 6px;
-  background: rgba(255,255,255,  0.4);
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%;
-  width: 0%;
-  background: var(--primary-color);
-  transition: width 0.1s linear;
-}
-
-/* Sound Button */
-.sound-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 20px;
+  height: 5px;
+  border-radius: 0;
+  background: #3B3B3B;
   cursor: pointer;
-  transition: color 0.4s ease;
+  transition: background 0.25s;
+  border: none;
+  outline: none;
+  clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
 }
-
-.sound-btn:hover {
-  color: #ccc;
+.dot.active {
+  background:var(--primary-color);
 }
 
 /* ======= TEAM PHOTO STRIP ======= */
