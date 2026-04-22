@@ -5,6 +5,34 @@ class Model_master_config extends CI_Model{
 	{
 		$this->maindb = $this->load->database('default',true);	
 	}
+
+	public function web($for){
+		if($for == "HOME"){
+			//BANNERSLIDE
+			$sqlConfig = "select VALUE,PREFIX
+				from MCONFIG  
+				WHERE MODUL = 'HOME' AND CONFIG = 'URLBANNERSLIDE' 
+				ORDER BY PREFIX";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+			$data['rows']['BANNER'] = $queryConfig->result();
+
+			//VIDEO BTS
+			$sqlConfig = "select VALUE
+				from MCONFIG  
+				WHERE MODUL = 'HOME' AND CONFIG = 'URLVIDEOBTS' 
+				ORDER BY PREFIX";
+			$queryConfig = $this-	>db->queryRaw($sqlConfig);	
+			$data['rows']['URLBTS'] = $queryConfig->row();
+
+			//GENERAL DATA
+			$sqlConfig = "select CONFIG,VALUE
+				from MCONFIG  
+				WHERE MODUL = 'HOME' AND CONFIG in ('ALAMAT','TELP','EMAIL')";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+			$data['rows']['GENERAL'] = $queryConfig->result();
+		}
+		return $data;
+	}
     
 	public function getConfig($modul,$conf){
 		return $this->maindb

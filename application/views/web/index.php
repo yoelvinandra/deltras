@@ -258,6 +258,15 @@ function resetTimer() {
 }
 resetTimer();
 
+
+$.ajax({
+    url: '<?base_url()?>' + 'Master/Data/General/web?for=HOME',
+    type: 'GET',
+    dataType: 'json',
+    success: function (data) {
+    }}
+);
+
 async function loadVideo(){
     var videoid = getVideoId("https://youtu.be/XAI7mmlNBQQ");
     var videoData = await getYouTubeData(videoid);
