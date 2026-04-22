@@ -1,24 +1,24 @@
 <!-- HERO -->
 <section class="slider-section">
 
-   <!-- SLIDE 1 -->
-    <a class="slide active" href="" style="background:url('assets/images/slider/1.png');  height: 100%; background-size:cover; background-position: center; background-repeat: no-repeat;">
+  <!-- SLIDE 1 -->
+    <a class="slide active" href="" style="background:url('assets/images/slider/1.png');  height: 100%; background-size:100% auto; background-position: center; background-repeat: no-repeat;">
     </a>
 
   <!-- SLIDE 2 -->
-    <a class="slide" href="" style="background:url('assets/images/slider/2.png');  height: 100%; background-size:cover; background-position: center; background-repeat: no-repeat;">
+    <a class="slide" href="" style="background:url('assets/images/slider/2.png');  height: 100%;  background-size:100% auto; background-position: center; background-repeat: no-repeat;">
     </a>
 
   <!-- SLIDE 3 -->
-    <a class="slide" href="" style="background:url('assets/images/slider/3.png');  height: 100%; background-size:cover; background-position: center; background-repeat: no-repeat;">
+    <a class="slide" href="" style="background:url('assets/images/slider/3.png');  height: 100%;  background-size:100% auto; background-position: center; background-repeat: no-repeat;">
     </a>
 
   <!-- SLIDE 4 -->
-    <a class="slide" href="" style="background:url('assets/images/slider/4.png');  height: 100%; background-size:cover; background-position: center; background-repeat: no-repeat;">
+    <a class="slide" href="" style="background:url('assets/images/slider/4.png');  height: 100%;  background-size:100% auto; background-position: center; background-repeat: no-repeat;">
     </a>
 
   <!-- SLIDE 5 -->
-    <a class="slide" href="" style="background:url('assets/images/slider/5.png');  height: 100%; background-size:cover; background-position: center; background-repeat: no-repeat;">
+    <a class="slide" href="" style="background:url('assets/images/slider/5.png');  height: 100%;  background-size:100% auto; background-position: center; background-repeat: no-repeat;">
     </a>
 
   <!-- Arrows -->

@@ -508,9 +508,8 @@ img { display: block; max-width: 100%; }
 .slider-section {
   background: #111;
   position: relative;
-  margin-top:-12vh;
   width: 100%;
-  height: 100vh;
+  height: 88vh;
   overflow: hidden;
   border-radius: 0;
   text-align:center;
@@ -3124,6 +3123,9 @@ input[data-provide="datepicker"]:focus {
 }
 
 @media (max-width: 1200px){
+  .slider-section {
+    height: 70vh;
+  }
   .team-all-section {
     padding-left:32px;
     padding-right:32px;
@@ -3132,6 +3134,15 @@ input[data-provide="datepicker"]:focus {
 
 /* ======= MOBILE ======= */
 @media (max-width: 1050px) {
+   .slider-section {
+      height: 60vh;
+    }
+    .slider-nav {
+      font-size: 4rem;
+    }
+    .slider-nav.prev { left: 3%; }
+    .slider-nav.next { right: 3%; }
+
     .nav-logo {
     position: absolute;
     left: 50%;
@@ -3497,6 +3508,9 @@ input[data-provide="datepicker"]:focus {
 }
 
 @media (max-width: 768px) {
+   .slider-section {
+      height: 40vh;
+    }
    .team-section .player-detail{
       grid-template-columns: repeat(2, 1fr);
   }
@@ -3543,7 +3557,11 @@ input[data-provide="datepicker"]:focus {
 }
 
 @media (max-width: 520px) {
-  
+   .slider-section {
+      height: 30vh;
+    }
+    .slider-nav.prev { left: 1%; }
+    .slider-nav.next { right: 1%; }
     .highlight-section-primary {
       margin:0px;
     }
@@ -4012,6 +4030,9 @@ input[data-provide="datepicker"]:focus {
 }
 
 @media (max-width:400px){
+  .slider-section {
+      height: 25vh;
+    }
     .form-card-bottom .bottom-login-bar {
       width:25%;
     }
