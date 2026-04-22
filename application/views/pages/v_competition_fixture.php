@@ -766,7 +766,7 @@ function simpan() {
     let nama = $('#NAMA').val();
     let seasonAwal = $('#SEASONAWAL').val();
     let seasonAkhir = $('#SEASONAKHIR').val();
-    
+    $("#STATUS").val(($("#STATUS").prop('checked')?1:0));
 
     if(!nama){
         Swal.fire({ title: "Nama wajib diisi", type: "warning" });
@@ -788,7 +788,8 @@ function simpan() {
     {       
         $("#DETAILFIXTURE").val(JSON.stringify(tableDetail.rows().data().toArray()));
         let formData = new FormData($('#form_input')[0]);
-
+        
+        loading();
         $.ajax({
             type: 'POST',
             url: base_url+'Competition/Operational/Fixture/simpan',
@@ -798,6 +799,7 @@ function simpan() {
             dataType: 'json',
 
             success: function(msg){
+                Swal.close();
                 if (msg.success) {
                     Swal.fire({
                         title: 'Simpan Data Sukses',
@@ -836,6 +838,7 @@ function hapus(row){
                 		/* Read more about isConfirmed, isDenied below */
                 			if (result.value) {
                               $("#mode").val('hapus');
+                                loading();
                     		    $.ajax({
                     		    	type    : 'POST',
                     		    	dataType: 'json',
@@ -843,6 +846,7 @@ function hapus(row){
                     		    	data    : "id="+row.IDFIXTURE ,
                     		    	cache   : false,
                     		    	success : function(msg){
+                                        Swal.close();
                     		    		if (msg.success) {
                     		    			Swal.fire({
                     		    				title            : 'Fixture dengan nama '+row.NAMA+' telah dihapus',

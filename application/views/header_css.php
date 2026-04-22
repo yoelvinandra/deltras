@@ -280,7 +280,15 @@
       border-bottom-right-radius: 2px;
       border-bottom-left-radius: 0;
     }
-
+    .swal2-popup{
+      align-items: center;
+    }
+    .swal-no-box {
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+      padding: 0 !important;
+    }
 </style>
 
 

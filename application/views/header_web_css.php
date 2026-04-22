@@ -1,5 +1,6 @@
 <!-- DATEPICKER -->
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Roboto', sans-serif; background: #fff; color: #222; font-size: 14px; }
@@ -4221,6 +4222,16 @@ input[data-provide="datepicker"]:focus {
   width:100%; 
   height:100%;
 }
+
+.swal2-popup{
+  align-items: center;
+}
+.swal-no-box {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
 </style>
 
 <!-- jQuery 3 -->
@@ -4229,7 +4240,8 @@ input[data-provide="datepicker"]:focus {
 <script src="<?php echo base_url(); ?>assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
  <!-- DATEPICKER -->
 <script src="<?php echo base_url(); ?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-
+<!-- <script src="assets/js/sweetalert.min.js"></script> -->
+<script src="<?php echo base_url(); ?>assets/js/sweetalert2.all.min.js"></script>
 <script>
     var base_url = '<?=base_url()?>';
 </script>

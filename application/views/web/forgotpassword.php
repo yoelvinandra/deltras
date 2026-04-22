@@ -60,6 +60,8 @@ function resetPassword(){
         }
         else
         {
+
+            loading();
             $.ajax({
                 type    : 'POST',
                 url     : base_url+'Master/Data/Member/emailResetPassword',
@@ -67,6 +69,7 @@ function resetPassword(){
                 cache   : false,
                 dataType: 'json',
                 success: function(msg){
+                    Swal.close();
                     if (msg.success) {
                         window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb+'&e=rp');
                     } else {

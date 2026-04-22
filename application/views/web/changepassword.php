@@ -112,7 +112,7 @@ function simpanPassword(){
         $("#PASSWORD").focus();
     }
     else 
-    {
+    {  loading();
         $.ajax({
             type    : 'POST',
             url     : base_url+'Master/Data/Member/changePassword',
@@ -120,6 +120,7 @@ function simpanPassword(){
             cache   : false,
             dataType: 'json',
             success: function(msg){
+                Swal.close();
                 if (msg.success) {
                     window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb+'&e=sp');
                 } else {

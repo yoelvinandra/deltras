@@ -415,6 +415,7 @@ function simpan() {
     let emailCP = $('#EMAILCP').val();
     let telp = $('#TELP').val();
     let telpCP = $('#TELPCP').val();
+    $("#STATUS").val(($("#STATUS").prop('checked')?1:0));
 
     if(!nama){
         Swal.fire({ title: "Nama Sponsor wajib diisi", type: "warning" });
@@ -443,7 +444,7 @@ function simpan() {
     else
     {
         let formData = new FormData($('#form_input')[0]);
-
+        loading();
         $.ajax({
             type: 'POST',
             url: base_url+'Master/Data/Sponsor/simpan',
@@ -453,6 +454,7 @@ function simpan() {
             dataType: 'json',
 
             success: function(msg){
+                Swal.close();
                 if (msg.success) {
                     Swal.fire({
                         title: 'Simpan Data Sukses',
@@ -491,6 +493,7 @@ function hapus(row){
                 		/* Read more about isConfirmed, isDenied below */
                 			if (result.value) {
                               $("#mode").val('hapus');
+                                loading();
                     		    $.ajax({
                     		    	type    : 'POST',
                     		    	dataType: 'json',
@@ -498,6 +501,7 @@ function hapus(row){
                     		    	data    : "id="+row.IDSPONSOR ,
                     		    	cache   : false,
                     		    	success : function(msg){
+                                        Swal.close();
                     		    		if (msg.success) {
                     		    			Swal.fire({
                     		    				title            : 'Sponsor dengan nama '+row.NAMA+' telah dihapus',

@@ -671,13 +671,14 @@ function ubah(row){
 }
 
 function simpan() {
-
+    
     let email = $('#EMAIL').val();
     let telp = $('#TELP').val();
     var namadepan = $("#NAMADEPAN").val();
     var namabelakang = $("#NAMABELAKANG").val();
     var position = $("#POSITION").val();
     var idclub = $("#IDCLUB").val();
+    $("#STATUS").val(($("#STATUS").prop('checked')?1:0));
 
     if(!namadepan || !namabelakang)
     {
@@ -724,6 +725,7 @@ function simpan() {
         {
             let formData = new FormData($('#form_input')[0]);
 
+            loading();
             $.ajax({
                 type: 'POST',
                 url: base_url+'Master/Data/Player/simpan',
@@ -733,6 +735,7 @@ function simpan() {
                 dataType: 'json',
 
                 success: function(msg){
+                    Swal.close();
                     if (msg.success) {
                         Swal.fire({
                             title: 'Simpan Data Sukses',
@@ -772,6 +775,7 @@ function hapus(row){
                 		/* Read more about isConfirmed, isDenied below */
                 			if (result.value) {
                               $("#mode").val('hapus');
+                                loading();
                     		    $.ajax({
                     		    	type    : 'POST',
                     		    	dataType: 'json',
@@ -779,6 +783,7 @@ function hapus(row){
                     		    	data    : "id="+row.IDPLAYER ,
                     		    	cache   : false,
                     		    	success : function(msg){
+                                        Swal.close();
                     		    		if (msg.success) {
                     		    			Swal.fire({
                     		    				title            : 'Player dengan nama '+row.NAMA+' telah dihapus',

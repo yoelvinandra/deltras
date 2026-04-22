@@ -270,14 +270,14 @@ $(document).ready(function() {
             "data": null,
             "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
 			},
-            {
-            "targets": -1,
-			"render" :function (data) 
-					{
-						if(data == 1) return "YA";
-						else return "TIDAK";
-					},	
-			}
+           	{
+                "targets": -1,
+                "render" :function (data) 
+                            {
+                                if (data == 1) return '<input type="checkbox" class="flat-blue" checked disabled></input>';
+                                else return '<input type="checkbox" class="flat-blue" disabled></input>';
+                            },	
+			},
 		]
     });
 	
@@ -707,6 +707,7 @@ function simpan() {
 	else
 	{
 
+   	 	loading();
 		$.ajax({
 			type      : 'POST',
 			url       : base_url+'Master/Data/User/simpan',
@@ -729,6 +730,7 @@ function simpan() {
 									data      : {"dataCompetition" : dataCompetition,"iduser" : iduser},
 									dataType  : 'json',
 									success: function(msg){
+										Swal.close();
 										if (msg.success) {
 		
 												Swal.fire({
@@ -796,32 +798,34 @@ function hapus(row){
             		/* Read more about isConfirmed, isDenied below */
             			if (result.value) {
                            $("#mode").val('hapus');
-                				$.ajax({
-                					type    : 'POST',
-                					dataType: 'json',
-                					url     : base_url+"Master/Data/User/hapus",
-                					data    : "id="+row.IDUSER + "&kode="+row.KODEUSER,
-                					cache   : false,
-                					success : function(msg){
-                						if (msg.success) {
+    						loading();
+                			$.ajax({
+                				type    : 'POST',
+                				dataType: 'json',
+                				url     : base_url+"Master/Data/User/hapus",
+                				data    : "id="+row.IDUSER + "&kode="+row.KODEUSER,
+                				cache   : false,
+                				success : function(msg){
+									Swal.close();
+                					if (msg.success) {
+                						Swal.fire({
+                							title            : 'User dengan nama '+row.USERNAME+' telah dihapus',
+                							type             : 'success',
+                							showConfirmButton: false,
+                							timer            : 1500
+                						});
+                						$("#dataGrid").DataTable().ajax.reload();
+                						$('.nav-tabs a[href="#tab_grid"]').tab('show');
+                					} else {
                 							Swal.fire({
-                								title            : 'User dengan nama '+row.USERNAME+' telah dihapus',
-                								type             : 'success',
+                								title            : msg.errorMsg,
+                								type             : 'error',
                 								showConfirmButton: false,
                 								timer            : 1500
                 							});
-                							$("#dataGrid").DataTable().ajax.reload();
-                							$('.nav-tabs a[href="#tab_grid"]').tab('show');
-                						} else {
-                								Swal.fire({
-                									title            : msg.errorMsg,
-                									type             : 'error',
-                									showConfirmButton: false,
-                									timer            : 1500
-                								});
-                						}
                 					}
-                				});
+                				}
+                			});
             			} 
                      });
         	}

@@ -414,6 +414,7 @@ function simpan() {
     let emailCP = $('#EMAILCP').val();
     let telp = $('#TELP').val();
     let telpCP = $('#TELPCP').val();
+    $("#STATUS").val(($("#STATUS").prop('checked')?1:0));
 
     if(!nama){
         Swal.fire({ title: "Nama Club wajib diisi", type: "warning" });
@@ -439,6 +440,7 @@ function simpan() {
     {
         let formData = new FormData($('#form_input')[0]);
 
+        loading();
         $.ajax({
             type: 'POST',
             url: base_url+'Master/Data/Club/simpan',
@@ -448,6 +450,7 @@ function simpan() {
             dataType: 'json',
 
             success: function(msg){
+                Swal.close();
                 if (msg.success) {
                     Swal.fire({
                         title: 'Simpan Data Sukses',
@@ -485,6 +488,8 @@ function hapus(row){
                 		}).then((result) => {
                 		/* Read more about isConfirmed, isDenied below */
                 			if (result.value) {
+                                
+                              loading();
                               $("#mode").val('hapus');
                     		    $.ajax({
                     		    	type    : 'POST',
@@ -493,6 +498,7 @@ function hapus(row){
                     		    	data    : "id="+row.IDCLUB ,
                     		    	cache   : false,
                     		    	success : function(msg){
+                                        Swal.close();
                     		    		if (msg.success) {
                     		    			Swal.fire({
                     		    				title            : 'Club dengan nama '+row.NAMA+' telah dihapus',

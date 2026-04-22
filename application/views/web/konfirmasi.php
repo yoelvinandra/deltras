@@ -128,7 +128,7 @@
 
                         $(".form-subtitle-detail").html(
                             `
-                            Mohon tetap menjaga kerahasian data, karena kamu adalah member Deltamania yang berharga.
+                            Mohon tetap menjaga kerahasiaan data, karena kamu adalah member Deltamania yang berharga.
                             `
                         )
                         valid = true;

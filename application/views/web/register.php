@@ -112,7 +112,6 @@ $(document).ready(function() {
         $("#EMAIL").attr("readonly", "readonly");
         $("#EMAIL-LABEL").html("Alamat Email* (Tidak dapat diubah)");
         $(".form-subtitle").html("Yuk, perbaharui data dirimu, supaya kami bisa melihat perkembanganmu sebagai Member Deltamania");
-
         $.ajax({
             type    : 'POST',
             dataType: 'json',
@@ -288,6 +287,7 @@ function register(){
         {
             
             let formData = new FormData($('#form_input')[0]);
+            loading();
             $.ajax({
                 type: 'POST',
                 url: base_url+'Master/Data/Member/simpan',
@@ -296,6 +296,7 @@ function register(){
                 contentType: false,
                 dataType: 'json',
                 success: function(msg){
+                    Swal.close();
                     if (msg.success) {
                         window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb+'&e=r');
                     } else {
@@ -375,6 +376,7 @@ function changeProfile(){
         {
             
             let formData = new FormData($('#form_input')[0]);
+            loading();
             $.ajax({
                 type: 'POST',
                 url: base_url+'Master/Data/Member/simpan',
@@ -383,6 +385,7 @@ function changeProfile(){
                 contentType: false,
                 dataType: 'json',
                 success: function(msg){
+                    Swal.close();
                     if (msg.success) {
                         alert("Akun Profil berhasil diubah");
                         window.location.replace('<?php echo base_url(); ?>');
@@ -397,6 +400,7 @@ function changeProfile(){
 }
 
 function changePassword(){
+    loading();
     $.ajax({
         type    : 'POST',
         url     : base_url+'Master/Data/Member/emailChangePassword',
@@ -404,6 +408,7 @@ function changePassword(){
         cache   : false,
         dataType: 'json',
         success: function(msg){
+            Swal.close();
             if (msg.success) {
                 window.location.replace('<?php echo base_url(); ?>konfirmasi?i='+msg.idweb+'&e=cp');
             } else {

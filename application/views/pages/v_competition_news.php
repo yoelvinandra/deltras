@@ -406,8 +406,8 @@ function simpan() {
     let tglterbit = $('#TGLTERBIT').val();
     let detail = $('#DETAIL').summernote('code');
     let detailStrip = detail.replace(/<[^>]*>/g, '').trim(); // hapus tag HTML
+    $("#STATUS").val(($("#STATUS").prop('checked')?1:0));
     
-
     if(!title){
         Swal.fire({ title: "Judul Berita wajib diisi", type: "warning" });
         return;
@@ -424,7 +424,8 @@ function simpan() {
     {
         $('#DETAIL').val($('#DETAIL').summernote('code'));
         let formData = new FormData($('#form_input')[0]);
-
+        
+        loading();
         $.ajax({
             type: 'POST',
             url: base_url+'Competition/Operational/News/simpan',
@@ -434,6 +435,7 @@ function simpan() {
             dataType: 'json',
 
             success: function(msg){
+                Swal.close();
                 if (msg.success) {
                     Swal.fire({
                         title: 'Simpan Data Sukses',
@@ -472,6 +474,7 @@ function hapus(row){
                 		/* Read more about isConfirmed, isDenied below */
                 			if (result.value) {
                               $("#mode").val('hapus');
+                                loading();
                     		    $.ajax({
                     		    	type    : 'POST',
                     		    	dataType: 'json',
@@ -479,6 +482,7 @@ function hapus(row){
                     		    	data    : "id="+row.IDNEWS ,
                     		    	cache   : false,
                     		    	success : function(msg){
+                                        Swal.close();
                     		    		if (msg.success) {
                     		    			Swal.fire({
                     		    				title            : 'Berita dengan judul '+row.TITLE+' telah dihapus',

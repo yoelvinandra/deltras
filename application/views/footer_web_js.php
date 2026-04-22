@@ -299,4 +299,22 @@ function imageExists(url) {
     });
 }
 
+function loading(){
+    Swal.fire({
+        title: '',
+        html: '<img src="'+base_url+'assets/images/loading.gif" style="height:150px;">',                // no text or HTML content
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showConfirmButton: false,
+        background: 'transparent',        // ← background popup transparan
+        backdrop: 'rgba(0,0,0,0.4)',      // ← backdrop luar (bisa diatur opacity)
+        customClass: {
+          container: 'swal-no-box'      // ← tambahan class untuk CSS
+        },
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+}
+
 </script>

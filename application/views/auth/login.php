@@ -33,6 +33,25 @@
 			outline: none !important;
 		}
 
+		.swal2-popup{
+		align-items: center;
+		}
+		.swal-no-box {
+		background: transparent !important;
+		box-shadow: none !important;
+		border: none !important;
+		padding: 0 !important;
+		}
+
+		/* ini yang bikin gelap — paksa transparan */
+		.swal2-container {
+		background: transparent !important;
+		}
+
+		.swal2-backdrop-show {
+		background: transparent !important;
+		}
+
 		</style>
 
 		<meta charset="utf-8">
@@ -142,6 +161,7 @@
 	});
 	
 	function login(){
+    	loading();
 		$.ajax({
 			type    : 'POST',
 			url     : '<?php echo base_url(); ?>Auth/Login/cekLogin/',
@@ -151,6 +171,7 @@
 			},
 			dataType: 'json',
 			success : function(msg){
+				Swal.close();
 				if (msg.message) {
 					Swal.fire({
 						title            : msg.message,
@@ -180,6 +201,24 @@
 			increaseArea: '20%' /* optional */
 		});
 	});
+
+	function loading(){
+        Swal.fire({
+            title: '',
+            html: '<img src="<?php echo base_url(); ?>assets/images/loading.gif" style="height:150px;">',                // no text or HTML content
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showConfirmButton: false,
+            background: 'transparent',        // ← background popup transparan
+            backdrop: 'rgba(0,0,0,0.4)',      // ← backdrop luar (bisa diatur opacity)
+            customClass: {
+                container: 'swal-no-box'          // ← tambahan class untuk CSS
+            },
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+    }
 	</script>
 	</body>
 </html>

@@ -254,7 +254,7 @@ class Member extends MY_Controller {
 													</tr>
 												</table>
 
-												<p>Mohon tetap menjaga kerahasian password-mu, karena setiap data member Deltamania sangat berharga.</p>
+												<p>Mohon tetap menjaga kerahasiaan password-mu, karena setiap data member Deltamania sangat berharga.</p>
 
 												<p>Jika Anda mengalami kendala saat login atau membutuhkan bantuan lebih lanjut, jangan ragu untuk menghubungi kami.</p>
 
@@ -439,7 +439,7 @@ class Member extends MY_Controller {
 					'id'	=> $response
 				),
 			),
-			$_SESSION[NAMAPROGRAM]['USERID']??"USER"
+			$_SESSION[NAMAPROGRAM]['USERID']??"DARI MEMBER"
 		);
 
 		echo json_encode(array('success' => true,'errorMsg' => '','idweb'=>encryptMember($response)));
@@ -458,7 +458,7 @@ class Member extends MY_Controller {
 			'MASTER MEMBER',
 			'HAPUS',
 			[],
-			$_SESSION[NAMAPROGRAM]['USERID']??"USER"
+			$_SESSION[NAMAPROGRAM]['USERID']??"DARI MEMBER"
 		);
 	}
 

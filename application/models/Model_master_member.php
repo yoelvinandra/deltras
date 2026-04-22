@@ -192,9 +192,8 @@ class Model_master_member extends MY_Model{
 		
 		$data = [];
 
-		$sql = "select c.USERNAME as USERBUAT, a.*,b.NAMA as CLUB, CONCAT(NAMADEPAN,' ',NAMABELAKANG) as NAMA
+		$sql = "select IFNULL(c.USERNAME,'DARI MEMBER') as USERBUAT, a.*, CONCAT(NAMADEPAN,' ',NAMABELAKANG) as NAMA
 				from MMEMBER a
-				join MCLUB b on a.IDCLUB = b.IDCLUB
 				left join MUSER c on a.USERENTRY = c.USERID
 				ORDER BY a.NAMADEPAN";
 		$query = $this->db->query($sql);
