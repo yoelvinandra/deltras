@@ -38,7 +38,7 @@
                             <thead>
 								<tr>
 									<th width="35px"></th>
-									<th>Gambar</th> 
+									<th width="50%">Gambar</th> 
 									<th>Url</th>                             
 								</tr>
                             </thead>
@@ -52,17 +52,19 @@
 				<div class="tab-pane" id="tab_team">
                     <div class="box-body">
                         <h3 style="font-weight:bold;">Team & Player</h3>
-						<label>Video Behind The Scene</label>
-						<img src="" height="200px">
+						<label>Video Behind The Scene</label><br>
+						<img id="previewGambarBehindTheScene" src="" width="500px"><br><br>
 						<input type="text" class="form-control" id="VIDEOBEHINDTHESCENE" name="VIDEOBEHINDTHESCENE" placeholder="...">
 						<br>
-						<label>Kolom Pemain</label>
+						<label>Pemain yang ditampilkan di Beranda</label>
+						<br>
 						<button class="btn btn-success" onclick="javascript:tambahPemain()">Tambah</button>
                         <table id="dataGridTeam" class="table table-bordered table-striped table-hover display nowrap" width="100%">
                             <!-- class="table-hover"> -->
                             <thead>
 								<tr>
 									<th width="35px"></th>
+									<th width="120px">Foto</th>
 									<th>Nama</th>
 									<th>Position</th>
 									<th>Squad Number</th>  
@@ -237,7 +239,6 @@ $(document).ready(function() {
         'ordering'    : true,
         'info'        : true,
         'autoWidth'   : false,
-		"scrollX"	  : true,
 		ajax		  : {
 			url    : base_url+'Master/Data/Config/dataGridBanner',
 			dataSrc: "rows",
@@ -258,6 +259,55 @@ $(document).ready(function() {
                 "render" :function (data) 
                 {
                    return "<img src='"+data+"?t="+ Date.now()+"' style='width:100%;'>";
+                },
+			},
+		]
+    });
+
+	$.ajax({
+		url: base_url+ 'Master/Data/Config/loadVideoBTS',
+		type: 'GET',
+		dataType: 'json',
+		success: async function (data)  {
+			var videoid = getVideoId(data.rows.URLBTS.VALUE);
+			var videoData = await getYouTubeData(videoid);
+			$("#previewGambarBehindTheScene").attr("src",videoData.thumbnail);
+			$("#VIDEOBEHINDTHESCENE").val(data.rows.URLBTS.VALUE);
+		}
+	});
+
+	$('#dataGridTeam').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false,
+		ajax		  : {
+			url    : base_url+'Master/Data/Config/dataGridTeam',
+			dataSrc: "rows",
+		},      
+        columns:[
+            {data: ''},
+            {data: 'GAMBAR',},
+            {data: 'NAMA'},         
+            {data: 'POSITION'},          
+            {data: 'SQUADNUMBER'},          
+            {data: 'GOAL'},          
+            {data: 'ASSIST'},          
+            {data: 'GKSAVE'},           
+        ],
+		columnDefs: [
+			{
+                "targets": 0,
+                "data": null,
+                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+			},
+            {
+                "targets": 1,
+                "render" :function (data) 
+                {
+                   return "<img src='"+data+"?t="+ Date.now()+"'>";
                 },
 			},
 		]
@@ -283,5 +333,29 @@ function get_akses_user(kodemenu, callback) {
 			}
 		}
 	});
+}
+
+function getVideoId(url) {
+    const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+}
+
+async function getYouTubeData(videoId) {
+    if (!videoId) return null;
+
+    try {
+        const data = await $.ajax({
+            url: base_url+ 'Competition/Operational/Fixture/youtubeAPINoKey/',
+            method: 'GET',
+            dataType: 'json',
+            data: { videoId: videoId }
+        });
+        return data;
+
+    } catch (err) {
+        console.error('Gagal:', err);
+        return null;
+    }
 }
 </script>

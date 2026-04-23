@@ -223,18 +223,6 @@
 <div id="sponsor-part"></div>
 <script> 
 
-async function loadVideo(){
-    var videoid = getVideoId("https://youtu.be/XAI7mmlNBQQ");
-    var videoData = await getYouTubeData(videoid);
-    $("#team-all-video-image").css("background-image","url('"+videoData.thumbnail+"')");
-    $("#team-all-video-title").text(videoData.title);
-    $("#team-all-video-id").attr("onclick","openModal('"+videoid+"', '"+ $("#team-all-video-title").text()+"')");
-}
-
-setTimeout(() => {
-    loadVideo();
-}, 100);
-
 //PLAYER
 $.ajax({
     url: '<?base_url()?>' + 'Master/Data/Player/web?for=HOME',

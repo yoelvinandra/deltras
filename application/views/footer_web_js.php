@@ -3,7 +3,7 @@
 
 
 $.ajax({
-    url: '<?base_url()?>' + 'Master/Data/General/web?for=HOME',
+    url: '<?base_url()?>' + 'Master/Data/Config/web?for=HOME',
     type: 'GET',
     dataType: 'json',
     success: function (data) {
@@ -101,6 +101,20 @@ $.ajax({
         $(".slider-nav.next").on("click", function() { moveSlide(1); });
       }
       //SLIDER IMAGE
+
+      //VIDEO
+
+      async function loadVideo(){
+          var videoid = getVideoId(data.rows.URLBTS.VALUE);
+          var videoData = await getYouTubeData(videoid);
+          $("#team-all-video-image").css("background-image","url('"+videoData.thumbnail+"')");
+          $("#team-all-video-title").text(videoData.title);
+          $("#team-all-video-id").attr("onclick","openModal('"+videoid+"', '"+ $("#team-all-video-title").text()+"')");
+      }
+
+      setTimeout(() => {
+          loadVideo();
+      }, 100);
 
       //CONTACT
       var contact = data.rows.CONTACT;

@@ -18,7 +18,7 @@ class Fixture extends MY_Controller {
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Methods: GET');
 		
-		$YOUTUBE_API_KEY = 'AIzaSyC5-R1kpDMuam_2RM8qeStsiDbjHImULgw';
+		$YOUTUBE_API_KEY = $this->model_master_config->getConfig("YOUTUBE","APIKEY");
 		
 		$videoId = $this->input->get('videoId');
 		
@@ -29,6 +29,32 @@ class Fixture extends MY_Controller {
 		}
 		
 		$data = $this->getYouTubeData($videoId, $YOUTUBE_API_KEY);
+		
+		if ($data === null) {
+			http_response_code(404);
+			echo json_encode(['error' => 'Video not found']);
+			exit;
+		}
+		
+		echo json_encode($data);
+	}
+
+	public function youtubeAPINoKey() {
+		header('Content-Type: application/json');
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Methods: GET');
+		
+		$YOUTUBE_API_KEY = $this->model_master_config->getConfig("YOUTUBE","APIKEY");
+		
+		$videoId = $this->input->get('videoId');
+		
+		if (empty($videoId)) {
+			http_response_code(400);
+			echo json_encode(['error' => 'videoId is required']);
+			exit;
+		}
+		
+		$data = $this->getYouTubeDataNoAPIKey($videoId, $YOUTUBE_API_KEY);
 		
 		if ($data === null) {
 			http_response_code(404);
@@ -51,7 +77,7 @@ class Fixture extends MY_Controller {
 	
 		if ($response === null) {
 			// Fallback ke oEmbed kalau API gagal
-			return $this->getYouTubeDataNoAPIKey($videoId);
+			return getYouTubeDataNoAPIKey($videoId);
 		}
 	
 		$json = json_decode($response, true);

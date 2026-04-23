@@ -101,4 +101,74 @@ class Model_master_config extends CI_Model{
 		$data['rows'] = $query->result();
 		return $data;
 	}
+
+	function dataGridTeam(){
+		$sql = "select IDPLAYER as ID,CONCAT(NAMADEPAN,' ',NAMABELAKANG) as NAMA, GOAL, ASSIST, GKSAVE, POSITION, SQUADNUMBER, CONCAT('".base_url()."assets/images/player/',IDPLAYER,'.png') as GAMBAR
+				from MPLAYER  
+				WHERE STATUS = 1
+				ORDER BY NAMADEPAN";
+		$query = $this->db->queryRaw($sql);	
+		$data['base'] = $query->result();
+
+		$data['rows'] = [];
+
+		
+		$sqlConfig = "select VALUE
+			from MCONFIG  
+			WHERE MODUL = 'TEAM' AND SUBSTRING_INDEX(CONFIG, '-', 1) = 'SENIOR TEAM' ";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+		$dataConfig = $queryConfig->result();
+
+		$data['senior_team'] = [];
+		
+		foreach($dataConfig as $itemConfig){
+			$dataPosition = explode(",",$itemConfig->VALUE);
+			foreach($dataPosition as $itemPosition){
+				foreach($data['base'] as $item)
+				{
+					if($itemPosition == $item->POSITION)
+					{
+						array_push($data['senior_team'],$item);
+					}
+				}
+			}
+		}
+
+		//CEK DATA APA AJA YANG BOLEH MUNCUL
+		$sqlConfig = "select VALUE
+			from MCONFIG  
+			WHERE MODUL = 'TEAM' AND CONFIG = 'IDPLAYER' ";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+		$dataConfig = $queryConfig->result();
+
+		foreach($dataConfig as $itemConfig){
+			$dataPlayerConfig = explode(",",$itemConfig->VALUE);
+			for($x = 0 ; $x < count($data['senior_team']) ; $x++)
+			{
+				$player = $data['senior_team'][$x];
+				foreach($dataPlayerConfig as $itemPlayerConfig){
+					if($itemPlayerConfig == $player->ID)
+					{
+						array_push($data['rows'],$player);
+					}
+				}
+			}
+		}
+
+		unset($data['senior_team']);
+
+		return $data;
+		
+	}
+
+	function loadVideoBTS(){
+		//VIDEO BTS
+		$sqlConfig = "select VALUE
+			from MCONFIG  
+			WHERE MODUL = 'HOME' AND CONFIG = 'URLVIDEOBTS' 
+			ORDER BY PREFIX";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+		$data['rows']['URLBTS'] = $queryConfig->row();
+		return $data;
+	}
 }
