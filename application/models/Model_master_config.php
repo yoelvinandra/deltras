@@ -91,4 +91,14 @@ class Model_master_config extends CI_Model{
 					->get()->row_array();
 		return $query;
 	}
+
+	function dataGridBanner(){
+		$sql = "select VALUE as URL,CONCAT('".base_url()."assets/images/slider/',PREFIX,'.png') as GAMBAR
+			from MCONFIG  
+			WHERE MODUL = 'HOME' AND CONFIG = 'URLBANNERSLIDE' 
+			ORDER BY PREFIX";
+		$query = $this->db->queryRaw($sql);	
+		$data['rows'] = $query->result();
+		return $data;
+	}
 }
