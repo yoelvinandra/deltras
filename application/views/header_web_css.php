@@ -323,12 +323,19 @@ img { display: block; max-width: 100%; }
   padding-top:24px;
   padding-bottom:24px;
   padding-right:48px;
-  color:#777777;
   display: flex;
   justify-content: right;
   align-items: center;
   gap:60px;
 }
+
+.dropdown-address a{
+  color:#777777 !important;
+  font-size:14px !important;
+  font-weight:normal !important;
+  letter-spacing:0px !important;
+  padding:0px !important;
+} 
 .login-div a{
   display:flex !important;
   justify-content: right;
@@ -509,24 +516,37 @@ img { display: block; max-width: 100%; }
   background: #111;
   position: relative;
   width: 100%;
-  height: 88vh;
   overflow: hidden;
   border-radius: 0;
-  text-align:center;
+  text-align: center;
 }
-/* ── Background: deep red with radial vignette ── */
+
+/* Wrapper to maintain height */
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
 .slide {
-  display: block;        /* ganti dari none ke block */
-  position: absolute;    /* tumpuk semua slide */
+  display: block;
+  position: absolute;
   inset: 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease;
-  /* ... sisa style lainnya tetap sama */
 }
+
 .slide.active {
   opacity: 1;
   pointer-events: auto;
+  position: relative; /* active slide drives the height */
+}
+
+.slide img {
+  display: block;
+  width: 100%;
+  max-height: 90vh;
+  object-fit: cover;
 }
 /* grain overlay */
 .slide::before {
@@ -562,7 +582,7 @@ img { display: block; max-width: 100%; }
 .slider-dots {
   position: absolute;
   bottom: 0;
-  margin-bottom:10px;
+  margin-bottom:2%;
   display: flex;
   z-index: 10;
   width: 50%;
@@ -3123,9 +3143,6 @@ input[data-provide="datepicker"]:focus {
 }
 
 @media (max-width: 1200px){
-  .slider-section {
-    height: 70vh;
-  }
   .team-all-section {
     padding-left:32px;
     padding-right:32px;
@@ -3134,9 +3151,6 @@ input[data-provide="datepicker"]:focus {
 
 /* ======= MOBILE ======= */
 @media (max-width: 1050px) {
-   .slider-section {
-      height: 60vh;
-    }
     .slider-nav {
       font-size: 4rem;
     }
@@ -3508,9 +3522,6 @@ input[data-provide="datepicker"]:focus {
 }
 
 @media (max-width: 768px) {
-   .slider-section {
-      height: 40vh;
-    }
    .team-section .player-detail{
       grid-template-columns: repeat(2, 1fr);
   }
@@ -3557,11 +3568,8 @@ input[data-provide="datepicker"]:focus {
 }
 
 @media (max-width: 520px) {
-   .slider-section {
-      height: 30vh;
-    }
-    .slider-nav.prev { left: 1%; }
-    .slider-nav.next { right: 1%; }
+    .slider-nav.prev { left: -15px; }
+    .slider-nav.next { right: -15px; }
     .highlight-section-primary {
       margin:0px;
     }
@@ -4030,9 +4038,6 @@ input[data-provide="datepicker"]:focus {
 }
 
 @media (max-width:400px){
-  .slider-section {
-      height: 25vh;
-    }
     .form-card-bottom .bottom-login-bar {
       width:25%;
     }
@@ -4103,13 +4108,18 @@ input[data-provide="datepicker"]:focus {
   height:75vh;
 }
 
-.mobile-drawer-address p {
+.mobile-drawer-address p{
   padding:24px;
-  line-height:24px;
+  border-top:1px solid #cecece;
+}
+
+.deltras-contact a{
+  padding:0px;
   font-size: 14px;
   color:#777;
   font-weight:400;
-  border-top:1px solid #cecece;
+  letter-spacing:0px;
+  text-transform:none;
 }
 
 .mobile-drawer a:hover { color: var(--primary-color); }
@@ -4182,6 +4192,19 @@ input[data-provide="datepicker"]:focus {
   box-shadow: none !important;
   border: none !important;
   padding: 0 !important;
+}
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 </style>
 

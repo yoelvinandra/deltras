@@ -18,15 +18,15 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
 <?php include("header_web_css.php"); ?>
 </head>
 <body>
-
+<div id="preloader"><img src="assets/images/loading.gif" style="height:150px;"></div>
 <!-- NAVBAR -->
  <!-- HERO -->
 <section class="header-social">
   <div class="header-social-strip">
     <span class="fira-sans-light-italic">For the fans</span>
-    <span><a href="#"><img src="assets/images/youtube-white.png"></a></span>
-    <span><a href="#"><img src="assets/images/instagram-white.png"></a></span>
-    <span><a href="#"><img src="assets/images/tiktok-white.png"></a></span>
+    <span><a href="#" class="deltras-youtube" target="_blank"><img src="assets/images/youtube-white.png"></a></span>
+    <span><a href="#" class="deltras-instagram" target="_blank"><img src="assets/images/instagram-white.png"></a></span>
+    <span><a href="#" class="deltras-tiktok" target="_blank"><img src="assets/images/tiktok-white.png"></a></span>
   </div>
 </section>
 <nav class="navbar">
@@ -35,7 +35,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
       <span></span><span></span><span></span>
     </div>
     <div class="nav-logo">
-      <a href="index"><img src="assets/images/logo.png"></a>
+      <a href="<?=base_url()?>"><img src="assets/images/logo.png"></a>
     </div>
     <ul class="nav-links">
       <li><a href="news">NEWS</a></li>
@@ -51,9 +51,9 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
                 </ul>
               </div>
               <div class="dropdown-address">
-                  <span>Gelora Delta Stadium, Sidoarjo</span>
-                  <span>contact@deltrasfc.com</span>
-                  <span>‪+62 821‑4107‑1552‬</span>
+                 <a href="#" target="_blank"   class="deltras-location"></a>
+                 <a href="#" target="_blank"   class="deltras-email"></a>
+                 <a href="#" target="_blank"   class="deltras-telp"></a>
               </div>
           </div>
       </li>
@@ -67,9 +67,9 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
                   </ul>
               </div>
               <div class="dropdown-address">
-                  <span>Gelora Delta Stadium, Sidoarjo</span>
-                  <span>contact@deltrasfc.com</span>
-                  <span>‪+62 821‑4107‑1552‬</span>
+                 <a href="#" target="_blank"   class="deltras-location"></a>
+                 <a href="#" target="_blank"   class="deltras-email"></a>
+                 <a href="#" target="_blank"   class="deltras-telp"></a>
               </div>
           </div>
       </li>
@@ -89,9 +89,9 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
                   </ul>
               </div>
               <div class="dropdown-address">
-                  <span>Gelora Delta Stadium, Sidoarjo</span>
-                  <span>contact@deltrasfc.com</span>
-                  <span>‪+62 821‑4107‑1552‬</span>
+                 <a href="#" target="_blank"   class="deltras-location"></a>
+                 <a href="#" target="_blank"   class="deltras-email"></a>
+                 <a href="#" target="_blank"   class="deltras-telp"></a>
               </div>
           </div>
       </li>
@@ -109,9 +109,9 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
                   </ul>
               </div>
               <div class="dropdown-address">
-                  <span>Gelora Delta Stadium, Sidoarjo</span>
-                  <span>contact@deltrasfc.com</span>
-                  <span>‪+62 821‑4107‑1552‬</span>
+                 <a href="#" target="_blank"   class="deltras-location"></a>
+                 <a href="#" target="_blank"   class="deltras-email"></a>
+                 <a href="#" target="_blank"   class="deltras-telp"></a>
               </div>
           </div>
       </li>
@@ -166,14 +166,14 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
         <?php if(isset($_SESSION[NAMAPROGRAM]['MEMBERNAME'])) {?>
         <li ><a href="profile" class="fira-sans-regular" ><?=substr($_SESSION[NAMAPROGRAM]['MEMBERNAME'],0,8)?></a></li>
         <?php }else{?>
-        <li ><a href="login" class="fira-sans-regular" >LOGIN</a></li>
+        <li ><a href="login" id="login-web" class="fira-sans-regular" >LOGIN</a></li>
         <?php }?>
       </ul>
       <br>
-      <p>
-          Gelora Delta Stadium, Sidoarjo<br>
-          contact@deltrasfc.com<br>
-          ‪+62 821‑4107‑1552‬
+      <p class="deltras-contact">
+          <a href="#" target="_blank"  class="deltras-location"></a><br>
+          <a href="#" target="_blank"  class="deltras-email"></a><br>
+          <a href="#" target="_blank"  class="deltras-telp"></a>
       </p>
     </div>
   </div>

@@ -21,15 +21,22 @@ class Model_master_config extends CI_Model{
 				from MCONFIG  
 				WHERE MODUL = 'HOME' AND CONFIG = 'URLVIDEOBTS' 
 				ORDER BY PREFIX";
-			$queryConfig = $this-	>db->queryRaw($sqlConfig);	
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
 			$data['rows']['URLBTS'] = $queryConfig->row();
 
-			//GENERAL DATA
-			$sqlConfig = "select CONFIG,VALUE
+			//CONTACT DATA
+			$sqlConfig = "select CONFIG,VALUE,IFNULL(PREFIX,'') as PREFIX
 				from MCONFIG  
-				WHERE MODUL = 'HOME' AND CONFIG in ('ALAMAT','TELP','EMAIL')";
+				WHERE MODUL = 'HOME' AND CONFIG in ('ALAMAT','TELP','EMAIL','INSTAGRAM','TIKTOK','YOUTUBE')";
 			$queryConfig = $this->db->queryRaw($sqlConfig);	
-			$data['rows']['GENERAL'] = $queryConfig->result();
+			$data['rows']['CONTACT'] = $queryConfig->result();
+
+			//MEMBER CONTACT DATA
+			$sqlConfig = "select CONFIG,VALUE,IFNULL(PREFIX,'') as PREFIX
+				from MCONFIG  
+				WHERE MODUL = 'HOME' AND CONFIG like '%MEMBER-%'";
+			$queryConfig = $this->db->queryRaw($sqlConfig);	
+			$data['rows']['MEMBERCONTACT'] = $queryConfig->result();
 		}
 		return $data;
 	}

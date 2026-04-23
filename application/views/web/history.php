@@ -1,32 +1,24 @@
+<!-- 
+<?=base_url()?>#team-part
+<?=base_url()?>#highlight-part
+<?=base_url()?>#sponsor-part
+<?=base_url()?>#news-part 
+-->
+
 <!-- HERO -->
 <section class="slider-section">
+  <div class="slider-wrapper">
+    <div class="slider-page">
 
-  <!-- SLIDE 1 -->
-    <a class="slide active" href="" style="background:url('assets/images/slider/1.png');  height: 100%; background-size:100% auto; background-position: center; background-repeat: no-repeat;">
-    </a>
+    </div>
 
-  <!-- SLIDE 2 -->
-    <a class="slide" href="" style="background:url('assets/images/slider/2.png');  height: 100%;  background-size:100% auto; background-position: center; background-repeat: no-repeat;">
-    </a>
+    <!-- Arrows -->
+    <button class="slider-nav prev">&#8249;</button>
+    <button class="slider-nav next">&#8250;</button>
 
-  <!-- SLIDE 3 -->
-    <a class="slide" href="" style="background:url('assets/images/slider/3.png');  height: 100%;  background-size:100% auto; background-position: center; background-repeat: no-repeat;">
-    </a>
-
-  <!-- SLIDE 4 -->
-    <a class="slide" href="" style="background:url('assets/images/slider/4.png');  height: 100%;  background-size:100% auto; background-position: center; background-repeat: no-repeat;">
-    </a>
-
-  <!-- SLIDE 5 -->
-    <a class="slide" href="" style="background:url('assets/images/slider/5.png');  height: 100%;  background-size:100% auto; background-position: center; background-repeat: no-repeat;">
-    </a>
-
-  <!-- Arrows -->
-  <button class="slider-nav prev" onclick="moveSlide(-1)">&#8249;</button>
-  <button class="slider-nav next" onclick="moveSlide(1)">&#8250;</button>
-
-  <!-- Dots -->
-  <div class="slider-dots" id="dots"></div>
+    <!-- Dots -->
+    <div class="slider-dots" id="dots"></div>
+  </div>
 
 </section>
 
@@ -139,40 +131,6 @@
 </section>
 
 <script> 
-const slides = document.querySelectorAll('.slide');
-const dotsContainer = document.getElementById('dots');
-let current = 0;
-let timer;
-// Build dots
-slides.forEach((_, i) => {
-  const d = document.createElement('a');
-  d.className = 'dot' + (i === 0 ? ' active' : '');
-  d.addEventListener('click', () => goTo(i));
-  dotsContainer.appendChild(d);
-});
-function goTo(n) {
-  const prevSlide = slides[current];
-  const prevDot = document.querySelectorAll('.dot')[current];
-  current = (n + slides.length) % slides.length;
-  const nextSlide = slides[current];
-  const nextDot = document.querySelectorAll('.dot')[current];
-  // Fade out slide lama
-  prevSlide.classList.remove('active');
-  prevDot.classList.remove('active');
-  // Fade in slide baru
-  nextSlide.classList.add('active');
-  nextDot.classList.add('active');
-  updateNavColor();
-  resetTimer();
-}
-function moveSlide(dir) { goTo(current + dir); }
-function resetTimer() {
-  clearInterval(timer);
-  timer = setInterval(() => moveSlide(1), 5000);
-}
-resetTimer();
-
-
 async function loadVideo(){
     var videoid = getVideoId("https://youtu.be/0x5zdeahVow");
     var videoData = await getYouTubeData(videoid);

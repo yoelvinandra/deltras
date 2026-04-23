@@ -1,5 +1,173 @@
 <!-- FOOTER -->
 <script>
+
+
+$.ajax({
+    url: '<?base_url()?>' + 'Master/Data/General/web?for=HOME',
+    type: 'GET',
+    dataType: 'json',
+    success: function (data) {
+
+      //SLIDER IMAGE
+      var html; 
+      html = "";
+
+      var banner = data.rows.BANNER;
+      
+      for(var x = 0 ; x < banner.length ; x++){
+        var active = "";
+        if(x == 0){
+          active = "active";
+        }
+
+        html += `
+        <a href="`+banner[x]['VALUE']+`" class="slide `+active+`">
+            <img src="assets/images/slider/`+banner[x]['PREFIX'] + `.png?t=` + Date.now() + `">  
+        </a>
+        `;
+      }
+
+      $(".slider-page").html(html);
+      
+      const slides = document.querySelectorAll('.slide');
+      const dotsContainer = document.getElementById('dots');
+
+      if(slides.length > 0)
+      {
+        let current = 0;
+        let timer;
+        // Build dots
+        slides.forEach((_, i) => {
+          const d = document.createElement('a');
+          d.className = 'dot' + (i === 0 ? ' active' : '');
+          d.addEventListener('click', () => sliderGoTo(i));
+          dotsContainer.appendChild(d);
+        });
+
+        function sliderGoTo(n) {
+          const prevSlide = slides[current];
+          const prevDot = document.querySelectorAll('.dot')[current];
+          current = (n + slides.length) % slides.length;
+          const nextSlide = slides[current];
+          const nextDot = document.querySelectorAll('.dot')[current];
+
+          prevSlide.classList.remove('active');
+          prevDot.classList.remove('active');
+          nextSlide.classList.add('active');
+          nextDot.classList.add('active');
+
+          // ← TAMBAH INI
+          const img = nextSlide.querySelector('img');
+          if (img.complete) adaptColor(img);
+          else img.onload = () => adaptColor(img);
+
+          resetTimer();
+        }
+
+        function getDominantColor(img) {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          ctx.drawImage(img, 0, 0);
+          const d = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+          let r = 0, g = 0, b = 0, count = 0;
+          for (let i = 0; i < d.length; i += 4) {
+            r += d[i]; g += d[i+1]; b += d[i+2]; count++;
+          }
+          return { r: Math.floor(r/count), g: Math.floor(g/count), b: Math.floor(b/count) };
+        }
+
+        function adaptColor(img) {
+          const { r, g, b } = getDominantColor(img);
+          const isLight = (0.299*r + 0.587*g + 0.114*b) > 128;
+          document.querySelectorAll('.slider-nav').forEach(btn => {
+            btn.style.color = isLight ? 'var(--primary-color)' : '#ffffff';
+          });
+        }
+
+        function moveSlide(dir) { sliderGoTo(current + dir); }
+        function resetTimer() {
+          clearInterval(timer);
+          timer = setInterval(() => moveSlide(1), 5000);
+        }
+        resetTimer();
+        // ← TAMBAH INI (untuk slide pertama saat load)
+        const firstImg = slides[0].querySelector('img');
+        if (firstImg.complete) adaptColor(firstImg);
+        else firstImg.onload = () => adaptColor(firstImg);
+
+        $(".slider-nav.prev").on("click", function() { moveSlide(-1); });
+        $(".slider-nav.next").on("click", function() { moveSlide(1); });
+      }
+      //SLIDER IMAGE
+
+      //CONTACT
+      var contact = data.rows.CONTACT;
+      
+      for(var x = 0 ; x < contact.length ; x++){
+        if(contact[x].CONFIG == 'ALAMAT'){
+          $(".deltras-location").html(contact[x].VALUE);
+          $(".deltras-location").attr("href",contact[x].PREFIX);
+        }
+        else if(contact[x].CONFIG == 'EMAIL'){
+          $(".deltras-email").html(contact[x].VALUE);
+          $(".deltras-email").attr("href","mailto:"+contact[x].VALUE);
+        }
+        else if(contact[x].CONFIG == 'TELP'){
+          $(".deltras-telp").html(formatPhone(contact[x].VALUE));
+          $(".deltras-telp").attr("href","tel:"+contact[x].VALUE);
+        }
+        else if(contact[x].CONFIG == 'INSTAGRAM'){
+          $(".deltras-instagram").attr("href",contact[x].VALUE);
+        }
+        else if(contact[x].CONFIG == 'TIKTOK'){
+          $(".deltras-tiktok").attr("href",contact[x].VALUE);
+        }
+        else if(contact[x].CONFIG == 'YOUTUBE'){
+          $(".deltras-youtube").attr("href",contact[x].VALUE);
+        }
+      }
+      //CONTACT
+
+      //MEMBER-CONTACT
+      var memberContact = data.rows.MEMBERCONTACT;
+      
+      for(var x = 0 ; x < memberContact.length ; x++){
+
+        if(memberContact[x].CONFIG == 'MEMBER-ALAMAT'){
+          $(".member-location").html(memberContact[x].VALUE);
+          $(".member-location").attr("href",memberContact[x].PREFIX);
+        }
+        else if(memberContact[x].CONFIG == 'MEMBER-EMAIL'){
+          $(".member-email").html(memberContact[x].VALUE);
+          $(".member-email").attr("href","mailto:"+memberContact[x].VALUE);
+        }
+        else if(memberContact[x].CONFIG == 'MEMBER-TELP'){
+          $(".member-telp").html(formatPhone(memberContact[x].VALUE));
+          $(".member-telp").attr("href","tel:"+memberContact[x].VALUE);
+        }
+        else if(memberContact[x].CONFIG == 'MEMBER-INSTAGRAM'){
+          $(".member-instagram").html(formatSocialName(memberContact[x].VALUE));
+          $(".member-instagram").attr("href",memberContact[x].VALUE);
+        }
+        else if(memberContact[x].CONFIG == 'MEMBER-X'){
+          $(".member-x").html(formatSocialName(memberContact[x].VALUE));
+          $(".member-x").attr("href",memberContact[x].VALUE);
+        }
+        else if(memberContact[x].CONFIG == 'MEMBER-TIKTOK'){
+          $(".member-tiktok").html(formatSocialName(memberContact[x].VALUE));
+          $(".member-tiktok").attr("href",memberContact[x].VALUE);
+        }
+        else if(memberContact[x].CONFIG == 'MEMBER-FACEBOOK'){
+          $(".member-facebook").html((formatSocialName(memberContact[x].VALUE)));
+          $(".member-facebook").attr("href",memberContact[x].VALUE);
+        }
+      }
+      //MEMBER-CONTACT
+    }}
+);
+
 //BURGER-MENU
 function openDrawer() {
   document.getElementById('drawer').classList.add('open');
@@ -164,6 +332,28 @@ function formatTime(timeStr){
   return result;
 }
 
+function formatPhone(phone) {
+  phone = phone.toString().trim();
+  
+  // Ganti awalan 0 atau 62 jadi +62
+  if (phone.startsWith('0')) {
+    phone = '+62' + phone.slice(1);
+  } else if (phone.startsWith('62')) {
+    phone = '+62' + phone.slice(2);
+  }
+
+  // Format: +62 XXX-XXXX-XXXX
+  const digits = phone.slice(3); // ambil setelah +62
+  const formatted = digits.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+  
+  return '+62 ' + formatted;
+}
+
+function formatSocialName(memberlink){
+  var dataMember = memberlink.split("/");
+  return memberlink.split("/")[dataMember.length-1];
+}
+
 // Update on scroll
 window.addEventListener('scroll', function() {
     updateDropdownTop();
@@ -299,6 +489,14 @@ function imageExists(url) {
     });
 }
 
+preloader();
+
+$(document).ajaxStop(function() {
+  setTimeout(() => {
+    $("#preloader").fadeOut(500);
+  }, 500);
+});
+
 function loading(){
     Swal.fire({
         title: '',
@@ -315,6 +513,11 @@ function loading(){
             Swal.showLoading();
         }
     });
+}
+
+
+function preloader(){
+    $("#preloader").show();
 }
 
 </script>

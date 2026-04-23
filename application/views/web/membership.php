@@ -37,15 +37,15 @@
 
     <div class="contact fira-sans-regular">
         <b>Kontak & Informasi</b><br>
-        📞  : 08xx-xxxx-xxxx <br>
-        📧  : deltamania@xx.com<br>
-        📍  : Jl. Xx Nomor xx. Kabupaten Sidoarjo.
+        📞  : <a href="#" class="member-telp"></a><br>
+        📧  : <a href="#" class="member-email"></a><br>
+        📍  : <a href="#" class="member-location"></a>
         <br><br><br>
         <b>Ikuti Kami</b><br>
-        Instagram : @deltamania_id<br>
-        Twitter/X : [@username]<br>
-        TikTok : [@username]<br>
-        Facebook : DELTAMANIAREDZ<br>
+        Instagram : <a href="#" class="member-instagram"></a><br>
+        Twitter/X : <a href="#" class="member-x"></a><br>
+        TikTok : <a href="#" class="member-tiktok"></a><br>
+        Facebook : <a href="#" class="member-facebook"></a><br>
     </div>
     <div class="all-deltras-member"><img src="assets/images/member/member-all.png?t=<?=date('Ymdhis')?>"></div>
     <div class="grey-strip">
