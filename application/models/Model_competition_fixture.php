@@ -10,12 +10,26 @@ class Model_competition_fixture extends MY_Model{
 	
 	public function comboGrid($q){
 		
-		$sql = "select IDFIXTURE as VALUE, NAMA as TEXT
+		$sql = "select IDFIXTURE as VALUE, NAMA as TEXT, CONCAT('KLASEMEN ',NAMA,' ',IF(SEASONAWAL = SEASONAKHIR, SEASONAKHIR, CONCAT(YEAR(SEASONAWAL), '/', SUBSTR(YEAR(SEASONAKHIR), -2, 2)))) AS FULLNAME
 				from TFIXTURE  
 				WHERE NAMA like ?
 				ORDER BY SEASONAKHIR DESC";
 				
 		$query = $this->db->query($sql, ["%".$q."%"]);	
+		$data['rows'] = $query->result();
+		return $data;
+	}
+
+	public function comboGridDetail($id,$video){
+		
+		$sql = "select CONCAT(TFIXTUREDTL.IDFIXTURE,'.',CLUB1.IDCLUB,'.',CLUB2.IDCLUB,'.',TFIXTUREDTL.TGLFIXTURE) as VALUE, CONCAT(CLUB1.NAMA,' vs ',CLUB2.NAMA,' / ', TFIXTUREDTL.TGLFIXTURE) as TEXT
+				from TFIXTUREDTL
+				INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
+				INNER JOIN MCLUB CLUB2 ON CLUB2.IDCLUB = TFIXTUREDTL.IDCLUB2 
+				WHERE IDFIXTURE = $id AND ($video is not null OR $video <> '')
+				ORDER BY TGLFIXTURE DESC";
+				
+		$query = $this->db->query($sql);	
 		$data['rows'] = $query->result();
 		return $data;
 	}

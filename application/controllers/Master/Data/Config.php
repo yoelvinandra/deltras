@@ -50,5 +50,22 @@ class Config extends MY_Controller {
 		$response = $this->model_master_config->dataGridKlasemen($this->setPaginationGrid(), $this->setFilterGrid());
 		echo json_encode($response);
 	}
+
+	public function dataGridNews() {
+		$this->output->set_content_type('application/json');
+		$response = $this->model_master_config->dataGridNews($this->setPaginationGrid(), $this->setFilterGrid());
+		echo json_encode($response);
+	}
+
+	public function dataGridSponsor() {
+		$this->output->set_content_type('application/json');
+		$response = $this->model_master_config->dataGridSponsor($this->setPaginationGrid(), $this->setFilterGrid());
+		echo json_encode($response);
+	}
 	
+	public function loadContact() {
+		$this->output->set_content_type('application/json');
+		$response = $this->model_master_config->loadContact($this->setPaginationGrid(), $this->setFilterGrid());
+		echo json_encode($response);
+	}
 }

@@ -55,7 +55,8 @@
 						<div class="row">
 							<div class="col-md-4">
 								<h3 style="font-weight:bold;">Video Behind The Scene</h3>
-								<img id="previewGambarBehindTheScene" src="" width="100%"><br><br>
+								<img id="previewGambarBehindTheScene" src="" width="100%"><br>
+								<label>Link Youtube Behind The Scene</label>
 								<input type="text" class="form-control" id="VIDEOBEHINDTHESCENE" name="VIDEOBEHINDTHESCENE" placeholder="...">
 							</div>
 							<div class="col-md-8">
@@ -92,23 +93,31 @@
 							<div class="col-md-4">
 								<h3 style="font-weight:bold;">Fixture</h3>
 								<label>Pilih Fixture</label>
-								<select class="form-control" id="IDFIXTURE" name="IDFIXTURE">
+								<br>
+								<select class="form-control" id="IDFIXTURE" name="IDFIXTURE" style="width:100%;">
 								</select>
+								<br>
 								<br>
 								<label>Video Highlight 1</label>
-								<img id="previewGambarHighlight1" src="" width="100%"><br><br>
-								<select class="form-control" id="VIDEOHIGHLIGHT" name="VIDEOHIGHLIGHT">
+								<img id="previewGambarHighlight1" src="" width="100%"><br>
+								<label>Pilih Fixture Video</label>
+								<select class="form-control" id="IDVIDEO" name="IDVIDEO" style="width:100%;">
 								</select>
+								<br>
 								<br>
 								<label>Video Highlight 2</label>
-								<img id="previewGambarHighlight2" src="" width="100%"><br><br>
-								<select class="form-control" id="VIDEO" name="VIDEO">
+								<img id="previewGambarHighlight2" src="" width="100%"><br>
+								<label>Pilih Fixture Video</label>
+								<select class="form-control" id="IDVIDEOHIGHLIGHT" name="IDVIDEOHIGHLIGHT" style="width:100%;">
 								</select>
 								<br>
+								<br>
 								<label>Video Match Interview</label>
-								<img id="previewGambarMatchInterview" src="" width="100%"><br><br>
-								<select class="form-control" id="VIDEOMATCHINTERVIEW" name="VIDEOMATCHINTERVIEW">
+								<img id="previewGambarMatchInterview" src="" width="100%"><br>
+								<label>Pilih Fixture Video</label>
+								<select class="form-control" id="IDVIDEOMATCHINTERVIEW" name="IDVIDEOMATCHINTERVIEW" style="width:100%;">
 								</select>
+								
 							</div>
 							<div class="col-md-8">
 								<h3 style="font-weight:bold;">Tabel Klasemen</h3>
@@ -146,8 +155,11 @@
                             <thead>
 								<tr>
 									<th width="35px"></th>
-									<th>Judul</th>
-									<th>Gambar</th>                             
+									<th>ID</th>
+									<th>Gambar</th>
+									<th>Judul</th>  
+									<th>Kategori</th>         
+									<th>Terbit</th>                                
 								</tr>
                             </thead>
                         </table>
@@ -166,8 +178,10 @@
                             <thead>
 								<tr>
 									<th width="35px"></th>
-									<th>Nama</th>
-									<th>Logo</th>                              
+									<th>ID</th>
+									<th>Logo</th>        
+									<th>Nama</th>      
+									<th>Website</th>                        
 								</tr>
                             </thead>
                         </table>
@@ -184,6 +198,9 @@
 								<h3 style="font-weight:bold;">About Deltras</h3>
 								<label>Alamat</label>
 								<input type="text" class="form-control" id="ALAMAT" name="ALAMAT" placeholder="...">
+								<br>
+								<label>Url Alamat</label>
+								<input type="text" class="form-control" id="ALAMATURL" name="ALAMATURL" placeholder="...">
 								<br>
 								<label>Email</label>
 								<input type="text" class="form-control" id="EMAIL" name="EMAIL" placeholder="...">
@@ -246,8 +263,13 @@
 </section>
 <!-- /.content -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.2/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 <script>
 $(document).ready(function() {
+	$('.select2').select2({
+		dropdownAutoWidth: true, 
+	});
+
 	$('#dataGridBanner').DataTable({
         'paging'      : true,
         'lengthChange': true,
@@ -278,6 +300,54 @@ $(document).ready(function() {
                 },
 			},
 		]
+    });
+
+	// Enable sorting
+    const tbodyBanner = $('#dataGridBanner tbody')[0];
+    const sortableBanner = new Sortable(tbodyBanner, {
+        animation: 150,
+        ghostClass: 'dragging',
+        handle: 'tr',
+        onEnd: function(evt) {
+            let movedData = $('#dataGridBanner').DataTable().row(evt.oldIndex).data();
+            let temp;
+            
+            var dataList = $('#dataGridBanner').DataTable().rows().data();
+            $('#dataGridBanner').DataTable().clear();
+            
+            for(var x = 0 ; x < dataList.length; x++)
+            {
+                if(evt.newIndex <= evt.oldIndex)
+                {
+                    
+                   if(x == evt.newIndex)
+                   {
+                       temp = dataList[x];
+                       dataList[x] = movedData;
+                       movedData = temp;
+                   }
+                   else if(x <= evt.oldIndex && x > evt.newIndex)
+                   {
+                       temp = dataList[x];
+                       dataList[x] = movedData;
+                       movedData = temp;
+                   }
+                     $('#dataGridBanner').DataTable().row.add(dataList[x]).draw();
+                }
+                else
+                {
+                   if(x >= evt.oldIndex && x < evt.newIndex)
+                   {
+                       dataList[x] = dataList[x+1];
+                   }
+                   else if(x == evt.newIndex)
+                   {
+                       dataList[x] = movedData;
+                   }
+                 $('#dataGridBanner').DataTable().row.add(dataList[x]).draw();
+                }
+            }
+        }
     });
 
 	$.ajax({
@@ -330,15 +400,182 @@ $(document).ready(function() {
 		]
     });
 
+	// Enable sorting
+    const tbodyTeam = $('#dataGridTeam tbody')[0];
+    const sortableTeam = new Sortable(tbodyTeam, {
+        animation: 150,
+        ghostClass: 'dragging',
+        handle: 'tr',
+        onEnd: function(evt) {
+            let movedData = $('#dataGridTeam').DataTable().row(evt.oldIndex).data();
+            let temp;
+            
+            var dataList = $('#dataGridTeam').DataTable().rows().data();
+            $('#dataGridTeam').DataTable().clear();
+            
+            for(var x = 0 ; x < dataList.length; x++)
+            {
+                if(evt.newIndex <= evt.oldIndex)
+                {
+                    
+                   if(x == evt.newIndex)
+                   {
+                       temp = dataList[x];
+                       dataList[x] = movedData;
+                       movedData = temp;
+                   }
+                   else if(x <= evt.oldIndex && x > evt.newIndex)
+                   {
+                       temp = dataList[x];
+                       dataList[x] = movedData;
+                       movedData = temp;
+                   }
+                     $('#dataGridTeam').DataTable().row.add(dataList[x]).draw();
+                }
+                else
+                {
+                   if(x >= evt.oldIndex && x < evt.newIndex)
+                   {
+                       dataList[x] = dataList[x+1];
+                   }
+                   else if(x == evt.newIndex)
+                   {
+                       dataList[x] = movedData;
+                   }
+                 $('#dataGridTeam').DataTable().row.add(dataList[x]).draw();
+                }
+            }
+        }
+    });
+
 	$.ajax({
-		url: base_url+ 'Master/Data/Config/loadNamaDanVideoFixture',
+		url: base_url + 'Master/Data/Config/loadNamaDanVideoFixture',
 		type: 'GET',
 		dataType: 'json',
-		success: async function (data)  {
-			// var videoid = getVideoId(data.rows.URLBTS.VALUE);
-			// var videoData = await getYouTubeData(videoid);
-			// $("#previewGambarBehindTheScene").attr("src",videoData.thumbnail);
-			// $("#VIDEOBEHINDTHESCENE").val(data.rows.URLBTS.VALUE);
+		success: async function (data) {
+
+			$('#IDFIXTURE').select2({
+				ajax: {
+					url: base_url + 'Competition/Operational/Fixture/comboGrid',
+					dataType: 'json',
+					delay: 250,
+					cache: false,
+					processResults: function (result) {
+						return {
+							results: result.rows.map(function (row) {
+								return {
+									id: row.VALUE,
+									text: row.FULLNAME
+								};
+							})
+						};
+					}
+				}
+			});
+
+			// ✅ 2. Set value setelah Select2 di-init
+			var newOption = new Option(data.rows.NAMA, data.rows.ID, true, true);
+			$('#IDFIXTURE').append(newOption).trigger('change');
+
+			//VIDEO
+
+			var videoid = getVideoId(data.rows.VIDEO);
+			var videoData = await getYouTubeData(videoid);
+			$("#previewGambarHighlight1").attr("src", videoData.thumbnail);
+
+			videoid = getVideoId(data.rows.VIDEOHIGHLIGHT);
+			videoData = await getYouTubeData(videoid);
+			$("#previewGambarHighlight2").attr("src", videoData.thumbnail);
+
+			videoid = getVideoId(data.rows.VIDEOMATCHINTERVIEW);
+			videoData = await getYouTubeData(videoid);
+			$("#previewGambarMatchInterview").attr("src", videoData.thumbnail);
+
+			$('#IDVIDEO').select2({
+				ajax: {
+					url: base_url + 'Competition/Operational/Fixture/comboGridDetail',
+					dataType: 'json',
+					delay: 250,
+					cache: false,
+					data: function (params) {
+						return {
+							id: data.rows.ID,
+							video : 'VIDEO'
+						};
+					},
+					processResults: function (result) {
+						return {
+							results: result.rows.map(function (row) {
+								return {
+									id: row.VALUE,
+									text: row.TEXT
+								};
+							})
+						};
+					}
+				}
+			});
+			// ✅ 2. Set value setelah Select2 di-init
+			var newOption = new Option(data.rows.VIDEOTEXT, data.rows.VIDEOVALUE, true, true);
+			$('#IDVIDEO').append(newOption).trigger('change');
+
+			$('#IDVIDEOHIGHLIGHT').select2({
+				ajax: {
+					url: base_url + 'Competition/Operational/Fixture/comboGridDetail',
+					dataType: 'json',
+					delay: 250,
+					cache: false,
+					data: function (params) {
+						return {
+							id: data.rows.ID,
+							video : 'VIDEOHIGHLIGHT'
+						};
+					},
+					processResults: function (result) {
+						return {
+							results: result.rows.map(function (row) {
+								return {
+									id: row.VALUE,
+									text: row.TEXT
+								};
+							})
+						};
+					}
+				}
+			});
+
+			// ✅ 2. Set value setelah Select2 di-init
+			var newOption = new Option(data.rows.VIDEOHIGHLIGHTTEXT, data.rows.VIDEOHIGHLIGHTVALUE, true, true);
+			$('#IDVIDEOHIGHLIGHT').append(newOption).trigger('change');
+
+			$('#IDVIDEOMATCHINTERVIEW').select2({
+				ajax: {
+					url: base_url + 'Competition/Operational/Fixture/comboGridDetail',
+					dataType: 'json',
+					delay: 250,
+					cache: false,
+					data: function (params) {
+						return {
+							id: data.rows.ID,
+							video : 'VIDEOMATCHINTERVIEW'
+						};
+					},
+					processResults: function (result) {
+						return {
+							results: result.rows.map(function (row) {
+								return {
+									id: row.VALUE,
+									text: row.TEXT
+								};
+							})
+						};
+					}
+				}
+			});
+
+			// ✅ 2. Set value setelah Select2 di-init
+			var newOption = new Option(data.rows.VIDEOMATCHINTERVIEWTEXT, data.rows.VIDEOMATCHINTERVIEWVALUE, true, true);
+			$('#IDVIDEOMATCHINTERVIEW').append(newOption).trigger('change');
 		}
 	});
 
@@ -378,6 +615,279 @@ $(document).ready(function() {
 			},
 		]
     });
+
+	// Enable sorting
+    const tbodyKlasemen = $('#dataGridKlasemen tbody')[0];
+    const sortableKlasemen = new Sortable(tbodyKlasemen, {
+        animation: 150,
+        ghostClass: 'dragging',
+        handle: 'tr',
+        onEnd: function(evt) {
+            let movedData = $('#dataGridKlasemen').DataTable().row(evt.oldIndex).data();
+            let temp;
+            
+            var dataList = $('#dataGridKlasemen').DataTable().rows().data();
+            $('#dataGridKlasemen').DataTable().clear();
+            
+            for(var x = 0 ; x < dataList.length; x++)
+            {
+                if(evt.newIndex <= evt.oldIndex)
+                {
+                    
+                   if(x == evt.newIndex)
+                   {
+                       temp = dataList[x];
+                       dataList[x] = movedData;
+                       movedData = temp;
+                   }
+                   else if(x <= evt.oldIndex && x > evt.newIndex)
+                   {
+                       temp = dataList[x];
+                       dataList[x] = movedData;
+                       movedData = temp;
+                   }
+                     $('#dataGridKlasemen').DataTable().row.add(dataList[x]).draw();
+                }
+                else
+                {
+                   if(x >= evt.oldIndex && x < evt.newIndex)
+                   {
+                       dataList[x] = dataList[x+1];
+                   }
+                   else if(x == evt.newIndex)
+                   {
+                       dataList[x] = movedData;
+                   }
+                 $('#dataGridKlasemen').DataTable().row.add(dataList[x]).draw();
+                }
+            }
+        }
+    });
+
+	$('#dataGridNews').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false,
+		ajax		  : {
+			url    : base_url+'Master/Data/Config/dataGridNews',
+			dataSrc: "rows",
+		},      
+        columns:[
+            {data: ''},
+            {data: 'ID',visible:false},
+            {data: 'GAMBAR', className:"text-center"},  
+            {data: 'JUDUL'},        
+            {data: 'KATEGORI', className:"text-center"},        
+            {data: 'TERBIT', className:"text-center"},              
+        ],
+		columnDefs: [
+			{
+                "targets": 0,
+                "data": null,
+                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+			},
+            {
+                "targets": 2,
+                "render" :function (data) 
+                {
+                   return "<img src='"+data+"?t="+ Date.now()+"' style='width:400px;'>";
+                },
+			},
+		]
+    });
+
+	const tbodyNews = $('#dataGridNews tbody')[0];
+    const sortableNews = new Sortable(tbodyNews, {
+        animation: 150,
+        ghostClass: 'dragging',
+        handle: 'tr',
+        onEnd: function(evt) {
+            let movedData = $('#dataGridNews').DataTable().row(evt.oldIndex).data();
+            let temp;
+            
+            var dataList = $('#dataGridNews').DataTable().rows().data();
+            $('#dataGridNews').DataTable().clear();
+            
+            for(var x = 0 ; x < dataList.length; x++)
+            {
+                if(evt.newIndex <= evt.oldIndex)
+                {
+                    
+                   if(x == evt.newIndex)
+                   {
+                       temp = dataList[x];
+                       dataList[x] = movedData;
+                       movedData = temp;
+                   }
+                   else if(x <= evt.oldIndex && x > evt.newIndex)
+                   {
+                       temp = dataList[x];
+                       dataList[x] = movedData;
+                       movedData = temp;
+                   }
+                     $('#dataGridNews').DataTable().row.add(dataList[x]).draw();
+                }
+                else
+                {
+                   if(x >= evt.oldIndex && x < evt.newIndex)
+                   {
+                       dataList[x] = dataList[x+1];
+                   }
+                   else if(x == evt.newIndex)
+                   {
+                       dataList[x] = movedData;
+                   }
+                 $('#dataGridNews').DataTable().row.add(dataList[x]).draw();
+                }
+            }
+        }
+    });
+
+	$('#dataGridSponsor').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false,
+		ajax		  : {
+			url    : base_url+'Master/Data/Config/dataGridSponsor',
+			dataSrc: "rows",
+		},      
+        columns:[
+            {data: ''},
+            {data: 'ID',visible:false},
+            {data: 'GAMBAR', className:"text-center"},  
+            {data: 'NAMA'},                   
+            {data: 'WEBSITE'},                   
+        ],
+		columnDefs: [
+			{
+                "targets": 0,
+                "data": null,
+                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+			},
+            {
+                "targets": 2,
+                "render" :function (data) 
+                {
+                   return "<img src='"+data+"?t="+ Date.now()+"' style='width:100px;'>";
+                },
+			},
+		]
+    });
+
+	const tbodySponsor = $('#dataGridSponsor tbody')[0];
+    const sortableSponsor = new Sortable(tbodySponsor, {
+        animation: 150,
+        ghostClass: 'dragging',
+        handle: 'tr',
+        onEnd: function(evt) {
+            let movedData = $('#dataGridSponsor').DataTable().row(evt.oldIndex).data();
+            let temp;
+            
+            var dataList = $('#dataGridSponsor').DataTable().rows().data();
+            $('#dataGridSponsor').DataTable().clear();
+            
+            for(var x = 0 ; x < dataList.length; x++)
+            {
+                if(evt.newIndex <= evt.oldIndex)
+                {
+                    
+                   if(x == evt.newIndex)
+                   {
+                       temp = dataList[x];
+                       dataList[x] = movedData;
+                       movedData = temp;
+                   }
+                   else if(x <= evt.oldIndex && x > evt.newIndex)
+                   {
+                       temp = dataList[x];
+                       dataList[x] = movedData;
+                       movedData = temp;
+                   }
+                     $('#dataGridSponsor').DataTable().row.add(dataList[x]).draw();
+                }
+                else
+                {
+                   if(x >= evt.oldIndex && x < evt.newIndex)
+                   {
+                       dataList[x] = dataList[x+1];
+                   }
+                   else if(x == evt.newIndex)
+                   {
+                       dataList[x] = movedData;
+                   }
+                 $('#dataGridSponsor').DataTable().row.add(dataList[x]).draw();
+                }
+            }
+        }
+    });
+
+	$.ajax({
+		url: base_url+ 'Master/Data/Config/loadContact',
+		type: 'GET',
+		dataType: 'json',
+		success: async function (data)  {
+
+			 //CONTACT
+			var contact = data.rows.CONTACT;
+			
+			for(var x = 0 ; x < contact.length ; x++){
+				if(contact[x].CONFIG == 'ALAMAT'){
+					$("#ALAMAT").val(contact[x].VALUE);
+					$("#ALAMATURL").val(contact[x].PREFIX);
+				}
+				else if(contact[x].CONFIG == 'EMAIL'){
+					$("#EMAIL").val(contact[x].VALUE);
+				}
+				else if(contact[x].CONFIG == 'TELP'){
+					$("#TELP").val(contact[x].VALUE);
+				}
+				else if(contact[x].CONFIG == 'INSTAGRAM'){
+					$("#INSTAGRAM").val(contact[x].VALUE);
+				}
+				else if(contact[x].CONFIG == 'TIKTOK'){
+					$("#TIKTOK").val(contact[x].VALUE);
+				}
+				else if(contact[x].CONFIG == 'YOUTUBE'){
+					$("#YOUTUBE").val(contact[x].VALUE);
+				}
+			}
+			//CONTACT
+
+			//MEMBER-CONTACT
+			var memberContact = data.rows.MEMBERCONTACT;
+			
+			for(var x = 0 ; x < memberContact.length ; x++){
+
+				if(memberContact[x].CONFIG == 'MEMBER-ALAMAT'){
+					$("#MEMBERALAMAT").val(memberContact[x].VALUE);
+				}
+				else if(memberContact[x].CONFIG == 'MEMBER-EMAIL'){
+					$("#MEMBEREMAIL").val(memberContact[x].VALUE);
+				}
+				else if(memberContact[x].CONFIG == 'MEMBER-TELP'){
+					$("#MEMBERTELP").val(memberContact[x].VALUE);
+				}
+				else if(memberContact[x].CONFIG == 'MEMBER-INSTAGRAM'){
+					$("#MEMBERINSTAGRAM").val(memberContact[x].VALUE);
+				}
+				else if(memberContact[x].CONFIG == 'MEMBER-X'){
+					$("#MEMBERX").val(memberContact[x].VALUE);
+				}
+				else if(memberContact[x].CONFIG == 'MEMBER-TIKTOK'){
+					$("#MEMBERTIKTOK").val(memberContact[x].VALUE);
+				}
+				else if(memberContact[x].CONFIG == 'MEMBER-FACEBOOK'){
+					$("#MEMBERFACEBOOK").val(memberContact[x].VALUE);
+				}
+			}
+		}
+	});
 
 });    
 

@@ -173,6 +173,7 @@ class Model_master_config extends CI_Model{
 	}
 
 	function loadNamaDanVideoFixture(){
+		$data['rows'] = [];
 		//VIDEO BTS
 		$sqlConfig = "select VALUE
 			from MCONFIG  
@@ -197,20 +198,20 @@ class Model_master_config extends CI_Model{
 		
 		if(count($dataVideo) > 0)
 		{
-			$sql = "select VIDEO
+			$sql = "select VIDEO, CONCAT(CLUB1.NAMA,' vs ',CLUB2.NAMA,' / ', TFIXTUREDTL.TGLFIXTURE) as TEXT
 					from TFIXTURE 
 					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
+					INNER JOIN MCLUB CLUB2 ON CLUB2.IDCLUB = TFIXTUREDTL.IDCLUB2 
 					WHERE TFIXTURE.STATUS = 1
 					AND TFIXTUREDTL.IDFIXTURE = $dataVideo[0] 
 					AND TFIXTUREDTL.IDCLUB1 = $dataVideo[1] 
 					AND TFIXTUREDTL.IDCLUB2 = $dataVideo[2] 
 					AND TFIXTUREDTL.TGLFIXTURE = '$dataVideo[3]'";
 			$query = $this->db->queryRaw($sql);	
-			$data['rows']['VIDEO'] = [$query->row()->VIDEO];
-		}
-		else
-		{
-			$data['rows']['VIDEO'] = [];
+			$data['rows']['VIDEO'] = $query->row()->VIDEO;
+			$data['rows']['VIDEOVALUE'] = $queryConfig->row()->VALUE;
+			$data['rows']['VIDEOTEXT'] = $query->row()->TEXT;
 		}
 		
 		//VIDEO HIGHLIGHT
@@ -222,20 +223,20 @@ class Model_master_config extends CI_Model{
 		
 		if(count($dataVideo) > 0)
 		{
-			$sql = "select VIDEOHIGHLIGHT
+			$sql = "select VIDEOHIGHLIGHT, CONCAT(CLUB1.NAMA,' vs ',CLUB2.NAMA,' / ', TFIXTUREDTL.TGLFIXTURE) as TEXT
 					from TFIXTURE 
 					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
+					INNER JOIN MCLUB CLUB2 ON CLUB2.IDCLUB = TFIXTUREDTL.IDCLUB2 
 					WHERE TFIXTURE.STATUS = 1
 					AND TFIXTUREDTL.IDFIXTURE = $dataVideo[0] 
 					AND TFIXTUREDTL.IDCLUB1 = $dataVideo[1] 
 					AND TFIXTUREDTL.IDCLUB2 = $dataVideo[2] 
 					AND TFIXTUREDTL.TGLFIXTURE = '$dataVideo[3]'";
 			$query = $this->db->queryRaw($sql);	
-			$data['rows']['VIDEOHIGHLIGHT'] = [$query->row()->VIDEOHIGHLIGHT];
-		}
-		else
-		{
-			$data['rows']['VIDEOHIGHLIGHT'] = [];
+			$data['rows']['VIDEOHIGHLIGHT'] = $query->row()->VIDEOHIGHLIGHT;
+			$data['rows']['VIDEOHIGHLIGHTVALUE'] = $queryConfig->row()->VALUE;
+			$data['rows']['VIDEOHIGHLIGHTTEXT'] = $query->row()->TEXT;
 		}
 
 		//VIDEO MATCH INTERVIEW
@@ -247,22 +248,21 @@ class Model_master_config extends CI_Model{
 
 		if(count($dataVideo) > 0)
 		{
-			$sql = "select VIDEOMATCHINTERVIEW
+			$sql = "select VIDEOMATCHINTERVIEW, CONCAT(CLUB1.NAMA,' vs ',CLUB2.NAMA,' / ', TFIXTUREDTL.TGLFIXTURE) as TEXT
 					from TFIXTURE 
 					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
+					INNER JOIN MCLUB CLUB2 ON CLUB2.IDCLUB = TFIXTUREDTL.IDCLUB2 
 					WHERE TFIXTURE.STATUS = 1
 					AND TFIXTUREDTL.IDFIXTURE = $dataVideo[0] 
 					AND TFIXTUREDTL.IDCLUB1 = $dataVideo[1] 
 					AND TFIXTUREDTL.IDCLUB2 = $dataVideo[2] 
 					AND TFIXTUREDTL.TGLFIXTURE = '$dataVideo[3]'";
 			$query = $this->db->queryRaw($sql);	
-			$data['rows']['VIDEOMATCHINTERVIEW'] = [$query->row()->VIDEOMATCHINTERVIEW];
+			$data['rows']['VIDEOMATCHINTERVIEW'] = $query->row()->VIDEOMATCHINTERVIEW;
+			$data['rows']['VIDEOMATCHINTERVIEWVALUE'] = $queryConfig->row()->VALUE;
+			$data['rows']['VIDEOMATCHINTERVIEWTEXT'] = $query->row()->TEXT;
 		}
-		else
-		{
-			$data['rows']['VIDEOMATCHINTERVIEW'] = [];
-		}
-
 		return $data;
 	}
 
@@ -295,6 +295,73 @@ class Model_master_config extends CI_Model{
 			array_push($data['rows'],$detail);
 			
 		}
+
+		return $data;
+	}
+
+
+	function dataGridNews(){
+		$sql = "select IDNEWS as ID, TITLE as JUDUL ,KATEGORI,TGLTERBIT as TERBIT,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
+			from TNEWS  
+			INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
+			WHERE TNEWS.STATUS = 1
+			AND FIND_IN_SET(IDNEWS, (
+				SELECT VALUE 
+				FROM MCONFIG 
+				WHERE MODUL = 'NEWS'
+			))
+			ORDER BY TGLTERBIT DESC";
+		$query = $this->db->queryRaw($sql);
+		$data['rows'] = $query->result();	
+		return $data;
+	}
+
+	function dataGridSponsor(){
+		$sql = "select IDSPONSOR as ID, NAMA,WEBSITE, CONCAT('".base_url()."assets/images/sponsor/',IDSPONSOR,'.png') as GAMBAR
+				from MSPONSOR  
+				WHERE STATUS = 1";
+		$query = $this->db->queryRaw($sql);	
+		$data['base'] = $query->result();
+
+		$data['rows'] = [];
+
+		$sqlConfig = "select VALUE
+			from MCONFIG  
+			WHERE MODUL = 'SPONSOR' AND CONFIG = 'IDSPONSOR'";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+		$dataConfig = $queryConfig->result();
+
+		foreach($dataConfig as $itemConfig){
+			$dataSponsor = explode(",",$itemConfig->VALUE);
+			foreach($dataSponsor as $itemSponsor){
+				foreach($data['base'] as $item)
+				{
+					if($itemSponsor == $item->ID)
+					{
+						array_push($data['rows'],$item);
+					}
+				}
+			}
+		}
+		
+		unset($data['base']);
+		return $data;
+	}
+
+	function loadContact(){
+		//CONTACT DATA
+		$sqlConfig = "select CONFIG,VALUE,IFNULL(PREFIX,'') as PREFIX
+			from MCONFIG  
+			WHERE MODUL = 'HOME' AND CONFIG in ('ALAMAT','TELP','EMAIL','INSTAGRAM','TIKTOK','YOUTUBE')";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+		$data['rows']['CONTACT'] = $queryConfig->result();
+
+		//MEMBER CONTACT DATA
+		$sqlConfig = "select CONFIG,VALUE,IFNULL(PREFIX,'') as PREFIX
+			from MCONFIG  
+			WHERE MODUL = 'HOME' AND CONFIG like '%MEMBER-%'";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+		$data['rows']['MEMBERCONTACT'] = $queryConfig->result();
 
 		return $data;
 	}
