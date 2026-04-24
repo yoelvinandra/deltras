@@ -38,5 +38,17 @@ class Config extends MY_Controller {
 		$response = $this->model_master_config->loadVideoBTS($this->setPaginationGrid(), $this->setFilterGrid());
 		echo json_encode($response);
 	}
+
+	public function loadNamaDanVideoFixture(){
+		$this->output->set_content_type('application/json');
+		$response = $this->model_master_config->loadNamaDanVideoFixture($this->setPaginationGrid(), $this->setFilterGrid());
+		echo json_encode($response);
+	}
+
+	public function dataGridKlasemen() {
+		$this->output->set_content_type('application/json');
+		$response = $this->model_master_config->dataGridKlasemen($this->setPaginationGrid(), $this->setFilterGrid());
+		echo json_encode($response);
+	}
 	
 }

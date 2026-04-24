@@ -33,6 +33,7 @@
                     <div class="box-body">
                         <h3 style="font-weight:bold;">Banner</h3>
 						<button class="btn btn-success" onclick="javascript:tambahBanner()">Tambah</button>
+						<br><br>
                         <table id="dataGridBanner" class="table table-bordered table-striped table-hover display nowrap" width="100%">
                             <!-- class="table-hover"> -->
                             <thead>
@@ -51,29 +52,35 @@
                 </div>
 				<div class="tab-pane" id="tab_team">
                     <div class="box-body">
-                        <h3 style="font-weight:bold;">Team & Player</h3>
-						<label>Video Behind The Scene</label><br>
-						<img id="previewGambarBehindTheScene" src="" width="500px"><br><br>
-						<input type="text" class="form-control" id="VIDEOBEHINDTHESCENE" name="VIDEOBEHINDTHESCENE" placeholder="...">
-						<br>
-						<label>Pemain yang ditampilkan di Beranda</label>
-						<br>
-						<button class="btn btn-success" onclick="javascript:tambahPemain()">Tambah</button>
-                        <table id="dataGridTeam" class="table table-bordered table-striped table-hover display nowrap" width="100%">
-                            <!-- class="table-hover"> -->
-                            <thead>
-								<tr>
-									<th width="35px"></th>
-									<th width="120px">Foto</th>
-									<th>Nama</th>
-									<th>Position</th>
-									<th>Squad Number</th>  
-									<th>Goals</th>    
-									<th>Assist</th>     
-									<th>GK Save</th>                                
-								</tr>
-                            </thead>
-                        </table>
+						<div class="row">
+							<div class="col-md-4">
+								<h3 style="font-weight:bold;">Video Behind The Scene</h3>
+								<img id="previewGambarBehindTheScene" src="" width="100%"><br><br>
+								<input type="text" class="form-control" id="VIDEOBEHINDTHESCENE" name="VIDEOBEHINDTHESCENE" placeholder="...">
+							</div>
+							<div class="col-md-8">
+								<h3 style="font-weight:bold;">Player yang ditampilkan di Beranda</h3>
+								<button class="btn btn-success" onclick="javascript:tambahPemain()">Tambah</button>
+								<br><br>
+								<table id="dataGridTeam" class="table table-bordered table-striped table-hover display nowrap" width="100%">
+									<!-- class="table-hover"> -->
+									<thead>
+										<tr>
+											<th width="35px"></th>
+											<th>ID</th>
+											<th width="100px">Foto</th>
+											<th width="300px">Nama</th>
+											<th>Position</th>
+											<th>Squad Number</th>  
+											<th>Goals</th>    
+											<th>Assist</th>     
+											<th>GK Save</th>                                
+										</tr>
+									</thead>
+								</table>
+							</div>
+							<br>
+						</div>
                     </div>
 					<div class="box-footer">
                         <button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanTeam()">Simpan</button>
@@ -81,41 +88,50 @@
                 </div>
 				<div class="tab-pane" id="tab_fixture">
                     <div class="box-body">
-                        <h3 style="font-weight:bold;">Fixture</h3>
-						<label>Nama Fixture</label>
-						<select class="form-control" id="IDFIXTURE" name="IDFIXTURE">
-            			</select>
-						<br>
-						<label>Video Highlight</label>
-						<img src="" height="200px">
-						<select class="form-control" id="VIDEOHIGHLIGHT" name="VIDEOHIGHLIGHT">
-            			</select>
-						<br>
-						<label>Video</label>
-						<img src="" height="200px">
-						<select class="form-control" id="VIDEO" name="VIDEO">
-            			</select>
-						<br>
-						<label>Video Match Interview</label>
-						<img src="" height="200px">
-						<select class="form-control" id="VIDEOMATCHINTERVIEW" name="VIDEOMATCHINTERVIEW">
-            			</select>
-						<br>
-						<label>Tabel Klasemen</label>
-						<button class="btn btn-success" onclick="javascript:tambahKlasemen()">Tambah</button>
-						<table id="dataGridKlasemen" class="table table-bordered table-striped table-hover display nowrap" width="100%">
-                            <!-- class="table-hover"> -->
-                            <thead>
-								<tr>
-									<th width="35px"></th>
-									<th>Club</th>
-									<th>Menang</th>
-									<th>Seri</th>  
-									<th>Kalah</th>    
-									<th>Point</th>                               
-								</tr>
-                            </thead>
-                        </table>
+						<div class="row">
+							<div class="col-md-4">
+								<h3 style="font-weight:bold;">Fixture</h3>
+								<label>Pilih Fixture</label>
+								<select class="form-control" id="IDFIXTURE" name="IDFIXTURE">
+								</select>
+								<br>
+								<label>Video Highlight 1</label>
+								<img id="previewGambarHighlight1" src="" width="100%"><br><br>
+								<select class="form-control" id="VIDEOHIGHLIGHT" name="VIDEOHIGHLIGHT">
+								</select>
+								<br>
+								<label>Video Highlight 2</label>
+								<img id="previewGambarHighlight2" src="" width="100%"><br><br>
+								<select class="form-control" id="VIDEO" name="VIDEO">
+								</select>
+								<br>
+								<label>Video Match Interview</label>
+								<img id="previewGambarMatchInterview" src="" width="100%"><br><br>
+								<select class="form-control" id="VIDEOMATCHINTERVIEW" name="VIDEOMATCHINTERVIEW">
+								</select>
+							</div>
+							<div class="col-md-8">
+								<h3 style="font-weight:bold;">Tabel Klasemen</h3>
+								<button class="btn btn-success" onclick="javascript:tambahKlasemen()">Tambah</button>
+								<br><br>
+								<table id="dataGridKlasemen" class="table table-bordered table-striped table-hover display nowrap" width="100%">
+									<!-- class="table-hover"> -->
+									<thead>
+										<tr>
+											<th width="35px"></th>
+											<th>ID</th>
+											<th width="40px">Logo</th>
+											<th width="300px">Club</th>
+											<th>Menang</th>
+											<th>Seri</th>  
+											<th>Kalah</th>    
+											<th>Point</th>                               
+										</tr>
+									</thead>
+								</table>
+							</div>
+							<br>
+						</div>
 						<br>
                     </div>
 					<div class="box-footer">
@@ -289,13 +305,14 @@ $(document).ready(function() {
 		},      
         columns:[
             {data: ''},
-            {data: 'GAMBAR',},
+            {data: 'ID', visible:false},
+            {data: 'GAMBAR', className:"text-center"},
             {data: 'NAMA'},         
-            {data: 'POSITION'},          
-            {data: 'SQUADNUMBER'},          
-            {data: 'GOAL'},          
-            {data: 'ASSIST'},          
-            {data: 'GKSAVE'},           
+            {data: 'POSITION', className:"text-center"},          
+            {data: 'SQUADNUMBER', className:"text-center"},          
+            {data: 'GOAL', className:"text-center"},          
+            {data: 'ASSIST', className:"text-center"},          
+            {data: 'GKSAVE', className:"text-center"},           
         ],
 		columnDefs: [
 			{
@@ -304,14 +321,64 @@ $(document).ready(function() {
                 "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
 			},
             {
-                "targets": 1,
+                "targets": 2,
                 "render" :function (data) 
                 {
-                   return "<img src='"+data+"?t="+ Date.now()+"'>";
+                   return "<img src='"+data+"?t="+ Date.now()+"' style='width:100px;'>";
                 },
 			},
 		]
     });
+
+	$.ajax({
+		url: base_url+ 'Master/Data/Config/loadNamaDanVideoFixture',
+		type: 'GET',
+		dataType: 'json',
+		success: async function (data)  {
+			// var videoid = getVideoId(data.rows.URLBTS.VALUE);
+			// var videoData = await getYouTubeData(videoid);
+			// $("#previewGambarBehindTheScene").attr("src",videoData.thumbnail);
+			// $("#VIDEOBEHINDTHESCENE").val(data.rows.URLBTS.VALUE);
+		}
+	});
+
+	$('#dataGridKlasemen').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false,
+		ajax		  : {
+			url    : base_url+'Master/Data/Config/dataGridKlasemen',
+			dataSrc: "rows",
+		},      
+        columns:[
+            {data: ''},
+            {data: 'ID',visible:false},
+            {data: 'GAMBAR', className:"text-center"},  
+            {data: 'NAMA'},         
+            {data: 'MENANG', className:"text-center"},          
+            {data: 'SERI', className:"text-center"},          
+            {data: 'KALAH', className:"text-center"},          
+            {data: 'POINT', className:"text-center"},              
+        ],
+		columnDefs: [
+			{
+                "targets": 0,
+                "data": null,
+                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+			},
+            {
+                "targets": 2,
+                "render" :function (data) 
+                {
+                   return "<img src='"+data+"?t="+ Date.now()+"' style='width:40px;'>";
+                },
+			},
+		]
+    });
+
 });    
 
 function simpanAbout(){

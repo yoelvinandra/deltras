@@ -171,4 +171,131 @@ class Model_master_config extends CI_Model{
 		$data['rows']['URLBTS'] = $queryConfig->row();
 		return $data;
 	}
+
+	function loadNamaDanVideoFixture(){
+		//VIDEO BTS
+		$sqlConfig = "select VALUE
+			from MCONFIG  
+			WHERE MODUL = 'FIXTURE' AND CONFIG = 'TABEL_KLASEMEN_IDFIXTURE'";
+		$dataConfig = $this->db->queryRaw($sqlConfig)->row();	
+		
+		if($dataConfig->VALUE != "")
+		{
+			$sql = "select IDFIXTURE as ID, CONCAT('KLASEMEN ',NAMA,' ',IF(SEASONAWAL = SEASONAKHIR, SEASONAKHIR, CONCAT(YEAR(SEASONAWAL), '/', SUBSTR(YEAR(SEASONAKHIR), -2, 2)))) AS NAMA
+					from TFIXTURE 
+					where IDFIXTURE = $dataConfig->VALUE";
+			$data['rows']['ID'] = $this->db->queryRaw($sql)->row()->ID;	
+			$data['rows']['NAMA'] = $this->db->queryRaw($sql)->row()->NAMA;	
+		}
+
+		//VIDEO
+		$sqlConfig = "select VALUE
+			from MCONFIG  
+			WHERE MODUL = 'FIXTURE' AND CONFIG = 'IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEO' ";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+		$dataVideo = explode(",", $queryConfig->row()->VALUE??"");
+		
+		if(count($dataVideo) > 0)
+		{
+			$sql = "select VIDEO
+					from TFIXTURE 
+					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+					WHERE TFIXTURE.STATUS = 1
+					AND TFIXTUREDTL.IDFIXTURE = $dataVideo[0] 
+					AND TFIXTUREDTL.IDCLUB1 = $dataVideo[1] 
+					AND TFIXTUREDTL.IDCLUB2 = $dataVideo[2] 
+					AND TFIXTUREDTL.TGLFIXTURE = '$dataVideo[3]'";
+			$query = $this->db->queryRaw($sql);	
+			$data['rows']['VIDEO'] = [$query->row()->VIDEO];
+		}
+		else
+		{
+			$data['rows']['VIDEO'] = [];
+		}
+		
+		//VIDEO HIGHLIGHT
+		$sqlConfig = "select VALUE
+			from MCONFIG  
+			WHERE MODUL = 'FIXTURE' AND CONFIG = 'IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEOHIGHLIGHT' ";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+		$dataVideo = explode(",", $queryConfig->row()->VALUE??"");
+		
+		if(count($dataVideo) > 0)
+		{
+			$sql = "select VIDEOHIGHLIGHT
+					from TFIXTURE 
+					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+					WHERE TFIXTURE.STATUS = 1
+					AND TFIXTUREDTL.IDFIXTURE = $dataVideo[0] 
+					AND TFIXTUREDTL.IDCLUB1 = $dataVideo[1] 
+					AND TFIXTUREDTL.IDCLUB2 = $dataVideo[2] 
+					AND TFIXTUREDTL.TGLFIXTURE = '$dataVideo[3]'";
+			$query = $this->db->queryRaw($sql);	
+			$data['rows']['VIDEOHIGHLIGHT'] = [$query->row()->VIDEOHIGHLIGHT];
+		}
+		else
+		{
+			$data['rows']['VIDEOHIGHLIGHT'] = [];
+		}
+
+		//VIDEO MATCH INTERVIEW
+		$sqlConfig = "select VALUE
+			from MCONFIG  
+			WHERE MODUL = 'FIXTURE' AND CONFIG = 'IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEOMATCHINTERVIEW' ";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+		$dataVideo = explode(",", $queryConfig->row()->VALUE??"");
+
+		if(count($dataVideo) > 0)
+		{
+			$sql = "select VIDEOMATCHINTERVIEW
+					from TFIXTURE 
+					INNER JOIN TFIXTUREDTL ON TFIXTURE.IDFIXTURE = TFIXTUREDTL.IDFIXTURE
+					WHERE TFIXTURE.STATUS = 1
+					AND TFIXTUREDTL.IDFIXTURE = $dataVideo[0] 
+					AND TFIXTUREDTL.IDCLUB1 = $dataVideo[1] 
+					AND TFIXTUREDTL.IDCLUB2 = $dataVideo[2] 
+					AND TFIXTUREDTL.TGLFIXTURE = '$dataVideo[3]'";
+			$query = $this->db->queryRaw($sql);	
+			$data['rows']['VIDEOMATCHINTERVIEW'] = [$query->row()->VIDEOMATCHINTERVIEW];
+		}
+		else
+		{
+			$data['rows']['VIDEOMATCHINTERVIEW'] = [];
+		}
+
+		return $data;
+	}
+
+	function dataGridKlasemen(){
+		$data['rows'] = [];
+
+		$sqlConfig = "select VALUE
+			from MCONFIG  
+			WHERE MODUL = 'FIXTURE' AND CONFIG like '%TABEL_KLASEMEN_IDCLUB,MENANG,SERI,KALAH,POINT%' 
+			ORDER BY PREFIX ASC";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+
+		foreach($queryConfig->result() as $dataConfig){
+
+			$detailConfig = explode(",",$dataConfig->VALUE);
+			$sql = "select NAMA,CONCAT('".base_url()."assets/images/club/',IDCLUB,'.png') as GAMBARCLUB
+					from MCLUB 
+					where IDCLUB = $detailConfig[0]";
+
+			$detail = array(
+				'ID'		=> $detailConfig[0],
+				'GAMBAR' 	=> $this->db->queryRaw($sql)->row()->GAMBARCLUB,
+				'NAMA' 		=> $this->db->queryRaw($sql)->row()->NAMA,
+				'MENANG' 	=> $detailConfig[1],
+				'SERI' 		=> $detailConfig[2],
+				'KALAH' 	=> $detailConfig[3],
+				'POINT'		=> $detailConfig[4],
+			);
+
+			array_push($data['rows'],$detail);
+			
+		}
+
+		return $data;
+	}
 }
