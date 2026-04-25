@@ -335,6 +335,10 @@ function loadFixture(){
                 </div>
         `;
       }
+
+      if(html == ""){
+        html = "<div class='fira-sans-regular' style='text-align:center;'>Tidak ada data</div>";
+      }
       $(".prev-content").html(html);
     }
   });

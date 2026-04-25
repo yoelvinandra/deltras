@@ -12,6 +12,18 @@ class Player extends MY_Controller {
 		// panggil set page di MY_Controller
 		$this->setPage($kodeMenu, $config);
 	}
+
+	public function comboGrid() {
+		$this->output->set_content_type('application/json');
+		$response = $this->model_master_player->comboGrid();
+		echo json_encode($response);
+	}
+
+	public function comboGridPlayer() {
+		$this->output->set_content_type('application/json');
+		$response = $this->model_master_player->comboGridPlayer();
+		echo json_encode($response);
+	}
 	
 	public function web() {
 		$this->output->set_content_type('application/json');

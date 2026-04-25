@@ -10,10 +10,41 @@ class Model_master_player extends MY_Model{
 	
 	public function comboGrid(){
 		
-		$sql = "select IDPLAYER as VALUE, CONCAT(NAMADEPAN,' ',NAMABELAKANG) as TEXT
+		$sql = "select IDPLAYER as VALUE, CONCAT(NAMADEPAN,' ',NAMABELAKANG) as TEXT,POSITION,SQUADNUMBER,GOAL,ASSIST,GKSAVE
 				from MPLAYER  
 				ORDER BY NAMADEPAN";
-		$query = $this->db->query($sql);	
+		$query = $this->db->queryRaw($sql);	
+		$data['rows'] = $query->result();
+		return $data;
+	}
+
+	public function comboGridPlayer(){
+		
+		$sqlConfig = "select VALUE
+			from MCONFIG  
+			WHERE MODUL = 'TEAM' AND SUBSTRING_INDEX(CONFIG, '-', 1) = 'SENIOR TEAM' ";
+		$queryConfig = $this->db->queryRaw($sqlConfig);	
+		$dataConfig = $queryConfig->result();
+
+		$in_team = "";
+		
+		foreach($dataConfig as $itemConfig){
+			$dataPosition = explode(",",$itemConfig->VALUE);
+			foreach($dataPosition as $itemPosition){
+				if($in_team != "")
+				{
+					$in_team .= ",";
+				}
+				$in_team .= ("'".$itemPosition."'"); 
+			}
+		}
+
+		$sql = "select IDPLAYER as VALUE, CONCAT(NAMADEPAN,' ',NAMABELAKANG) as TEXT,POSITION,SQUADNUMBER,GOAL,ASSIST,GKSAVE, CONCAT('".base_url()."assets/images/player/',IDPLAYER,'.png') as GAMBAR
+				from MPLAYER  
+				where POSITION in ($in_team)
+				ORDER BY NAMADEPAN";
+			
+		$query = $this->db->queryRaw($sql);	
 		$data['rows'] = $query->result();
 		return $data;
 	}
@@ -61,10 +92,11 @@ class Model_master_player extends MY_Model{
 
 			foreach($dataConfig as $itemConfig){
 				$dataPlayerConfig = explode(",",$itemConfig->VALUE);
-				for($x = 0 ; $x < count($data['senior_team']) ; $x++)
-				{
+				
+				foreach($dataPlayerConfig as $itemPlayerConfig){
+					for($x = 0 ; $x < count($data['senior_team']) ; $x++)
+					{
 					$player = $data['senior_team'][$x];
-					foreach($dataPlayerConfig as $itemPlayerConfig){
 						if($itemPlayerConfig == $player->ID)
 						{
 							array_push($data['rows'],$player);

@@ -172,6 +172,53 @@ class Model_master_config extends CI_Model{
 		return $data;
 	}
 
+	function simpanTeam($data){
+		$a_detail  = json_decode($data['DETAILTEAM']);
+		$this->db->trans_begin();
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","URLVIDEOBTS");
+		$this->db->delete("MCONFIG");
+
+		$this->db->where("MODUL","TEAM");
+		$this->db->where("CONFIG","IDPLAYER");
+		$this->db->delete("MCONFIG");
+
+
+		$data_values = array (
+			'MODUL'  			=> "HOME",
+			'CONFIG'   			=> "URLVIDEOBTS",
+			'VALUE' 			=> $data['VIDEOBEHINDTHESCENE'],
+		);
+			
+		$this->db->insertRaw('MCONFIG',$data_values);
+
+		$id = "";
+
+		foreach ($a_detail as $item) {
+            if( $id != "")
+			{
+				$id.=",";
+			}
+            $id .= $item->ID;
+		}
+
+		$data_values = array (
+            'MODUL'  			=> "TEAM",
+            'CONFIG'   			=> "IDPLAYER",
+            'VALUE' 			=> $id,
+        );
+			
+        $this->db->insertRaw('MCONFIG',$data_values);
+
+		if ($this->db->trans_status() === FALSE){
+			$this->db->trans_rollback();
+			return 'Gagal menyimpan pada database';
+		}
+		$this->db->trans_commit();
+		return '';
+	}
+
 	function loadNamaDanVideoFixture(){
 		$data['rows'] = [];
 		//VIDEO BTS

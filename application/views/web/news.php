@@ -47,6 +47,10 @@
 
     </div><!-- /.news-grid -->
 
+    <div id="nodata">
+
+    </div><!-- /.news-grid -->
+
     <!-- ── PAGINATION ── -->
    <div class="pager" id="pager">
     <button class="pg arr pg-left" id="btnPrev" disabled aria-label="Previous page"></button>
@@ -167,7 +171,9 @@ function loadNews() {
             </div>
           </a>`;
       }
-
+      if(html == ""){
+        $("#nodata").html( "<div class='fira-sans-regular' style='text-align:center;'>Tidak ada data</div>");
+      }
       $("#newsGrid").html(html);
       renderPager();
     }

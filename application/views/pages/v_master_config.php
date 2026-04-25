@@ -51,40 +51,98 @@
                     </div>
                 </div>
 				<div class="tab-pane" id="tab_team">
-                    <div class="box-body">
-						<div class="row">
-							<div class="col-md-4">
-								<h3 style="font-weight:bold;">Video Behind The Scene</h3>
-								<img id="previewGambarBehindTheScene" src="" width="100%"><br>
-								<label>Link Youtube Behind The Scene</label>
-								<input type="text" class="form-control" id="VIDEOBEHINDTHESCENE" name="VIDEOBEHINDTHESCENE" placeholder="...">
+					<form role="form" id="form_input_team">
+						<div class="box-body">
+							<input id="mode-team" type="hidden" value="tambah">
+							<input id="DETAILTEAM" name="DETAILTEAM" type="hidden" value="">
+							<div class="row">
+								<div class="col-md-4">
+									<h3 style="font-weight:bold;">Video Behind The Scene</h3>
+									<img id="previewGambarBehindTheScene" src="" width="100%"><br>
+									<label>Link Youtube Behind The Scene</label>
+									<input type="text" class="form-control" id="VIDEOBEHINDTHESCENE" name="VIDEOBEHINDTHESCENE" placeholder="...">
+								</div>
+								<div class="col-md-8">
+									<h3 style="font-weight:bold;">Player yang ditampilkan di Beranda</h3>
+									<button type='button'  class="btn btn-success" onclick="javascript:tambahDetailTeam()">Tambah</button>
+									<br><br>
+									<table id="dataGridTeam" class="table table-bordered table-striped table-hover display nowrap" width="100%">
+										<!-- class="table-hover"> -->
+										<thead>
+											<tr>
+												<th width="35px"></th>
+												<th>ID</th>
+												<th width="100px">Foto</th>
+												<th width="300px">Nama</th>
+												<th>Position</th>
+												<th>Squad Number</th>  
+												<th>Goals</th>    
+												<th>Assist</th>     
+												<th>GK Save</th>                                
+											</tr>
+										</thead>
+									</table>
+								</div>
+								<br>
 							</div>
-							<div class="col-md-8">
-								<h3 style="font-weight:bold;">Player yang ditampilkan di Beranda</h3>
-								<button type='button'  class="btn btn-success" onclick="javascript:tambahPemain()">Tambah</button>
-								<br><br>
-								<table id="dataGridTeam" class="table table-bordered table-striped table-hover display nowrap" width="100%">
-									<!-- class="table-hover"> -->
-									<thead>
-										<tr>
-											<th width="35px"></th>
-											<th>ID</th>
-											<th width="100px">Foto</th>
-											<th width="300px">Nama</th>
-											<th>Position</th>
-											<th>Squad Number</th>  
-											<th>Goals</th>    
-											<th>Assist</th>     
-											<th>GK Save</th>                                
-										</tr>
-									</thead>
-								</table>
-							</div>
-							<br>
 						</div>
-                    </div>
-					<div class="box-footer">
-                        <button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanTeam()">Simpan</button>
+						<div class="box-footer">
+							<button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanTeam()">Simpan</button>
+						</div>
+					</form>
+					<div class="modal fade" id="modal-team">
+                    	<div class="modal-dialog">
+                    	<div class="modal-content">
+                    		<div class="modal-body">
+								<input type="hidden" id="IDPLAYERDETAILOLD">
+								<h3 style="font-weight:bold;">Pilih Player</h3>
+                    			<label>Nama Player</label>
+								<select class="form-control" id="IDPLAYERDETAIL" name="IDPLAYERDETAIL" style="width:100%;">
+								</select>
+								<br>
+								<br>
+								<label>Foto</label>
+								<br>
+                    			<img id="previewGambarPlayerDetail" src="<?=base_url()?>assets/images/player/no-player.png" width="200px">
+								<br><br>
+								<div class="row">
+									<div class="col-md-6">
+										<label>Position</label>
+										<br>
+										<input type="text" id="POSITIONDETAIL" class="form-control"  name="POSITIONDETAIL" readonly>
+									</div>
+									<div class="col-md-6">
+										<label>Squad Number</label>
+										<br>
+										<input type="number" id="SQUADNUMBERDETAIL" class="form-control"  name="SQUADNUMBERDETAIL" readonly>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-md-4">
+										<label>Goals</label>
+										<br>
+										<input type="number" id="GOALSDETAIL" class="form-control"  name="GOALSDETAIL" readonly>
+									</div>
+									<div class="col-md-4">
+										<label>Assist</label>
+										<br>
+										<input type="number" id="ASSISTDETAIL" class="form-control"  name="ASSISTDETAIL" readonly>
+									</div>
+									<div class="col-md-4">
+										<label>GK Save</label>
+										<br>
+										<input type="number" id="GKSAVEDETAIL" class="form-control"  name="GKSAVEDETAIL" readonly>
+									</div>
+								</div>
+								<br>
+								<br>
+                    			<button class="btn btn-success pull-right" id="btn_batal" onclick="simpanDetailTeam()">Pilih</button>
+                    			<br>
+                    			<br>
+                    		</div>
+                    	</div>
+                    	</div>
                     </div>
                 </div>
 				<div class="tab-pane" id="tab_fixture">
@@ -470,7 +528,7 @@ $(document).ready(function() {
         }
     });
 
-	getDataVideoBT();
+	getDataVideoBTS();
 
 	$('#dataGridTeam').DataTable({
         'paging'      : true,
@@ -509,6 +567,19 @@ $(document).ready(function() {
 			},
 		]
     });
+
+	$('#dataGridTeam tbody').on( 'click', 'button', function () {
+		var row = $('#dataGridTeam').DataTable().row( $(this).parents('tr') ).data();
+		var mode = $(this).attr("id");
+		
+		if(mode == "btn_ubah"){ ubahDetailTeam(row); }
+		else if(mode == "btn_hapus"){ hapusDetailTeam(row); }
+
+	} );
+
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+		$($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+	});
 
 	// Enable sorting
     const tbodyTeam = $('#dataGridTeam tbody')[0];
@@ -557,6 +628,59 @@ $(document).ready(function() {
             }
         }
     });
+
+	$('#IDPLAYERDETAIL').select2({
+		ajax: {
+			url: base_url + 'Master/Data/Player/comboGridPlayer',
+			dataType: 'json',
+			delay: 250,
+			cache: false,
+			processResults: function (result) {
+				return {
+					results: result.rows.map(function (row) {
+						return {        
+							id: row.VALUE,
+							text: row.TEXT,
+							gambar: row.GAMBAR,
+							position:row.POSITION,
+							squadnumber:row.SQUADNUMBER,
+							goal:row.GOAL,
+							assist:row.ASSIST,
+							gksave:row.GKSAVE
+						};
+					})
+				};
+			}
+		}
+	}).on('change', function () {
+		var selectedData = $(this).select2('data')[0];
+		var gambar  = selectedData?.gambar  || $('#IDPLAYERDETAIL option:selected')[0]?.dataset?.gambar;
+		var position  = selectedData?.position  || $('#IDPLAYERDETAIL option:selected')[0]?.dataset?.position;
+		var squadnumber  = selectedData?.squadnumber  || $('#IDPLAYERDETAIL option:selected')[0]?.dataset?.squadnumber;
+		var goal  = selectedData?.goal  || $('#IDPLAYERDETAIL option:selected')[0]?.dataset?.goal;
+		var assist  = selectedData?.assist  || $('#IDPLAYERDETAIL option:selected')[0]?.dataset?.assist;
+		var gksave  = selectedData?.gksave  || $('#IDPLAYERDETAIL option:selected')[0]?.dataset?.gksave;
+
+		if (!selectedData) {
+			$("#POSITIONDETAIL").val("");
+			$("#SQUADNUMBER").val("");
+			$("#GOALSDETAIL").val(0);
+			$("#ASSISTDETAIL").val(0);
+			$("#GKSAVEDETAIL").val(0);
+			$('#previewGambarPlayerDetail').attr('src', base_url + 'assets/images/player/no-player.png');
+			return;
+		}
+
+		$("#POSITIONDETAIL").val(position);
+		$("#SQUADNUMBERDETAIL").val(squadnumber);
+		$("#GOALSDETAIL").val(goal);
+		$("#ASSISTDETAIL").val(assist);
+		$("#GKSAVEDETAIL").val(gksave);
+
+		if (gambar) {
+			$('#previewGambarPlayerDetail').attr('src', gambar + '?t=' + Date.now());
+		}
+	});
 
 	getDataVideoHighlight();
 
@@ -733,7 +857,7 @@ $(document).ready(function() {
 		var row = $('#dataGridNews').DataTable().row( $(this).parents('tr') ).data();
 		var mode = $(this).attr("id");
 		
-		if(mode == "btn_ubah"){ ubahNews(row); }
+		if(mode == "btn_ubah"){ ubahDetailNews(row); }
 		else if(mode == "btn_hapus"){ hapusDetailNews(row); }
 
 	} );
@@ -870,7 +994,7 @@ $(document).ready(function() {
 		var mode = $(this).attr("id");
 		
 		if(mode == "btn_ubah"){ ubahDetailSponsor(row); }
-		else if(mode == "btn_hapus"){ hapusSponsor(row); }
+		else if(mode == "btn_hapus"){ hapusDetailSponsor(row); }
 
 	} );
 
@@ -966,7 +1090,7 @@ $(document).ready(function() {
 
 });  
 
-function getDataVideoBT(){	
+function getDataVideoBTS(){	
 	$.ajax({
 		url: base_url+ 'Master/Data/Config/loadVideoBTS',
 		type: 'GET',
@@ -979,6 +1103,19 @@ function getDataVideoBT(){
 		}
 	});
 }
+
+$("#VIDEOBEHINDTHESCENE").change(async function(){
+	var videoid = getVideoId($(this).val());
+	var videoData = await getYouTubeData(videoid);
+	if(videoData)
+	{
+		$("#previewGambarBehindTheScene").attr("src",videoData.thumbnail);
+	}
+	else
+	{
+		$("#previewGambarBehindTheScene").attr("src",base_url + 'assets/images/video/no-video.png');
+	}
+});
 
 function getDataVideoHighlight(){
 	$.ajax({
@@ -1194,6 +1331,199 @@ function getDataContact() {
 	});
 }
 
+function tambahDetailTeam(){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.TAMBAH==1) {
+			$('#IDPLAYERDETAIL').val(null).trigger('change');
+			$('#IDPLAYERDETAILOLD').val(0);
+			$('#mode-team').val('tambah');
+			$("#modal-team").modal('show');
+			} else {
+				Swal.fire({
+					title            : 'Anda Tidak Memiliki Hak Akses',
+					type             : 'warning',
+					showConfirmButton: false,
+					timer            : 1500
+				});
+			}
+	});
+}
+function ubahDetailTeam(row){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.UBAH==1) {
+			$('#mode-team').val('ubah');
+			$('#IDPLAYERDETAILOLD').val(row.ID);
+
+			// ✅ Set value Select2 dengan data lengkap, tanpa append, tanpa destroy
+			var option = new Option(row.NAMA, row.ID, true, true);
+			option.dataset.gambar = row.GAMBAR;   // ✅ simpan di dataset
+			$('#IDPLAYERDETAIL').append(option).trigger('change');
+
+			$('#previewGambarPlayerDetail').attr('src', row.GAMBAR + '?t=' + Date.now());
+			$('#POSITIONDETAIL').val(row.POSITION);
+			$('#SQUADNUMBERDETAIL').val(row.SQUADNUMBER);
+			$('#GOALSDETAIL').val(row.GOAL);
+			$('#ASSISTDETAIL').val(row.ASSIST);
+			$('#GKSAVEDETAIL').val(row.GKSAVE);
+
+			$("#modal-team").modal('show');
+	} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+}
+function hapusDetailTeam(row){
+	 get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.HAPUS==1) {
+ 			$('#mode-team').val('hapus');
+            if (row) {          
+                Swal.fire({
+                    title: 'Hapus Dari Beranda <br>' + row.NAMA,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yakin',
+                    cancelButtonText: 'Tidak',
+                }).then((result) => {
+                   if (result.value) {
+                        // Ambil index row di DataTable
+                        $("#dataGridTeam").DataTable().rows(function(idx, data_row) {
+                            return data_row.ID === row.ID;
+                        }).remove().draw();
+
+                        Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
+                    }
+                });
+            }
+			
+		} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+	
+}
+function simpanDetailTeam(){
+    var rowData = {
+        ID      	: $('#IDPLAYERDETAIL').val(),
+        GAMBAR  	: $('#previewGambarPlayerDetail').attr('src').split('?t=')[0],
+        NAMA    	: $('#IDPLAYERDETAIL option:selected').text(),
+        POSITION  	: $('#POSITIONDETAIL').val(),
+        SQUADNUMBER	: $('#SQUADNUMBERDETAIL').val(),
+		GOAL   		: $('#GOALSDETAIL').val(),
+        ASSIST		: $('#ASSISTDETAIL').val(),
+        GKSAVE		: $('#GKSAVEDETAIL').val(),
+    };
+
+    if (!rowData.ID) {
+        Swal.fire({ title: "Player wajib dipilih", icon: "warning" });
+        return;
+    }
+
+    var table = $('#dataGridTeam').DataTable();
+    var oldID = $('#IDPLAYERDETAILOLD').val();
+
+    if ($('#mode-team').val() == "tambah") {
+        var matchedRows = table.rows(function(idx, data_row) {
+            return String(data_row.ID) === String(rowData.ID);
+        });
+
+        if (matchedRows.count() == 0) {
+            table.row.add(rowData).draw(false);
+        } else {
+            Swal.fire({ title: "Player tersebut sudah ada", icon: "warning" });
+            return;
+        }
+    }
+    else if ($('#mode-team').val() == "ubah") {
+        var matchedRows = table.rows(function(idx, data_row) {
+            // ✅ Cek duplikat: ID sama tapi BUKAN dirinya sendiri
+            return String(data_row.ID) === String(rowData.ID) && String(data_row.ID) !== String(oldID);
+        });
+
+        if (matchedRows.count() > 0) {
+            Swal.fire({ title: "Player tersebut sudah ada", icon: "warning" });
+            return;
+        }
+
+        // ✅ Update row berdasarkan OLD ID
+        var updateRows = table.rows(function(idx, data_row) {
+            return String(data_row.ID) === String(oldID);
+        });
+
+        if (updateRows.count() > 0) {
+            updateRows.every(function() {
+                this.data(rowData).invalidate();
+            });
+            table.draw(false);
+        }
+    }
+
+    $("#modal-team").modal('hide');
+}
+
+async function simpanTeam(){
+
+	var videoid = getVideoId($("#VIDEOBEHINDTHESCENE").val());
+	var videoData = await getYouTubeData(videoid);
+	if(videoData)
+	{
+		$("#previewGambarBehindTheScene").attr("src",videoData.thumbnail);
+	}
+	else
+	{
+		$("#previewGambarBehindTheScene").attr("src",base_url + 'assets/images/video/no-video.png');
+	}
+	
+	if($("#previewGambarBehindTheScene").attr("src") == (base_url + 'assets/images/video/no-video.png'))
+	{
+		Swal.fire({ title: "Video belum tersedia", icon: "warning" });
+	}
+	else
+	{
+		$("#DETAILTEAM").val(JSON.stringify($('#dataGridTeam').DataTable().rows().data().toArray()));
+		let formData = new FormData($('#form_input_team')[0]);
+
+		loading();
+		$.ajax({
+			type: 'POST',
+			url: base_url+'Master/Data/Config/simpanTeam',
+			data: formData,
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+
+			success: function(msg){
+				Swal.close();
+				if (msg.success) {
+					Swal.fire({
+						title: 'Simpan Data Sukses',
+						type: 'success',
+						showConfirmButton: false,
+						timer: 1500
+					});
+					getDataVideoBT();
+					$("#dataGridTeam").DataTable().ajax.reload();
+
+				} else {
+					Swal.fire({
+						title: msg.errorMsg,
+						type: 'error',
+						timer: 1500
+					});
+				}
+			}
+		});
+	}
+}
+
 function tambahDetailFixture(){
 	get_akses_user('<?=$_GET['kode']?>', function(data){
 		if (data.TAMBAH==1) {
@@ -1383,7 +1713,7 @@ function tambahDetailNews(){
 			}
 	});
 }
-function ubahNews(row){
+function ubahDetailNews(row){
 	get_akses_user('<?=$_GET['kode']?>', function(data){
 		if (data.UBAH==1) {
 			$('#mode-news').val('ubah');
@@ -1579,7 +1909,7 @@ function ubahDetailSponsor(row){
 		}
 	});
 }
-function hapusSponsor(row){
+function hapusDetailSponsor(row){
 	 get_akses_user('<?=$_GET['kode']?>', function(data){
 		if (data.HAPUS==1) {
  			$('#mode-sponsor').val('hapus');

@@ -38,6 +38,14 @@ class Config extends MY_Controller {
 		$response = $this->model_master_config->loadVideoBTS($this->setPaginationGrid(), $this->setFilterGrid());
 		echo json_encode($response);
 	}
+	public function simpanTeam(){
+		$response = $this->model_master_config->simpanTeam($this->input->post());
+		if ($response != ""){
+			// generate an error... or use the log_message() function to log your error
+			die(json_encode(array('errorMsg' => $response)));
+		}
+		echo json_encode(array('success' => true,'errorMsg' => ''));
+	}
 
 	public function loadNamaDanVideoFixture(){
 		$this->output->set_content_type('application/json');
