@@ -365,4 +365,66 @@ class Model_master_config extends CI_Model{
 
 		return $data;
 	}
+
+	function simpanLokasiKontak($data){
+		
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","ALAMAT");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['ALAMAT'], 'PREFIX' => $data['ALAMATURL']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","EMAIL");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['EMAIL']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","TELP");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['TELP']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","YOUTUBE");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['YOUTUBE']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","TIKTOK");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['TIKTOK']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","INSTAGRAM");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['INSTAGRAM']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","MEMBER-ALAMAT");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['MEMBERALAMAT']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","MEMBER-EMAIL");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['MEMBEREMAIL']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","MEMBER-TELP");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['MEMBERTELP']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","MEMBER-INSTAGRAM");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['MEMBERINSTAGRAM']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","MEMBER-X");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['MEMBERX']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","MEMBER-TIKTOK");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['MEMBERTIKTOK']));
+
+		$this->db->where("MODUL","HOME");
+		$this->db->where("CONFIG","MEMBER-FACEBOOK");
+		$this->db->updateRaw('MCONFIG',array('VALUE' => $data['MEMBERFACEBOOK']));
+
+		if ($this->db->trans_status() === FALSE){
+			$this->db->trans_rollback();
+			return 'Gagal menyimpan pada database';
+		}
+
+		return '';
+	}
 }

@@ -37,15 +37,15 @@
 
     <div class="contact fira-sans-regular">
         <b>Kontak & Informasi</b><br>
-        📞  : <a href="#" class="member-telp"></a><br>
-        📧  : <a href="#" class="member-email"></a><br>
-        📍  : <a href="#" class="member-location"></a>
+        📞  : <a href="#" target="_blank" class="member-telp"></a><br>
+        📧  : <a href="#" target="_blank" class="member-email"></a><br>
+        📍  : <a href="#" target="_blank" class="member-location"></a>
         <br><br><br>
         <b>Ikuti Kami</b><br>
-        Instagram : <a href="#" class="member-instagram"></a><br>
-        Twitter/X : <a href="#" class="member-x"></a><br>
-        TikTok : <a href="#" class="member-tiktok"></a><br>
-        Facebook : <a href="#" class="member-facebook"></a><br>
+        Instagram : <a href="#" target="_blank" class="member-instagram"></a><br>
+        Twitter/X : <a href="#" target="_blank" class="member-x"></a><br>
+        TikTok : <a href="#" target="_blank" class="member-tiktok"></a><br>
+        Facebook : <a href="#" target="_blank" class="member-facebook"></a><br>
     </div>
     <div class="all-deltras-member"><img src="assets/images/member/member-all.png?t=<?=date('Ymdhis')?>"></div>
     <div class="grey-strip">

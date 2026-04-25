@@ -312,10 +312,11 @@ img { display: block; max-width: 100%; }
   padding:0px;
   margin:0px;
   padding-top:10px;
+  transition:    color 0.2s;
 }
 
 .dropdown ul li a:hover {
-  color: #c00;
+  color:var(--primary-color);
 }
 
 .dropdown-address{
@@ -335,7 +336,13 @@ img { display: block; max-width: 100%; }
   font-weight:normal !important;
   letter-spacing:0px !important;
   padding:0px !important;
+  transition:  color 0.2s !important;
 } 
+
+.dropdown-address a:hover{
+  color:var(--primary-color) !important;
+}
+
 .login-div a{
   display:flex !important;
   justify-content: right;
@@ -2722,6 +2729,15 @@ img { display: block; max-width: 100%; }
   font-size: 16px;
 }
 
+.membership .contact a{
+  color:#000;
+  transition:    color 0.2s;
+}
+
+.membership .contact a:hover{
+  color:var(--primary-color);
+}
+
 .all-deltras-member{
   padding-left:32px;
   padding-right:32px;
@@ -4126,6 +4142,7 @@ input[data-provide="datepicker"]:focus {
 
 .red-bar { width: 100%; height: 4px; background:   var(--primary-color); }
 .clearfix::after { content: ''; display: table; clear: both; }
+
 
 #videoModal{
   display:none; 

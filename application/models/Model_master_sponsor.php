@@ -10,12 +10,12 @@ class Model_master_sponsor extends MY_Model{
 	
 	public function comboGrid($q){
 		
-		$sql = "select IDSPONSOR as VALUE, NAMA as TEXT
+		$sql = "select IDSPONSOR as VALUE, NAMA as TEXT,WEBSITE, CONCAT('".base_url()."assets/images/sponsor/',IDSPONSOR,'.png') as GAMBAR
 				from MSPONSOR  
 				WHERE NAMA like ?
 				ORDER BY NAMA";
 				
-		$query = $this->db->query($sql, ["%".$q."%"]);	
+		$query = $this->db->queryRaw($sql, ["%".$q."%"]);	
 		$data['rows'] = $query->result();
 		return $data;
 	}

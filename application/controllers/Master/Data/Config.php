@@ -68,4 +68,13 @@ class Config extends MY_Controller {
 		$response = $this->model_master_config->loadContact($this->setPaginationGrid(), $this->setFilterGrid());
 		echo json_encode($response);
 	}
+
+	public function simpanLokasiKontak(){
+		$response = $this->model_master_config->simpanLokasiKontak($this->input->post());
+		if ($response != ""){
+			// generate an error... or use the log_message() function to log your error
+			die(json_encode(array('errorMsg' => $response)));
+		}
+		echo json_encode(array('success' => true,'errorMsg' => ''));
+	}
 }
