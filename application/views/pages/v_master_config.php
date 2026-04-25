@@ -32,7 +32,7 @@
                 <div class="tab-pane active" id="tab_banner">
                     <div class="box-body">
                         <h3 style="font-weight:bold;">Banner</h3>
-						<button class="btn btn-success" onclick="javascript:tambahBanner()">Tambah</button>
+						<button type='button'  class="btn btn-success" onclick="javascript:tambahBanner()">Tambah</button>
 						<br><br>
                         <table id="dataGridBanner" class="table table-bordered table-striped table-hover display nowrap" width="100%">
                             <!-- class="table-hover"> -->
@@ -61,7 +61,7 @@
 							</div>
 							<div class="col-md-8">
 								<h3 style="font-weight:bold;">Player yang ditampilkan di Beranda</h3>
-								<button class="btn btn-success" onclick="javascript:tambahPemain()">Tambah</button>
+								<button type='button'  class="btn btn-success" onclick="javascript:tambahPemain()">Tambah</button>
 								<br><br>
 								<table id="dataGridTeam" class="table table-bordered table-striped table-hover display nowrap" width="100%">
 									<!-- class="table-hover"> -->
@@ -88,115 +88,195 @@
                     </div>
                 </div>
 				<div class="tab-pane" id="tab_fixture">
-                    <div class="box-body">
-						<div class="row">
-							<div class="col-md-4">
-								<h3 style="font-weight:bold;">Fixture</h3>
-								<label>Pilih Fixture</label>
+					<form role="form" id="form_input_fixture">
+						<div class="box-body">
+							<div class="row">
+								<div class="col-md-4">
+									<h3 style="font-weight:bold;">Fixture</h3>
+									<label>Pilih Fixture</label>
+									<br>
+									<select class="form-control" id="IDFIXTURE" name="IDFIXTURE" style="width:100%;">
+									</select>
+									<br>
+									<br>
+									<label>Video Highlight 1</label>
+									<img id="previewGambarHighlight1" src="" width="100%"><br>
+									<label>Pilih Fixture Video</label>
+									<select class="form-control" id="IDVIDEO" name="IDVIDEO" style="width:100%;">
+									</select>
+									<br>
+									<br>
+									<label>Video Highlight 2</label>
+									<img id="previewGambarHighlight2" src="" width="100%"><br>
+									<label>Pilih Fixture Video</label>
+									<select class="form-control" id="IDVIDEOHIGHLIGHT" name="IDVIDEOHIGHLIGHT" style="width:100%;">
+									</select>
+									<br>
+									<br>
+									<label>Video Match Interview</label>
+									<img id="previewGambarMatchInterview" src="" width="100%"><br>
+									<label>Pilih Fixture Video</label>
+									<select class="form-control" id="IDVIDEOMATCHINTERVIEW" name="IDVIDEOMATCHINTERVIEW" style="width:100%;">
+									</select>
+									
+								</div>
+								<div class="col-md-8">
+									<h3 style="font-weight:bold;">Tabel Klasemen</h3>
+									<button type='button'  class="btn btn-success" onclick="javascript:tambahDetailFixture()">Tambah</button>
+									<br><br>
+									<table id="dataGridKlasemen" class="table table-bordered table-striped table-hover display nowrap" width="100%">
+										<!-- class="table-hover"> -->
+										<thead>
+											<tr>
+												<th width="35px"></th>
+												<th>ID</th>
+												<th width="40px">Logo</th>
+												<th width="300px">Club</th>
+												<th>Menang</th>
+												<th>Seri</th>  
+												<th>Kalah</th>    
+												<th>Point</th>                               
+											</tr>
+										</thead>
+									</table>
+								</div>
 								<br>
-								<select class="form-control" id="IDFIXTURE" name="IDFIXTURE" style="width:100%;">
-								</select>
-								<br>
-								<br>
-								<label>Video Highlight 1</label>
-								<img id="previewGambarHighlight1" src="" width="100%"><br>
-								<label>Pilih Fixture Video</label>
-								<select class="form-control" id="IDVIDEO" name="IDVIDEO" style="width:100%;">
-								</select>
-								<br>
-								<br>
-								<label>Video Highlight 2</label>
-								<img id="previewGambarHighlight2" src="" width="100%"><br>
-								<label>Pilih Fixture Video</label>
-								<select class="form-control" id="IDVIDEOHIGHLIGHT" name="IDVIDEOHIGHLIGHT" style="width:100%;">
-								</select>
-								<br>
-								<br>
-								<label>Video Match Interview</label>
-								<img id="previewGambarMatchInterview" src="" width="100%"><br>
-								<label>Pilih Fixture Video</label>
-								<select class="form-control" id="IDVIDEOMATCHINTERVIEW" name="IDVIDEOMATCHINTERVIEW" style="width:100%;">
-								</select>
-								
-							</div>
-							<div class="col-md-8">
-								<h3 style="font-weight:bold;">Tabel Klasemen</h3>
-								<button class="btn btn-success" onclick="javascript:tambahKlasemen()">Tambah</button>
-								<br><br>
-								<table id="dataGridKlasemen" class="table table-bordered table-striped table-hover display nowrap" width="100%">
-									<!-- class="table-hover"> -->
-									<thead>
-										<tr>
-											<th width="35px"></th>
-											<th>ID</th>
-											<th width="40px">Logo</th>
-											<th width="300px">Club</th>
-											<th>Menang</th>
-											<th>Seri</th>  
-											<th>Kalah</th>    
-											<th>Point</th>                               
-										</tr>
-									</thead>
-								</table>
 							</div>
 							<br>
 						</div>
-						<br>
-                    </div>
-					<div class="box-footer">
-                        <button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanFixture()">Simpan</button>
+						<div class="box-footer">
+							<button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanFixture()">Simpan</button>
+						</div>
+					</form>
+					<div class="modal fade" id="modal-fixture">
+                    	<div class="modal-dialog">
+                    	<div class="modal-content">
+                    		<div class="modal-body">
+								<input type="hidden" id="IDCLUBDETAILOLD">
+								<h3 style="font-weight:bold;">Pilih Club</h3>
+                    			<label>Nama Club</label>
+								<select class="form-control" id="IDCLUBDETAIL" name="IDCLUBDETAIL" style="width:100%;">
+								</select>
+								<br>
+								<br>
+								<label>Logo</label>
+								<br>
+                    			<img id="previewGambarClubDetail" src="<?=base_url()?>assets/images/news/no-image.png" width="100px">
+								<br><br>
+								<label>Menang</label>
+                    			<br>
+								<input type="text" id="MENANGDETAIL" class="form-control"  name="MENANGDETAIL">
+								<br>
+								<label>Seri</label>
+                    			<br>
+								<input type="text" id="SERIDETAIL" class="form-control"  name="SERIDETAIL">
+								<br>
+								<label>Kalah</label>
+                    			<br>
+								<input type="text" id="KALAHDETAIL" class="form-control"  name="KALAHDETAIL">
+								<br>
+								<label>Point</label>
+                    			<br>
+								<input type="text" id="POINTDETAIL" class="form-control"  name="POINTDETAIL">
+								<br>
+								<br>
+                    			<button class="btn btn-success pull-right" id="btn_batal" onclick="simpanDetailFixture()">Pilih</button>
+                    			<br>
+                    			<br>
+                    		</div>
+                    	</div>
+                    	</div>
                     </div>
                 </div>
 				<div class="tab-pane" id="tab_news">
-                    <div class="box-body">
-                        <h3 style="font-weight:bold;">News</h3>
-						<table id="dataGridNews" class="table table-bordered table-striped table-hover display nowrap" width="100%">
-                            <!-- class="table-hover"> -->
-                            <thead>
-								<tr>
-									<th width="35px"></th>
-									<th>ID</th>
-									<th>Gambar</th>
-									<th>Judul</th>  
-									<th>Kategori</th>         
-									<th>Terbit</th>                                
-								</tr>
-                            </thead>
-                        </table>
-                        
-                    </div>
-					<div class="box-footer">
-                        <button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanNews()">Simpan</button>
+					<form role="form" id="form_input_news">
+						<div class="box-body">
+							<h3 style="font-weight:bold;">News</h3>
+							<input id="mode-news" type="hidden" value="tambah">
+							<input id="DETAILNEWS" name="DETAILNEWS" type="hidden" value="">
+							<table id="dataGridNews" class="table table-bordered table-striped table-hover display nowrap" width="100%">
+								<!-- class="table-hover"> -->
+								<thead>
+									<tr>
+										<th width="35px"></th>
+										<th>ID</th>
+										<th>Gambar</th>
+										<th>Judul</th>  
+										<th>Kategori</th>         
+										<th>Tgl Terbit</th>                                
+									</tr>
+								</thead>
+							</table>
+							</h3>
+						</div>
+						<div class="box-footer">
+							<button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanNews()">Simpan</button>
+						</div>
+					</form>
+					<div class="modal fade" id="modal-news">
+                    	<div class="modal-dialog">
+                    	<div class="modal-content">
+                    		<div class="modal-body">
+								<input type="hidden" id="IDNEWSDETAILOLD">
+								<h3 style="font-weight:bold;">Pilih News</h3>
+                    			<label>Judul News</label>
+								<select class="form-control" id="IDNEWSDETAIL" name="IDNEWSDETAIL" style="width:100%;">
+								</select>
+								<br>
+								<br>
+								<label>Gambar News</label>
+								<br>
+                    			<img id="previewGambarNewsDetail" src="<?=base_url()?>assets/images/news/no-image.png" width="100%">
+								<br><br>
+								<label>Kategori</label>
+                    			<br>
+								<input type="text" id="KATEGORINEWSDETAIL" class="form-control"  name="KATEGORINEWSDETAIL" readonly>
+								<br>
+								<label>Tgl Terbit</label>
+                    			<br>
+								<input type="text" id="TGLTERBITNEWSDETAIL" class="form-control"  name="TGLTERBITNEWSDETAIL" readonly>
+								<br>
+								<br>
+                    			<button class="btn btn-success pull-right" id="btn_batal" onclick="simpanDetailNews()">Pilih</button>
+                    			<br>
+                    			<br>
+                    		</div>
+                    	</div>
+                    	</div>
                     </div>
                 </div>
 				<div class="tab-pane" id="tab_sponsor">
-                    <div class="box-body">
-                        <h3 style="font-weight:bold;">Sponsor</h3>
-						<input id="mode-sponsor" type="hidden" value="tambah">
-						<button class="btn btn-success" onclick="javascript:tambahSponsor()">Tambah</button>
-						<table id="dataGridSponsor" class="table table-bordered table-striped table-hover display nowrap" width="100%">
-                            <!-- class="table-hover"> -->
-                            <thead>
-								<tr>
-									<th width="35px"></th>
-									<th>ID</th>
-									<th>Logo</th>        
-									<th>Nama</th>      
-									<th>Website</th>                        
-								</tr>
-                            </thead>
-                        </table>
-						<br>
-                    </div>
-					<div class="box-footer">
-                        <button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanSponsor()">Simpan</button>
-                    </div>
+					<form role="form" id="form_input_sponsor">
+						<div class="box-body">
+							<h3 style="font-weight:bold;">Sponsor</h3>
+							<input id="mode-sponsor" type="hidden" value="tambah">
+							<input id="DETAILSPONSOR" name="DETAILSPONSOR" type="hidden" value="">
+							<button type='button'  class="btn btn-success" onclick="javascript:tambahDetailSponsor()">Tambah</button>
+							<table id="dataGridSponsor" class="table table-bordered table-striped table-hover display nowrap" width="100%">
+								<!-- class="table-hover"> -->
+								<thead>
+									<tr>
+										<th width="35px"></th>
+										<th>ID</th>
+										<th>Logo</th>        
+										<th>Nama</th>      
+										<th>Website</th>                        
+									</tr>
+								</thead>
+							</table>
+							<br>
+						</div>
+						<div class="box-footer">
+							<button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanSponsor()">Simpan</button>
+						</div>
+					</form>
 					<div class="modal fade" id="modal-sponsor">
                     	<div class="modal-dialog">
                     	<div class="modal-content">
                     		<div class="modal-body">
+								<input type="hidden" id="IDSPONSORDETAILOLD">
 								<h3 style="font-weight:bold;">Pilih Sponsor</h3>
-                    			<label>Sponsor</label>
+                    			<label>Nama Sponsor</label>
 								<select class="form-control" id="IDSPONSORDETAIL" name="IDSPONSORDETAIL" style="width:100%;">
 								</select>
 								<br>
@@ -321,7 +401,7 @@ $(document).ready(function() {
 			{
                 "targets": 0,
                 "data": null,
-                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+                "defaultContent": "<button type='button' id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button type='button' id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
 			},
             {
                 "targets": 1,
@@ -409,7 +489,7 @@ $(document).ready(function() {
 			{
                 "targets": 0,
                 "data": null,
-                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+                "defaultContent": "<button type='button' id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button type='button' id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
 			},
             {
                 "targets": 2,
@@ -496,7 +576,7 @@ $(document).ready(function() {
 			{
                 "targets": 0,
                 "data": null,
-                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+                "defaultContent": "<button type='button' id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button type='button' id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
 			},
             {
                 "targets": 2,
@@ -507,6 +587,19 @@ $(document).ready(function() {
 			},
 		]
     });
+
+	$('#dataGridKlasemen tbody').on( 'click', 'button', function () {
+		var row = $('#dataGridKlasemen').DataTable().row( $(this).parents('tr') ).data();
+		var mode = $(this).attr("id");
+		
+		if(mode == "btn_ubah"){ ubahDetailFixture(row); }
+		else if(mode == "btn_hapus"){ hapusDetailFixture(row); }
+
+	} );
+
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+		$($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+	});
 
 	// Enable sorting
     const tbodyKlasemen = $('#dataGridKlasemen tbody')[0];
@@ -556,6 +649,38 @@ $(document).ready(function() {
         }
     });
 
+	$('#IDCLUBDETAIL').select2({
+		ajax: {
+			url: base_url + 'Master/Data/Club/comboGrid',
+			dataType: 'json',
+			delay: 250,
+			cache: false,
+			processResults: function (result) {
+				return {
+					results: result.rows.map(function (row) {
+						return {        
+							id: row.VALUE,
+							text: row.TEXT,
+							gambar: row.GAMBAR
+						};
+					})
+				};
+			}
+		}
+	}).on('change', function () {
+		var selectedData = $(this).select2('data')[0];
+		var gambar  = selectedData?.gambar  || $('#IDCLUBDETAIL option:selected')[0]?.dataset?.gambar;
+
+		if (!selectedData) {
+			$('#previewGambarClubDetail').attr('src', base_url + 'assets/images/club/no-logo.png');
+			return;
+		}
+		if (gambar) {
+			$('#previewGambarClubDetail').attr('src', gambar + '?t=' + Date.now());
+		}
+	});
+
+
 	$('#dataGridNews').DataTable({
         'paging'      : true,
         'lengthChange': true,
@@ -573,13 +698,13 @@ $(document).ready(function() {
             {data: 'GAMBAR', className:"text-center"},  
             {data: 'JUDUL'},        
             {data: 'KATEGORI', className:"text-center"},        
-            {data: 'TERBIT', className:"text-center"},              
+            {data: 'TGLTERBIT', className:"text-center"},              
         ],
 		columnDefs: [
 			{
                 "targets": 0,
                 "data": null,
-                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+                "defaultContent": "<button type='button' id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> " //<button type='button' id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>	
 			},
             {
                 "targets": 2,
@@ -590,6 +715,19 @@ $(document).ready(function() {
 			},
 		]
     });
+
+	$('#dataGridNews tbody').on( 'click', 'button', function () {
+		var row = $('#dataGridNews').DataTable().row( $(this).parents('tr') ).data();
+		var mode = $(this).attr("id");
+		
+		if(mode == "btn_ubah"){ ubahNews(row); }
+		else if(mode == "btn_hapus"){ hapusDetailNews(row); }
+
+	} );
+
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+		$($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+	});
 
 	const tbodyNews = $('#dataGridNews tbody')[0];
     const sortableNews = new Sortable(tbodyNews, {
@@ -638,6 +776,47 @@ $(document).ready(function() {
         }
     });
 
+	$('#IDNEWSDETAIL').select2({
+		ajax: {
+			url: base_url + 'Competition/Operational/News/comboGrid',
+			dataType: 'json',
+			delay: 250,
+			cache: false,
+			processResults: function (result) {
+				return {
+					results: result.rows.map(function (row) {
+						return {        
+							id: row.VALUE,
+							text: row.TEXT,
+							kategori: row.KATEGORI,
+							tglterbit: row.TGLTERBIT,
+							gambar: row.GAMBAR
+						};
+					})
+				};
+			}
+		}
+	}).on('change', function () {
+		var selectedData = $(this).select2('data')[0];
+		var gambar  = selectedData?.gambar  || $('#IDNEWSDETAIL option:selected')[0]?.dataset?.gambar;
+		var kategori  = selectedData?.kategori  || $('#IDNEWSDETAIL option:selected')[0]?.dataset?.kategori;
+		var tglterbit = selectedData?.tglterbit || $('#IDNEWSDETAIL option:selected')[0]?.dataset?.tglterbit;
+
+		if (!selectedData) {
+			$('#KATEGORINEWSDETAIL').val('');
+			$('#TGLTERBITNEWSDETAIL').val('');
+			$('#previewGambarNewsDetail').attr('src', base_url + 'assets/images/news/no-image.png');
+			return;
+		}
+
+		$('#KATEGORINEWSDETAIL').val(kategori);
+		$('#TGLTERBITNEWSDETAIL').val(tglterbit);
+		if (gambar) {
+			$('#previewGambarNewsDetail').attr('src', gambar + '?t=' + Date.now());
+		}
+	});
+
+
 	$('#dataGridSponsor').DataTable({
         'paging'      : true,
         'lengthChange': true,
@@ -660,7 +839,7 @@ $(document).ready(function() {
 			{
                 "targets": 0,
                 "data": null,
-                "defaultContent": "<button id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
+                "defaultContent": "<button type='button' id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button type='button' id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
 			},
             {
                 "targets": 2,
@@ -672,19 +851,19 @@ $(document).ready(function() {
 		]
     });
 
-	var table = $('#dataGridSponsor').DataTable();
+
 	$('#dataGridSponsor tbody').on( 'click', 'button', function () {
-			var row = table.row( $(this).parents('tr') ).data();
-			var mode = $(this).attr("id");
-			
-			if(mode == "btn_ubah"){ ubahSponsor(row); }
-			else if(mode == "btn_hapus"){ hapusSponsor(row); }
+		var row = $('#dataGridSponsor').DataTable().row( $(this).parents('tr') ).data();
+		var mode = $(this).attr("id");
+		
+		if(mode == "btn_ubah"){ ubahDetailSponsor(row); }
+		else if(mode == "btn_hapus"){ hapusSponsor(row); }
 
-		} );
+	} );
 
-		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
-			$($.fn.dataTable.tables(true)).DataTable().columns.adjust();
-		});
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+		$($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+	});
 
 	const tbodySponsor = $('#dataGridSponsor tbody')[0];
     const sortableSponsor = new Sortable(tbodySponsor, {
@@ -753,21 +932,19 @@ $(document).ready(function() {
 			}
 		}
 	}).on('change', function () {
-		// Ambil selected option data
 		var selectedData = $(this).select2('data')[0];
+		var gambar  = selectedData?.gambar  || $('#IDSPONSORDETAIL option:selected')[0]?.dataset?.gambar;
+		var website = selectedData?.website || $('#IDSPONSORDETAIL option:selected')[0]?.dataset?.website;
 
-		if (selectedData) {
-			// Set nilai ke input
-			$('#NAMASPONSORDETAIL').val(selectedData.nama);
-			$('#WEBSITESPONSORDETAIL').val(selectedData.website);
-
-			// Set preview gambar
-			$('#previewGambarSponsorDetail').attr('src', selectedData.gambar + '?t=' + Date.now());
-		} else {
-			// Reset jika tidak ada yang dipilih
-			$('#NAMASPONSORDETAIL').val('');
+		if (!selectedData) {
 			$('#WEBSITESPONSORDETAIL').val('');
-			$('#previewGambarSponsorDetail').attr('src', base_url+'assets/images/sponsor/no-logo.png');
+			$('#previewGambarSponsorDetail').attr('src', base_url + 'assets/images/sponsor/no-logo.png');
+			return;
+		}
+
+		$('#WEBSITESPONSORDETAIL').val(website);
+		if (gambar) {
+			$('#previewGambarSponsorDetail').attr('src', gambar + '?t=' + Date.now());
 		}
 	});
 
@@ -987,30 +1164,515 @@ function getDataContact() {
 	});
 }
 
-function tambahSponsor(){
-	$('#IDSPONSORDETAIL').val(null).trigger('change');
-	$("#mode-sponsor").show('tambah');
-	$("#modal-sponsor").modal('show');
+function tambahDetailFixture(){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.TAMBAH==1) {
+			$('#IDCLUBDETAIL').val(null).trigger('change');
+			$('#IDCLUBDETAILOLD').val(0);
+			$('#mode-fixture').val('tambah');
+			$("#modal-fixture").modal('show');
+			} else {
+				Swal.fire({
+					title            : 'Anda Tidak Memiliki Hak Akses',
+					type             : 'warning',
+					showConfirmButton: false,
+					timer            : 1500
+				});
+			}
+	});
 }
-function ubahSponsor(row){
+function ubahDetailFixture(row){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.UBAH==1) {
+			$('#mode-fixture').val('ubah');
+			$('#IDCLUBDETAILOLD').val(row.ID);
 
-	$("#mode-sponsor").show('ubah');
-	$("#modal-sponsor").modal('show');
+			// ✅ Set value Select2 dengan data lengkap, tanpa append, tanpa destroy
+			var option = new Option(row.NAMA, row.ID, true, true);
+			option.dataset.gambar = row.GAMBAR;   // ✅ simpan di dataset
+			option.dataset.tglterbit = row.TGLTERBIT;
+			option.dataset.kategori = row.KATEGORI;
+			$('#IDCLUBDETAIL').append(option).trigger('change');
 
-	var newOption = new Option(row.NAMA, row.ID, true, true);
-	$('#IDSPONSORDETAIL').append(newOption).trigger('change');
-	$('#WEBSITESPONSORDETAIL').val(row.WEBSITE);
-    $('#previewGambarSponsorDetail').attr('src', row.GAMBAR + '?t=' + Date.now());
+			$('#previewGambarClubDetail').attr('src', row.GAMBAR + '?t=' + Date.now());
+			$('#MENANGDETAIL').val(row.MENANG);
+			$('#SERIDETAIL').val(row.SERI);
+			$('#KALAHDETAIL').val(row.KALAH);
+			$('#POINTDETAIL').val(row.POINT);
+
+			$("#modal-fixture").modal('show');
+	} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
 }
-function hapusSponsor(){
- $("#mode-sponsor").show('hapus');
+function hapusDetailFixture(row){
+	 get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.HAPUS==1) {
+ 			$('#mode-fixture').val('hapus');
+            if (row) {          
+                Swal.fire({
+                    title: 'Hapus Dari Beranda <br>' + row.NAMA,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yakin',
+                    cancelButtonText: 'Tidak',
+                }).then((result) => {
+                   if (result.value) {
+                        // Ambil index row di DataTable
+                        $("#dataGridKlasemen").DataTable().rows(function(idx, data_row) {
+                            return data_row.ID === row.ID;
+                        }).remove().draw();
+
+                        Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
+                    }
+                });
+            }
+			
+		} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+	
+}
+function simpanDetailFixture(){
+    var rowData = {
+        ID      : $('#IDCLUBDETAIL').val(),
+        GAMBAR  : $('#previewGambarClubDetail').attr('src').split('?t=')[0],
+        NAMA    : $('#IDCLUBDETAIL option:selected').text(),
+        MENANG  : $('#MENANGDETAIL').val(),
+        SERI	: $('#SERIDETAIL').val(),
+		KALAH   : $('#KALAHDETAIL').val(),
+        POINT	: $('#POINTDETAIL').val(),
+    };
+
+    if (!rowData.ID) {
+        Swal.fire({ title: "Club wajib dipilih", icon: "warning" });
+        return;
+    }
+
+    var table = $('#dataGridKlasemen').DataTable();
+    var oldID = $('#IDCLUBDETAILOLD').val();
+
+    if ($('#mode-fixture').val() == "tambah") {
+        var matchedRows = table.rows(function(idx, data_row) {
+            return String(data_row.ID) === String(rowData.ID);
+        });
+
+        if (matchedRows.count() == 0) {
+            table.row.add(rowData).draw(false);
+        } else {
+            Swal.fire({ title: "Club tersebut sudah ada", icon: "warning" });
+            return;
+        }
+    }
+    else if ($('#mode-fixture').val() == "ubah") {
+        var matchedRows = table.rows(function(idx, data_row) {
+            // ✅ Cek duplikat: ID sama tapi BUKAN dirinya sendiri
+            return String(data_row.ID) === String(rowData.ID) && String(data_row.ID) !== String(oldID);
+        });
+
+        if (matchedRows.count() > 0) {
+            Swal.fire({ title: "Club tersebut sudah ada", icon: "warning" });
+            return;
+        }
+
+        // ✅ Update row berdasarkan OLD ID
+        var updateRows = table.rows(function(idx, data_row) {
+            return String(data_row.ID) === String(oldID);
+        });
+
+        if (updateRows.count() > 0) {
+            updateRows.every(function() {
+                this.data(rowData).invalidate();
+            });
+            table.draw(false);
+        }
+    }
+
+    $("#modal-fixture").modal('hide');
+}
+
+function simpanFixture(){
+	$("#DETAILFIXTURE").val(JSON.stringify($('#dataGridKlasemen').DataTable().rows().data().toArray()));
+	let formData = new FormData($('#form_input_Fixture')[0]);
+
+	loading();
+	$.ajax({
+		type: 'POST',
+		url: base_url+'Master/Data/Config/simpanFixture',
+		data: formData,
+		processData: false,
+		contentType: false,
+		dataType: 'json',
+
+		success: function(msg){
+			Swal.close();
+			if (msg.success) {
+				Swal.fire({
+					title: 'Simpan Data Sukses',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 1500
+				});
+
+				 $("#dataGridKlasemen").DataTable().ajax.reload();
+
+			} else {
+				Swal.fire({
+					title: msg.errorMsg,
+					type: 'error',
+					timer: 1500
+				});
+			}
+		}
+	});
+}
+
+function tambahDetailNews(){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.TAMBAH==1) {
+			$('#IDNEWSDETAIL').val(null).trigger('change');
+			$('#IDNEWSDETAILOLD').val(0);
+			$('#mode-news').val('tambah');
+			$("#modal-news").modal('show');
+			} else {
+				Swal.fire({
+					title            : 'Anda Tidak Memiliki Hak Akses',
+					type             : 'warning',
+					showConfirmButton: false,
+					timer            : 1500
+				});
+			}
+	});
+}
+function ubahNews(row){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.UBAH==1) {
+			$('#mode-news').val('ubah');
+			$('#IDNEWSDETAILOLD').val(row.ID);
+
+			// ✅ Set value Select2 dengan data lengkap, tanpa append, tanpa destroy
+			var option = new Option(row.JUDUL, row.ID, true, true);
+			option.dataset.gambar = row.GAMBAR;   // ✅ simpan di dataset
+			option.dataset.tglterbit = row.TGLTERBIT;
+			option.dataset.kategori = row.KATEGORI;
+			$('#IDNEWSDETAIL').append(option).trigger('change');
+
+			$('#previewGambarNewsDetail').attr('src', row.GAMBAR + '?t=' + Date.now());
+			$('#TGLTERBITNEWSDETAIL').val(row.TGLTERBIT);
+			$('#KATEGORINEWSDETAIL').val(row.KATEGORI);
+
+			$("#modal-news").modal('show');
+	} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+}
+function hapusDetailNews(row){
+	 get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.HAPUS==1) {
+ 			$('#mode-news').val('hapus');
+            if (row) {          
+                Swal.fire({
+                    title: 'Hapus Dari Beranda <br>' + row.JUDUL,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yakin',
+                    cancelButtonText: 'Tidak',
+                }).then((result) => {
+                   if (result.value) {
+                        // Ambil index row di DataTable
+                        $("#dataGridNews").DataTable().rows(function(idx, data_row) {
+                            return data_row.ID === row.ID;
+                        }).remove().draw();
+
+                        Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
+                    }
+                });
+            }
+			
+		} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+	
+}
+function simpanDetailNews(){
+    var rowData = {
+        ID      : $('#IDNEWSDETAIL').val(),
+        GAMBAR  : $('#previewGambarNewsDetail').attr('src').split('?t=')[0],
+        JUDUL    : $('#IDNEWSDETAIL option:selected').text(),
+        TGLTERBIT  : $('#TGLTERBITNEWSDETAIL').val(),
+        KATEGORI: $('#KATEGORINEWSDETAIL').val(),
+    };
+
+    if (!rowData.ID) {
+        Swal.fire({ title: "News wajib dipilih", icon: "warning" });
+        return;
+    }
+
+    var table = $('#dataGridNews').DataTable();
+    var oldID = $('#IDNEWSDETAILOLD').val();
+
+    if ($('#mode-news').val() == "tambah") {
+        var matchedRows = table.rows(function(idx, data_row) {
+            return String(data_row.ID) === String(rowData.ID);
+        });
+
+        if (matchedRows.count() == 0) {
+            table.row.add(rowData).draw(false);
+        } else {
+            Swal.fire({ title: "News tersebut sudah ada", icon: "warning" });
+            return;
+        }
+    }
+    else if ($('#mode-news').val() == "ubah") {
+        var matchedRows = table.rows(function(idx, data_row) {
+            // ✅ Cek duplikat: ID sama tapi BUKAN dirinya sendiri
+            return String(data_row.ID) === String(rowData.ID) && String(data_row.ID) !== String(oldID);
+        });
+
+        if (matchedRows.count() > 0) {
+            Swal.fire({ title: "News tersebut sudah ada", icon: "warning" });
+            return;
+        }
+
+        // ✅ Update row berdasarkan OLD ID
+        var updateRows = table.rows(function(idx, data_row) {
+            return String(data_row.ID) === String(oldID);
+        });
+
+        if (updateRows.count() > 0) {
+            updateRows.every(function() {
+                this.data(rowData).invalidate();
+            });
+            table.draw(false);
+        }
+    }
+
+    $("#modal-news").modal('hide');
+}
+
+function simpanNews(){
+	$("#DETAILNEWS").val(JSON.stringify($('#dataGridNews').DataTable().rows().data().toArray()));
+	let formData = new FormData($('#form_input_news')[0]);
+
+	loading();
+	$.ajax({
+		type: 'POST',
+		url: base_url+'Master/Data/Config/simpanNews',
+		data: formData,
+		processData: false,
+		contentType: false,
+		dataType: 'json',
+
+		success: function(msg){
+			Swal.close();
+			if (msg.success) {
+				Swal.fire({
+					title: 'Simpan Data Sukses',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 1500
+				});
+
+				 $("#dataGridNews").DataTable().ajax.reload();
+
+			} else {
+				Swal.fire({
+					title: msg.errorMsg,
+					type: 'error',
+					timer: 1500
+				});
+			}
+		}
+	});
+}
+
+function tambahDetailSponsor(){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.TAMBAH==1) {
+			$('#IDSPONSORDETAIL').val(null).trigger('change');
+			$('#IDSPONSORDETAILOLD').val(0);
+			$('#mode-sponsor').val('tambah');
+			$("#modal-sponsor").modal('show');
+			} else {
+				Swal.fire({
+					title            : 'Anda Tidak Memiliki Hak Akses',
+					type             : 'warning',
+					showConfirmButton: false,
+					timer            : 1500
+				});
+			}
+	});
+}
+function ubahDetailSponsor(row){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.UBAH==1) {
+			$('#mode-sponsor').val('ubah');
+			$('#IDSPONSORDETAILOLD').val(row.ID);
+
+			// ✅ Set value Select2 dengan data lengkap, tanpa append, tanpa destroy
+			var option = new Option(row.NAMA, row.ID, true, true);
+			option.dataset.gambar = row.GAMBAR;   // ✅ simpan di dataset
+			option.dataset.website = row.WEBSITE;
+			$('#IDSPONSORDETAIL').append(option).trigger('change');
+
+			$('#previewGambarSponsorDetail').attr('src', row.GAMBAR + '?t=' + Date.now());
+			$('#WEBSITESPONSORDETAIL').val(row.WEBSITE);
+
+			$("#modal-sponsor").modal('show');
+	} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+}
+function hapusSponsor(row){
+	 get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.HAPUS==1) {
+ 			$('#mode-sponsor').val('hapus');
+            if (row) {          
+                Swal.fire({
+                    title: 'Hapus Dari Beranda <br>' + row.NAMA,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yakin',
+                    cancelButtonText: 'Tidak',
+                }).then((result) => {
+                   if (result.value) {
+                        // Ambil index row di DataTable
+                        $("#dataGridSponsor").DataTable().rows(function(idx, data_row) {
+                            return data_row.ID === row.ID;
+                        }).remove().draw();
+
+                        Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
+                    }
+                });
+            }
+			
+		} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
 	
 }
 function simpanDetailSponsor(){
- $("#modal-sponsor").modal('hide');
-}
-function simpanSponsor(){
+    var rowData = {
+        ID      : $('#IDSPONSORDETAIL').val(),
+        GAMBAR  : $('#previewGambarSponsorDetail').attr('src').split('?t=')[0],
+        NAMA    : $('#IDSPONSORDETAIL option:selected').text(),
+        WEBSITE : $('#WEBSITESPONSORDETAIL').val()
+    };
 
+    if (!rowData.ID) {
+        Swal.fire({ title: "Sponsor wajib dipilih", icon: "warning" });
+        return;
+    }
+
+    var table = $('#dataGridSponsor').DataTable();
+    var oldID = $('#IDSPONSORDETAILOLD').val();
+
+    if ($('#mode-sponsor').val() == "tambah") {
+        var matchedRows = table.rows(function(idx, data_row) {
+            return String(data_row.ID) === String(rowData.ID);
+        });
+
+        if (matchedRows.count() == 0) {
+            table.row.add(rowData).draw(false);
+        } else {
+            Swal.fire({ title: "Sponsor tersebut sudah ada", icon: "warning" });
+            return;
+        }
+    }
+    else if ($('#mode-sponsor').val() == "ubah") {
+        var matchedRows = table.rows(function(idx, data_row) {
+            // ✅ Cek duplikat: ID sama tapi BUKAN dirinya sendiri
+            return String(data_row.ID) === String(rowData.ID) && String(data_row.ID) !== String(oldID);
+        });
+
+        if (matchedRows.count() > 0) {
+            Swal.fire({ title: "Sponsor tersebut sudah ada", icon: "warning" });
+            return;
+        }
+
+        // ✅ Update row berdasarkan OLD ID
+        var updateRows = table.rows(function(idx, data_row) {
+            return String(data_row.ID) === String(oldID);
+        });
+
+        if (updateRows.count() > 0) {
+            updateRows.every(function() {
+                this.data(rowData).invalidate();
+            });
+            table.draw(false);
+        }
+    }
+
+    $("#modal-sponsor").modal('hide');
+}
+
+function simpanSponsor(){
+	$("#DETAILSPONSOR").val(JSON.stringify($('#dataGridSponsor').DataTable().rows().data().toArray()));
+	let formData = new FormData($('#form_input_sponsor')[0]);
+
+	loading();
+	$.ajax({
+		type: 'POST',
+		url: base_url+'Master/Data/Config/simpanSponsor',
+		data: formData,
+		processData: false,
+		contentType: false,
+		dataType: 'json',
+
+		success: function(msg){
+			Swal.close();
+			if (msg.success) {
+				Swal.fire({
+					title: 'Simpan Data Sukses',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 1500
+				});
+
+				 $("#dataGridSponsor").DataTable().ajax.reload();
+
+			} else {
+				Swal.fire({
+					title: msg.errorMsg,
+					type: 'error',
+					timer: 1500
+				});
+			}
+		}
+	});
 }
 
 function simpanLokasiKontak(){

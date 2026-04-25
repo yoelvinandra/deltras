@@ -10,12 +10,12 @@ class Model_master_club extends MY_Model{
 	
 	public function comboGrid($q){
 		
-		$sql = "select IDCLUB as VALUE, NAMA as TEXT
+		$sql = "select IDCLUB as VALUE, NAMA as TEXT,CONCAT('".base_url()."assets/images/club/',IDCLUB,'.png') as GAMBAR
 				from MCLUB  
 				WHERE NAMA like ?
 				ORDER BY NAMA";
 				
-		$query = $this->db->query($sql, ["%".$q."%"]);	
+		$query = $this->db->queryRaw($sql, ["%".$q."%"]);	
 		$data['rows'] = $query->result();
 		return $data;
 	}

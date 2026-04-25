@@ -299,21 +299,94 @@ class Model_master_config extends CI_Model{
 		return $data;
 	}
 
+	function simpanFixture($data){
+		$a_detail  = json_decode($data['DETAILNEWS']);
+		$this->db->trans_begin();
+
+		$this->db->where("MODUL","NEWS");
+		$this->db->where("CONFIG","IDNEWS");
+		$this->db->delete("MCONFIG");
+
+		$id = "";
+
+		foreach ($a_detail as $item) {
+            if( $id != "")
+			{
+				$id.=",";
+			}
+            $id .= $item->ID;
+		}
+
+		$data_values = array (
+            'MODUL'  			=> "NEWS",
+            'CONFIG'   			=> "IDNEWS",
+            'VALUE' 			=> $id,
+        );
+			
+        $this->db->insertRaw('MCONFIG',$data_values);
+
+		if ($this->db->trans_status() === FALSE){
+			$this->db->trans_rollback();
+			return 'Gagal menyimpan pada database';
+		}
+		$this->db->trans_commit();
+		return '';
+	}
+
 
 	function dataGridNews(){
-		$sql = "select IDNEWS as ID, TITLE as JUDUL ,KATEGORI,TGLTERBIT as TERBIT,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
-			from TNEWS  
-			INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
-			WHERE TNEWS.STATUS = 1
-			AND FIND_IN_SET(IDNEWS, (
-				SELECT VALUE 
+
+		$data['rows'] = [];
+		$sqlConfig = "SELECT VALUE 
 				FROM MCONFIG 
-				WHERE MODUL = 'NEWS'
-			))
-			ORDER BY TGLTERBIT DESC";
-		$query = $this->db->queryRaw($sql);
-		$data['rows'] = $query->result();	
+				WHERE MODUL = 'NEWS' AND CONFIG = 'IDNEWS'";
+		$resultConfig = $this->db->query($sqlConfig)->row()->VALUE;
+		$dataConfig = explode(",",$resultConfig);
+		foreach($dataConfig as $itemConfig)
+		{
+			$sql = "select IDNEWS as ID, TITLE as JUDUL,KATEGORI,TGLTERBIT,MUSER.USERNAME,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
+				from TNEWS  
+				INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
+				WHERE TNEWS.STATUS = 1
+				AND IDNEWS = $itemConfig";
+			$query = $this->db->queryRaw($sql)->row();
+			array_push($data['rows'],$query);
+		}
 		return $data;
+	}
+
+	function simpanNews($data){
+		$a_detail  = json_decode($data['DETAILNEWS']);
+		$this->db->trans_begin();
+
+		$this->db->where("MODUL","NEWS");
+		$this->db->where("CONFIG","IDNEWS");
+		$this->db->delete("MCONFIG");
+
+		$id = "";
+
+		foreach ($a_detail as $item) {
+            if( $id != "")
+			{
+				$id.=",";
+			}
+            $id .= $item->ID;
+		}
+
+		$data_values = array (
+            'MODUL'  			=> "NEWS",
+            'CONFIG'   			=> "IDNEWS",
+            'VALUE' 			=> $id,
+        );
+			
+        $this->db->insertRaw('MCONFIG',$data_values);
+
+		if ($this->db->trans_status() === FALSE){
+			$this->db->trans_rollback();
+			return 'Gagal menyimpan pada database';
+		}
+		$this->db->trans_commit();
+		return '';
 	}
 
 	function dataGridSponsor(){
@@ -348,6 +421,40 @@ class Model_master_config extends CI_Model{
 		return $data;
 	}
 
+	function simpanSponsor($data){
+		$a_detail  = json_decode($data['DETAILSPONSOR']);
+		$this->db->trans_begin();
+
+		$this->db->where("MODUL","SPONSOR");
+		$this->db->where("CONFIG","IDSPONSOR");
+		$this->db->delete("MCONFIG");
+
+		$id = "";
+
+		foreach ($a_detail as $item) {
+            if( $id != "")
+			{
+				$id.=",";
+			}
+            $id .= $item->ID;
+		}
+
+		$data_values = array (
+            'MODUL'  			=> "SPONSOR",
+            'CONFIG'   			=> "IDSPONSOR",
+            'VALUE' 			=> $id,
+        );
+			
+        $this->db->insertRaw('MCONFIG',$data_values);
+
+		if ($this->db->trans_status() === FALSE){
+			$this->db->trans_rollback();
+			return 'Gagal menyimpan pada database';
+		}
+		$this->db->trans_commit();
+		return '';
+	}
+
 	function loadContact(){
 		//CONTACT DATA
 		$sqlConfig = "select CONFIG,VALUE,IFNULL(PREFIX,'') as PREFIX
@@ -367,6 +474,7 @@ class Model_master_config extends CI_Model{
 	}
 
 	function simpanLokasiKontak($data){
+		$this->db->trans_begin();
 		
 		$this->db->where("MODUL","HOME");
 		$this->db->where("CONFIG","ALAMAT");
@@ -424,7 +532,7 @@ class Model_master_config extends CI_Model{
 			$this->db->trans_rollback();
 			return 'Gagal menyimpan pada database';
 		}
-
+		$this->db->trans_commit();
 		return '';
 	}
 }

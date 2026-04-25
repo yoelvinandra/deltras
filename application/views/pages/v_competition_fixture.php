@@ -149,6 +149,10 @@
       <div class="modal-body">
         <form id="form_detail">
           <input type="hidden" id="d_mode" name="mode">
+          <input type="hidden" id="d_IDCLUB1_OLD" name="d_IDCLUB1_OLD">
+          <input type="hidden" id="d_IDCLUB2_OLD" name="d_IDCLUB2_OLD">
+          <input type="hidden" id="d_TGLFIXTURE_OLD" name="d_TGLFIXTURE_OLD">
+          
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -504,6 +508,11 @@ function ubahDetail(row) {
     $('#d_CATATAN').val(row.CATATAN);
     $('#d_STATUS').val(row.STATUS).trigger('change');
     $('#modalDetailTitle').text('Ubah Detail Fixture');
+
+    $('#d_IDCLUB1_OLD').val(row.IDCLUB1);
+    $('#d_IDCLUB2_OLD').val(row.IDCLUB2);
+    $('#d_TGLFIXTURE_OLD').val(row.TGLFIXTURE);
+
     $('#modalDetail').modal('show');
 }
 
@@ -561,107 +570,116 @@ function simpanDetail(){
         CATATAN             : $('#d_CATATAN').val(),
         STATUS              : $('#d_STATUS').val()
     };
-    
 
     // Validasi
     if (!rowData.IDCLUB1 || !rowData.IDCLUB2) {
-        Swal.fire({ title: "Club 1 dan Club 2 wajib diisi", type: "warning" });
+        Swal.fire({ title: "Club 1 dan Club 2 wajib diisi", icon: "warning" });
         return;
     }
-    if(rowData.IDCLUB1 == rowData.IDCLUB2)
-    {
-        Swal.fire({ title: "Club 1 dan Club 2 tidak boleh sama", type: "warning" });
+    if (rowData.IDCLUB1 == rowData.IDCLUB2) {
+        Swal.fire({ title: "Club 1 dan Club 2 tidak boleh sama", icon: "warning" });
         return;
     }
     if (!rowData.TGLFIXTURE) {
-        Swal.fire({ title: "Tanggal Match wajib diisi", type: "warning" });
+        Swal.fire({ title: "Tanggal Match wajib diisi", icon: "warning" });
         return;
     }
     if (!rowData.LOKASI) {
-        Swal.fire({ title: "Lokasi Match wajib diisi", type: "warning" });
+        Swal.fire({ title: "Lokasi Match wajib diisi", icon: "warning" });
         return;
     }
-
-    if(rowData.STATUS >= 2){
-        //TICKET SALE
-        if (!rowData.LINKTICKET) {
-            Swal.fire({ title: "Link Ticket wajib diisi", type: "warning" });
-            return;
-        }
-
+    if (rowData.STATUS >= 2 && !rowData.LINKTICKET) {
+        Swal.fire({ title: "Link Ticket wajib diisi", icon: "warning" });
+        return;
     }
-    if(rowData.STATUS >= 3){
-        //ONGOING
+    if (rowData.STATUS >= 3) {
         if (!rowData.VIDEO) {
-            Swal.fire({ title: "Link Video Youtube wajib diisi", type: "warning" });
+            Swal.fire({ title: "Link Video Youtube wajib diisi", icon: "warning" });
+            return;
+        } else if (!checkYoutubeUrl(rowData.VIDEO)) {
+            Swal.fire({ title: "Link Video Youtube tidak valid", icon: "warning" });
             return;
         }
-        else if(!checkYoutubeUrl(rowData.VIDEO)){
-            Swal.fire({ title: "Link Video Youtube tidak valid", type: "warning" });
-            return;
-        }
-
     }
-    if(rowData.STATUS >= 4){
-        //FINISHED
+    if (rowData.STATUS >= 4) {
         if (!rowData.VIDEOHIGHLIGHT) {
-            Swal.fire({ title: "Link Video Highlight Youtube wajib diisi", type: "warning" });
+            Swal.fire({ title: "Link Video Highlight Youtube wajib diisi", icon: "warning" });
+            return;
+        } else if (!checkYoutubeUrl(rowData.VIDEOHIGHLIGHT)) {
+            Swal.fire({ title: "Link Video Highlight Youtube tidak valid", icon: "warning" });
             return;
         }
-        else if(!checkYoutubeUrl(rowData.VIDEOHIGHLIGHT)){
-            Swal.fire({ title: "Link Video Highlight Youtube tidak valid", type: "warning" });
-            return;
-        }
-
         if (!rowData.VIDEOMATCHINTERVIEW) {
-            Swal.fire({ title: "Link Video Match Interview Youtube wajib diisi", type: "warning" });
+            Swal.fire({ title: "Link Video Match Interview Youtube wajib diisi", icon: "warning" });
+            return;
+        } else if (!checkYoutubeUrl(rowData.VIDEOMATCHINTERVIEW)) {
+            Swal.fire({ title: "Link Video Match Interview Youtube tidak valid", icon: "warning" });
             return;
         }
-        else if(!checkYoutubeUrl(rowData.VIDEOMATCHINTERVIEW)){
-            Swal.fire({ title: "Link Video Match Interview Youtube tidak valid", type: "warning" });
-            return;
-        }
-
         if (!rowData.SKORCLUB1 || rowData.SKORCLUB1 == 0) {
-            Swal.fire({ title: "Skor Club 1 wajib diisi", type: "warning" });
+            Swal.fire({ title: "Skor Club 1 wajib diisi", icon: "warning" });
             return;
         }
         if (!rowData.SKORCLUB2 || rowData.SKORCLUB2 == 0) {
-            Swal.fire({ title: "Skor Club 2 wajib diisi", type: "warning" });
+            Swal.fire({ title: "Skor Club 2 wajib diisi", icon: "warning" });
             return;
         }
-
     }
 
-    
-    var matchedRows = tableDetail.rows(function(idx, data_row) {
-        return data_row.IDCLUB1 === rowData.IDCLUB1 
-            && data_row.IDCLUB2 === rowData.IDCLUB2 
-            && data_row.TGLFIXTURE === rowData.TGLFIXTURE;
-    });
+    // ✅ Ambil OLD key untuk identifikasi dirinya sendiri
+    var oldIDCLUB1    = $('#d_IDCLUB1_OLD').val();
+    var oldIDCLUB2    = $('#d_IDCLUB2_OLD').val();
+    var oldTGLFIXTURE = $('#d_TGLFIXTURE_OLD').val();
 
+    if ($('#d_mode').val() == "tambah") {
+        // Cek duplikat — kombinasi club1 + club2 + tanggal sudah ada
+        var matchedRows = tableDetail.rows(function(idx, data_row) {
+            return data_row.IDCLUB1    === rowData.IDCLUB1
+                && data_row.IDCLUB2    === rowData.IDCLUB2
+                && data_row.TGLFIXTURE === rowData.TGLFIXTURE;
+        });
 
-    if($('#d_mode').val() == "tambah")
-    {
         if (matchedRows.count() == 0) {
             tableDetail.row.add(rowData).draw(false);
-        }
-        else
-        {
-            Swal.fire({ title: "Match dengan tanggal dan club tersebut sudah dibuat", type: "warning" });
+        } else {
+            Swal.fire({ title: "Match dengan tanggal dan club tersebut sudah dibuat", icon: "warning" });
             return;
         }
     }
-    else if($('#d_mode').val() == "ubah")
-    {
+    else if ($('#d_mode').val() == "ubah") {
+        // ✅ Cek duplikat kecuali dirinya sendiri
+        var matchedRows = tableDetail.rows(function(idx, data_row) {
+            var isSelf = data_row.IDCLUB1    === oldIDCLUB1
+                      && data_row.IDCLUB2    === oldIDCLUB2
+                      && data_row.TGLFIXTURE === oldTGLFIXTURE;
+
+            var isSameAsNew = data_row.IDCLUB1    === rowData.IDCLUB1
+                           && data_row.IDCLUB2    === rowData.IDCLUB2
+                           && data_row.TGLFIXTURE === rowData.TGLFIXTURE;
+
+            return isSameAsNew && !isSelf; // ✅ duplikat tapi bukan dirinya sendiri
+        });
+
         if (matchedRows.count() > 0) {
-                matchedRows.every(function() {
-                this.data(rowData);
+            Swal.fire({ title: "Match dengan tanggal dan club tersebut sudah dibuat", icon: "warning" });
+            return;
+        }
+
+        // ✅ Update row berdasarkan OLD key
+        var updateRows = tableDetail.rows(function(idx, data_row) {
+            return data_row.IDCLUB1    === oldIDCLUB1
+                && data_row.IDCLUB2    === oldIDCLUB2
+                && data_row.TGLFIXTURE === oldTGLFIXTURE;
+        });
+
+        if (updateRows.count() > 0) {
+            updateRows.every(function() {
+                this.data(rowData).invalidate(); // ✅
             });
             tableDetail.draw(false);
         }
     }
-    
+
     $('#modalDetail').modal('hide');
 }
 

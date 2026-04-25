@@ -10,12 +10,12 @@ class Model_competition_news extends MY_Model{
 	
 	public function comboGrid($q){
 		
-		$sql = "select IDNEWS as VALUE, TITLE as TEXT
+		$sql = "select IDNEWS as VALUE, TITLE as TEXT, KATEGORI, TGLTERBIT as TERBIT,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
 				from TNEWS  
 				WHERE TITLE like ?
 				ORDER BY TGLTERBIT DESC";
 				
-		$query = $this->db->query($sql, ["%".$q."%"]);	
+		$query = $this->db->queryRaw($sql, ["%".$q."%"]);	
 		$data['rows'] = $query->result();
 		return $data;
 	}
@@ -26,18 +26,22 @@ class Model_competition_news extends MY_Model{
 
 		if($for == "HOME")
 		{
-			$sql = "select IDNEWS, TITLE,KATEGORI,TGLTERBIT,MUSER.USERNAME,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
-				from TNEWS  
-				INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
-				WHERE TNEWS.STATUS = 1
-				AND FIND_IN_SET(IDNEWS, (
-					SELECT VALUE 
+			$data['rows'] = [];
+			$sqlConfig = "SELECT VALUE 
 					FROM MCONFIG 
-					WHERE MODUL = 'NEWS'
-				))
-				ORDER BY TGLTERBIT DESC";
-			$query = $this->db->queryRaw($sql);
-			$data['rows'] = $query->result();	
+					WHERE MODUL = 'NEWS' AND CONFIG = 'IDNEWS'";
+			$resultConfig = $this->db->query($sqlConfig)->row()->VALUE;
+			$dataConfig = explode(",",$resultConfig);
+			foreach($dataConfig as $itemConfig)
+			{
+				$sql = "select IDNEWS, TITLE,KATEGORI,TGLTERBIT,MUSER.USERNAME,CONCAT('".base_url()."assets/images/news/',IDNEWS,'.png') as GAMBAR
+					from TNEWS  
+					INNER JOIN MUSER on MUSER.USERID = TNEWS.USERENTRY
+					WHERE TNEWS.STATUS = 1
+					AND IDNEWS = $itemConfig";
+				$query = $this->db->queryRaw($sql)->row();
+				array_push($data['rows'],$query);
+			}
 		}
 		else if($for == "NEWS")
 		{
