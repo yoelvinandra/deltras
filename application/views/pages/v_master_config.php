@@ -93,6 +93,8 @@
 							<div class="row">
 								<div class="col-md-4">
 									<h3 style="font-weight:bold;">Fixture</h3>
+									<input id="mode-fixture" type="hidden" value="tambah">
+									<input id="DETAILFIXTURE" name="DETAILFIXTURE" type="hidden" value="">
 									<label>Pilih Fixture</label>
 									<br>
 									<select class="form-control" id="IDFIXTURE" name="IDFIXTURE" style="width:100%;">
@@ -163,21 +165,28 @@
 								<br>
                     			<img id="previewGambarClubDetail" src="<?=base_url()?>assets/images/news/no-image.png" width="100px">
 								<br><br>
-								<label>Menang</label>
-                    			<br>
-								<input type="text" id="MENANGDETAIL" class="form-control"  name="MENANGDETAIL">
-								<br>
-								<label>Seri</label>
-                    			<br>
-								<input type="text" id="SERIDETAIL" class="form-control"  name="SERIDETAIL">
-								<br>
-								<label>Kalah</label>
-                    			<br>
-								<input type="text" id="KALAHDETAIL" class="form-control"  name="KALAHDETAIL">
-								<br>
-								<label>Point</label>
-                    			<br>
-								<input type="text" id="POINTDETAIL" class="form-control"  name="POINTDETAIL">
+								<div class="row">
+									<div class="col-md-3">
+										<label>Menang</label>
+										<br>
+										<input type="number" id="MENANGDETAIL" class="form-control"  name="MENANGDETAIL">
+									</div>
+									<div class="col-md-3">
+										<label>Seri</label>
+										<br>
+										<input type="number" id="SERIDETAIL" class="form-control"  name="SERIDETAIL">
+									</div>
+									<div class="col-md-3">
+										<label>Kalah</label>
+										<br>
+										<input type="number" id="KALAHDETAIL" class="form-control"  name="KALAHDETAIL">
+									</div>
+									<div class="col-md-3">
+										<label>Point</label>
+										<br>
+										<input type="number" id="POINTDETAIL" class="form-control"  name="POINTDETAIL">
+									</div>
+								</div>
 								<br>
 								<br>
                     			<button class="btn btn-success pull-right" id="btn_batal" onclick="simpanDetailFixture()">Pilih</button>
@@ -672,6 +681,10 @@ $(document).ready(function() {
 		var gambar  = selectedData?.gambar  || $('#IDCLUBDETAIL option:selected')[0]?.dataset?.gambar;
 
 		if (!selectedData) {
+			$("#MENANGDETAIL").val(0);
+			$("#SERIDETAIL").val(0);
+			$("#KALAHDETAIL").val(0);
+			$("#POINTDETAIL").val(0);
 			$('#previewGambarClubDetail').attr('src', base_url + 'assets/images/club/no-logo.png');
 			return;
 		}
@@ -997,20 +1010,7 @@ function getDataVideoHighlight(){
 			var newOption = new Option(data.rows.NAMA, data.rows.ID, true, true);
 			$('#IDFIXTURE').append(newOption).trigger('change');
 
-			//VIDEO
-
-			var videoid = getVideoId(data.rows.VIDEO);
-			var videoData = await getYouTubeData(videoid);
-			$("#previewGambarHighlight1").attr("src", videoData.thumbnail);
-
-			videoid = getVideoId(data.rows.VIDEOHIGHLIGHT);
-			videoData = await getYouTubeData(videoid);
-			$("#previewGambarHighlight2").attr("src", videoData.thumbnail);
-
-			videoid = getVideoId(data.rows.VIDEOMATCHINTERVIEW);
-			videoData = await getYouTubeData(videoid);
-			$("#previewGambarMatchInterview").attr("src", videoData.thumbnail);
-
+			// IDVIDEO
 			$('#IDVIDEO').select2({
 				ajax: {
 					url: base_url + 'Competition/Operational/Fixture/comboGridDetail',
@@ -1018,27 +1018,38 @@ function getDataVideoHighlight(){
 					delay: 250,
 					cache: false,
 					data: function (params) {
-						return {
-							id: data.rows.ID,
-							video : 'VIDEO'
-						};
+						return { id: data.rows.ID, video: 'VIDEO' };
 					},
 					processResults: function (result) {
 						return {
 							results: result.rows.map(function (row) {
-								return {
-									id: row.VALUE,
-									text: row.TEXT
-								};
+								return { id: row.VALUE, text: row.TEXT, video: row.VIDEO };
 							})
 						};
 					}
 				}
+			}).on('change', async function () {
+				var selectedData = $(this).select2('data')[0];
+				if (!selectedData) return;
+
+				// ✅ Fallback ke data-* attribute kalau video undefined (option manual)
+				var video = selectedData.video
+						|| $('#IDVIDEO option:selected').attr('data-video')
+						|| '';
+
+				if (!video) return;
+				var videoid = getVideoId(video);
+				var videoData = await getYouTubeData(videoid);
+				if (videoData) $("#previewGambarHighlight1").attr("src", videoData.thumbnail);
 			});
-			// ✅ 2. Set value setelah Select2 di-init
+
+			// ✅ Set value + simpan video di data-*
 			var newOption = new Option(data.rows.VIDEOTEXT, data.rows.VIDEOVALUE, true, true);
+			$(newOption).attr('data-video', data.rows.VIDEO);
 			$('#IDVIDEO').append(newOption).trigger('change');
 
+
+			// IDVIDEOHIGHLIGHT
 			$('#IDVIDEOHIGHLIGHT').select2({
 				ajax: {
 					url: base_url + 'Competition/Operational/Fixture/comboGridDetail',
@@ -1046,28 +1057,38 @@ function getDataVideoHighlight(){
 					delay: 250,
 					cache: false,
 					data: function (params) {
-						return {
-							id: data.rows.ID,
-							video : 'VIDEOHIGHLIGHT'
-						};
+						return { id: data.rows.ID, video: 'VIDEOHIGHLIGHT' };
 					},
 					processResults: function (result) {
 						return {
 							results: result.rows.map(function (row) {
-								return {
-									id: row.VALUE,
-									text: row.TEXT
-								};
+								return { id: row.VALUE, text: row.TEXT, video: row.VIDEO };
 							})
 						};
 					}
 				}
+			}).on('change', async function () {
+				var selectedData = $(this).select2('data')[0];
+				if (!selectedData) return;
+
+				// ✅ Fallback ke data-* attribute
+				var video = selectedData.video
+						|| $('#IDVIDEOHIGHLIGHT option:selected').attr('data-video')
+						|| '';
+
+				if (!video) return;
+				var videoid = getVideoId(video);
+				var videoData = await getYouTubeData(videoid);
+				if (videoData) $("#previewGambarHighlight2").attr("src", videoData.thumbnail);
 			});
 
-			// ✅ 2. Set value setelah Select2 di-init
+			// ✅ Set value + simpan video di data-*
 			var newOption = new Option(data.rows.VIDEOHIGHLIGHTTEXT, data.rows.VIDEOHIGHLIGHTVALUE, true, true);
+			$(newOption).attr('data-video', data.rows.VIDEOHIGHLIGHT);
 			$('#IDVIDEOHIGHLIGHT').append(newOption).trigger('change');
 
+
+			// IDVIDEOMATCHINTERVIEW
 			$('#IDVIDEOMATCHINTERVIEW').select2({
 				ajax: {
 					url: base_url + 'Competition/Operational/Fixture/comboGridDetail',
@@ -1075,26 +1096,35 @@ function getDataVideoHighlight(){
 					delay: 250,
 					cache: false,
 					data: function (params) {
-						return {
-							id: data.rows.ID,
-							video : 'VIDEOMATCHINTERVIEW'
-						};
+						return { id: data.rows.ID, video: 'VIDEOMATCHINTERVIEW' };
 					},
 					processResults: function (result) {
 						return {
 							results: result.rows.map(function (row) {
-								return {
-									id: row.VALUE,
-									text: row.TEXT
-								};
+								return { id: row.VALUE, text: row.TEXT, video: row.VIDEO };
 							})
 						};
 					}
 				}
+			}).on('change', async function () {
+				var selectedData = $(this).select2('data')[0];
+				if (!selectedData) return;
+
+				// ✅ Fallback ke data-* attribute
+				var video = selectedData.video
+						|| $('#IDVIDEOMATCHINTERVIEW option:selected').attr('data-video')
+						|| '';
+
+				if (!video) return;
+				var videoid = getVideoId(video);
+				var videoData = await getYouTubeData(videoid);
+				if (videoData) $("#previewGambarMatchInterview").attr("src", videoData.thumbnail);
 			});
 
-			// ✅ 2. Set value setelah Select2 di-init
+			// ✅ Set value + simpan video di data-*
 			var newOption = new Option(data.rows.VIDEOMATCHINTERVIEWTEXT, data.rows.VIDEOMATCHINTERVIEWVALUE, true, true);
+			$(newOption).attr('data-video', data.rows.VIDEOMATCHINTERVIEW);
+
 			$('#IDVIDEOMATCHINTERVIEW').append(newOption).trigger('change');
 		}
 	});
@@ -1190,8 +1220,6 @@ function ubahDetailFixture(row){
 			// ✅ Set value Select2 dengan data lengkap, tanpa append, tanpa destroy
 			var option = new Option(row.NAMA, row.ID, true, true);
 			option.dataset.gambar = row.GAMBAR;   // ✅ simpan di dataset
-			option.dataset.tglterbit = row.TGLTERBIT;
-			option.dataset.kategori = row.KATEGORI;
 			$('#IDCLUBDETAIL').append(option).trigger('change');
 
 			$('#previewGambarClubDetail').attr('src', row.GAMBAR + '?t=' + Date.now());
@@ -1304,7 +1332,7 @@ function simpanDetailFixture(){
 
 function simpanFixture(){
 	$("#DETAILFIXTURE").val(JSON.stringify($('#dataGridKlasemen').DataTable().rows().data().toArray()));
-	let formData = new FormData($('#form_input_Fixture')[0]);
+	let formData = new FormData($('#form_input_fixture')[0]);
 
 	loading();
 	$.ajax({
@@ -1324,8 +1352,8 @@ function simpanFixture(){
 					showConfirmButton: false,
 					timer: 1500
 				});
-
-				 $("#dataGridKlasemen").DataTable().ajax.reload();
+				getDataVideoHighlight();
+				$("#dataGridKlasemen").DataTable().ajax.reload();
 
 			} else {
 				Swal.fire({

@@ -539,7 +539,14 @@ $.ajax({
 
       if(x == 0)
       {
-        classStanding = "";
+         if(data.rows.DATA[x].NAMA.includes("Deltras"))
+        {
+          classStanding = "highlight"
+        }
+        else
+        {
+          classStanding = "";
+        }
       }
       else
       {

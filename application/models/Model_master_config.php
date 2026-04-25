@@ -300,30 +300,61 @@ class Model_master_config extends CI_Model{
 	}
 
 	function simpanFixture($data){
-		$a_detail  = json_decode($data['DETAILNEWS']);
+		$a_detail  = json_decode($data['DETAILFIXTURE']);
 		$this->db->trans_begin();
 
-		$this->db->where("MODUL","NEWS");
-		$this->db->where("CONFIG","IDNEWS");
+		$this->db->where("MODUL","FIXTURE");
+		$this->db->where("CONFIG","IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEO");
 		$this->db->delete("MCONFIG");
 
-		$id = "";
+		$this->db->where("MODUL","FIXTURE");
+		$this->db->where("CONFIG","IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEOHIGHLIGHT");
+		$this->db->delete("MCONFIG");
 
-		foreach ($a_detail as $item) {
-            if( $id != "")
-			{
-				$id.=",";
-			}
-            $id .= $item->ID;
-		}
+		$this->db->where("MODUL","FIXTURE");
+		$this->db->where("CONFIG","IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEOMATCHINTERVIEW");
+		$this->db->delete("MCONFIG");
+
+		$this->db->where("MODUL","FIXTURE");
+		$this->db->where("CONFIG","TABEL_KLASEMEN_IDCLUB,MENANG,SERI,KALAH,POINT");
+		$this->db->delete("MCONFIG");
 
 		$data_values = array (
-            'MODUL'  			=> "NEWS",
-            'CONFIG'   			=> "IDNEWS",
-            'VALUE' 			=> $id,
-        );
+			'MODUL'  			=> "FIXTURE",
+			'CONFIG'   			=> "IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEO",
+			'VALUE' 			=> $data['IDVIDEO'],
+		);
 			
-        $this->db->insertRaw('MCONFIG',$data_values);
+		$this->db->insertRaw('MCONFIG',$data_values);
+
+		$data_values = array (
+			'MODUL'  			=> "FIXTURE",
+			'CONFIG'   			=> "IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEOHIGHLIGHT",
+			'VALUE' 			=> $data['IDVIDEOHIGHLIGHT'],
+		);
+			
+		$this->db->insertRaw('MCONFIG',$data_values);
+
+		$data_values = array (
+			'MODUL'  			=> "FIXTURE",
+			'CONFIG'   			=> "IDFIXTURE,CLUB1,CLUB2,TGLFIXTURE_VIDEOMATCHINTERVIEW",
+			'VALUE' 			=> $data['IDVIDEOMATCHINTERVIEW'],
+		);
+			
+		$this->db->insertRaw('MCONFIG',$data_values);
+
+		$rank = 1;
+		foreach ($a_detail as $item) {
+			$data_values = array (
+				'MODUL'  			=> "FIXTURE",
+				'CONFIG'   			=> "TABEL_KLASEMEN_IDCLUB,MENANG,SERI,KALAH,POINT",
+				'VALUE' 			=> $item->ID.",".$item->MENANG.",".$item->SERI.",".$item->KALAH.",".$item->POINT,
+				'PREFIX'			=> $rank
+			);
+				
+			$this->db->insertRaw('MCONFIG',$data_values);
+			$rank++;
+		}
 
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();

@@ -22,14 +22,14 @@ class Model_competition_fixture extends MY_Model{
 
 	public function comboGridDetail($id,$video){
 		
-		$sql = "select CONCAT(TFIXTUREDTL.IDFIXTURE,'.',CLUB1.IDCLUB,'.',CLUB2.IDCLUB,'.',TFIXTUREDTL.TGLFIXTURE) as VALUE, CONCAT(CLUB1.NAMA,' vs ',CLUB2.NAMA,' / ', TFIXTUREDTL.TGLFIXTURE) as TEXT
+		$sql = "select CONCAT(TFIXTUREDTL.IDFIXTURE,',',CLUB1.IDCLUB,',',CLUB2.IDCLUB,',',TFIXTUREDTL.TGLFIXTURE) as VALUE, CONCAT(CLUB1.NAMA,' vs ',CLUB2.NAMA,' / ', TFIXTUREDTL.TGLFIXTURE) as TEXT, $video as VIDEO
 				from TFIXTUREDTL
 				INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
 				INNER JOIN MCLUB CLUB2 ON CLUB2.IDCLUB = TFIXTUREDTL.IDCLUB2 
-				WHERE IDFIXTURE = $id AND ($video is not null OR $video <> '')
+				WHERE IDFIXTURE = $id AND ($video is not null AND $video <> '')
 				ORDER BY TGLFIXTURE DESC";
 				
-		$query = $this->db->query($sql);	
+		$query = $this->db->queryRaw($sql);	
 		$data['rows'] = $query->result();
 		return $data;
 	}
