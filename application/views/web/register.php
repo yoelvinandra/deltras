@@ -1,8 +1,31 @@
 <section class="form-page">
     <div class="page-bg">
         <div class="page-bg-cover">
-            <div class="member-card" >   
-                <img src="assets/images/member/member-card.png?t=<?=date(Ymdhis)?>">
+            <div class="member-card">
+                <img class="member-card-image" src="assets/images/member/member-card-front.png?t=<?=date(Ymdhis)?>">
+
+                <div style="width:100%; text-align:left; margin-left:70px;">
+
+                    <div class="member-card-title" style="font-weight:bold; position:absolute; z-index:100px; color:white; margin-left:24px;  margin-top:-236px; font-size:10px;">Official DELTRAS FC Supporter ID</div>
+                    <!-- FOTO -->
+                    <img class="member-card-photo" style="position:absolute; z-index:100px; margin-top:-212px; margin-left:2.5px;border-radius:999px; width:88px; height:88px;">
+
+                    <!-- NAMA -->
+                    <div class="member-card-name" style="font-weight:bold; position:absolute; z-index:100px; color:white; margin-top:-110px;">ZAKI MUHAMMAD NUR</div>
+
+                    <!-- ID -->
+                    <div class="member-card-id" style="font-weight:bold; position:absolute; z-index:100px; color:white; margin-top:-90px;">1208412099123</div>
+
+                    <div class="member-card-website" style="font-weight:bold; position:absolute; z-index:100px; color:white; margin-top:-65px; font-size:8px;">www.deltrasfc.com</div>
+
+                    <img class="member-card-qr" style="position:absolute; z-index:100px; margin-top:-116px; margin-left:263px; width:57px;">
+
+                    <div class="member-card-bottom-website" style="font-weight:bold; position:absolute; z-index:100px; color:white; margin-left:94px;  margin-top:220px; font-size:16px;">www.deltrasfc.com</div>
+                   
+                </div>
+
+
+                <img class="member-card-image" src="assets/images/member/member-card-back.png?t=<?=date(Ymdhis)?>">
             </div>
             <div class="form-card">
                 <div class="form-title fira-sans-bold">Bergabunglah dengan komunitas kami</div>
@@ -143,6 +166,10 @@ $(document).ready(function() {
                     {
                         $('#previewGambar').attr('src', link);
                     }
+                    $(".member-card-name").html(msg.NAMADEPAN+" "+msg.NAMABELAKANG);
+                    $(".member-card-photo").attr("src",msg.GAMBAR);
+                    $(".member-card-id").html(msg.KODEUNIK);
+                    $(".member-card-qr").attr("src",msg.GAMBARQR);
                 } else {
                     alertMsg(msg.errorMsg);
                     logout();

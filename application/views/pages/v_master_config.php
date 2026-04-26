@@ -30,24 +30,77 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_banner">
-                    <div class="box-body">
-                        <h3 style="font-weight:bold;">Banner</h3>
-						<button type='button'  class="btn btn-success" onclick="javascript:tambahBanner()">Tambah</button>
-						<br><br>
-                        <table id="dataGridBanner" class="table table-bordered table-striped table-hover display nowrap" width="100%">
-                            <!-- class="table-hover"> -->
-                            <thead>
-								<tr>
-									<th width="35px"></th>
-									<th width="50%">Gambar</th> 
-									<th>Url</th>                             
-								</tr>
-                            </thead>
-                        </table>
-						<br>
-                    </div>
-					<div class="box-footer">
-                        <button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanBanner()">Simpan</button>
+					<form role="form" id="form_input_banner">
+						<div class="box-body">
+							<input id="mode-banner" type="hidden" value="tambah">
+							<input id="DETAILBANNER" name="DETAILBANNER" type="hidden" value="">
+							KETIKA BUAT BARU, TERUS SWITCH, GAMBAR YANG LAMA DISWITCH, DIPOSISI AWAL (BUKAN KETIKA BERUBAH)
+							<h3 style="font-weight:bold;">Banner</h3>
+							<button type='button'  class="btn btn-success" onclick="javascript:tambahDetailBanner()">Tambah</button>
+							<br><br>
+							<table id="dataGridBanner" class="table table-bordered table-striped table-hover display nowrap" width="100%">
+								<!-- class="table-hover"> -->
+								<thead>
+									<tr>
+										<th width="35px"></th>
+										<th>ID</th> 
+										<th width="50%">Gambar</th> 
+										<th>Url</th>   
+										<th>File</th>                          
+									</tr>
+								</thead>
+							</table>
+							<br>
+						</div>
+						<div class="box-footer">
+							<button type="button" id="btn_simpan" class="btn btn-primary" onclick="javascript:simpanBanner()">Simpan</button>
+						</div>
+					</form>
+						<div class="modal fade" id="modal-banner">
+                    	<div class="modal-dialog">
+                    	<div class="modal-content">
+                    		<div class="modal-body">
+								<input type="hidden" id="IDBANNERDETAIL">
+								<h3 style="font-weight:bold;">Atur Banner</h3>
+								<label>Banner <i style="color:grey;">&nbsp;&nbsp;&nbsp;Wajib</i></label>
+								<br>
+								<div style="display:flex; align-items:center; gap:20px;">
+                                    <div style="width:60%;">
+                                        <img id="previewGambarBannerDetail" src="<?=base_url()?>assets/images/slider/no-slider.png" style="border:1px solid #ccc; object-fit: contain;" width="100%">
+                                        <input type="file" class="form-control" id="GAMBARBANNERDETAIL" name="GAMBARBANNERDETAIL" accept="image/png" style="width:100%;">
+                                    </div>
+                                    <span>Syarat :<br>- Format wajib PNG<br>- Ukuran maks 1920x1080 px<br>- Kapasitas gambar maks 1 Mb</span>
+                                </div>
+								<br>
+                    			<label>Tipe Url</label>
+								<select class="form-control" id="TIPEURLBANNERDETAIL" name="TIPEURLBANNERDETAIL" style="width:100%;">
+									<option value="" selected>-</option>
+									<option value="INTERNAL">Internal</option>
+									<option value="EKSTERNAL">Eksternal</option>
+								</select>
+								<br>
+								<div id="INTERNAL" class="PILIHURL">
+									<label>Url Internal</label>
+									<select class="form-control" id="URLINTERNALBANNERDETAIL" name="URLINTERNALBANNERDETAIL" style="width:100%;">
+										<option value="" selected>-</option>
+										<option value="<?=base_url()?>#team-part">Bagian Team dan Player di Beranda</option>
+										<option value="<?=base_url()?>#highlight-part">Bagian Fixture dan Result di Beranda </option>
+										<option value="<?=base_url()?>#news-part">Bagian News di Beranda </option>
+										<option value="<?=base_url()?>#sponsor-part">Bagian Sponsor di Beranda </option>
+									</select>
+								</div>
+								<div id="EKSTERNAL"  class="PILIHURL">
+									<label>Url Eksternal</label>
+									<input type="text" class="form-control" id="URLEKSTERNALBANNERDETAIL" name="URLEKSTERNALBANNERDETAIL" placeholder="...">
+								</div>
+								<br>
+								<br>
+                    			<button class="btn btn-success pull-right" id="btn_batal" onclick="simpanDetailBanner()">Pilih</button>
+                    			<br>
+                    			<br>
+                    		</div>
+                    	</div>
+                    	</div>
                     </div>
                 </div>
 				<div class="tab-pane" id="tab_team">
@@ -461,8 +514,10 @@ $(document).ready(function() {
 		},      
         columns:[
             {data: ''},
+            {data: 'ID',visible:false},
             {data: 'GAMBAR',},
-            {data: 'URL'},          
+            {data: 'URL'},  
+			{data: 'FILE',visible:false}        
         ],
 		columnDefs: [
 			{
@@ -471,14 +526,32 @@ $(document).ready(function() {
                 "defaultContent": "<button type='button' id='btn_ubah' class='btn btn-primary'><i class='fa fa-edit'></i></button> <button type='button' id='btn_hapus' class='btn btn-danger'><i class='fa fa-trash' aria-hidden='true' ></button>"	
 			},
             {
-                "targets": 1,
+                "targets": 2,
                 "render" :function (data) 
                 {
-                   return "<img src='"+data+"?t="+ Date.now()+"' style='width:100%;'>";
+                    // ✅ Kalau base64, tampilkan langsung tanpa ?t=
+					if (data && data.startsWith('data:image')) {
+						return "<img src='" + data + "' style='width:100%;'>";
+					}
+					// URL dari server, tambah ?t= untuk cache busting
+					return "<img src='" + data + "?t=" + Date.now() + "' style='width:100%;'>";
                 },
 			},
 		]
     });
+
+	$('#dataGridBanner tbody').on( 'click', 'button', function () {
+		var row = $('#dataGridBanner').DataTable().row( $(this).parents('tr') ).data();
+		var mode = $(this).attr("id");
+		
+		if(mode == "btn_ubah"){ ubahDetailBanner(row); }
+		else if(mode == "btn_hapus"){ hapusDetailBanner(row); }
+
+	} );
+
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+		$($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+	});
 
 	// Enable sorting
     const tbodyBanner = $('#dataGridBanner tbody')[0];
@@ -527,6 +600,11 @@ $(document).ready(function() {
             }
         }
     });
+	$(".PILIHURL").hide();
+	$("#TIPEURLBANNERDETAIL").change(function(){
+		$(".PILIHURL").hide();
+		$("#"+$(this).val()).show();
+	})
 
 	getDataVideoBTS();
 
@@ -1326,6 +1404,201 @@ function getDataContact() {
 				else if(memberContact[x].CONFIG == 'MEMBER-FACEBOOK'){
 					$("#MEMBERFACEBOOK").val(memberContact[x].VALUE);
 				}
+			}
+		}
+	});
+}
+
+function tambahDetailBanner(){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.TAMBAH==1) {
+			$('#mode-banner').val('tambah');
+			$("#modal-banner").modal('show');
+			$('#IDBANNERDETAIL').val(0);
+			$('#previewGambarBannerDetail').attr('src', '<?=base_url()?>assets/images/slider/no-slider.png');
+			$("#TIPEURLBANNERDETAIL").val("");
+			$("#URLINTERNALBANNERDETAIL").val("");
+			$("#URLEKSTERNALBANNERDETAIL").val("");
+			$("#GAMBARBANNERDETAIL").val(null);
+			$(".PILIHURL").hide();
+			} else {
+				Swal.fire({
+					title            : 'Anda Tidak Memiliki Hak Akses',
+					type             : 'warning',
+					showConfirmButton: false,
+					timer            : 1500
+				});
+			}
+	});
+}
+function ubahDetailBanner(row){
+	get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.UBAH==1) {
+			$('#mode-banner').val('ubah');
+			$('#IDBANNERDETAIL').val(row.ID);
+			
+			// ✅ Kalau base64, tampilkan langsung tanpa ?t=
+			if (row.GAMBAR && row.GAMBAR.startsWith('data:image')) {
+				$('#previewGambarBannerDetail').attr('src', row.GAMBAR);
+			}
+			else
+			{
+				$('#previewGambarBannerDetail').attr('src', row.GAMBAR + '?t=' + Date.now());
+			}
+			$("#GAMBARBANNERDETAIL").val(null);
+
+			if(row.URL == ""){
+				$("#TIPEURLBANNERDETAIL").val("");
+				$('#URLINTERNALBANNERDETAIL').val("");
+				$('#URLEKSTERNALBANNERDETAIL').val("");
+				$(".PILIHURL").hide();
+			}
+			else{
+				var isInSelect = $('#URLINTERNALBANNERDETAIL option[value="' + row.URL + '"]').length > 0;
+
+				if(isInSelect){
+					$('#URLINTERNALBANNERDETAIL').val(row.URL);
+					$("#TIPEURLBANNERDETAIL").val("INTERNAL");
+				}
+				else {
+					$('#URLEKSTERNALBANNERDETAIL').val(row.URL);
+					$("#TIPEURLBANNERDETAIL").val("EKSTERNAL");
+				}
+				$(".PILIHURL").hide();
+				$("#"+$("#TIPEURLBANNERDETAIL").val()).show();
+			}
+
+			$("#modal-banner").modal('show');
+	} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+}
+function hapusDetailBanner(row){
+	 get_akses_user('<?=$_GET['kode']?>', function(data){
+		if (data.HAPUS==1) {
+ 			$('#mode-banner').val('hapus');
+            if (row) {          
+                Swal.fire({
+                    title: 'Hapus Dari Beranda',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yakin',
+                    cancelButtonText: 'Tidak',
+                }).then((result) => {
+                   if (result.value) {
+                        // Ambil index row di DataTable
+                        $("#dataGridBanner").DataTable().rows(function(idx, data_row) {
+                            return data_row.ID === row.ID;
+                        }).remove().draw();
+
+                        Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
+                    }
+                });
+            }
+			
+		} else {
+			Swal.fire({
+				title            : 'Anda Tidak Memiliki Hak Akses',
+				type             : 'warning',
+				showConfirmButton: false,
+				timer            : 1500
+			});
+		}
+	});
+	
+}
+function simpanDetailBanner(){
+    var rowData = {
+        ID     : $('#IDBANNERDETAIL').val(),
+        FILE   : bannerFileObj || null, // ✅ base64 atau null kalau tidak ada file baru
+        GAMBAR : bannerFileObj ? bannerFileObj : $('#previewGambarBannerDetail').attr('src').split('?t=')[0],
+        URL    : $('#TIPEURLBANNERDETAIL').val() == "INTERNAL" 
+                 ? $('#URLINTERNALBANNERDETAIL').val() 
+                 : $('#URLEKSTERNALBANNERDETAIL').val(),
+    };
+
+    var table = $('#dataGridBanner').DataTable();
+    if ($('#mode-banner').val() == "tambah") {
+		if(rowData.GAMBAR == '<?=base_url()?>assets/images/slider/no-slider.png'){
+			Swal.fire({ title: "Banner wajib dipilih", icon: "warning" });
+			return;
+		}
+		else
+		{
+			var random = Math.floor(Math.random() * (100-$('#dataGridBanner').DataTable().rows().data().toArray().length+1)) + $('#dataGridBanner').DataTable().rows().data().toArray().length;
+			rowData.ID = random;
+			table.row.add(rowData).draw(false);
+		}
+    }
+    else if ($('#mode-banner').val() == "ubah") {
+        // ✅ Update row berdasarkan OLD ID
+        var updateRows = table.rows(function(idx, data_row) {
+            return String(data_row.ID) === String(rowData.ID);
+        });
+
+        if (updateRows.count() > 0) {
+            updateRows.every(function() {
+                this.data(rowData).invalidate();
+            });
+            table.draw(false);
+        }
+    }
+	$("#modal-banner").modal('hide');
+	bannerFileObj = null;
+
+}
+
+function simpanBanner(){
+
+	var rows = $('#dataGridBanner').DataTable().rows().data().toArray();
+
+    // ✅ Pisahkan file dari JSON supaya tidak terlalu besar
+    var rowsForJSON = rows.map(function(r) {
+        return { ID: r.ID, GAMBAR: r.GAMBAR, URL: r.URL, HASFILE: r.FILE ? 1 : 0 };
+    });
+
+    $("#DETAILBANNER").val(JSON.stringify(rowsForJSON));
+    let formData = new FormData($('#form_input_banner')[0]);
+
+    // ✅ Append base64 sebagai string per ID
+    rows.forEach(function(r) {
+        if (r.FILE) {
+            formData.append('FILE_' + r.ID, r.FILE); // base64 string
+        }
+    });
+
+	loading();
+	$.ajax({
+		type: 'POST',
+		url: base_url+'Master/Data/Config/simpanBanner',
+		data: formData,
+		processData: false,
+		contentType: false,
+		dataType: 'json',
+
+		success: function(msg){
+			Swal.close();
+			if (msg.success) {
+				Swal.fire({
+					title: 'Simpan Data Sukses',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 1500
+				});
+
+				$("#dataGridBanner").DataTable().ajax.reload();
+
+			} else {
+				Swal.fire({
+					title: msg.errorMsg,
+					type: 'error',
+					timer: 1500
+				});
 			}
 		}
 	});
@@ -2217,4 +2490,45 @@ async function getYouTubeData(videoId) {
         return null;
     }
 }
+
+var bannerFileObj = null;
+
+$('#GAMBARBANNERDETAIL').on('change', function(event) {
+    let file = event.target.files[0];
+    if (!file) return;
+
+    if (file.size > 1000 * 1024) {
+        Swal.fire({ title: "Ukuran file maksimal 1 MB", icon: "warning" });
+        $(this).val('');
+        bannerFileObj = null;
+        return;
+    }
+    if (file.type !== "image/png") {
+        Swal.fire({ title: "File harus PNG", icon: "warning" });
+        $(this).val('');
+        bannerFileObj = null;
+        return;
+    }
+
+    let img = new Image();
+    let objectUrl = URL.createObjectURL(file);
+    img.onload = function () {
+        if (this.width > 1920 || this.height > 1080) {
+            Swal.fire({ title: "Ukuran maks 1920x1080 px", icon: "warning" });
+            $('#GAMBARBANNERDETAIL').val('');
+            bannerFileObj = null;
+        } else {
+            // ✅ Convert ke base64
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                bannerFileObj = e.target.result; // base64 string
+                $('#previewGambarBannerDetail').attr('src', e.target.result).show();
+            };
+            reader.readAsDataURL(file);
+        }
+        URL.revokeObjectURL(objectUrl);
+    };
+    img.src = objectUrl;
+});
+
 </script>

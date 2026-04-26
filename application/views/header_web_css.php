@@ -386,12 +386,21 @@ img { display: block; max-width: 100%; }
 }
 .member-card{
   margin-top:60px;
-  margin-bottom:60px;
+  margin-bottom:60px; 
+  max-width:400px;
+  display:flex;
+  gap:35px;
+  flex-direction:column;
+  align-items:center;
 }
-.member-card img{
+.member-card-name{
+  text-transform: uppercase;
+}
+.member-card-image{
   width:100%;
   box-shadow: 0 4px 6px rgba(0,2,2,0.4);
 }
+
 .form-title{
   font-size:40px; 
   padding-bottom:7px;
@@ -3538,6 +3547,9 @@ input[data-provide="datepicker"]:focus {
 }
 
 @media (max-width: 768px) {
+  .member-card{
+    margin:60px auto;
+  }
    .team-section .player-detail{
       grid-template-columns: repeat(2, 1fr);
   }

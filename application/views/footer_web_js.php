@@ -21,7 +21,7 @@ $.ajax({
         }
 
         html += `
-        <a href="`+banner[x]['VALUE']+`" class="slide `+active+`">
+        <a href="`+(banner[x]['VALUE'] == "" ? "#": banner[x]['VALUE'])+`" class="slide `+active+`">
             <img src="assets/images/slider/`+banner[x]['PREFIX'] + `.png?t=` + Date.now() + `">  
         </a>
         `;

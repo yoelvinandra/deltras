@@ -93,13 +93,103 @@ class Model_master_config extends CI_Model{
 	}
 
 	function dataGridBanner(){
-		$sql = "select VALUE as URL,CONCAT('".base_url()."assets/images/slider/',PREFIX,'.png') as GAMBAR
+		$sql = "select VALUE as URL,CONCAT('".base_url()."assets/images/slider/',PREFIX,'.png') as GAMBAR,
+		 	'' as ID,
+			'' FILE
 			from MCONFIG  
 			WHERE MODUL = 'HOME' AND CONFIG = 'URLBANNERSLIDE' 
 			ORDER BY PREFIX";
 		$query = $this->db->queryRaw($sql);	
 		$data['rows'] = $query->result();
+
+		$index=1;
+		foreach($data['rows'] as $itemRows){
+			$itemRows->ID = $index;
+			$index++;
+		}
 		return $data;
+	}
+
+	function simpanBanner($data){
+		$a_detail = json_decode($data['DETAILBANNER']);
+		
+		if ($a_detail === null) {
+			return 'Data banner tidak valid';
+		}
+
+		$this->db->trans_begin();
+		$this->db->where("MODUL", "HOME");
+		$this->db->where("CONFIG", "URLBANNERSLIDE");
+		$this->db->delete("MCONFIG");
+
+		$id = 1;
+		$pendingRenames = []; // Kumpulkan dulu semua operasi rename
+
+		foreach ($a_detail as $item) {
+			$fileKey = 'FILE_' . $item->ID;
+			$targetFile = FCPATH . 'assets/images/slider/' . $id . '.png';
+
+			if (!empty($_POST[$fileKey])) {
+				// Ada file baru dari upload
+				if (file_exists($targetFile)) {
+					unlink($targetFile);
+				}
+				$base64 = $_POST[$fileKey];
+				$base64 = preg_replace('/^data:image\/\w+;base64,/', '', $base64);
+				$imageData = base64_decode($base64);
+				file_put_contents($targetFile, $imageData);
+
+			} else {
+				// Tidak ada file baru — simpan rename ke pending dulu
+				$oldFile = FCPATH . 'assets/images/slider/' . $item->ID . '.png';
+				if ($item->ID != $id) {
+					$pendingRenames[] = [
+						'from' => $oldFile,
+						'to'   => $targetFile,
+					];
+				}
+			}
+
+			$data_values = array(
+				'MODUL'  => "HOME",
+				'CONFIG' => "URLBANNERSLIDE",
+				'VALUE'  => $item->URL,
+				'PREFIX' => $id,
+			);
+			$this->db->insertRaw('MCONFIG', $data_values);
+			$id++;
+		}
+
+		// ✅ Step 1: Copy semua ke nama TEMP dulu (hindari tabrakan)
+		foreach ($pendingRenames as $i => $rename) {
+			$tempFile = FCPATH . 'assets/images/slider/tmp_' . $i . '.png';
+			if (file_exists($rename['from'])) {
+				copy($rename['from'], $tempFile);
+			}
+			$pendingRenames[$i]['temp'] = $tempFile;
+		}
+
+		// ✅ Step 2: Hapus semua file lama yang terlibat rename
+		foreach ($pendingRenames as $rename) {
+			if (file_exists($rename['from'])) {
+				unlink($rename['from']);
+			}
+		}
+
+		// ✅ Step 3: Rename dari temp ke target final
+		foreach ($pendingRenames as $rename) {
+			if (file_exists($rename['temp'])) {
+				rename($rename['temp'], $rename['to']);
+			}
+		}
+
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			return 'Gagal menyimpan pada database';
+		}
+
+		$this->db->trans_commit();
+		return '';
 	}
 
 	function dataGridTeam(){

@@ -19,12 +19,18 @@ class Config extends MY_Controller {
 		echo json_encode($response);
 	}
 
-	
-
 	public function dataGridBanner() {
 		$this->output->set_content_type('application/json');
 		$response = $this->model_master_config->dataGridBanner($this->setPaginationGrid(), $this->setFilterGrid());
 		echo json_encode($response);
+	}
+	public function simpanBanner(){
+		$response = $this->model_master_config->simpanBanner($this->input->post());
+		if ($response != ""){
+			// generate an error... or use the log_message() function to log your error
+			die(json_encode(array('errorMsg' => $response)));
+		}
+		echo json_encode(array('success' => true,'errorMsg' => ''));
 	}
 
 	public function dataGridTeam() {

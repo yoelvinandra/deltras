@@ -1,11 +1,3 @@
-
-<!-- 
-<?=base_url()?>#team-part
-<?=base_url()?>#highlight-part
-<?=base_url()?>#sponsor-part
-<?=base_url()?>#news-part 
--->
-
 <!-- HERO -->
 <section class="slider-section">
   <div class="slider-wrapper">
