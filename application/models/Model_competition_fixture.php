@@ -33,6 +33,16 @@ class Model_competition_fixture extends MY_Model{
 		$data['rows'] = $query->result();
 		return $data;
 	}
+
+	public function comboGridSeason(){
+		$sql = "select IF(YEAR(SEASONAWAL) = YEAR(SEASONAKHIR), YEAR(SEASONAKHIR), CONCAT(YEAR(SEASONAWAL), '/', SUBSTR(YEAR(SEASONAKHIR), -2, 2))) as SEASON
+				from TFIXTURE 
+				group by IF(YEAR(SEASONAWAL) = YEAR(SEASONAKHIR), YEAR(SEASONAKHIR), CONCAT(YEAR(SEASONAWAL), '/', SUBSTR(YEAR(SEASONAKHIR), -2, 2)))
+				ORDER BY SEASONAKHIR DESC";
+		$query = $this->db->queryRaw($sql);	
+		$data['rows'] = $query->result();
+		return $data;
+	}
 	
 	public function web($for,$season){	
 
@@ -242,7 +252,7 @@ class Model_competition_fixture extends MY_Model{
 					INNER JOIN MCLUB CLUB1 ON CLUB1.IDCLUB = TFIXTUREDTL.IDCLUB1
 					INNER JOIN MCLUB CLUB2 ON CLUB2.IDCLUB = TFIXTUREDTL.IDCLUB2
 					WHERE TFIXTURE.STATUS = 1 AND TFIXTUREDTL.STATUS = 4 AND DATE(TFIXTUREDTL.TGLFIXTURE) < '".date("Y-m-d")."'
-					AND IF(SEASONAWAL = SEASONAKHIR, SEASONAKHIR, CONCAT(YEAR(SEASONAWAL), '/', SUBSTR(YEAR(SEASONAKHIR), -2, 2))) = '$season'
+					AND IF(YEAR(SEASONAWAL) = YEAR(SEASONAKHIR), YEAR(SEASONAKHIR), CONCAT(YEAR(SEASONAWAL), '/', SUBSTR(YEAR(SEASONAKHIR), -2, 2))) = '$season'
 					ORDER BY TFIXTUREDTL.TGLFIXTURE DESC";
 			$query = $this->db->queryRaw($sql);	
 			$data['rows']['RESULT'] = $query->result();

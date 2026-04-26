@@ -399,6 +399,7 @@ img { display: block; max-width: 100%; }
 .member-card-image{
   width:100%;
   box-shadow: 0 4px 6px rgba(0,2,2,0.4);
+  border-radius:20px;
 }
 
 .form-title{

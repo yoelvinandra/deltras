@@ -34,7 +34,6 @@
 						<div class="box-body">
 							<input id="mode-banner" type="hidden" value="tambah">
 							<input id="DETAILBANNER" name="DETAILBANNER" type="hidden" value="">
-							KETIKA BUAT BARU, TERUS SWITCH, GAMBAR YANG LAMA DISWITCH, DIPOSISI AWAL (BUKAN KETIKA BERUBAH)
 							<h3 style="font-weight:bold;">Banner</h3>
 							<button type='button'  class="btn btn-success" onclick="javascript:tambahDetailBanner()">Tambah</button>
 							<br><br>

@@ -160,6 +160,12 @@ class Fixture extends MY_Controller {
 		echo json_encode($response);
 	}
 
+	public function comboGridSeason() {
+		$this->output->set_content_type('application/json');
+		$response = $this->model_competition_fixture->comboGridSeason($this->input->get('search'));
+		echo json_encode($response);
+	}
+
 	public function comboGridDetail() {
 		$this->output->set_content_type('application/json');
 		$response = $this->model_competition_fixture->comboGridDetail($this->input->get('id'),$this->input->get('video'));

@@ -41,18 +41,6 @@
                   <span><img src="assets/images/filter-dropdown.png"></span>
                 </div>
                 <div class="select-items" id="selectItems">
-                  <div class="select-item active" data-value="2025/26">
-                    2025/26
-                    <span><img src="assets/images/filter-check.png"></span>
-                  </div>
-                  <div class="select-item" data-value="2024/25">
-                    2024/25
-                    <span><img src="assets/images/filter-check.png"></span>
-                  </div>
-                  <div class="select-item" data-value="2023/24">
-                    2023/24
-                    <span><img src="assets/images/filter-check.png"></span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -130,6 +118,48 @@ document.addEventListener('DOMContentLoaded', () => {
       targetEl.classList.add('active');
     });
   });
+
+ $.ajax({
+    url: '<?base_url()?>' + 'Competition/Operational/Fixture/comboGridSeason',
+    type: 'GET',
+    dataType: 'json',
+    success: function (data) {
+        var html = "";
+        for (var x = 0; x < data.rows.length; x++) {
+            var active = "";
+            if (x == 0) {
+                active = "active";
+            }
+            html += `
+                <div class="select-item ${active}" data-value="${data.rows[x].SEASON}">
+                    ${data.rows[x].SEASON}
+                    <span><img src="assets/images/filter-check.png"></span>
+                </div>
+            `;
+        }
+        $("#selectItems").html(html);
+
+        // ✅ Set teks awal sesuai item pertama
+        if (data.rows.length > 0) {
+            document.getElementById('selectedText').textContent = data.rows[0].SEASON;
+        }
+
+        // ✅ Pasang event SETELAH elemen sudah ada di DOM
+        const items = document.querySelectorAll('.select-item');
+        items.forEach(function (item) {
+            item.addEventListener('click', function () {
+                items.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('selectedText').textContent = this.dataset.value;
+                document.getElementById('seasonSelect').classList.remove('open');
+                loadFixture();
+            });
+        });
+
+        // ✅ Panggil loadFixture untuk load data season pertama
+        loadFixture();
+    }
+});
 
   //FIXTURE FILTER RESULT DATE
   const selectEl = document.getElementById('seasonSelect');
@@ -249,6 +279,11 @@ function loadFixture(){
             </div>
           `;
       }
+
+      if(html == ""){
+        html = "<br><div class='fira-sans-regular' style='text-align:center; font-size:20px;'>Data tidak ditemukan</div>";
+      }
+      
       $(".list-content").html(html);
 
       html = "";
@@ -337,7 +372,7 @@ function loadFixture(){
       }
 
       if(html == ""){
-        html = "<div class='fira-sans-regular' style='text-align:center;'>Tidak ada data</div>";
+        html = "<div class='fira-sans-regular' style='text-align:center; font-size:20px;'>Data tidak ditemukan</div>";
       }
       $(".prev-content").html(html);
     }

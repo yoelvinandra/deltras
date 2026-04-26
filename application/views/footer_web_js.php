@@ -19,9 +19,14 @@ $.ajax({
         if(x == 0){
           active = "active";
         }
+        var target = "";
+        //EKSTERNAL
+        if(!banner[x]['VALUE'].includes("-part")){
+          target = 'target="_blank" ';
+        }
 
         html += `
-        <a href="`+(banner[x]['VALUE'] == "" ? "#": banner[x]['VALUE'])+`" class="slide `+active+`">
+        <a `+target+` href="`+(banner[x]['VALUE'] == "" ? "#": banner[x]['VALUE'])+`" class="slide `+active+`">
             <img src="assets/images/slider/`+banner[x]['PREFIX'] + `.png?t=` + Date.now() + `">  
         </a>
         `;

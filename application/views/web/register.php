@@ -11,16 +11,16 @@
                     <img class="member-card-photo" style="position:absolute; z-index:100px; margin-top:-212px; margin-left:2.5px;border-radius:999px; width:88px; height:88px;">
 
                     <!-- NAMA -->
-                    <div class="member-card-name" style="font-weight:bold; position:absolute; z-index:100px; color:white; margin-top:-110px;">ZAKI MUHAMMAD NUR</div>
+                    <div class="member-card-name fira-sans-black" style="position:absolute; z-index:100px; color:white; margin-top:-110px;">ZAKI MUHAMMAD NUR</div>
 
                     <!-- ID -->
-                    <div class="member-card-id" style="font-weight:bold; position:absolute; z-index:100px; color:white; margin-top:-90px;">1208412099123</div>
+                    <div class="member-card-id fira-sans-light" style="letter-spacing:18%; position:absolute; z-index:100px; color:white; margin-top:-90px;">1208412099123</div>
 
-                    <div class="member-card-website" style="font-weight:bold; position:absolute; z-index:100px; color:white; margin-top:-65px; font-size:8px;">www.deltrasfc.com</div>
+                    <div class="member-card-website fira-sans-black" style="position:absolute; z-index:100px; color:white; margin-top:-65px; font-size:8px;">www.deltrasfc.com</div>
 
                     <img class="member-card-qr" style="position:absolute; z-index:100px; margin-top:-116px; margin-left:263px; width:57px;">
 
-                    <div class="member-card-bottom-website" style="font-weight:bold; position:absolute; z-index:100px; color:white; margin-left:94px;  margin-top:220px; font-size:16px;">www.deltrasfc.com</div>
+                    <div class="member-card-bottom-website fira-sans-black" style="position:absolute; z-index:100px; color:white; margin-left:94px;  margin-top:220px; font-size:16px;">www.deltrasfc.com</div>
                    
                 </div>
 

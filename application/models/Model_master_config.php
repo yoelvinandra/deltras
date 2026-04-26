@@ -110,9 +110,8 @@ class Model_master_config extends CI_Model{
 		return $data;
 	}
 
-	function simpanBanner($data){
+	function simpanBanner($data) {
 		$a_detail = json_decode($data['DETAILBANNER']);
-		
 		if ($a_detail === null) {
 			return 'Data banner tidak valid';
 		}
@@ -122,64 +121,58 @@ class Model_master_config extends CI_Model{
 		$this->db->where("CONFIG", "URLBANNERSLIDE");
 		$this->db->delete("MCONFIG");
 
-		$id = 1;
-		$pendingRenames = []; // Kumpulkan dulu semua operasi rename
+		$sliderPath = FCPATH . 'assets/images/slider/';
 
+		// ✅ FASE 1: Backup SEMUA file existing ke tmp_ SEBELUM apapun diproses
+		// Ini mencegah file lama tertimpa sebelum sempat dipindahkan
 		foreach ($a_detail as $item) {
-			$fileKey = 'FILE_' . $item->ID;
-			$targetFile = FCPATH . 'assets/images/slider/' . $id . '.png';
+			$existingFile = $sliderPath . $item->ID . '.png';
+			$backupFile   = $sliderPath . 'tmp_' . $item->ID . '.png';
+			if (file_exists($existingFile)) {
+				copy($existingFile, $backupFile);
+				unlink($existingFile);
+			}
+		}
+
+		// ✅ FASE 2: Proses setiap item — tulis file baru atau ambil dari backup
+		$id = 1;
+		foreach ($a_detail as $item) {
+			$fileKey    = 'FILE_' . $item->ID;
+			$targetFile = $sliderPath . $id . '.png';
+			$backupFile = $sliderPath . 'tmp_' . $item->ID . '.png';
 
 			if (!empty($_POST[$fileKey])) {
-				// Ada file baru dari upload
-				if (file_exists($targetFile)) {
-					unlink($targetFile);
-				}
-				$base64 = $_POST[$fileKey];
-				$base64 = preg_replace('/^data:image\/\w+;base64,/', '', $base64);
+				// Ada upload baru — decode base64 dan tulis langsung ke posisi $id
+				$base64    = preg_replace('/^data:image\/\w+;base64,/', '', $_POST[$fileKey]);
 				$imageData = base64_decode($base64);
 				file_put_contents($targetFile, $imageData);
 
+				// Buang backup lama karena sudah diganti
+				if (file_exists($backupFile)) {
+					unlink($backupFile);
+				}
 			} else {
-				// Tidak ada file baru — simpan rename ke pending dulu
-				$oldFile = FCPATH . 'assets/images/slider/' . $item->ID . '.png';
-				if ($item->ID != $id) {
-					$pendingRenames[] = [
-						'from' => $oldFile,
-						'to'   => $targetFile,
-					];
+				// Tidak ada upload — ambil dari backup (posisi lama sudah aman di tmp_)
+				if (file_exists($backupFile)) {
+					rename($backupFile, $targetFile);
 				}
 			}
 
-			$data_values = array(
-				'MODUL'  => "HOME",
-				'CONFIG' => "URLBANNERSLIDE",
+			$this->db->insertRaw('MCONFIG', [
+				'MODUL'  => 'HOME',
+				'CONFIG' => 'URLBANNERSLIDE',
 				'VALUE'  => $item->URL,
 				'PREFIX' => $id,
-			);
-			$this->db->insertRaw('MCONFIG', $data_values);
+			]);
+
 			$id++;
 		}
 
-		// ✅ Step 1: Copy semua ke nama TEMP dulu (hindari tabrakan)
-		foreach ($pendingRenames as $i => $rename) {
-			$tempFile = FCPATH . 'assets/images/slider/tmp_' . $i . '.png';
-			if (file_exists($rename['from'])) {
-				copy($rename['from'], $tempFile);
-			}
-			$pendingRenames[$i]['temp'] = $tempFile;
-		}
-
-		// ✅ Step 2: Hapus semua file lama yang terlibat rename
-		foreach ($pendingRenames as $rename) {
-			if (file_exists($rename['from'])) {
-				unlink($rename['from']);
-			}
-		}
-
-		// ✅ Step 3: Rename dari temp ke target final
-		foreach ($pendingRenames as $rename) {
-			if (file_exists($rename['temp'])) {
-				rename($rename['temp'], $rename['to']);
+		// ✅ FASE 3: Cleanup — hapus sisa tmp_ yang tidak terpakai (jika ada)
+		foreach ($a_detail as $item) {
+			$backupFile = $sliderPath . 'tmp_' . $item->ID . '.png';
+			if (file_exists($backupFile)) {
+				unlink($backupFile);
 			}
 		}
 

@@ -35,7 +35,7 @@ $CI->load->database($_SESSION[NAMAPROGRAM]['CONFIG']);
       <span></span><span></span><span></span>
     </div>
     <div class="nav-logo">
-      <a href="<?=base_url()?>"><img src="assets/images/logo.png"></a>
+      <a href="<?=base_url()?>#"><img src="assets/images/logo.png"></a>
     </div>
     <ul class="nav-links">
       <li><a href="news">NEWS</a></li>

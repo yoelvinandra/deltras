@@ -172,7 +172,7 @@ function loadNews() {
           </a>`;
       }
       if(html == ""){
-        $("#nodata").html( "<div class='fira-sans-regular' style='text-align:center;'>Tidak ada data</div>");
+        $("#nodata").html( "<div class='fira-sans-regular' style='text-align:center; font-size:20px;'>Data tidak ditemukan</div>");
       }
       $("#newsGrid").html(html);
       renderPager();

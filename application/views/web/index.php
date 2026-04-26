@@ -438,6 +438,11 @@ $.ajax({
           </div>
         `;
     }
+
+    if(html == ""){
+      html = "<br><div class='fira-sans-regular' style='text-align:center; font-size:20px;'>Data tidak ditemukan</div>";
+    }
+
     $(".list-content").html(html);
 
     html = "";
@@ -471,6 +476,11 @@ $.ajax({
               </div>
       `;
     }
+
+    if(html == ""){
+      html = "<br><div class='fira-sans-regular' style='text-align:center; font-size:20px;'>Data tidak ditemukan</div><br>";
+    }
+
     $(".prev-content").html(html);
 
     //PRIMARY
