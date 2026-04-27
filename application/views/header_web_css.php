@@ -388,10 +388,11 @@ img { display: block; max-width: 100%; }
   margin-top:60px;
   margin-bottom:60px; 
   max-width:400px;
-  display:flex;
-  gap:35px;
+  display: inline-block;
+  gap:15px;
   flex-direction:column;
   align-items:center;
+  position: relative; 
 }
 .member-card-name{
   text-transform: uppercase;
@@ -4073,6 +4074,16 @@ input[data-provide="datepicker"]:focus {
 
     .form-card-bottom .bottom-forgotpassword-bar {
       width:18%;
+    }
+
+    .page-bg-cover{
+      padding-left:16px;
+      padding-right:16px;
+    }
+
+    .form-card{
+      padding-left:0px;
+      padding-right:0px;
     }
 }
 

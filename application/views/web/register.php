@@ -2,30 +2,84 @@
     <div class="page-bg">
         <div class="page-bg-cover">
             <div class="member-card">
-                <img class="member-card-image" src="assets/images/member/member-card-front.png?t=<?=date(Ymdhis)?>">
+                <img class="member-card-image" src="assets/images/member/member-card-front.png" style="width: 100%; display: block;">
 
-                <div style="width:100%; text-align:left; margin-left:70px;">
+                <!-- Overlay container mengikuti ukuran card -->
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
 
-                    <div class="member-card-title" style="font-weight:bold; position:absolute; z-index:100px; color:white; margin-left:24px;  margin-top:-236px; font-size:10px;">Official DELTRAS FC Supporter ID</div>
+                    <!-- TITLE -->
+                    <div class="member-card-title fira-sans-black" style="
+                        position: absolute;
+                        top: 1.5%;
+                        left: 15%;
+                        color: white;
+                        font-size: clamp(6px, 1.5%, 10px);
+                        font-weight: bold;
+                    ">Official DELTRAS FC Supporter ID</div>
+
                     <!-- FOTO -->
-                    <img class="member-card-photo" style="position:absolute; z-index:100px; margin-top:-212px; margin-left:2.5px;border-radius:999px; width:88px; height:88px;">
+                    <img class="member-card-photo" style="
+                        position: absolute;
+                        top: 3.2%;
+                        left: 10%;
+                        width: 22%;
+                        aspect-ratio: 1;
+                        border-radius: 999px;
+                        object-fit: cover;
+                    ">
 
                     <!-- NAMA -->
-                    <div class="member-card-name fira-sans-black" style="position:absolute; z-index:100px; color:white; margin-top:-110px;">ZAKI MUHAMMAD NUR</div>
+                    <div class="member-card-name fira-sans-black" style="
+                        position: absolute;
+                        top: 9.2%;
+                        left: 10%;
+                        color: white;
+                        font-size: clamp(8px, 2vw, 14px);
+                        white-space: nowrap;
+                    ">ZAKI MUHAMMAD NUR</div>
 
                     <!-- ID -->
-                    <div class="member-card-id fira-sans-light" style="letter-spacing:18%; position:absolute; z-index:100px; color:white; margin-top:-90px;">1208412099123</div>
+                    <div class="member-card-id fira-sans-light" style="
+                        position: absolute;
+                        top: 10.5%;
+                        left: 10%;
+                        color: white;
+                        letter-spacing: 0.18em;
+                        font-size: clamp(7px, 1.5vw, 11px);
+                    ">1208412099123</div>
 
-                    <div class="member-card-website fira-sans-black" style="position:absolute; z-index:100px; color:white; margin-top:-65px; font-size:8px;">www.deltrasfc.com</div>
+                    <!-- WEBSITE KECIL -->
+                    <div class="member-card-website fira-sans-black" style="
+                        position: absolute;
+                        top: 12%;
+                        left: 10%;
+                        color: white;
+                        font-size: clamp(5px, 1.2vw, 8px);
+                    ">www.deltrasfc.com</div>
 
-                    <img class="member-card-qr" style="position:absolute; z-index:100px; margin-top:-116px; margin-left:263px; width:57px;">
+                    <!-- QR CODE -->
+                    <img class="member-card-qr" style="
+                        position: absolute;
+                        top: 8.95%;
+                        right: 11%;
+                        width: 15%;
+                        border-radius:10%;
+                    ">
 
-                    <div class="member-card-bottom-website fira-sans-black" style="position:absolute; z-index:100px; color:white; margin-left:94px;  margin-top:220px; font-size:16px;">www.deltrasfc.com</div>
-                   
                 </div>
+            
+                <!-- BACK CARD -->
+                <img class="member-card-image" src="assets/images/member/member-card-back.png" style="width: 100%; display: block;">
 
-
-                <img class="member-card-image" src="assets/images/member/member-card-back.png?t=<?=date(Ymdhis)?>">
+                <!-- WEBSITE BAWAH (di atas back card) -->
+                <div class="member-card-bottom-website fira-sans-black" style="
+                    position: absolute;
+                    top: 26%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    color: white;
+                    font-size: clamp(10px, 3vw, 16px);
+                ">www.deltrasfc.com</div>
             </div>
             <div class="form-card">
                 <div class="form-title fira-sans-bold">Bergabunglah dengan komunitas kami</div>
