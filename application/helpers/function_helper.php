@@ -2556,44 +2556,39 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 function sendEmail($to, $subject, $body) {
-
     $mail = new PHPMailer(true);
-
     try {
-        // Setting SMTP
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
-        $mail->SMTPAuth   = true;
-		
+        $mail->Host     = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Timeout  = 30;
 
-		$CI =& get_instance();	
-		$CI->load->model(array("model_master_config"));
-		$config = $CI->model_master_config->getConfigModul('MAIL');
+        $CI =& get_instance();
+        $CI->load->model(array("model_master_config"));
+        $config = $CI->model_master_config->getConfigModul('MAIL');
 
-		foreach($config as $itemConfig){
-			if($itemConfig->CONFIG == "EMAIL"){
-        		$mail->Username   = $itemConfig->VALUE;
-			}
-			else if($itemConfig->CONFIG == "PASSWORD"){
-        		$mail->Password   = $itemConfig->VALUE;
-			}
-			else if($itemConfig->CONFIG == "FROM"){
-				//Pengirim
-				$mail->setFrom($mail->Username, $itemConfig->VALUE);
-			}
-		}
+        $emailUsername = '';
+        $emailPassword = '';
+        $emailFrom     = '';
 
-        $mail->SMTPSecure = 'ssl';
+        foreach ($config as $itemConfig) {
+            if ($itemConfig->CONFIG == "EMAIL")    $emailUsername = $itemConfig->VALUE;
+            if ($itemConfig->CONFIG == "PASSWORD") $emailPassword = $itemConfig->VALUE;
+            if ($itemConfig->CONFIG == "FROM")     $emailFrom     = $itemConfig->VALUE;
+        }
+
+        $mail->Username = $emailUsername;
+        $mail->Password = $emailPassword;
+        $mail->setFrom($emailUsername, $emailFrom);
+
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
 
-        // Penerima
         $mail->addAddress($to);
-
-        // Konten
         $mail->isHTML(true);
-        $mail->CharSet  = 'UTF-8';
-        $mail->Subject  = $subject;
-        $mail->Body     = $body;
+        $mail->CharSet = 'UTF-8';
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
 
         $mail->send();
         return true;
