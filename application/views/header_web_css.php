@@ -384,16 +384,23 @@ img { display: block; max-width: 100%; }
   max-width: 600px;
   box-shadow: 0 4px 6px rgba(0,2,2,0.4);
 }
-.member-card{
-  margin-top:60px;
-  margin-bottom:60px; 
-  max-width:400px;
-  display: inline-block;
-  gap:15px;
-  flex-direction:column;
-  align-items:center;
-  position: relative; 
+.member-card {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    max-width: 400px;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    align-items: center;
 }
+
+/* Tambah ini */
+.member-card-front-wrapper,
+.member-card-back-wrapper {
+    position: relative;
+    width: 100%;
+}
+
 .member-card-name{
   text-transform: uppercase;
 }

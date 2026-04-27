@@ -2,25 +2,26 @@
     <div class="page-bg">
         <div class="page-bg-cover">
             <div class="member-card">
-                <img class="member-card-image" src="assets/images/member/member-card-front.png" style="width: 100%; display: block;">
+                <!-- FRONT -->
+                <div class="member-card-front-wrapper">
+                    <img src="assets/images/member/member-card-front.png" 
+                        style="width: 100%; display: block;">
 
-                <!-- Overlay container mengikuti ukuran card -->
-                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-
+                    <div style="position: absolute; top: 0; left: 0; 
+                                width: 100%; height: 100%;">
                     <!-- TITLE -->
                     <div class="member-card-title fira-sans-black" style="
                         position: absolute;
-                        top: 1.5%;
+                        top: 11%;
                         left: 15%;
                         color: white;
-                        font-size: clamp(6px, 1.5%, 10px);
-                        font-weight: bold;
-                    ">Official DELTRAS FC Supporter ID</div>
+                        font-size: clamp(8px, 1.8cqw, 11px);
+                    "></div>
 
                     <!-- FOTO -->
                     <img class="member-card-photo" style="
                         position: absolute;
-                        top: 3.2%;
+                        top: 23%;
                         left: 10%;
                         width: 22%;
                         aspect-ratio: 1;
@@ -31,55 +32,61 @@
                     <!-- NAMA -->
                     <div class="member-card-name fira-sans-black" style="
                         position: absolute;
-                        top: 9.2%;
+                        top: 65%;
                         left: 10%;
                         color: white;
-                        font-size: clamp(8px, 2vw, 14px);
+                        font-size: clamp(16px, 1.8cqw, 20px);
                         white-space: nowrap;
-                    ">ZAKI MUHAMMAD NUR</div>
+                    "></div>
 
                     <!-- ID -->
                     <div class="member-card-id fira-sans-light" style="
                         position: absolute;
-                        top: 10.5%;
+                        top: 75%;
                         left: 10%;
                         color: white;
-                        letter-spacing: 0.18em;
-                        font-size: clamp(7px, 1.5vw, 11px);
-                    ">1208412099123</div>
+                        letter-spacing: 0.2em;
+                        font-size: clamp(13px, 1.8cqw, 15px);
+                    "></div>
 
                     <!-- WEBSITE KECIL -->
                     <div class="member-card-website fira-sans-black" style="
                         position: absolute;
-                        top: 12%;
+                        top: 85%;
                         left: 10%;
                         color: white;
-                        font-size: clamp(5px, 1.2vw, 8px);
-                    ">www.deltrasfc.com</div>
+                        font-size: clamp(6px, 1.8cqw, 9px);
+                    "></div>
 
                     <!-- QR CODE -->
                     <img class="member-card-qr" style="
                         position: absolute;
-                        top: 8.95%;
+                        top: 63.5%;
                         right: 11%;
                         width: 15%;
                         border-radius:10%;
                     ">
-
+                    </div>
                 </div>
-            
-                <!-- BACK CARD -->
-                <img class="member-card-image" src="assets/images/member/member-card-back.png" style="width: 100%; display: block;">
 
-                <!-- WEBSITE BAWAH (di atas back card) -->
-                <div class="member-card-bottom-website fira-sans-black" style="
-                    position: absolute;
-                    top: 26%;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    color: white;
-                    font-size: clamp(10px, 3vw, 16px);
-                ">www.deltrasfc.com</div>
+                <!-- BACK -->
+                <div class="member-card-back-wrapper">
+                    <img src="assets/images/member/member-card-back.png" 
+                        style="width: 100%; display: block;">
+
+                    <div style="position: absolute; top: 0; left: 0; 
+                                width: 100%; height: 100%;">
+                           <div class="member-card-bottom-website fira-sans-black" style="
+                                position: absolute;
+                                top: 80%;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                color: white;
+                                font-size: clamp(12px, 1.8cqw, 18px);
+                            "></div>
+                    </div>
+                </div>
+
             </div>
             <div class="form-card">
                 <div class="form-title fira-sans-bold">Bergabunglah dengan komunitas kami</div>
@@ -220,10 +227,13 @@ $(document).ready(function() {
                     {
                         $('#previewGambar').attr('src', link);
                     }
+                    $(".member-card-title").html("Official DELTRAS FC Supporter ID");
                     $(".member-card-name").html(msg.NAMADEPAN+" "+msg.NAMABELAKANG);
                     $(".member-card-photo").attr("src",msg.GAMBAR);
                     $(".member-card-id").html(msg.KODEUNIK);
                     $(".member-card-qr").attr("src",msg.GAMBARQR);
+                    $(".member-card-website").html("www.deltrasfc.com");
+                    $(".member-card-bottom-website").html("www.deltrasfc.com");
                 } else {
                     alertMsg(msg.errorMsg);
                     logout();
